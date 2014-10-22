@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Afraz Khan_Sherwani_Afraz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Afraz Khan_Sherwani_Afraz.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+int main()
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+	char Option ='i';
+		printf(&quot;Please enter t for Temperature, enter w for wieght, enter c for currency and e to exit\t=  &quot;);
+		scanf_s(&quot;%c&quot;,&amp;Option);
+	while (Option!='e')
+		
+	{
+		
+		switch (Option)
+		{
+		case 't':
+			{
+				float Farenhiet=0;
+				float Celsius=0;
+				printf(&quot;Enter Temperature in celsius \t=  &quot;);
+				scanf_s(&quot;%f&quot;,&amp;Celsius);
+				Farenhiet= (Celsius*1.8)+32;
+				printf(&quot;Temperature in Farenhiet\t = %.2f\n&quot;,Farenhiet);
+			}
+			break;
+		case 'w':
+			{
+				float Kilos=0;
+				float Pounds=0;
+				printf(&quot;Enter wieght in Pounds \t=  &quot;);
+				scanf_s(&quot;%f&quot;,&amp;Pounds);
+				Kilos = .453592*Pounds;
+				printf(&quot;Wieght in Kilos is\t=  %.2f\n&quot;,Kilos);
+			}
+			break;
+		case 'c':
+			{
+				float Ruppees=0;
+				float Dollars=0;
+				printf(&quot;Enter currency in Ruppee \t=  &quot;);
+				scanf_s(&quot;%f&quot;,&amp;Ruppees);
+				Dollars=Ruppees/99;
+				printf(&quot;Currency in Doallars \t=  %.2f\n&quot;,Dollars);
+
+			}
+			break;
+		
+		}
+		
+	}
+	
+
+
+return 0;
+
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Waheed_Iqbal_waheed iqbal_7069.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Waheed_Iqbal_waheed iqbal_7069.cpp</CENTER></H3><HR>
+<PRE>
+//taken help from HUSSAIN ABID
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#define size 50
+
+char **dynamicARRAY(int row,int Colns);
+int main ()
+{
+
+	FILE *ptr;
+        char temp[50][50];
+	char filename[30];
+	char extra;
+	char **myarray;
+	int c[50][50];
+        int row;
+	int Colns;
+	
+
+	printf(&quot;\nEnter input file name=&quot;);
+	gets(filename);
+	ptr=fopen(filename,&quot;r&quot;);
+
+	fscanf(ptr,&quot;%d&quot;,&amp;row);
+	fscanf(ptr,&quot;%c&quot;,&amp;extra);
+	fscanf(ptr,&quot;%d&quot;,&amp;Colns);
+
+	Colns++;
+
+	fscanf(ptr,&quot;%c&quot;,&amp;extra);
+	myarray=dynamicARRAY(row,Colns);
+
+
+
+<A NAME="0"></A>	for (int i=0;i&lt;row;i++)
+		     fscanf(ptr,&quot;%s&quot;,myarray[i]);
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	            for (int i=0;i&lt;row;i++)
+                  {
+		            for (int j=0;j&lt;Colns;j++)
+                      {
+			             printf(&quot;%c&quot;,myarray[i][j]);
+
+                      }
+		printf(&quot;\n&quot;);
+                  }</B></FONT>
+
+	char choice='t';
+
+	for (int i=0;i&lt;row;i++)
+	{
+		for (int j=0;j&lt;Colns;j++)
+		{
+			temp[i][j]=myarray[i][j];
+
+		}
+
+	}
+
+    while(1)
+
+	{
+		printf(&quot;t)ick or q)uit??&quot;);
+		fflush(stdin);
+		scanf(&quot;%c&quot;,&amp;choice);
+		if (choice=='q')
+		{	
+<A NAME="1"></A>			return 0;
+		}
+		else if (choice=='t')
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{
+
+
+			for (int i=0;i&lt;row;i++)
+			{
+				for (int j=0;j&lt;Colns;j++)
+				{
+					c[i][j]=0;
+				}
+
+			}
+				for (int k=0;k&lt;row;k++)
+				{	for (int l=0;l&lt;Colns;l++)
+					{
+						for(int i=-1;i&lt;2;i++)
+						{
+<A NAME="2"></A>							if(k+i&gt;0 &amp;&amp; k+i&lt;row )
+							{</B></FONT>
+							for(int j=-1;j&lt;2;j++)
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>							{	
+								if(l+j&gt;0 &amp;&amp; l+j&lt;Colns )
+								{
+									if(i==0&amp;&amp;j==0)
+										continue;
+									if(temp[k+i][l+j]=='X')
+										c[k][l]++;
+							   }
+
+						     }
+						}
+<A NAME="3"></A>					 }
+				   }
+				}</B></FONT>
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			for (int i=0;i&lt;row;i++)
+			{
+				for (int j=0;j&lt;Colns;j++)
+				{
+
+					if (c[i][j]&lt;0||c[i][j]==1)
+						temp[i][j]='-';
+					if (c[i][j]==3)
+						temp[i][j]='X';
+					if (c[i][j]&gt;=4)
+						temp[i][j]='-';
+
+				}
+			}</B></FONT>
+			for (int i=0;i&lt;row;i++)
+			{
+				for (int j=0;j&lt;Colns;j++)
+				{
+					printf(&quot;%c&quot;,temp[i][j]);
+
+				}
+				printf(&quot;\n&quot;);
+			}
+		}
+	}
+	
+	for (int i=0;i&lt;row;i++)
+		         free(myarray[i]);
+	               free(myarray);
+<A NAME="4"></A>	               fclose(ptr);
+	
+	return 0;
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match21-1.html#4',3,'match21-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+char **dynamicARRAY(int row,int Colns)
+
+{
+	              char**arr=new char*[row];
+
+	             for (int i=0;i&lt;row;i++)
+		         arr[i]=new char[Colns];
+
+	               return arr;
+
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

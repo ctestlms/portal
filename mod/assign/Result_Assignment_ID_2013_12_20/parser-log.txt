@@ -1,0 +1,89 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2013-12-20 16:16:13 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Ali_Mobin_Ali Mobin.cpp
+Scanning file Ali_Mobin_Ali Mobin.cpp
+OK
+------ Parsing submission: Amna_Jehangir_Assignment2.cpp
+Scanning file Amna_Jehangir_Assignment2.cpp
+OK
+------ Parsing submission: Areeb_Ahmed_Areeb ahmed.cpp
+Scanning file Areeb_Ahmed_Areeb ahmed.cpp
+OK
+------ Parsing submission: Atif_Shakeel_Source1.cpp
+Scanning file Atif_Shakeel_Source1.cpp
+OK
+------ Parsing submission: Danish_Iqbal_danish linklist.cpp
+Scanning file Danish_Iqbal_danish linklist.cpp
+OK
+------ Parsing submission: Danish_Iqbal_danish.cpp
+Scanning file Danish_Iqbal_danish.cpp
+OK
+------ Parsing submission: Faizan_Aziz_Source.cpp
+Scanning file Faizan_Aziz_Source.cpp
+OK
+------ Parsing submission: Fajar_Javed_linkedlist.cpp
+Scanning file Fajar_Javed_linkedlist.cpp
+OK
+------ Parsing submission: Hammad_Nayyer_Hammad Nayyer DE34 MTS B.cpp
+Scanning file Hammad_Nayyer_Hammad Nayyer DE34 MTS B.cpp
+OK
+------ Parsing submission: Maham_Nadeem_InsertLinkList.cpp
+Scanning file Maham_Nadeem_InsertLinkList.cpp
+OK
+------ Parsing submission: Malik Naveed_Akhter_OOP assignment.cpp
+Scanning file Malik Naveed_Akhter_OOP assignment.cpp
+OK
+------ Parsing submission: Manahil Bint E_Irfan_manahil.cpp
+Scanning file Manahil Bint E_Irfan_manahil.cpp
+OK
+------ Parsing submission: Mohibullah_._assign2.cpp
+Scanning file Mohibullah_._assign2.cpp
+OK
+------ Parsing submission: Mohsin_Ali_Source.cpp
+Scanning file Mohsin_Ali_Source.cpp
+OK
+------ Parsing submission: Mudassar_Wajid_Mudassar Wajid DE34 MTS B.cpp
+Scanning file Mudassar_Wajid_Mudassar Wajid DE34 MTS B.cpp
+OK
+------ Parsing submission: Muhammad Irfan_Riaz_Irfan34MtsBAssign2.cpp
+Scanning file Muhammad Irfan_Riaz_Irfan34MtsBAssign2.cpp
+OK
+------ Parsing submission: Muhammad Zammad Bin_Idrees_Assignment#2.cpp
+Scanning file Muhammad Zammad Bin_Idrees_Assignment#2.cpp
+OK
+------ Parsing submission: Muhammad_Zohaib_assignment 2.cpp
+Scanning file Muhammad_Zohaib_assignment 2.cpp
+OK
+------ Parsing submission: Qazi Umer_Jamil_umerjamil.cpp
+Scanning file Qazi Umer_Jamil_umerjamil.cpp
+OK
+------ Parsing submission: Saad_Khushnood_assignment.cpp
+Scanning file Saad_Khushnood_assignment.cpp
+OK
+------ Parsing submission: Shahzaib Farooq_Hadi_task.cpp
+Scanning file Shahzaib Farooq_Hadi_task.cpp
+OK
+------ Parsing submission: Shahzeb_Zubair_PC_Shahzeb_Assignment.cpp
+Scanning file Shahzeb_Zubair_PC_Shahzeb_Assignment.cpp
+OK
+------ Parsing submission: Syed Kumayl Raza_Moosavi_Assignment 2.cpp
+Scanning file Syed Kumayl Raza_Moosavi_Assignment 2.cpp
+OK
+------ Parsing submission: Waleed_Ahmad_GradedTask.cpp
+Scanning file Waleed_Ahmad_GradedTask.cpp
+OK
+------ Parsing submission: Zara_Arshad_linkedlist Zara.cpp
+Scanning file Zara_Arshad_linkedlist Zara.cpp
+OK
+
+25 submissions parsed successfully!
+0 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 1 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

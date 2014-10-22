@@ -1,0 +1,105 @@
+--- locallib.php	2012-12-19 10:25:00.000000000 +0500
++++ locallib.php	2013-01-03 12:06:38.682406909 +0500
+@@ -47,9 +47,33 @@
+      */
+     public function find_users($search) {
+         global $DB;
++	 //@khyam: getting parameters for filtering
++        $grp = optional_param('grp', "", PARAM_TEXT);
++                $sgrp = optional_param('sgrp', "", PARAM_TEXT);
++                //@khyam: end.          
++		$sort         = optional_param('sort_', '', PARAM_INT);
++                $course = optional_param('course', "", PARAM_TEXT);
++                if(!empty($sort)){
++                        switch($sort){
++                                case 1:
++                                        $this->set_extra_fields(array());
++                                        break;
++
++                                case 2:
++                                        $this->set_extra_fields(array("username"));
++                                        break;
++                                case 3:
++                                        $this->set_extra_fields(array("email"));
++                                break;
++                        }
++                }
++                $params['sort'] =$sort;
++
+         //by default wherecondition retrieves all users except the deleted, not confirmed and guest
+         list($wherecondition, $params) = $this->search_sql($search, 'u');
++	
+         $params['enrolid'] = $this->enrolid;
++	$params['course'] = $course;
+ 
+         $fields      = 'SELECT ' . $this->required_fields_sql('u');
+         $countfields = 'SELECT COUNT(1)';
+@@ -58,7 +82,39 @@
+             LEFT JOIN {user_enrolments} ue ON (ue.userid = u.id AND ue.enrolid = :enrolid)
+                 WHERE $wherecondition
+                       AND ue.id IS NULL";
+-        $order = ' ORDER BY u.lastname ASC, u.firstname ASC';
++	//@khyam: group users. 1st level filtering.
++        if($grp != ""){
++                $sql .= " AND u.user_group = '{$grp}' ";
++                //@khyam: subgroup users 2nd level filtering.
++                if($sgrp != "")
++                        $sql .= " AND u.user_subgroup = '{$sgrp}' ";
++        }
++            //@khyam: end of LDAP filtering.
++
++
++//        $order = ' ORDER BY u.lastname ASC, u.firstname ASC';
++	 if ($sort==0)
++                                {
++                                        $order = ' ';
++                                        $fields      = 'SELECT '. $this->required_fields_sql('u');
++                                }
++                        if ($sort==1)
++                                {
++                                   $order = ' ORDER BY u.lastname ASC, u.firstname ASC';
++                                   $fields='  SELECT u.firstname,u.lastname ';
++                                }
++
++                if ($sort==2)
++                                {
++                                        $order = ' ORDER BY u.username ASC';
++                                        $fields='  SELECT u.username ';
++                                }
++
++                    if ($sort==3)
++                                {
++                                        $order = ' ORDER BY u.email ASC';
++                                        $fields='  SELECT u.email ';
++                                }
+ 
+         if (!$this->is_validating()) {
+             $potentialmemberscount = $DB->count_records_sql($countfields . $sql, $params);
+@@ -110,9 +166,22 @@
+      */
+     public function find_users($search) {
+         global $DB;
++	$enrolid      = required_param('enrolid', PARAM_INT);
++        $role_id = optional_param('role_id', -1, PARAM_INT);
++        //@Hina:getting course context
++                $instance = $DB->get_record('enrol', array('id'=>$enrolid, 'enrol'=>'manual'), '*', MUST_EXIST);
++                $course = $DB->get_record('course', array('id'=>$instance->courseid), '*', MUST_EXIST);
++                $context = get_context_instance(CONTEXT_COURSE, $course->id, MUST_EXIST);
++                //@Hina:end
+         //by default wherecondition retrieves all users except the deleted, not confirmed and guest
+         list($wherecondition, $params) = $this->search_sql($search, 'u');
+         $params['enrolid'] = $this->enrolid;
++	$params['role'] =$role_id;
++	$params['contextid'] =$context->id;
++
++        if($role_id>0)
++                $wherecondition .= " AND u.id IN(SELECT userid FROM {role_assignments} WHERE roleid=:role and contextid= :contextid)";
++
+ 
+         $fields      = 'SELECT ' . $this->required_fields_sql('u');
+         $countfields = 'SELECT COUNT(1)';
+@@ -353,4 +422,4 @@
+         }
+         return true;
+     }
+-}+}

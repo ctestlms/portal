@@ -1,0 +1,744 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hassaan_Afzal_NSHASSAANAFZAL338SYNB.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Hassaan_Afzal_NSHASSAANAFZAL338SYNB.cpp</CENTER></H3><HR>
+<PRE>
+
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include&lt;fstream&gt;
+using namespace std;
+char readimage[54];
+char modesel;
+int width,height,size,resolution ;
+
+FILE*image;
+int data[1000][1000];
+char rin0[10];
+int mark0,origin0,rgb0;
+int red,blue,green;
+
+FILE*image1;
+int data1[1000][1000];
+char rin1[10];
+int mark1,origin1,rgb1;
+int p1a,p1b,count1=0,p1[1024];
+
+
+FILE*image2;
+int data2[10000][10000];
+char rin2[10];
+int mark2,origin2,rgb2;
+int p2a,p2b,count2=0,p2[1024];
+int width2,size2,resolution2,height2;
+int readimage2[54];
+int h1 , w1 ;
+
+FILE*image3;
+int data3[10000][10000];
+char rin3[10];
+int mark3,origin3,rgb3;
+int p3a,p3b,count3=0,p3[1024];
+int width3,size3,resolution3,height3;
+int readimage3[54];
+
+
+FILE*image4;
+int data4[3000][3000];
+char rin4[10];
+int mark4,origin4,rgb4;
+int p4a,p4b,count4=0,p4[1024];
+int width4,size4,resolution4,height4;
+int readimage4[54];
+int newx,newy,val;
+float x,y;
+
+
+
+FILE*image5;
+int data5[1000][1000];
+char rin5[10];
+int mark5,origin5,rgb5;
+int histo[256]={0};
+char histofilename[10];
+ofstream histogram;
+int aa;
+char aaa='A';
+
+float  afflinematrix[3][3];
+float array[9];
+int cou=0;
+int cou2=0;
+
+FILE*image6;
+int data6[1000][1000];
+char rin6[10];
+int mark6,origin6,rgb6;
+int p6a,p6b,count6=0,p6[1024];
+int width6,size6,resolution6,height6;
+int readimage6[54];
+
+int main ()
+{
+while (1)
+{
+	system(&quot;cls&quot;);
+cout &lt;&lt; &quot;                 MAIN MENU               &quot; &lt;&lt; endl ; 
+cout &lt;&lt; &quot;   Enter P to show image information&quot; &lt;&lt; endl;
+cout &lt;&lt; &quot;   Enter G for grey scale conversion &quot;&lt;&lt;endl;
+cout &lt;&lt; &quot;   Enter H histogram and  histogram equalization&quot; &lt;&lt;endl;
+cout &lt;&lt; &quot;   Enter T for affline  transformation&quot;&lt;&lt;endl;
+cout &lt;&lt; &quot;   Enter S for  shear  transformation&quot;&lt;&lt;endl;
+cout &lt;&lt; &quot;   Enter X to exit program&quot;&lt;&lt;endl;
+cin &gt;&gt; modesel;
+
+if (modesel =='P')
+{
+	system(&quot;cls&quot;);	
+    cout&lt;&lt;&quot;Enter name of the image&quot;&lt;&lt;endl;
+	cin&gt;&gt;rin0;
+    image = fopen (rin0,&quot;r&quot;);
+    if(image==NULL)
+	{
+		cout &lt;&lt;&quot; cannot open file&quot;&lt;&lt;endl;
+		system(&quot;pause&quot;);
+		system(&quot;cls&quot;);
+	}
+    if (image!=NULL)
+    {
+     system(&quot;cls&quot;);
+     for (int a=0; a&lt;54 ; a++)
+	 {
+		readimage[a]=getc(image);// read 54 bytes dib header and bmp header
+	 }  
+     if (readimage[0]==66 &amp;&amp; readimage[1]==77)
+	 {
+		width=readimage[18] + (readimage[19]*256) + (readimage[20]*65536) + (readimage[21]*256*256*256);
+		height=readimage[22] + (readimage[23]*256) + (readimage[24]*65536) + (readimage[25]*256*256*256);
+        resolution= readimage[28] + (readimage[29]*256);
+        size= readimage[34] + (readimage[35]*256) + (readimage[36]*65536) + (readimage[37]*256*256*256) + 54;
+		cout &lt;&lt; &quot;Width &quot; &lt;&lt; width &lt;&lt;endl;
+        cout &lt;&lt; &quot;Height &quot; &lt;&lt; height &lt;&lt;endl;
+        cout &lt;&lt; &quot;Resolution &quot; &lt;&lt; resolution &lt;&lt;endl;
+        cout &lt;&lt; &quot;Size  &quot; &lt;&lt; size&lt;&lt;endl;
+   
+<A NAME="0"></A>   
+       mark0=54;
+       origin0=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>       for (int i =0; i&lt;height ;i++)
+	   {
+	    for (int j =0; j&lt;width ;j ++)
+	    {
+		   fseek(image,mark0,origin0);
+		    red=0;
+			blue=0;
+			green=0;
+	       
+			blue=fgetc(image);</B></FONT>
+			green=fgetc(image);
+			red=fgetc(image);
+			
+			rgb0=(0.3*red)+(0.59*green)+(0.11*blue);
+			data[i][j]=rgb0;
+  		    mark0=mark0+3;
+         }   
+        }
+	   cou2++;
+        system(&quot;pause&quot;);
+		fclose (image);
+		system(&quot;cls&quot;);
+	}
+  }
+}
+else if (modesel =='G')
+{
+	 
+	 system(&quot;cls&quot;);
+	 if(cou2!=0)
+	 {
+	 cout&lt;&lt;&quot;Enter the name of converted image into grey scaled&quot;&lt;&lt;endl;
+     cin&gt;&gt;rin1;
+	 image1 = fopen (rin1,&quot;wb&quot;);
+	 if(image1!=NULL)
+	 {
+	 //pallete
+	 for (int p1a=0;p1a&lt;256;p1a++)
+     {
+          for (int p1b=0;p1b&lt;3;p1b++)
+           {
+	         p1[count1++]=p1a;
+           }
+       p1[count1++]=0;
+     }
+	 // header
+	 for (int a=0;a&lt;54;a++)
+     {
+	  if (a!=28)
+	  {
+		fputc(readimage[a],image1);
+	  }
+      else
+	  {
+        fputc(8,image1);
+	  }
+	 }
+	 count1=0;
+	 //putting pallete into image
+     for (int a=0;a&lt;256;a++)
+     {
+     for (int b=0;b&lt;4;b++)
+     {
+	   fputc(p1[count1],image1);
+	   count1++;
+     }
+	 }
+	 origin1=0;
+	 mark1=1078;
+      for ( int i =0; i&lt;height ;i++)
+	  {
+		  for (int j =0; j&lt;width ;j++)
+	      {
+           fseek(image1,mark1,origin1);
+		   rgb1=data[i][j];
+		   fputc(rgb1,image1);
+		   mark1++;		 
+	       }  
+	   }
+  cout &lt;&lt; &quot;Image has been converted to grey scale &quot;&lt;&lt;endl;
+  fclose (image1);
+  fopen (rin1,&quot;r&quot;);
+  for (int a=0; a&lt;54 ; a++)
+	 {
+		readimage[a]=getc(image);// read 54 bytes dib header and bmp header
+	 }  
+     if (readimage[0]==66 &amp;&amp; readimage[1]==77)
+	 {
+		width=readimage[18] + (readimage[19]*256) + (readimage[20]*65536) + (readimage[21]*256*256*256);
+		height=readimage[22] + (readimage[23]*256) + (readimage[24]*65536) + (readimage[25]*256*256*256);
+        resolution= readimage[28] + (readimage[29]*256);
+        size= readimage[34] + (readimage[35]*256) + (readimage[36]*65536) + (readimage[37]*256*256*256) + 54;
+		cout &lt;&lt; &quot;Width &quot; &lt;&lt; width &lt;&lt;endl;
+        cout &lt;&lt; &quot;Height &quot; &lt;&lt; height &lt;&lt;endl;
+        cout &lt;&lt; &quot;Resolution &quot; &lt;&lt; resolution &lt;&lt;endl;
+        cout &lt;&lt; &quot;Size  &quot; &lt;&lt; size&lt;&lt;endl;
+	  }
+	 }
+	 else
+		 cout&lt;&lt;&quot;error in creating file&quot;&lt;&lt;endl;
+	 cou++;
+	 fclose (image1);
+	 }
+	 else 
+		 cout&lt;&lt;&quot;plz read image first&quot;&lt;&lt;endl;
+  system(&quot;pause&quot;);
+  system(&quot;cls&quot;);
+}
+<A NAME="1"></A>else if (modesel =='H')
+{
+	system(&quot;cls&quot;);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if(cou!=0)
+	{
+	cout&lt;&lt;&quot;plz specify the name of file having histogram data&quot;&lt;&lt;endl;
+	cin&gt;&gt;histofilename;
+	histogram.open (histofilename);
+	for ( int i =0; i&lt;width ;i++)
+	  {
+		  for (int j =0; j&lt;height ;j++)
+	      {</B></FONT>
+			  aa=data[i][j];
+		      histo[aa]=histo[aa]+1;
+		  }
+	  }
+	for( int i =0; i&lt;256 ;i++)
+	   {
+		   histogram &lt;&lt;histo[i]&lt;&lt;endl;
+       }
+	histogram.close();
+	cout&lt;&lt;&quot;file has been created&quot;&lt;&lt;endl;
+	
+	}
+	else 
+		cout&lt;&lt;&quot;you didnot yet converted image into grey scale&quot;&lt;&lt;endl;
+  system(&quot;pause&quot;);
+  system(&quot;cls&quot;);
+
+	
+}
+<A NAME="2"></A>else if (modesel =='T')
+{
+system(&quot;cls&quot;);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(cou!=0)
+{
+cout&lt;&lt;&quot;affline transformation&quot;&lt;&lt;endl;
+cout&lt;&lt;&quot;plz specify affline transformation matrix  in floating varible type for performing either translation, rotation or scaling one only at one time &quot;&lt;&lt;endl;
+      for ( int i =0; i&lt;3 ;i++)
+	  {
+		  for (int j =0; j&lt;3 ;j++)
+	      {</B></FONT>
+			     cout&lt;&lt;&quot;plz enter afflinematrix[&quot;&lt;&lt;i&lt;&lt;&quot;] [&quot;&lt;&lt;j&lt;&lt;&quot;] element&quot;&lt;&lt;endl;
+                 cin&gt;&gt;afflinematrix[i][j];
+				 if(i==0)
+					 array[j]=afflinematrix[i][j];
+				 if(i==1)
+					 array[j+3]=afflinematrix[i][j];
+				 if(i==2)
+					 array[j+6]=afflinematrix[i][j];
+
+		  }
+      }
+
+if(array[0]==1.00 &amp;&amp; array[1]==0.00 &amp;&amp; array[2]==0.00 &amp;&amp; array[3]==0.00 &amp;&amp;array[4]==1.00 &amp;&amp; array[5]==0.00 &amp;&amp; array[8]==1.00 &amp;&amp; array[7]!=0.00 &amp;&amp; array[6]!=0.00)
+{
+system(&quot;cls&quot;);
+cout&lt;&lt;&quot;Valid  translation  affline transformation&quot;&lt;&lt;endl;
+cout&lt;&lt;&quot;Enter the name of new translated image&quot;&lt;&lt;endl;
+cin&gt;&gt;rin2;
+image2= fopen (rin2,&quot;wb&quot;);
+if(image2!=NULL)
+{
+w1=array[6];
+h1=array[7];
+cout&lt;&lt;&quot;vertical Distance [x] OR  height is&quot;&lt;&lt; w1&lt;&lt;endl ; 
+cout&lt;&lt;&quot;horizontal Distance [y] OR width is &quot;&lt;&lt;h1&lt;&lt;endl ;
+    for (int i=0; i&lt;(height-h1) ; i++)
+		   {
+<A NAME="3"></A>                for (int j=0; j&lt;(width-w1) ; j++)
+				{       
+					data2[w1+i][h1+j] = data[i][j] ; 
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                } 
+           }
+
+//pallete
+	 for (int p2a=0;p2a&lt;256;p2a++)
+     {
+          for (int p2b=0;p2b&lt;3;p2b++)
+           {
+	         p2[count2++]=p2a;</B></FONT>
+           }
+       p2[count2++]=0;
+     }
+	 // header
+	 for (int a=0;a&lt;54;a++)
+     {
+	  if (a!=28)
+	  {
+		fputc(readimage[a],image2);
+	  }
+      else
+	  {
+		  fputc(8,image2);
+       }
+	 }
+	  count2=0;
+	 //putting pallete into image
+     for (int a=0;a&lt;256;a++)
+     {
+     for (int b=0;b&lt;4;b++)
+     {
+	   fputc(p2[count2],image2);
+	   count2++;
+     }
+     }
+	 origin2=0;
+mark2=1078;
+for ( int i =0; i&lt;(height) ;i++)
+	  {
+		  for (int j =0; j&lt;(width) ;j ++)
+	   {
+           fseek(image2,mark2,origin2);
+		   rgb2=data2[i][j];
+		   fputc(rgb2,image2);
+		   mark2++;		 
+	   }   
+    }
+fclose (image2);
+cout &lt;&lt; &quot;Image has been Translated&quot;&lt;&lt;endl;
+  fopen (rin2,&quot;r&quot;);
+  for (int a=0; a&lt;54 ; a++)
+	 {
+		readimage2[a]=getc(image2);// read 54 bytes dib header and bmp header
+	 }  
+     if (readimage2[0]==66 &amp;&amp; readimage2[1]==77)
+	 {
+		width2=readimage2[18] + (readimage2[19]*256) + (readimage2[20]*65536) + (readimage2[21]*256*256*256)+w1;
+		height2=readimage2[22] + (readimage2[23]*256) + (readimage2[24]*65536) + (readimage2[25]*256*256*256)+h1;
+        resolution2= readimage2[28] + (readimage2[29]*256);
+        size2= readimage2[34] + (readimage2[35]*256) + (readimage2[36]*65536) + (readimage2[37]*256*256*256) + 54+w1+h1;
+		cout &lt;&lt; &quot;Width &quot; &lt;&lt; width2 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Height &quot; &lt;&lt; height2 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Resolution &quot; &lt;&lt; resolution2 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Size  &quot; &lt;&lt; size2&lt;&lt;endl;
+	 }
+   }
+else
+		 cout&lt;&lt;&quot;error in creating file&quot;&lt;&lt;endl;
+ system(&quot;pause&quot;);
+ fclose (image2);
+ system(&quot;cls&quot;);
+}
+else if(array[2]==0.00 &amp;&amp; array[5]==0.00 &amp;&amp; array[6]==0.00 &amp;&amp; array[7]==0.00 &amp;&amp; array[8]==1.00 )
+{
+if((array[0]== 1 &amp;&amp; array[4]==1 &amp;&amp; array[1]== 0 &amp;&amp; array[3]==0) ||  ( array[0]!=1 &amp;&amp; array[4]!=1 &amp;&amp; array[1]!=0 &amp;&amp; array[3]!=0))
+{
+	int centerx , centery , o1a , o1b; 
+	int angle ;
+	float radians;
+system(&quot;cls&quot;);
+cout&lt;&lt;&quot;Valid  ROTATION  affline transformation&quot;&lt;&lt;endl;
+ angle= (acos (array[0]) * 180.0) / 3.14159265;
+	 
+	cout&lt;&lt;&quot; the rotation angle in degrees  is  &quot;&lt;&lt;angle&lt;&lt;endl ;
+	 
+	 radians = (angle * 3.14159265)/180.0;
+	centerx = height/2 ; 
+	centery = width /2 ; 
+	
+
+     for (int i=0; i&lt;height; i++)
+		{
+                for (int j=0; j&lt;width; j++)
+				{
+					o1a =(centerx+((i-centerx)*cos(radians))-((j-centery)*cos(1.57-radians)));
+					o1b =(centery+((i-centerx)*sin(radians))+((j-centery)*sin(1.57-radians)));
+					if(o1a&gt;height||o1a&gt;0||o1b&gt;width||o1b&gt;0)
+					{
+						data3[o1a][o1b] = data[i][j] ; 
+					}
+                }
+        }
+cout&lt;&lt;&quot;Enter the name of new rotated image&quot;&lt;&lt;endl;
+cin&gt;&gt;rin3;
+image3= fopen (rin3,&quot;wb&quot;);
+if(image3!=NULL)
+{
+//pallete
+	 for (int p3a=0;p3a&lt;256;p3a++)
+     {
+          for (int p3b=0;p3b&lt;3;p3b++)
+           {
+	         p3[count3++]=p3a;
+           }
+       p3[count3++]=0;
+     }
+	 // header
+	 for (int a=0;a&lt;54;a++)
+     {
+	  if (a!=28)
+	  {
+		  fputc(readimage[a],image3);
+	  }
+      else
+	  {
+       fputc(8,image3);
+	  }
+	 }
+	  count3=0;
+	 //putting pallete into image
+     for (int a=0;a&lt;256;a++)
+     {
+     for (int b=0;b&lt;4;b++)
+     {
+	   fputc(p3[count3],image3);
+	   count3++;
+     }
+     }
+	 origin3=0;
+mark3=1078;
+for ( int i =0; i&lt;height ;i++)
+	  {
+		  for (int j =0; j&lt;width ;j ++)
+	   {
+           fseek(image3,mark3,origin3);
+		   rgb3=data3[i][j];
+		   fputc(rgb3,image3);
+		   mark3++;		 
+	   }   
+    }
+fclose (image3);
+cout &lt;&lt; &quot;Image has been rotated&quot;&lt;&lt;endl;
+  fopen (rin3,&quot;r&quot;);
+  for (int a=0; a&lt;54 ; a++)
+	 {
+		readimage3[a]=getc(image3);// read 54 bytes dib header and bmp header
+	 }  
+     if (readimage3[0]==66 &amp;&amp; readimage3[1]==77)
+	 {
+		width3=readimage3[18] + (readimage3[19]*256) + (readimage3[20]*65536) + (readimage3[21]*256*256*256);
+		height3=readimage3[22] + (readimage3[23]*256) + (readimage3[24]*65536) + (readimage3[25]*256*256*256);
+        resolution3= readimage3[28] + (readimage3[29]*256);
+        size3= readimage3[34] + (readimage3[35]*256) + (readimage3[36]*65536) + (readimage3[37]*256*256*256) + 54;
+		cout &lt;&lt; &quot;Width &quot; &lt;&lt; width3 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Height &quot; &lt;&lt; height3 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Resolution &quot; &lt;&lt; resolution3 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Size  &quot; &lt;&lt; size3 &lt;&lt;endl;
+	 }
+  }
+   else
+		 cout&lt;&lt;&quot;error in creating file&quot;&lt;&lt;endl;
+ system(&quot;pause&quot;);
+ fclose (image3);
+ system(&quot;cls&quot;);
+
+}
+
+else if(array[0]!=1 &amp;&amp; array[4]!=1 &amp;&amp; array[1]==0 &amp;&amp; array[3]==0  )
+{
+system(&quot;cls&quot;);
+cout&lt;&lt;&quot;Valid  scaling  affline transformation&quot;&lt;&lt;endl;
+cout&lt;&lt;&quot;Enter the name of new scaled image&quot;&lt;&lt;endl;
+cin&gt;&gt;rin4;
+image4= fopen (rin4,&quot;wb&quot;);
+if(image4!=NULL)
+{
+x=array[0];
+<A NAME="5"></A>y=array[4];
+cout&lt;&lt;&quot; scalling factor for height is &quot;&lt;&lt;x&lt;&lt;&quot; and for width is  &quot;&lt;&lt;y&lt;&lt;endl ;
+
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#5',2,'match6-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; height  ; i++)
+     {
+		 for(int j = 0; j &lt; width ; j++)
+             {
+                     val  = data[i][j];
+					 newx= i*x;
+					 newy = j*y;</B></FONT>
+					 for(int c = newx ; c &lt; (newx + x); c++)
+                     {
+						 for(int d=newy ;  d &lt; (newy + y); d++)
+                             {
+								 data4[c][d] = val;
+<A NAME="4"></A>                             }
+                     }
+             }
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#4',2,'match6-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>     }
+//pallete
+	 for (int p4a=0;p4a&lt;256;p4a++)
+     {
+          for (int p4b=0;p4b&lt;3;p4b++)
+           {
+	         p4[count4++]=p4a;</B></FONT>
+           }
+       p4[count4++]=0;
+     }
+	 // header
+	 for (int a=0;a&lt;54;a++)
+     {
+	  if (a!=28)
+	  {
+		  fputc(readimage[a],image4);
+	  }
+      else
+	  {
+          fputc(8,image4);
+	  }
+	 }
+	  count4=0;
+	 //putting pallete into image
+     for (int a=0;a&lt;256;a++)
+     {
+     for (int b=0;b&lt;4;b++)
+     {
+	   fputc(p4[count4],image4);
+	   count4++;
+     }
+     }
+	 origin4=0;
+	 mark4=1078;
+	 for ( int i =0; i&lt;height ;i++)
+	  {
+		  for (int j =0; j&lt;width ;j ++)
+	   {
+           fseek(image4,mark4,origin4);
+		   rgb4=data4[i][j];
+		    fputc(rgb4,image4);
+		   mark4++;		 
+	   }   
+    }
+cout &lt;&lt; &quot;Image has been scale&quot;&lt;&lt;endl;
+fclose (image4);
+  fopen (rin4,&quot;r&quot;);
+  for (int a=0; a&lt;54 ; a++)
+	 {
+		readimage4[a]=getc(image4);// read 54 bytes dib header and bmp header
+	 }  
+     if (readimage4[0]==66 &amp;&amp; readimage4[1]==77)
+	 {
+		width4=readimage4[18] + (readimage4[19]*256) + (readimage4[20]*65536) + (readimage4[21]*256*256*256);
+		height4=readimage4[22] + (readimage4[23]*256) + (readimage4[24]*65536) + (readimage4[25]*256*256*256);
+        resolution4= readimage4[28] + (readimage4[29]*256);
+        size4= readimage4[34] + (readimage4[35]*256) + (readimage4[36]*65536) + (readimage4[37]*256*256*256) + 54;
+		cout &lt;&lt; &quot;Width &quot; &lt;&lt; width4 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Height &quot; &lt;&lt; height4 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Resolution &quot; &lt;&lt; resolution4 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Size  &quot; &lt;&lt; size4&lt;&lt;endl;
+	 }
+}
+else
+		 cout&lt;&lt;&quot;error in creating file&quot;&lt;&lt;endl;
+ system(&quot;pause&quot;);
+ fclose (image4);
+ system(&quot;cls&quot;);
+
+ }
+else
+	cout&lt;&lt;&quot;wrong matrix plz try again&quot;&lt;&lt;endl;
+}
+else
+{
+	cout&lt;&lt;&quot;you are entering wrong matrix plz try again&quot;&lt;&lt;endl;
+}
+}
+else
+	cout&lt;&lt;&quot;you didnot yet converted image into grey scale&quot;&lt;&lt;endl;
+	system(&quot;pause&quot;);
+    system(&quot;cls&quot;);
+
+ }
+ else if( modesel =='S')
+ {
+	 if(cou!=0)
+	 {
+		 int center6x , center6y , o6a , o6b; 
+	int angle6 ;
+	float radians6 ;
+system(&quot;cls&quot;);
+cout&lt;&lt;&quot; enter shear  angle in degrees  &quot;&lt;&lt;endl ;
+cin&gt;&gt;angle6;
+	 
+	
+	 
+	 radians6 = (angle6 * 3.14159265)/180.0;
+	center6x = height/2 ; 
+	center6y = width /2 ; 
+	
+
+     for (int i=0; i&lt;height; i++)
+		{
+                for (int j=0; j&lt;width; j++)
+				{
+					o6a =(center6x+((i-center6x)*cos(radians6))+((j-center6y)*cos(1.57-radians6)));
+					o6b =(center6y+((i-center6x)*sin(radians6))+((j-center6y)*sin(1.57-radians6)));
+					if(o6a&gt;height||o6a&gt;0||o6b&gt;width||o6b&gt;0)
+					{
+						data6[o6a][o6b] = data[i][j] ; 
+					}
+                }
+        }
+cout&lt;&lt;&quot;Enter the name of new shear image&quot;&lt;&lt;endl;
+cin&gt;&gt;rin6;
+image6= fopen (rin6,&quot;wb&quot;);
+if(image6!=NULL)
+{
+//pallete
+	 for (int p6a=0;p6a&lt;256;p6a++)
+     {
+          for (int p6b=0;p6b&lt;3;p6b++)
+           {
+	         p6[count6++]=p6a;
+           }
+       p6[count6++]=0;
+     }
+	 // header
+	 for (int a=0;a&lt;54;a++)
+     {
+	  if (a!=28)
+	  {
+		  fputc(readimage[a],image6);
+	  }
+      else
+	  {
+       fputc(8,image6);
+	  }
+	 }
+	  count6=0;
+	 //putting pallete into image
+     for (int a=0;a&lt;256;a++)
+     {
+     for (int b=0;b&lt;4;b++)
+     {
+	   fputc(p6[count6],image6);
+	   count6++;
+     }
+     }
+	 origin6=0;
+mark6=1078;
+for ( int i =0; i&lt;height ;i++)
+	  {
+		  for (int j =0; j&lt;width ;j ++)
+	   {
+           fseek(image6,mark6,origin6);
+		   rgb6=data6[i][j];
+		   fputc(rgb6,image6);
+		   mark6++;		 
+	   }   
+    }
+fclose (image6);
+cout &lt;&lt; &quot;Image has been shear&quot;&lt;&lt;endl;
+  fopen (rin6,&quot;r&quot;);
+  for (int a=0; a&lt;54 ; a++)
+	 {
+		readimage6[a]=getc(image6);// read 54 bytes dib header and bmp header
+	 }  
+     if (readimage6[0]==66 &amp;&amp; readimage6[1]==77)
+	 {
+		width6=readimage6[18] + (readimage6[19]*256) + (readimage6[20]*65536) + (readimage6[21]*256*256*256);
+		height6=readimage6[22] + (readimage6[23]*256) + (readimage6[24]*65536) + (readimage6[25]*256*256*256);
+        resolution6= readimage6[28] + (readimage6[29]*256);
+        size6= readimage6[34] + (readimage6[35]*256) + (readimage6[36]*65536) + (readimage6[37]*256*256*256) + 54;
+		cout &lt;&lt; &quot;Width &quot; &lt;&lt; width6 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Height &quot; &lt;&lt; height6 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Resolution &quot; &lt;&lt; resolution6 &lt;&lt;endl;
+        cout &lt;&lt; &quot;Size  &quot; &lt;&lt; size6 &lt;&lt;endl;
+	 }
+  }
+   else
+		 cout&lt;&lt;&quot;error in creating file&quot;&lt;&lt;endl;
+ 
+ fclose (image6);
+ 
+	 }
+	 else
+		 cout&lt;&lt;&quot;you didnot converted image to gray scale yet&quot;&lt;&lt;endl;
+		 system(&quot;pause&quot;);
+		 system(&quot;cls&quot;);
+ }
+else if (modesel =='X')
+{
+	break;
+}
+else
+{
+	cout&lt;&lt;&quot;you enter wrong choice or either caplock is not on plz try again&quot;&lt;&lt;endl;
+	system(&quot;pause&quot;);
+    system(&quot;cls&quot;);
+}
+}
+system(&quot;pause&quot;);
+return 0;
+}
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

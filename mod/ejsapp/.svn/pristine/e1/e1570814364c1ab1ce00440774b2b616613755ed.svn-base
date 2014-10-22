@@ -1,0 +1,61 @@
+<?php
+
+// This file is part of the Moodle module "EJSApp"
+//
+// EJSApp is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// EJSApp is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// The GNU General Public License is available on <http://www.gnu.org/licenses/>
+//
+// EJSApp has been developed by:
+//  - Luis de la Torre: ldelatorre@dia.uned.es
+//	- Ruben Heradio: rheradio@issi.uned.es
+//
+//  at the Computer Science and Automatic Control, Spanish Open University
+//  (UNED), Madrid, Spain
+
+
+/**
+ *
+ * Receives a username and password from Sarlab and checks whether that user exists in Moodle
+ * and has, at least, a teacher role.
+ *
+ * @package    mod
+ * @subpackage ejsapp
+ * @copyright  2012 Luis de la Torre and Ruben Heradio
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+require_once ('../../config.php');
+
+global $DB, $CFG;
+
+$username = $_GET["username"];
+$password = $_GET["password"];
+
+$enc_pass = md5($password.$CFG->passwordsaltmain);
+
+if ($DB->record_exists('user', array('username' => $username, 'password' => $enc_pass))) {
+    $user = $DB->get_record('user', array('username' => $username, 'password' => $enc_pass));
+    if ($user->id == 2) { //admin user
+        echo "access=true\n";
+    } else {
+        $grant_access = false;
+        $roles_assig = $DB->get_records('role_assignments', array('userid' => $user->id));
+        foreach ($roles_assig as $role_assig) {
+            if ($role_assig->roleid <= 3) { //user is teacher in, at least, one course
+                echo "access=true\n";
+                $grant_access = true;
+                break;
+            }
+        }
+        if (!$grant_access) echo "access=false\n";
+    }
+} else echo "access=false\n";

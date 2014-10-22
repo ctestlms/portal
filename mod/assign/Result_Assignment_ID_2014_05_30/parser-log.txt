@@ -1,0 +1,142 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-05-30 10:08:30 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul Hadi_Chara_Abdul Hadi Chara SCME.cpp
+Scanning file Abdul Hadi_Chara_Abdul Hadi Chara SCME.cpp
+OK
+------ Parsing submission: Abdul Rehman_Azam_josh 14.cpp
+Scanning file Abdul Rehman_Azam_josh 14.cpp
+OK
+------ Parsing submission: Abdul_Wahab_lab 14.cpp
+Scanning file Abdul_Wahab_lab 14.cpp
+OK
+------ Parsing submission: Ahmed Kazim_Fakih_ahmed kazim.cpp
+Scanning file Ahmed Kazim_Fakih_ahmed kazim.cpp
+OK
+------ Parsing submission: Ahmed_Osama_ahmed osama lab 14.cpp
+Scanning file Ahmed_Osama_ahmed osama lab 14.cpp
+  Scanning Error in 'Ahmed_Osama_ahmed osama lab 14.cpp':
+  Lexical error at line 22, column 105.  Encountered: "," (44), after : "\"if you have more entries to make then press i\\n and if you want to know average press q\\"
+ERROR -> Submission removed
+------ Parsing submission: Ali_Qayum_Talal  ali qayum.cpp
+Scanning file Ali_Qayum_Talal  ali qayum.cpp
+OK
+------ Parsing submission: Alina_Takreem_lab 14.cpp
+Scanning file Alina_Takreem_lab 14.cpp
+OK
+------ Parsing submission: Annas Ul Hassan_Qureshi_Lab 14.cpp
+Scanning file Annas Ul Hassan_Qureshi_Lab 14.cpp
+OK
+------ Parsing submission: Arslan_Raza_Arslan Raza Lab 14.cpp
+Scanning file Arslan_Raza_Arslan Raza Lab 14.cpp
+OK
+------ Parsing submission: Awais_Ahmad_Awais  ahmad 14.cpp
+Scanning file Awais_Ahmad_Awais  ahmad 14.cpp
+OK
+------ Parsing submission: Ayesha_Bibi_140.cpp
+Scanning file Ayesha_Bibi_140.cpp
+OK
+------ Parsing submission: Emad_Aamer_Alloc.cpp
+Scanning file Emad_Aamer_Alloc.cpp
+OK
+------ Parsing submission: Ghulam_Habib_habib and zeeshan.cpp
+Scanning file Ghulam_Habib_habib and zeeshan.cpp
+OK
+------ Parsing submission: Hamza _Ali_naya malloc.cpp
+Scanning file Hamza _Ali_naya malloc.cpp
+OK
+------ Parsing submission: Hamza_Khan_Lab 14.cpp
+Scanning file Hamza_Khan_Lab 14.cpp
+OK
+------ Parsing submission: Hanan_Zulfiqar_Lab 14.cpp
+Scanning file Hanan_Zulfiqar_Lab 14.cpp
+OK
+------ Parsing submission: Jawad_Gul_lab 14.cpp
+Scanning file Jawad_Gul_lab 14.cpp
+OK
+------ Parsing submission: Mohammad Ali_Muzzammil_Ali Muzzammil.cpp
+Scanning file Mohammad Ali_Muzzammil_Ali Muzzammil.cpp
+OK
+------ Parsing submission: Mohammad_Shaaz_Lab 14.cpp
+Scanning file Mohammad_Shaaz_Lab 14.cpp
+OK
+------ Parsing submission: Mohammad_Talal_Talal  ali qayum.cpp
+Scanning file Mohammad_Talal_Talal  ali qayum.cpp
+OK
+------ Parsing submission: Mohib Ur_Rahman_Mohib ur Rahman lab 14.cpp
+Scanning file Mohib Ur_Rahman_Mohib ur Rahman lab 14.cpp
+OK
+------ Parsing submission: Muhammad Abdul Qadeem_Khan_Lab 14.cpp
+Scanning file Muhammad Abdul Qadeem_Khan_Lab 14.cpp
+OK
+------ Parsing submission: Muhammad Abdul_Manan_cppppppppppppppp.cpp
+Scanning file Muhammad Abdul_Manan_cppppppppppppppp.cpp
+OK
+------ Parsing submission: Muhammad Afraz Khan_Sherwani_malloc realloc.cpp
+Scanning file Muhammad Afraz Khan_Sherwani_malloc realloc.cpp
+OK
+------ Parsing submission: Muhammad Basit_Bosan_Bosan1111.cpp
+Scanning file Muhammad Basit_Bosan_Bosan1111.cpp
+OK
+------ Parsing submission: Muhammad Basit_Bosan_bosan and ahmed osama.cpp
+Scanning file Muhammad Basit_Bosan_bosan and ahmed osama.cpp
+OK
+------ Parsing submission: Muhammad Maaz_Khattak_Maaz Khattak lab 14.c
+Scanning file Muhammad Maaz_Khattak_Maaz Khattak lab 14.c
+OK
+------ Parsing submission: Muhammad Talha_Athar_Talha Athar_Lab14.cpp
+Scanning file Muhammad Talha_Athar_Talha Athar_Lab14.cpp
+OK
+------ Parsing submission: Muhammad Zaheer Ud Din_Qamar_Q1.cpp
+Scanning file Muhammad Zaheer Ud Din_Qamar_Q1.cpp
+OK
+------ Parsing submission: Muhammad Zeeshan_Tariq_z.cpp
+Scanning file Muhammad Zeeshan_Tariq_z.cpp
+OK
+------ Parsing submission: Muhammad_Mahad_Muhammad Mahad and Ali Ghazi lab 14.cpp
+Scanning file Muhammad_Mahad_Muhammad Mahad and Ali Ghazi lab 14.cpp
+OK
+------ Parsing submission: Mustafa_Akmal_lab14_Mustafa_ Talha.cpp
+Scanning file Mustafa_Akmal_lab14_Mustafa_ Talha.cpp
+OK
+------ Parsing submission: Naveed_Ahmad_Naveed Ahmad lab14.cpp
+Scanning file Naveed_Ahmad_Naveed Ahmad lab14.cpp
+OK
+------ Parsing submission: Nayab_Nasir_Nayab Nasir and Shaheer Hashmi.cpp
+Scanning file Nayab_Nasir_Nayab Nasir and Shaheer Hashmi.cpp
+OK
+------ Parsing submission: Nisar_Ahmed_nisar ahmed.cpp
+Scanning file Nisar_Ahmed_nisar ahmed.cpp
+OK
+------ Parsing submission: Sana_Munir_sana munir.cpp
+Scanning file Sana_Munir_sana munir.cpp
+OK
+------ Parsing submission: Sehrish_Faiz_140.cpp
+Scanning file Sehrish_Faiz_140.cpp
+OK
+------ Parsing submission: Shahzeb_Zafar_lab14szzfnf.cpp
+Scanning file Shahzeb_Zafar_lab14szzfnf.cpp
+OK
+------ Parsing submission: Syed Minhas_Mahmood_Minhas.cpp
+Scanning file Syed Minhas_Mahmood_Minhas.cpp
+OK
+------ Parsing submission: Talha_Mujeeb_Lab14.cpp
+Scanning file Talha_Mujeeb_Lab14.cpp
+OK
+------ Parsing submission: Usama_Rauf_osama rauf.cpp
+Scanning file Usama_Rauf_osama rauf.cpp
+OK
+------ Parsing submission: Zohan Hasan_Tariq_Lab14.cpp
+Scanning file Zohan Hasan_Tariq_Lab14.cpp
+OK
+
+41 submissions parsed successfully!
+1 parser error!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 0 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

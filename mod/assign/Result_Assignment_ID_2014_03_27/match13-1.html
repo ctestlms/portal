@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Ahsan_Ayub_ahsan lab 05.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Ahsan_Ayub_ahsan lab 05.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int main()
+{
+ float temperature ;
+ float weight ;
+ float currency ;
+ float temp_farenheit ;
+float weight_kilo ;
+float currencey_USD ;
+
+char choice='i' ;
+while (choice!='e')
+
+{
+	printf(&quot;Enter T for temperature: \nEnter W for weight: \nEnter C for currencey: \n &quot;);
+    scanf(&quot;%c&quot;,&amp;choice);
+
+    switch(choice)
+	{
+	case'T':
+		printf(&quot;please enter temperature in celcius= &quot;);
+		scanf(&quot;%f&quot;,&amp;temperature);
+		temp_farenheit=temperature*(9/5)+32;
+			printf(&quot;temp_farenheit= %.1f\n&quot;,temp_farenheit);
+
+
+
+
+              // get input in Celsius and convert to F// 		
+		break;
+	case'W':
+		printf(&quot;please enter weight in pound= &quot;);
+		scanf(&quot;%f&quot;,&amp;weight);
+			weight_kilo=2.20462*weight;
+		printf(&quot;weight_kilo= %.1f\n&quot;,weight_kilo);
+
+
+		// get input in Pounds and convert to Kilos//
+		break;
+    case'C':
+	printf(&quot;please enter currency in PKR= &quot;);
+	scanf(&quot;%f&quot;,&amp;currency);
+	currencey_USD=currency*0.0101;
+	printf(&quot;currencey_USD= %.1f\n&quot;,currencey_USD);
+
+
+
+		// get input in PKR and convert to USD
+		break;
+}
+getchar();
+	
+}
+
+ return 0; 
+
+}</B></FONT>
+
+</PRE>
+</BODY>
+</HTML>

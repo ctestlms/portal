@@ -1,0 +1,67 @@
+--- grade_export_xls.php	2013-01-03 12:21:22.104695329 +0500
++++ grade_export_xls.php	2012-12-19 10:24:54.000000000 +0500
+@@ -46,10 +46,10 @@
+         $myxls->write_string(0,0,get_string("firstname"));
+         $myxls->write_string(0,1,get_string("lastname"));
+         $myxls->write_string(0,2,get_string("idnumber"));
+-        //$myxls->write_string(0,3,get_string("institution"));
+-        //$myxls->write_string(0,4,get_string("department"));
+-        //$myxls->write_string(0,5,get_string("email"));
+-        $pos=3;
++        $myxls->write_string(0,3,get_string("institution"));
++        $myxls->write_string(0,4,get_string("department"));
++        $myxls->write_string(0,5,get_string("email"));
++        $pos=6;
+         foreach ($this->columns as $grade_item) {
+             $myxls->write_string(0, $pos++, $this->format_column_name($grade_item));
+ 
+@@ -59,7 +59,6 @@
+             }
+         }
+ 
+-	$myxls->write_string(0, $pos++, "Final Grade",$formatbc);	
+     /// Print all the lines of data.
+         $i = 0;
+         $geub = new grade_export_update_buffer();
+@@ -73,35 +72,23 @@
+             $myxls->write_string($i,0,$user->firstname);
+             $myxls->write_string($i,1,$user->lastname);
+             $myxls->write_string($i,2,$user->idnumber);
+-            //$myxls->write_string($i,3,$user->institution);
+-            //$myxls->write_string($i,4,$user->department);
+-            // $myxls->write_string($i,5,$user->email);
+-            $j=3;
++            $myxls->write_string($i,3,$user->institution);
++            $myxls->write_string($i,4,$user->department);
++            $myxls->write_string($i,5,$user->email);
++            $j=6;
+             foreach ($userdata->grades as $itemid => $grade) {
+                 if ($export_tracking) {
+                     $status = $geub->track($grade);
+                 }
+ 
+-           /*     $gradestr = $this->format_grade($grade);
++                $gradestr = $this->format_grade($grade);
+                 if (is_numeric($gradestr)) {
+                     $myxls->write_number($i,$j++,$gradestr);
+                 }
+                 else {
+                     $myxls->write_string($i,$j++,$gradestr);
+-                }*/
+-		$gradestr = $this->format_grade($grade);
+-		$gradez=$DB->get_record_sql("Select * from {grade_items} where id=$itemid");
+-                if (is_numeric($gradestr)) {
+-                    $myxls->write_number($i,$j++,$gradestr);
+-		    if($gradez->itemtype=="course"){
+-						$subjgrade=grade_format_gradevalue_letter($gradestr, $gradez);
+-						$myxls->write_string($i,$j++,$subjgrade);
+-					}
+-                }
+-                else {
+-                     $myxls->write_string($i,$j++,$gradestr);
+-                
+                 }
++
+                 // writing feedback if requested
+                 if ($this->export_feedback) {
+                     $myxls->write_string($i, $j++, $this->format_feedback($userdata->feedbacks[$itemid]));

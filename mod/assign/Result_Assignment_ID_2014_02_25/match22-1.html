@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Amna_Mubashar_StudentInfo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Amna_Mubashar_StudentInfo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.*;
+public class StudentInfo
+{
+public static void main(String args[])
+{
+String [][]sdata = new String[10][2];
+<A NAME="1"></A>String []comdata =</B></FONT> new String[10];
+Scanner keyboard=new Scanner(System.in);
+int flag=0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i=0; i&lt;sdata.length;i++)
+{
+	for(int j=0;j&lt;sdata[i].length;j++)
+	{
+		System.out.println (&quot;Enter the name of Student No. &quot;+(i+1));
+		
+		sdata[i][j]=keyboard.nextLine</B></FONT>();
+		comdata[i]=sdata[i][j];
+
+			for(int k=0;k&lt;i;k++)
+			{
+				if (sdata[i][j].equalsIgnoreCase(comdata[k]))
+				{
+					System.out.println(&quot;Duplicate entry&quot;);
+					flag=flag+1;
+					break;
+				}
+<A NAME="3"></A>			}
+		if (flag==1)
+		break;
+		System.out.<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>println (&quot;Enter the CGPA&quot;);
+		sdata[i][++j]=keyboard.nextLine();
+		
+		float com=Float.parseFloat(sdata[i][j]);
+		if (com&gt;4)
+		{
+			System.out.println</B></FONT>(&quot;Invalid Input&quot;);
+			flag=flag+1;
+			break;
+		}
+		
+	}
+	if (flag&gt;0)
+	break;
+}
+System.out.println(&quot;&quot;);
+if(flag==0)
+System.out.println(&quot;	Names		CGPA&quot;);
+for(int m=0;m&lt;sdata.length;m++)	
+	{ 
+		if (flag&gt;0)
+		break;
+		System.out.print(&quot;	&quot;+sdata[m][0]);
+		System.out.println(&quot;	         &quot;+sdata[m][1]);
+	}
+float min=Float.parseFloat(sdata[0][1]);
+
+	for(int a=1; a&lt;sdata.length;a++)
+	{
+		float temp=Float.parseFloat(sdata[a][1]);
+		if (temp&lt;min)
+		min=temp;
+	}
+System.out.println(&quot;&quot;);
+System.out.println(&quot;Minimum CGPA is : &quot;+min);
+
+float max=Float.parseFloat(sdata[0][1]);
+
+	for(int b=1; b&lt;sdata.length;b++)
+	{
+		float temp1=Float.parseFloat(sdata[b][1]);
+		if (temp1&gt;max)
+		max=temp1;
+	}
+System.out.println(&quot;Maximum CGPA is : &quot;+max);
+
+float avg=0;
+
+for(int c=0;c&lt;sdata.length;c++)
+{
+	float avgtemp=Float.parseFloat(sdata[c][1]);
+	avg+=avgtemp;
+}
+avg=avg/10;
+System.out.println(&quot;Average is :&quot; +avg);
+System.out.println(&quot;&quot;);
+System.out.println(&quot;STUDENTS WHO HAVE OBTAINED LESS THAN AVERAGE GPA&quot;);
+System.out.println(&quot;&quot;);
+for(int i=0; i&lt;sdata.length;i++)
+{
+	float comtemp=Float.parseFloat(sdata[i][1]);
+	if(comtemp&lt;avg){
+	System.out.print(&quot;	&quot;+sdata[i][0]);
+	System.out.println(&quot;  &quot;+sdata[i][1]);
+	}
+}
+
+System.out.println(&quot;&quot;);
+System.out.println(&quot;ENTER THE STUENT NAME TO SEARCH FOR DATA&quot;);
+System.out.println(&quot;&quot;);
+
+<A NAME="2"></A>String search;
+search=keyboard.nextLine();
+int flag1=0;
+float <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rank=0;
+for(int i=0;i&lt;sdata.length;i++)
+{
+	if (search.equalsIgnoreCase(comdata[i]))
+	{
+	System.out.println</B></FONT>(&quot;Student name is &quot;+sdata[i][0]);
+	System.out.println(&quot;Student's CGPA is &quot;+sdata[i][1]);
+	rank = Float.parseFloat(sdata[i][1]);
+	++flag1;
+	break;
+	}
+	
+	
+}
+if (flag1==0)
+System.out.println(&quot;STUDENT DATA CANNOT BE FOUND&quot;);
+
+float []tempcgpa=new float[10];
+for(int i=0;i&lt;sdata.length;i++)
+	{
+		tempcgpa[i] = Float.parseFloat(sdata[i][1]);
+	}
+
+Arrays.sort(tempcgpa);
+for(int f=0; f&lt;10;f++)
+{
+	if (rank==tempcgpa[f])
+	System.out.print(&quot;The Rank of student is &quot; +(10-(f+1)));
+	System.out.println(&quot; out of 10&quot;); 
+	break;
+
+}
+
+}
+}
+</PRE>
+
+</BODY>
+</HTML>

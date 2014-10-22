@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Mohammad_Shaaz_Lab 14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Mohammad_Shaaz_Lab 14.cpp</CENTER></H3><HR>
+<PRE>
+ //Done by Muhammad Shaaz and Annas ul Hassan Qureshi
+<A NAME="0"></A> #include&lt;stdio.h&gt;
+ #include&lt;conio.h&gt;
+ #include&lt;stdlib.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> int main()
+ {
+ int *ptr;
+ int i;
+int n1=0;
+int n2=0;
+char choice='i';
+float sum=0;
+float avg;
+int c=0;
+ while(choice!='q')
+ {
+ 	if (c==0)
+ 	{
+ 	
+ printf(&quot;Press 'r' to enter the records\n&quot;);
+ 
+printf (&quot;Press 'q' to exit the program\nPress 'a' to calculate average of the marks\nPress 's' to see the name of the developers\nPress 'd' to display Students marks and memory address in a table\n&quot;);
+ scanf(&quot; %c&quot;,&amp;choice);}
+ else
+ {
+ 	printf (&quot;Press 'q' to exit the program\nPress 'a' to calculate average of the marks\nPress 's' to see the name of the developers\nPress 'd' to display Students marks and memory address in a table\n&quot;);
+ scanf(&quot; %c&quot;,&amp;choice);
+ }
+ switch(choice)
+ {
+ 	case 'd':
+ 		if(c!=0){
+ 		printf(&quot;\n\nStudent number\tMarks\tMemory Address\n\n&quot;);
+ 		for(i=0; i&lt;(n1+n2); i++)
+ 		{
+ 			printf(&quot;Student %d\t%d\t%p\n&quot;,i+1,*ptr+i,ptr+i);
+ 		}
+ 		printf(&quot;\n\n&quot;);
+ 	}
+ 	else
+ 	printf(&quot;Please enter marks first!\n\n&quot;);
+ 		break;
+ 		
+case 's' :
+	printf(&quot;\n\n\t     Muhammad Shaaz \n\n\t\t  &amp;\n\n\tAnnas ul Hassan Qureshi\n\n\n&quot;);
+	break;
+ 
+ case 'r':
+
+
+ printf(&quot;Enter the no. of records to be stored: &quot;);
+ scanf(&quot;%d&quot;,&amp;n1);
+ 
+ ptr=(int*)malloc(n1*sizeof(int));
+
+
+ for(i=0;i&lt;n1;++i)
+ {	printf(&quot;Enter Marks of Student %d:\n&quot;,i+1);
+scanf(&quot;%d&quot;,(ptr+i));
+if(*(ptr+i)&lt;0 || *(ptr+i)&gt;100)
+{
+--i;
+printf(&quot;Error! Marks should be between 0-100\n\n&quot;);
+}
+else{
+ printf(&quot;The Marks of student %d are stored at the address:\t%p\n&quot;,i+1,ptr+i); 
+ sum=sum+*(ptr+i);}
+ 
+}
+ printf(&quot;\n\nIf you want to add more records then press 'y'\n&quot;);
+ c++;
+ break;
+
+case 'y' : 
+  printf(&quot;Enter the no. of new records to be stored:\n&quot;);
+ scanf(&quot;%d&quot;,&amp;n2);
+ ptr=(int*)realloc(ptr,n2*sizeof(int));
+
+ for(i=n1;i&lt;(n1+n2);++i)
+ {
+ 	printf(&quot;Enter Marks of the Students %d:\n&quot;,i+1);
+ scanf(&quot;%d&quot;,(ptr+i));
+ printf(&quot;The Marks of student %d are stored at the address:\t%p\n&quot;,i+1,ptr+i); 
+ sum=sum+*(ptr+i); 
+ }
+
+
+ break;
+
+case 'a':
+	if(c!=0)
+	{
+	
+	avg=sum/(n1+n2);
+printf(&quot;\n\nThe average value is %f\n&quot;, avg);
+}
+else
+printf(&quot;\n\nEnter the marks first!\n\n&quot; );
+break;
+
+
+ case 'q':
+
+ getche();
+ return 0;
+ break;
+
+ default:
+
+ printf(&quot;Enter the correct charcter\n&quot;);
+ 
+
+ }
+ }
+ }</B></FONT>
+</PRE>
+</BODY>
+</HTML>

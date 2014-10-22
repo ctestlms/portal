@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>util</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>ZipUtil.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>/*
+ * Created on 10.02.2005
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>package jplagTutorial.util;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Vector;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import</B></FONT> java.util.zip.ZipOutputStream;
+
+public class ZipUtil {
+    /**
+     * Zips the given directory &quot;dir&quot; into a zip file in &quot;dest&quot;
+     * @param dir File denoting the directory to be zipped
+     * @param dest Name of the directory where the zipped file will be stored,
+     *   which will be named dir.getName()+&quot;.zip&quot;
+     * @return zipped file
+     */
+    public static File zip(File dir, String dest) {
+        File zippedFile = new File(dest + &quot;/&quot; + dir.getName() + &quot;.zip&quot;);
+        zipTo(dir, zippedFile);
+        return zippedFile;
+    }
+
+    /**
+     * Zips the given directory &quot;dir&quot; into the zip file &quot;destFile&quot;.
+     * If &quot;destFile&quot; already exists, it will be overwritten
+     * @param dir Directory to be zipped
+     * @param destFile Destination file
+     */
+    public static void zipTo(File dir, File destFile) {
+        FileOutputStream ops = null;
+        ZipOutputStream zos = null;
+        try {
+            ops = new FileOutputStream(destFile);
+            zos = new ZipOutputStream(ops);
+            zipDir(dir, zos, &quot;&quot;);
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(zos != null)
+                    zos.close();
+                else if(ops != null)
+                    ops.close();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }            
+        }
+    }
+
+    /**
+     * Recursively zips all files in &quot;dir&quot; and its subdirectories into the given
+     * ZipOutputStream &quot;zos&quot; using the given path prefix for their names
+     */
+    private static void zipDir(File dir, ZipOutputStream zos, String prefix) {
+        File[] entries = dir.listFiles();
+        for(int i = 0; i &lt; entries.length; i++) {
+            if(entries[i].isDirectory()) {
+                // generate directory entry
+                ZipEntry zi = new ZipEntry(prefix + &quot;/&quot; + entries[i].getName()
+                        + &quot;/&quot;);
+                try {
+                    zos.putNextEntry(zi);
+                    zos.closeEntry();
+                } catch(IOException ioex) {
+                    ioex.printStackTrace();
+                }
+                zipDir(entries[i], zos, prefix + &quot;/&quot; + entries[i].getName());
+            } else {
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(entries[i]);
+                    ZipEntry zi = new ZipEntry(prefix + &quot;/&quot;
+                            + entries[i].getName());
+                    zos.putNextEntry(zi);
+                    copystream(fis, zos);
+                    zos.closeEntry();
+                } catch(FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch(IOException ioex) {
+                    ioex.printStackTrace();
+                } finally {
+                    try {
+                        if(fis != null)
+                            fis.close();
+                    } catch(Exception e) {}
+                }
+            }
+        }
+    }
+    
+    /**
+     * Zips all files in &quot;fileVector&quot; to the zipfile &quot;destFile&quot;.
+     * The pathnames of all files in fileVector must start with baseDir!
+     * @param fileVector Files to be zipped
+     * @param baseDir Root directory for this zip file
+     * @param destFile Destination file
+     */
+    public static void zipFilesTo(Vector&lt;File&gt; fileVector, String baseDir,
+            File destFile) {
+        FileOutputStream ops = null;
+        ZipOutputStream zos = null;
+        int basedirlen = baseDir.length();
+        if(!baseDir.endsWith(File.separator)) basedirlen++;
+        try {
+            ops = new FileOutputStream(destFile);
+            zos = new ZipOutputStream(ops);
+            
+            Iterator&lt;File&gt; iter = fileVector.iterator();
+            while(iter.hasNext()) {
+                File file = iter.next();
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(file);
+                    String name = file.getPath().substring(basedirlen);
+                    name = name.replace('\\', '/'); // Zip uses '/' as separator
+                    ZipEntry zi = new ZipEntry(name);
+                    zos.putNextEntry(zi);
+                    copystream(fis, zos);
+                    zos.closeEntry();
+                } catch(FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch(IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if(fis != null)
+                            fis.close();
+                    } catch(Exception e) {}
+                }
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(zos != null)
+                    zos.close();
+                else if(ops != null)
+                    ops.close();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }            
+        }
+    }
+
+    /**
+     * Unzips the zip file &quot;file&quot; into the directory &quot;dest&quot;
+     * @param file The zip file
+     * @param destDir Directory where the content of the zip file will be saved
+     */
+    public static void unzip(File file, File destDir) {
+        destDir.mkdir();
+        try {
+            ZipFile zipFile = new ZipFile(file);
+            Enumeration entries = zipFile.entries();
+            while(entries.hasMoreElements()) {
+                ZipEntry ze = (ZipEntry) entries.nextElement();
+                if(ze.isDirectory())
+                    (new File(destDir, ze.getName())).mkdir();
+                else {
+                    // make sure directories exist in case the client
+                    // didn't provide directory entries!
+
+                    File f = new File(destDir, ze.getName());
+                    (new File(f.getParent())).mkdirs();
+
+                    FileOutputStream fos = null;
+                    BufferedOutputStream bos = null;
+                    InputStream in = null;
+                    try {
+                        fos = new FileOutputStream(f);
+                        bos = new BufferedOutputStream(fos);
+                        in = zipFile.getInputStream(ze);
+                        copystream(in, bos);
+                    } finally {
+                        if(bos != null)
+                            bos.close();
+                        else if(fos != null)
+                            fos.close();
+                        if(in != null)
+                            in.close();
+                    }
+                }
+            }
+        } catch(IOException ioex) {
+            ioex.printStackTrace();
+        }
+    }
+
+    /**
+     * Copies the input stream to the output stream using a 1 kB buffer
+     * @throws IOException
+     */
+    private static void copystream(InputStream in, OutputStream out)
+            throws IOException
+    {
+        byte[] buffer = new byte[1024];
+        int len;
+
+        while((len = in.read(buffer)) &gt;= 0)
+            out.write(buffer, 0, len);
+    }
+    
+    public static void main(String[] args) {
+        // zip(new File(&quot;/home/bikiri/Desktop/jplag-old&quot;),
+        // &quot;/home/bikiri/Desktop&quot;);
+        unzip(new File(&quot;/home/bikiri/Desktop/emma.zip&quot;),
+            new File(&quot;/home/bikiri/Desktop&quot;,&quot;unzipresult&quot;));
+    }
+}
+</PRE>
+<HR>
+<H3><CENTER>wscompileSSLLauncher.java</CENTER></H3><HR>
+<PRE>
+package jplagTutorial.util;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import com.sun.xml.rpc.tools.ant.Wscompile;
+
+/**
+ * @author Moritz Kroll
+ */
+public class wscompileSSLLauncher extends Wscompile {
+	public wscompileSSLLauncher() {
+<A NAME="1"></A>		super();
+        
+		// Create a trust manager that does not validate certificate chains
+	    TrustManager[] <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>trustAllCerts = new TrustManager[]{
+	        new X509TrustManager() {
+	            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+	                return null;
+	            }
+	            public void checkClientTrusted(
+	                java.security.cert.X509Certificate[] certs, String authType) {
+	            }
+	            public void checkServerTrusted(
+	                java.security.cert.X509Certificate[] certs, String authType) {
+	            }
+	        }
+	    };
+	    
+	    // Install the all-trusting trust manager
+	    try {
+	        SSLContext sc = SSLContext.getInstance(&quot;SSL&quot;);
+	        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+	        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	    } catch</B></FONT> (Exception e) {
+	    }
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

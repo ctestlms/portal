@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Abeeha_Shafiq_OOP.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Abeeha_Shafiq_OOP.cpp</CENTER></H3><HR>
+<PRE>
+# include &lt;stdio.h&gt;
+# include &lt;string.h&gt;
+# include &lt;stdlib.h&gt;
+# include &lt;iostream&gt;
+int ROWS;
+int COLS;
+void printMenu ();
+void NextGeneration (char**);
+void printGrid(char**);
+void MemoryFree(char**);
+
+int main (void)
+{
+char FileName[30];
+char option;
+FILE * ptr=NULL;
+char row[2];
+char col[2];
+printMenu();
+fflush(stdin);
+gets(FileName);
+ptr=fopen(FileName,&quot;r&quot;);
+if(ptr==NULL)
+printf(&quot;error opening file&quot;);
+fscanf(ptr,&quot;%d&quot;,&amp;ROWS);
+fseek(ptr,sizeof(char)*1,SEEK_CUR);
+fscanf(ptr,&quot;%d&quot;,&amp;COLS);
+fseek(ptr,sizeof(char)*1,SEEK_CUR);
+<A NAME="0"></A>
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char** grid = new char*[ROWS];
+  for (int i = 0; i &lt; ROWS; i++) {
+grid[i] = new char[COLS];
+  }
+
+for(int i=0;i&lt;ROWS;i++)
+    {fread(grid[i],sizeof(char),COLS,ptr);
+// fseek function used to seek one bit ahead and skip the \n character
+fseek(ptr,sizeof(char)*1,SEEK_CUR);
+}</B></FONT>
+printGrid(grid);
+while(1)
+{
+printf(&quot;\nt)ick, q)uit?&quot;);
+std::cin&gt;&gt;option;
+switch (option)
+{
+case 't':
+NextGeneration(grid);
+printGrid(grid);
+break;
+
+case 'q':
+MemoryFree(grid);
+return 0;
+
+default:
+return 0;
+}
+}
+return 0;
+}
+void printMenu ()
+{
+printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\n&quot;);
+printf(&quot;Cells (X) live and die by the following rules:\n&quot;);
+printf(&quot;- A cell with 1 or fewer neighbors dies.\n&quot;);
+printf(&quot;- Locations with 2 neighbors remain stable.\n&quot;);
+printf(&quot;- Locations with 3 neighbors will create life.\n&quot;);
+printf(&quot;- A cell with 4 or more neighbors dies.\n&quot;);
+printf(&quot;Grid input file name?&quot;);
+}
+
+/* this function works in a way that it first checks the neighbours of 1 row
+then last row
+then first column
+then last column
+and then rest of the grid points.
+it saves the number of neighbours at each grid point i,j in a int array at the same point i,j
+then after calculating the number of neighbours for each grid location
+the function changes the value of that grid point 
+throughout the fuction integrated if else conditions are used
+it looks a bit rough but i didn't had a better way!*/
+void NextGeneration (char**grid)
+{
+<A NAME="1"></A>int** NCount = new int*[ROWS];
+
+  for (int i = 0; i &lt; ROWS; i++) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    NCount[i] = new int[COLS];
+  }
+
+  for (int i = 0; i &lt; ROWS; i++) {
+    for (int j = 0; j &lt; COLS; j++) 
+      NCount[i][j] =0;
+    }
+for(int i=0;i&lt;ROWS;i++)
+{
+for(int j=0;j&lt;COLS;j++)
+{
+//for checking row1
+if(i==0 &amp;&amp; j==0)
+{
+if(grid[i][j+1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j+1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j]=='X')
+NCount[i][j]++;
+}
+<A NAME="3"></A>
+else</B></FONT>
+{
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#3',2,'match15-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(i==0 &amp;&amp; j!=COLS-1)
+{
+if(grid[i][j-1]=='X')
+NCount[i][j]++;
+if(grid[i][j+1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j]=='X')
+NCount[i][j]++;
+if(grid[i+1][j+1]=='X')
+NCount[i][j]++;
+}
+else</B></FONT>
+{
+if(i==0 &amp;&amp; j==COLS-1)
+{
+if(grid[i][j-1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j]=='X')
+NCount[i][j]++;
+}
+else{
+//for last row
+if(i==ROWS-1 &amp;&amp; j==0)
+{
+if(grid[i-1][j]=='X')
+NCount[i][j]++;
+if(grid[i-1][j+1]=='X')
+NCount[i][j]++;
+if(grid[i][j+1]=='X')
+<A NAME="2"></A>NCount[i][j]++;
+}
+else{
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(i==ROWS-1 &amp;&amp; j!=COLS-1)
+{
+if(grid[i][j-1]=='X')
+NCount[i][j]++;
+if(grid[i][j+1]=='X')
+NCount[i][j]++;
+if(grid[i-1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i-1][j]=='X')
+NCount[i][j]++;
+if(grid[i-1][j+1]=='X')
+NCount[i][j]++;</B></FONT>
+}
+else{
+if(i==ROWS-1 &amp;&amp; j==COLS-1)
+{
+if(grid[i-1][j]=='X')
+NCount[i][j]++;
+if(grid[i-1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i][j-1]=='X')
+NCount[i][j]++;
+}
+else{
+if(j==0)
+{
+//for col 1
+
+if(grid[i][j+1]=='X')
+NCount[i][j]++;
+if(grid[i-1][j+1]=='X')
+NCount[i][j]++;
+if(grid[i-1][j]=='X')
+NCount[i][j]++;
+if(grid[i+1][j]=='X')
+NCount[i][j]++;
+if(grid[i+1][j+1]=='X')
+NCount[i][j]++;
+
+}
+else 
+{ //for last col
+if(j==COLS-1)
+{
+if(grid[i-1][j]=='X')
+<A NAME="4"></A>NCount[i][j]++;
+if(grid[i-1][j-1]=='X')
+NCount[i][j]++;
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#4',2,'match15-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(grid[i][j-1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j]=='X')
+NCount[i][j]++;
+}
+else
+{
+if(grid[i-1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i-1][j]=='X')
+NCount[i][j]++;
+if(grid[i-1][j+1]=='X')
+NCount[i][j]++;
+if(grid[i][j-1]=='X')
+NCount[i][j]++;
+if(grid[i][j+1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j-1]=='X')
+NCount[i][j]++;
+if(grid[i+1][j]=='X')
+NCount[i][j]++;
+if(grid[i+1][j+1]=='X')
+NCount[i][j]++;
+}
+}</B></FONT>
+}
+}
+}
+}
+}
+}
+}
+
+<A NAME="5"></A>}
+
+// changing the next generation
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#5',2,'match15-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;ROWS;i++)
+{
+for(int j=0;j&lt;COLS;j++)
+{
+if(NCount[i][j]==0 || NCount[i][j]==1 || NCount[i][j]&gt;=4 )
+grid[i][j]='-';
+if(NCount[i][j]==3)</B></FONT>
+grid[i][j]='X';
+}
+<A NAME="6"></A>}
+for (int i = 0; i &lt; ROWS; i++) 
+    delete NCount[i];
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#6',2,'match15-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>delete NCount;}
+
+// printing next generation
+void printGrid(char ** grid)
+{
+for(int i=0;i&lt;ROWS;i++)
+{
+printf(&quot;\n&quot;);
+for(int j=0;j&lt;COLS;j++)</B></FONT>
+{printf(&quot;%c&quot;,grid[i][j]);}
+}
+}
+
+
+void MemoryFree(char** grid) 
+{
+ 
+  for (int i = 0; i &lt; ROWS; i++) 
+    delete grid[i];
+delete grid;
+}
+	
+	
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Omer_Arshad_NSMuhammadOmerArshad.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Omer_Arshad_NSMuhammadOmerArshad.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string&gt; 
+#include&lt;conio.h&gt;
+#define _CRT_SECURE_NO_DEPRECATE
+using namespace std;
+
+char i;
+char name[50],name2[50];
+char a[60];
+int b,g,r,x,pixelvalue;
+
+void read_img(void);
+void gray_scale(void);
+
+struct header {
+int bfType;
+long bfSize;
+int bfReserved1;
+int bfReserved2;
+long bfOffBits;
+};
+
+struct headerinfo{
+long biSize; /* Header size in bytes*/
+long biWidth; /* Width and height of image */
+long biHeight; /* Width and height of image */
+int biPlanes; /* Number of colour planes */
+int biBitCount; /* Bits per pixel */
+long biCompression; /* Compression type*/
+long biSizeImage; /* Image size in bytes */
+long biXPelsPerMeter; /* Pixels per meter */
+long biYPelsPerMeter; /* Pixels per meter*/
+long biClrUsed; /* Number of colours */
+long biClrImportant; /* Important colours */
+};
+
+struct header h1;
+struct headerinfo h2;
+void main()
+{
+	while(1){
+
+mainmenu:	cout&lt;&lt;&quot;************************** MAIN MENU *****************************&quot;&lt;&lt;endl&lt;&lt;endl
+		&lt;&lt;&quot;By NS M.Omer Arshad Reg#353 33-Mts-B&quot;&lt;&lt;endl&lt;&lt;endl
+  &lt;&lt;endl&lt;&lt;&quot;To Read image and print information -------------(Press P)&quot;&lt;&lt;endl
+		&lt;&lt;&quot;To Convert 24bit to 8bit gray scale -------------(Press G)&quot;&lt;&lt;endl
+		&lt;&lt;&quot;To build Histogram ------------------------------(Press E)&quot;&lt;&lt;endl
+		&lt;&lt;&quot;To Transform Image ------------------------------(Press T)&quot;&lt;&lt;endl
+		&lt;&lt;&quot;To Exit -----------------------------------------(Press X)&quot;&lt;&lt;endl;
+
+	cin&gt;&gt;i;
+	if(i=='p')
+		read_img();
+
+	else if(i=='g')
+		gray_scale();
+	/*
+	else if(i=='e')
+		//histogram();
+
+	else if(i=='t')
+		//transform_image();
+		*/
+	else if(i=='x')
+		break;
+	
+	else
+		goto mainmenu;
+	}
+		
+}
+
+void read_img()
+{
+	for(int w=0;w&lt;40;w++)
+			cout&lt;&lt;'\n';
+
+
+		cout&lt;&lt;&quot;************************** Second Screen *****************************&quot;&lt;&lt;endl&lt;&lt;endl
+		&lt;&lt;&quot;By NS M.Omer Arshad Reg#353 33-Mts-B&quot;&lt;&lt;endl&lt;&lt;endl
+  &lt;&lt;endl&lt;&lt;&quot;Please input filename: (example amp.bmp) &quot;&lt;&lt;endl;
+		cin&gt;&gt;name;
+
+		FILE* pFile;
+		pFile=fopen(name,&quot;rb&quot;);
+		if(pFile==NULL){perror(&quot;Error opening file&quot;);}
+		else{
+			for(int i=0;i&lt;54;i++)
+			{
+				a[i]=fgetc(pFile);
+			}
+				cout&lt;&lt;&quot;Image Width =&quot;&lt;&lt;(a[18]+(a[19]*256)+(a[20]*256*256)+(a[21]*256*256*256))&lt;&lt;endl;
+				cout&lt;&lt;&quot;Image Heigh =&quot;&lt;&lt;(a[22]+(a[23]*256)+(a[24]*256*256)+(a[25]*256*256*256))&lt;&lt;endl;
+				cout&lt;&lt;&quot;Resolution  =&quot;&lt;&lt;(a[28]+(a[29]*256))&lt;&lt;endl;
+				cout&lt;&lt;&quot;Image Size  =&quot;&lt;&lt;(a[34]+(a[35]*256)+(a[36]*256*256)+(a[37]*256*256*256))&lt;&lt;endl;
+						 
+		fclose(pFile);
+		}
+		
+		getch();
+		for(int w=0;w&lt;40;w++)
+			cout&lt;&lt;'\n';
+}
+
+void gray_scale(void)
+{
+	cout&lt;&lt;&quot;************************** Third Screen *****************************&quot;&lt;&lt;endl&lt;&lt;endl
+		&lt;&lt;&quot;By NS M.Omer Arshad Reg#353 33-Mts-B&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;Please Enter name of output gray image: (example amp.bmp) &quot;&lt;&lt;endl;
+		
+	FILE* pFiler,*pFilew;
+		pFiler=fopen(name,&quot;rb&quot;);
+		cin&gt;&gt;name2;
+		pFilew=fopen(name2,&quot;wb&quot;);
+		if(pFilew==NULL){perror(&quot;Error opening file&quot;);}
+		else{
+				fread(&amp;h1,14,1,pFiler);
+				fread(&amp;h2,40,1,pFiler);
+				h2.biBitCount=8;
+				fwrite(&amp;h1,14,1,pFilew);
+				fwrite(&amp;h2,40,1,pFilew);
+
+<A NAME="0"></A>				{ int k=0;
+				int palette[1024];
+				int i,j;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				for(i=0;i&lt;256;i++)
+				{
+				for(j=0;j&lt;3;j++)
+				{palette [k++]=i;
+				}
+				palette [k++]=0;
+				}</B></FONT>
+				k=0;
+				fseek(pFilew,1078,SEEK_SET);
+				for(int count=0;count&lt;1024;count++)
+				fputc(palette[count],pFilew);
+				}
+				fseek(pFiler,54,SEEK_SET);
+				while(!feof(pFiler))
+			{	
+				b=fgetc(pFiler);
+				g=fgetc(pFiler);
+				r=fgetc(pFiler);
+				x=fgetc(pFiler);
+				pixelvalue=(0.3*b)+(0.59*g)+(0.11*r);
+				fputc(pixelvalue,pFilew);
+			}
+		fclose(pFiler);
+		fclose(pFilew);
+		}
+		getch();
+		for(int w=0;w&lt;40;w++)
+			cout&lt;&lt;'\n';
+}
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Adeel_Riaz_Lab 5 updated.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Adeel_Riaz_Lab 5 updated.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<A NAME="0"></A>int main()
+{
+	float temp=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int a=0;
+	float temp2=0;
+	float weight=0;
+	float currency=0;
+	float area=0;
+	float volume=0;
+	char choice = 'X';
+
+
+while (choice!='T')
+{
+	printf(&quot;\n\t **CONVERTER APPLICATION**\n&quot;);
+	printf(&quot;A) Temperature (Fahrenheit - Celsius)\n&quot;);
+	printf(&quot;B) Temperature (Kelvin - Celsius)\n&quot;);
+	printf(&quot;C) Weight (Pound - Kilo)\n&quot;);
+	printf(&quot;D) Currency (PKR - USD)\n&quot;);
+	printf(&quot;E) Area (Sqr Miles - Sqr Kilometers)\n&quot;);
+	printf(&quot;F) Volume (Cubic Inches - Cubic Centimeters)\n&quot;);
+	printf(&quot;T) Terminate the application\n&quot;);
+	printf(&quot;\nChoose one of the above options: &quot;);
+	scanf(&quot; %c&quot;,&amp;choice);
+
+	switch(choice)
+	{
+	case'A':
+		printf(&quot;Enter the temperature in Fahrenheit: &quot;);
+		scanf(&quot;%f&quot;,&amp;temp);
+		temp=(temp-32)/1.8;
+		printf(&quot;Temperature in Celsius is: %1.2f\n&quot;, temp);
+		break;
+	case'B':
+		printf(&quot;Enter the temperature in Kelvin: &quot;);
+		scanf(&quot;%f&quot;,&amp;temp2);
+		temp2=temp2-273.15;
+		printf(&quot;Temperature in Celsius is: %1.2f\n&quot;, temp2);
+		break;
+	case'C':
+		printf(&quot;Enter the weight in Pounds: &quot;);
+		scanf(&quot;%f&quot;,&amp;weight);
+		weight=weight*0.453592;
+		printf(&quot;Weight in Kilograms is: %1.3f\n&quot;, weight);
+		break;
+	case'D':
+		printf(&quot;Enter the Currency in PKR: &quot;);
+		scanf(&quot;%f&quot;,&amp;currency);
+		currency=currency/99;
+		printf(&quot;Currency in USD is: %1.2f\n&quot;, currency);
+		break;
+	case'E':
+		printf(&quot;Enter the Area in Square Miles: &quot;);
+		scanf(&quot;%f&quot;,&amp;area);
+		area=area*2.59;
+		printf(&quot;Area in Square Kilometers: %1.2f\n&quot;, area);
+		break;
+	case'F':
+		printf(&quot;Enter the Volume in Cubic Inches: &quot;);
+		scanf(&quot;%f&quot;,&amp;volume);
+		volume=volume*16.387064;
+		printf(&quot;Area in Cubic Centimeters: %1.2f\n&quot;, volume);
+		break;</B></FONT>
+	case'T':
+		printf(&quot;This application will terminate&quot;);
+		break;
+	default:
+		printf(&quot;Wrong Input, Choose from the following\nTip: All cases are in uppercase letters\n\n&quot;);
+	}	
+	
+}
+getche();
+return 0;
+}
+</PRE>
+</BODY>
+</HTML>

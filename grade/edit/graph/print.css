@@ -1,0 +1,39 @@
+.average {
+    display: none;
+}
+
+.navbar {
+    display: none;
+}
+
+#custommenu {
+	display: none;
+}
+
+table.edit_grade_table{
+	align:right;
+	background: gray;
+	width: 20px;
+	padding-left: 10%;
+}
+
+#update {
+    display: none;
+}
+
+
+@page 
+{
+	size: auto;   /* auto is the initial value */
+	margin: 0mm;  /* this affects the margin in the printer settings */
+	margin-bottom: 25mm;
+}
+
+body 
+{
+	margin: 0px;  /* this affects the margin on the content before sending to printer */
+}
+
+
+
+

@@ -1,0 +1,93 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-05-31 16:54:48 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul_Karim_AbdulKarim_389_B.cpp
+Scanning file Abdul_Karim_AbdulKarim_389_B.cpp
+OK
+------ Parsing submission: Akash_Kumar_dipcopycopy.cpp
+Scanning file Akash_Kumar_dipcopycopy.cpp
+  Scanning Error in 'Akash_Kumar_dipcopycopy.cpp':
+  Lexical error at line 556, column 54.  Encountered: "5" (53), after : "\'2"
+ERROR -> Submission removed
+------ Parsing submission: Bushra_Sohail_Bushra_376_Syn_B.cpp
+Scanning file Bushra_Sohail_Bushra_376_Syn_B.cpp
+OK
+------ Parsing submission: Ghazanfer_Ali_GC GHAZANFER ALI_400.cpp
+Scanning file Ghazanfer_Ali_GC GHAZANFER ALI_400.cpp
+OK
+------ Parsing submission: Hassaan_Afzal_NSHASSAANAFZAL338SYNB.cpp
+Scanning file Hassaan_Afzal_NSHASSAANAFZAL338SYNB.cpp
+OK
+------ Parsing submission: Jawad_Mansoor_NS Jawad Mansoor 33 mts B.cpp
+Scanning file Jawad_Mansoor_NS Jawad Mansoor 33 mts B.cpp
+OK
+------ Parsing submission: Mehreen_Qayas_mehreen_qayas_381_mts_B.cpp
+Scanning file Mehreen_Qayas_mehreen_qayas_381_mts_B.cpp
+OK
+------ Parsing submission: Mohammad_Ahmed_DIP(Regd.343).cpp
+Scanning file Mohammad_Ahmed_DIP(Regd.343).cpp
+OK
+------ Parsing submission: Muhammad Abbas_Kararvi_M.abbas Kararvi-33-mts-B.cpp
+Scanning file Muhammad Abbas_Kararvi_M.abbas Kararvi-33-mts-B.cpp
+OK
+------ Parsing submission: Muhammad Abdullah_Afaq_Abdullah_afaq_345.cpp
+Scanning file Muhammad Abdullah_Afaq_Abdullah_afaq_345.cpp
+OK
+------ Parsing submission: Muhammad Abdullah_Khan_abdullah.cpp
+Scanning file Muhammad Abdullah_Khan_abdullah.cpp
+OK
+------ Parsing submission: Muhammad Anwaar_Khan_1.cpp
+Scanning file Muhammad Anwaar_Khan_1.cpp
+OK
+------ Parsing submission: Muhammad Ehsan_Khan_dip assignment code .cpp
+Scanning file Muhammad Ehsan_Khan_dip assignment code .cpp
+OK
+------ Parsing submission: Muhammad Hussain_Jaffri_Digital Image Processing Assignment.cpp
+Scanning file Muhammad Hussain_Jaffri_Digital Image Processing Assignment.cpp
+OK
+------ Parsing submission: Muhammad Omer_Arshad_NSMuhammadOmerArshad.cpp
+Scanning file Muhammad Omer_Arshad_NSMuhammadOmerArshad.cpp
+OK
+------ Parsing submission: Muhammad Qasim_Rao_dp.cpp
+Scanning file Muhammad Qasim_Rao_dp.cpp
+OK
+------ Parsing submission: Muhammad_Aamir_dp.cpp
+Scanning file Muhammad_Aamir_dp.cpp
+  Scanning Error in 'Muhammad_Aamir_dp.cpp':
+  Lexical error at line 346, column 51.  Encountered: "5" (53), after : "\'2"
+ERROR -> Submission removed
+------ Parsing submission: Nouman_Tahir_noumantahir360B.cpp
+Scanning file Nouman_Tahir_noumantahir360B.cpp
+OK
+------ Parsing submission: Qurat Ul Ain_Naqvi_QuratulainNaqvi383.cpp
+Scanning file Qurat Ul Ain_Naqvi_QuratulainNaqvi383.cpp
+OK
+------ Parsing submission: Rida_Sohail_Rida_384_Syn B.cpp
+Scanning file Rida_Sohail_Rida_384_Syn B.cpp
+OK
+------ Parsing submission: Syed Usman Ali_Shah_DIP assignment.cpp
+Scanning file Syed Usman Ali_Shah_DIP assignment.cpp
+  Scanning Error in 'Syed Usman Ali_Shah_DIP assignment.cpp':
+  Lexical error at line 290, column 54.  Encountered: "5" (53), after : "\'2"
+ERROR -> Submission removed
+------ Parsing submission: Taha Al Muhammadee_Janjua_TAHA AL-Muhammadee Janjua.cpp
+Scanning file Taha Al Muhammadee_Janjua_TAHA AL-Muhammadee Janjua.cpp
+  Scanning Error in 'Taha Al Muhammadee_Janjua_TAHA AL-Muhammadee Janjua.cpp':
+  Lexical error at line 197, column 38.  Encountered: "3" (51), after : "\'1"
+ERROR -> Submission removed
+------ Parsing submission: Tashia_Mehdi_tashiamehdi.cpp
+Scanning file Tashia_Mehdi_tashiamehdi.cpp
+  Scanning Error in 'Tashia_Mehdi_tashiamehdi.cpp':
+  Lexical error at line 9, column 34.  Encountered: "0" (48), after : "\'/"
+ERROR -> Submission removed
+
+18 submissions parsed successfully!
+5 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 7 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

@@ -1,0 +1,287 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-05-22 18:44:51 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul Hadi_Chara_Lab 6 Q1.cpp
+Scanning file Abdul Hadi_Chara_Lab 6 Q1.cpp
+OK
+------ Parsing submission: Abdul Hadi_Chara_Lab 6 Q2.cpp
+Scanning file Abdul Hadi_Chara_Lab 6 Q2.cpp
+OK
+------ Parsing submission: Abdul Rehman_Azam_Josh lab 6 (part a).cpp
+Scanning file Abdul Rehman_Azam_Josh lab 6 (part a).cpp
+OK
+------ Parsing submission: Abdul Rehman_Azam_Josh lab 6 (part b).cpp
+Scanning file Abdul Rehman_Azam_Josh lab 6 (part b).cpp
+OK
+------ Parsing submission: Abdul_Wahab_power original.cpp
+Scanning file Abdul_Wahab_power original.cpp
+OK
+------ Parsing submission: Abdul_Wahab_table.cpp
+Scanning file Abdul_Wahab_table.cpp
+OK
+------ Parsing submission: Ahmed Kazim_Fakih_Ahmed Kazim10.cpp
+Scanning file Ahmed Kazim_Fakih_Ahmed Kazim10.cpp
+OK
+------ Parsing submission: Ahmed Kazim_Fakih_Ahmed Kazim11.cpp
+Scanning file Ahmed Kazim_Fakih_Ahmed Kazim11.cpp
+OK
+------ Parsing submission: Ahmed_Osama_6.cpp
+Scanning file Ahmed_Osama_6.cpp
+OK
+------ Parsing submission: Ahmed_Osama_b.cpp
+Scanning file Ahmed_Osama_b.cpp
+OK
+------ Parsing submission: Ahsan_Ayub_lab 06-1.cpp
+Scanning file Ahsan_Ayub_lab 06-1.cpp
+OK
+------ Parsing submission: Ahsan_Ayub_lab 06-2.cpp
+Scanning file Ahsan_Ayub_lab 06-2.cpp
+OK
+------ Parsing submission: Ali Ghazi_Muzaffar_ghazi.cpp
+Scanning file Ali Ghazi_Muzaffar_ghazi.cpp
+OK
+------ Parsing submission: Ali Ghazi_Muzaffar_ghazi2.cpp
+Scanning file Ali Ghazi_Muzaffar_ghazi2.cpp
+OK
+------ Parsing submission: Ali_Qayum_AliQ1.cpp
+Scanning file Ali_Qayum_AliQ1.cpp
+OK
+------ Parsing submission: Ali_Qayum_AliQayumQ2.cpp
+Scanning file Ali_Qayum_AliQayumQ2.cpp
+OK
+------ Parsing submission: Alina_Takreem_lab_6 question 1.cpp
+Scanning file Alina_Takreem_lab_6 question 1.cpp
+OK
+------ Parsing submission: Alina_Takreem_lab_6 question 2.cpp
+Scanning file Alina_Takreem_lab_6 question 2.cpp
+OK
+------ Parsing submission: Arslan_Raza_marsq2l6.cpp
+Scanning file Arslan_Raza_marsq2l6.cpp
+OK
+------ Parsing submission: Awais_Ahmad_Awais Ahmad1.cpp
+Scanning file Awais_Ahmad_Awais Ahmad1.cpp
+OK
+------ Parsing submission: Awais_Ahmad_Awais2.cpp
+Scanning file Awais_Ahmad_Awais2.cpp
+OK
+------ Parsing submission: Ayesha_Bibi_1.cpp
+Scanning file Ayesha_Bibi_1.cpp
+OK
+------ Parsing submission: Ayesha_Bibi_2.cpp
+Scanning file Ayesha_Bibi_2.cpp
+OK
+------ Parsing submission: Bilal_Murtaza_raised to the power.cpp
+Scanning file Bilal_Murtaza_raised to the power.cpp
+OK
+------ Parsing submission: Bilal_Murtaza_times table.cpp
+Scanning file Bilal_Murtaza_times table.cpp
+OK
+------ Parsing submission: Emad_Aamer_lab 6 tables.cpp
+Scanning file Emad_Aamer_lab 6 tables.cpp
+OK
+------ Parsing submission: Emad_Aamer_lab6(2).cpp
+Scanning file Emad_Aamer_lab6(2).cpp
+OK
+------ Parsing submission: Ghulam_Habib_question.cpp
+Scanning file Ghulam_Habib_question.cpp
+OK
+------ Parsing submission: Ghulam_Habib_question2.cpp
+Scanning file Ghulam_Habib_question2.cpp
+OK
+------ Parsing submission: Hamza _Ali_Power Q2.cpp
+Scanning file Hamza _Ali_Power Q2.cpp
+OK
+------ Parsing submission: Hamza _Ali_Table.cpp
+Scanning file Hamza _Ali_Table.cpp
+OK
+------ Parsing submission: Hamza_Khan_Q1.cpp
+Scanning file Hamza_Khan_Q1.cpp
+OK
+------ Parsing submission: Hamza_Khan_Q2 lab6.cpp
+Scanning file Hamza_Khan_Q2 lab6.cpp
+OK
+------ Parsing submission: Hanan_Zulfiqar_Question 1.cpp
+Scanning file Hanan_Zulfiqar_Question 1.cpp
+OK
+------ Parsing submission: Hanan_Zulfiqar_Question 2.cpp
+Scanning file Hanan_Zulfiqar_Question 2.cpp
+OK
+------ Parsing submission: Haris_Bhatti_bhatti 1.cpp
+Scanning file Haris_Bhatti_bhatti 1.cpp
+OK
+------ Parsing submission: Jawad_Gul_Question1.cpp
+Scanning file Jawad_Gul_Question1.cpp
+OK
+------ Parsing submission: Jawad_Gul_Question2.cpp
+Scanning file Jawad_Gul_Question2.cpp
+OK
+------ Parsing submission: Malik_Mehrkhan_lab 6 q2.cpp
+Scanning file Malik_Mehrkhan_lab 6 q2.cpp
+OK
+------ Parsing submission: Mohammad Ali_Muzzammil_Q1.cpp
+Scanning file Mohammad Ali_Muzzammil_Q1.cpp
+OK
+------ Parsing submission: Mohammad Ali_Muzzammil_Q2.cpp
+Scanning file Mohammad Ali_Muzzammil_Q2.cpp
+OK
+------ Parsing submission: Mohammad_Shaaz_Mohammad Shaaz Lab 6 Question 1.cpp
+Scanning file Mohammad_Shaaz_Mohammad Shaaz Lab 6 Question 1.cpp
+OK
+------ Parsing submission: Mohammad_Shaaz_Mohammad Shaaz Lab 6 Question 2.cpp
+Scanning file Mohammad_Shaaz_Mohammad Shaaz Lab 6 Question 2.cpp
+OK
+------ Parsing submission: Mohammad_Talal_lab6(Q1) mohammad talal.c
+Scanning file Mohammad_Talal_lab6(Q1) mohammad talal.c
+OK
+------ Parsing submission: Mohammad_Talal_lab6(Q2) mohammad talal.c
+Scanning file Mohammad_Talal_lab6(Q2) mohammad talal.c
+OK
+------ Parsing submission: Muhammad Abdul Qadeem_Khan_Task 2.cpp
+Scanning file Muhammad Abdul Qadeem_Khan_Task 2.cpp
+OK
+------ Parsing submission: Muhammad Abdul Qadeem_Khan_task 1.cpp
+Scanning file Muhammad Abdul Qadeem_Khan_task 1.cpp
+OK
+------ Parsing submission: Muhammad Afraz Khan_Sherwani_q1.cpp
+Scanning file Muhammad Afraz Khan_Sherwani_q1.cpp
+OK
+------ Parsing submission: Muhammad Afraz Khan_Sherwani_q2.cpp
+Scanning file Muhammad Afraz Khan_Sherwani_q2.cpp
+OK
+------ Parsing submission: Muhammad Basit_Bosan_Bosan q1.cpp
+Scanning file Muhammad Basit_Bosan_Bosan q1.cpp
+OK
+------ Parsing submission: Muhammad Basit_Bosan_Bosan q2.cpp
+Scanning file Muhammad Basit_Bosan_Bosan q2.cpp
+OK
+------ Parsing submission: Muhammad Maaz_Khattak_Questio 1.cpp
+Scanning file Muhammad Maaz_Khattak_Questio 1.cpp
+OK
+------ Parsing submission: Muhammad Maaz_Khattak_question 2.cpp
+Scanning file Muhammad Maaz_Khattak_question 2.cpp
+OK
+------ Parsing submission: Muhammad Nouman_Abbasi_noman1.cpp
+Scanning file Muhammad Nouman_Abbasi_noman1.cpp
+OK
+------ Parsing submission: Muhammad Nouman_Abbasi_noman2.cpp
+Scanning file Muhammad Nouman_Abbasi_noman2.cpp
+OK
+------ Parsing submission: Muhammad Talha_Athar_Talha Athar Q  2 (Lab 6).cpp
+Scanning file Muhammad Talha_Athar_Talha Athar Q  2 (Lab 6).cpp
+OK
+------ Parsing submission: Muhammad Talha_Athar_Talha Athar Q 1 (Lab6).cpp
+Scanning file Muhammad Talha_Athar_Talha Athar Q 1 (Lab6).cpp
+OK
+------ Parsing submission: Muhammad Zaheer Ud Din_Qamar_1.cpp
+Scanning file Muhammad Zaheer Ud Din_Qamar_1.cpp
+OK
+------ Parsing submission: Muhammad Zaheer Ud Din_Qamar_2.cpp
+Scanning file Muhammad Zaheer Ud Din_Qamar_2.cpp
+OK
+------ Parsing submission: Muhammad Zeeshan_Tariq_Q#1.cpp
+Scanning file Muhammad Zeeshan_Tariq_Q#1.cpp
+OK
+------ Parsing submission: Muhammad Zeeshan_Tariq_Q#2.cpp
+Scanning file Muhammad Zeeshan_Tariq_Q#2.cpp
+OK
+------ Parsing submission: Muhammad_Abbas_LAB 6 Q2 Muhammad Abbas.cpp
+Scanning file Muhammad_Abbas_LAB 6 Q2 Muhammad Abbas.cpp
+OK
+------ Parsing submission: Muhammad_Abbas_Muhammad Abbas Q1 Lab 6.cpp
+Scanning file Muhammad_Abbas_Muhammad Abbas Q1 Lab 6.cpp
+OK
+------ Parsing submission: Mustafa_Akmal_lab06_Q1.cpp
+Scanning file Mustafa_Akmal_lab06_Q1.cpp
+OK
+------ Parsing submission: Mustafa_Akmal_lab06_Q2.cpp
+Scanning file Mustafa_Akmal_lab06_Q2.cpp
+OK
+------ Parsing submission: Naveed_Ahmad_q #2.cpp
+Scanning file Naveed_Ahmad_q #2.cpp
+OK
+------ Parsing submission: Naveed_Ahmad_q#1.cpp
+Scanning file Naveed_Ahmad_q#1.cpp
+OK
+------ Parsing submission: Nayab_Nasir_Question 1 lab no 6.cpp
+Scanning file Nayab_Nasir_Question 1 lab no 6.cpp
+OK
+------ Parsing submission: Nayab_Nasir_Question 2 lab no 6.cpp
+Scanning file Nayab_Nasir_Question 2 lab no 6.cpp
+OK
+------ Parsing submission: Nisar_Ahmed_nisar1.cpp
+Scanning file Nisar_Ahmed_nisar1.cpp
+OK
+------ Parsing submission: Nisar_Ahmed_nisar2.cpp
+Scanning file Nisar_Ahmed_nisar2.cpp
+OK
+------ Parsing submission: Rida_Mehtab_Solution 1.cpp
+Scanning file Rida_Mehtab_Solution 1.cpp
+OK
+------ Parsing submission: Rida_Mehtab_Solution 2.cpp
+Scanning file Rida_Mehtab_Solution 2.cpp
+OK
+------ Parsing submission: Sana_Munir_labbbbb.cpp
+Scanning file Sana_Munir_labbbbb.cpp
+OK
+------ Parsing submission: Sana_Munir_sana munir.cpp
+Scanning file Sana_Munir_sana munir.cpp
+OK
+------ Parsing submission: Sehrish_Faiz_dfa.cpp
+Scanning file Sehrish_Faiz_dfa.cpp
+OK
+------ Parsing submission: Sehrish_Faiz_sda.cpp
+Scanning file Sehrish_Faiz_sda.cpp
+OK
+------ Parsing submission: Shahzeb_Zafar_lab6q1szz.cpp
+Scanning file Shahzeb_Zafar_lab6q1szz.cpp
+OK
+------ Parsing submission: Shahzeb_Zafar_lab6q2szz.cpp
+Scanning file Shahzeb_Zafar_lab6q2szz.cpp
+OK
+------ Parsing submission: Sidra_Maqbool_LAB6.cpp
+Scanning file Sidra_Maqbool_LAB6.cpp
+OK
+------ Parsing submission: Sidra_Maqbool_LAB6no2.cpp
+Scanning file Sidra_Maqbool_LAB6no2.cpp
+OK
+------ Parsing submission: Syed Minhas_Mahmood_Q1.cpp
+Scanning file Syed Minhas_Mahmood_Q1.cpp
+OK
+------ Parsing submission: Syed Minhas_Mahmood_Q2.cpp
+Scanning file Syed Minhas_Mahmood_Q2.cpp
+OK
+------ Parsing submission: Talha_Mujeeb_Question 1.cpp
+Scanning file Talha_Mujeeb_Question 1.cpp
+OK
+------ Parsing submission: Talha_Mujeeb_Question2.cpp
+Scanning file Talha_Mujeeb_Question2.cpp
+OK
+------ Parsing submission: Usama_Rauf_USAMA Q1.cpp
+Scanning file Usama_Rauf_USAMA Q1.cpp
+OK
+------ Parsing submission: Usama_Rauf_usama Q2.cpp
+Scanning file Usama_Rauf_usama Q2.cpp
+OK
+------ Parsing submission: Usama_Shabbir_Usama shabbir 1.cpp
+Scanning file Usama_Shabbir_Usama shabbir 1.cpp
+OK
+------ Parsing submission: Usama_Shabbir_Usama shabbir 2.cpp
+Scanning file Usama_Shabbir_Usama shabbir 2.cpp
+OK
+------ Parsing submission: Zohan Hasan_Tariq_Q1.cpp
+Scanning file Zohan Hasan_Tariq_Q1.cpp
+OK
+------ Parsing submission: Zohan Hasan_Tariq_Q2.cpp
+Scanning file Zohan Hasan_Tariq_Q2.cpp
+OK
+
+91 submissions parsed successfully!
+0 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 0 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

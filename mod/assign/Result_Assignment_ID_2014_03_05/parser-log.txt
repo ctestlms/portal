@@ -1,0 +1,134 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-03-05 12:01:18 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul Hannan_Khan_OOP ASSIGNMENT.cpp
+Scanning file Abdul Hannan_Khan_OOP ASSIGNMENT.cpp
+OK
+------ Parsing submission: Abeeha_Shafiq_OOP.cpp
+Scanning file Abeeha_Shafiq_OOP.cpp
+OK
+------ Parsing submission: Affan_Muddassir_Source.cpp
+Scanning file Affan_Muddassir_Source.cpp
+OK
+------ Parsing submission: Amal_Mubashar_new.cpp
+Scanning file Amal_Mubashar_new.cpp
+OK
+------ Parsing submission: Ammar Ul_Mulk_Ammar ul Mulk 7601 OOP assignment 1.cpp
+Scanning file Ammar Ul_Mulk_Ammar ul Mulk 7601 OOP assignment 1.cpp
+OK
+------ Parsing submission: Daim_Ali_Daim_8011.cpp
+Scanning file Daim_Ali_Daim_8011.cpp
+OK
+------ Parsing submission: Hamza_Masud_Source.cpp
+Scanning file Hamza_Masud_Source.cpp
+OK
+------ Parsing submission: Hira_Khalid_hira.cpp
+Scanning file Hira_Khalid_hira.cpp
+OK
+------ Parsing submission: Hira_Saeed_HSource.cpp
+Scanning file Hira_Saeed_HSource.cpp
+OK
+------ Parsing submission: Jafer Khan_Shamshad_JaferKhan.c
+Scanning file Jafer Khan_Shamshad_JaferKhan.c
+OK
+------ Parsing submission: Jafer Khan_Shamshad_JaferKhan_05742.c
+Scanning file Jafer Khan_Shamshad_JaferKhan_05742.c
+OK
+------ Parsing submission: Khubaib Ali_Pirzada_Source.cpp
+Scanning file Khubaib Ali_Pirzada_Source.cpp
+OK
+------ Parsing submission: Kuldeep_Kumar_Source.cpp
+Scanning file Kuldeep_Kumar_Source.cpp
+OK
+------ Parsing submission: Malik Faizan_Zafar_Malik Faizan Zafar_05173.cpp
+Scanning file Malik Faizan_Zafar_Malik Faizan Zafar_05173.cpp
+OK
+------ Parsing submission: Maryam_Attiq_assign.cpp
+Scanning file Maryam_Attiq_assign.cpp
+OK
+------ Parsing submission: Mohammad Hassan Uz_Zaman_MohammadHassanUzZaman_07038.cpp
+Scanning file Mohammad Hassan Uz_Zaman_MohammadHassanUzZaman_07038.cpp
+OK
+------ Parsing submission: Mohammad Moaaz_Ahmad_moaaz_6714.cpp
+Scanning file Mohammad Moaaz_Ahmad_moaaz_6714.cpp
+OK
+------ Parsing submission: Mohsin_Latif_Source.cpp
+Scanning file Mohsin_Latif_Source.cpp
+OK
+------ Parsing submission: Momna_Saeed_OOp assignment #1.cpp
+Scanning file Momna_Saeed_OOp assignment #1.cpp
+OK
+------ Parsing submission: Muhammad Awais_Zulfiqar_code.cpp
+Scanning file Muhammad Awais_Zulfiqar_code.cpp
+OK
+------ Parsing submission: Muhammad Awais_Zulfiqar_main.cpp
+Scanning file Muhammad Awais_Zulfiqar_main.cpp
+OK
+------ Parsing submission: Muhammad Faiq_Farhan_Faiq Farhan(4518).cpp
+Scanning file Muhammad Faiq_Farhan_Faiq Farhan(4518).cpp
+OK
+------ Parsing submission: Muhammad Saood_Najib_bacteria.cpp
+Scanning file Muhammad Saood_Najib_bacteria.cpp
+OK
+------ Parsing submission: Muhammad_Hamza_mHamza8187.cpp
+Scanning file Muhammad_Hamza_mHamza8187.cpp
+OK
+------ Parsing submission: Muhammad_Shahbal_Shahbal_bac.cpp
+Scanning file Muhammad_Shahbal_Shahbal_bac.cpp
+OK
+------ Parsing submission: Muhammad_Umar_Source.cpp
+Scanning file Muhammad_Umar_Source.cpp
+OK
+------ Parsing submission: Nouman Shafi_Chaudhry_assign1_oop_nouman.cpp
+Scanning file Nouman Shafi_Chaudhry_assign1_oop_nouman.cpp
+OK
+------ Parsing submission: Osama Bin_Abid_Source.cpp
+Scanning file Osama Bin_Abid_Source.cpp
+OK
+------ Parsing submission: Rafay Ahmed_Khan_UBNSource.cpp
+Scanning file Rafay Ahmed_Khan_UBNSource.cpp
+OK
+------ Parsing submission: Raveel_Abdullah_B.cpp
+Scanning file Raveel_Abdullah_B.cpp
+OK
+------ Parsing submission: Safdar_Ali_safdar.cpp
+Scanning file Safdar_Ali_safdar.cpp
+OK
+------ Parsing submission: Shah Nawaz_Khan_Source.cpp
+Scanning file Shah Nawaz_Khan_Source.cpp
+OK
+------ Parsing submission: Sohaib_Ahmad_sohaib 05076.cpp
+Scanning file Sohaib_Ahmad_sohaib 05076.cpp
+OK
+------ Parsing submission: Sohaib_Ahmad_sohaib.cpp
+Scanning file Sohaib_Ahmad_sohaib.cpp
+OK
+------ Parsing submission: Sunny_Rahul_Assignment1.cpp
+Scanning file Sunny_Rahul_Assignment1.cpp
+OK
+------ Parsing submission: Syed Aal E_Husnain_cpp file.cpp
+Scanning file Syed Aal E_Husnain_cpp file.cpp
+OK
+------ Parsing submission: Syed Aal E_Husnain_header file.h
+Scanning file Syed Aal E_Husnain_header file.h
+OK
+------ Parsing submission: Syeda Maria_Hussain_assignment 1.cpp
+Scanning file Syeda Maria_Hussain_assignment 1.cpp
+OK
+------ Parsing submission: Umad Ul_Hassan_BacterialCol.cpp
+Scanning file Umad Ul_Hassan_BacterialCol.cpp
+OK
+------ Parsing submission: Umer_Farooq_assignment.cpp
+Scanning file Umer_Farooq_assignment.cpp
+OK
+
+40 submissions parsed successfully!
+0 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 3 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

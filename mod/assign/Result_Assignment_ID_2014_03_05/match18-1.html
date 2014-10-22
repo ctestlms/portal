@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Daim_Ali_Daim_8011.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Daim_Ali_Daim_8011.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+<A NAME="0"></A>#include &lt;string.h&gt;
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void cornr(char**s1,char**s2,int r,int c); // function for checking the corner elements of the array
+void internal(char **a,char **cpy,int r, int c); //function for checking the internal elements except the 1st row, last row, left most columm, right most column.
+void border(char**a,char **cpy,int r,int c); // function for checking the border elements except left most element of the 1st row and 1st column and left most element of last row row and 1st column , and right most element of the 1st row and last column and right most element of last row and last column.
+void printarr(char **, int a, int b); // function for printing the array elements</B></FONT>
+void freemem(char **a, int r); // function for freeing the memory which are used in the program
+int main (void)
+{
+	char give[30];
+	int counter=0;
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n\nGrid input file name: &quot;);
+	gets(give);
+	while (strcmp(give,&quot;simple.txt&quot;))
+	{
+		printf(&quot;please re-enter the file name&quot;);
+
+		gets(give);
+	}
+
+	FILE *fptr;
+	fptr=fopen(give,&quot;r&quot;);
+	if(fptr==NULL)
+	{
+		printf(&quot;error in opening&quot;);
+		return 0;
+	}
+	else
+	{
+		int r=0;
+		int c=0;
+		fscanf(fptr,&quot;%d&quot;,&amp;r);   // reading the rows and the columns used in the 2d array
+		fscanf(fptr,&quot;%d&quot;,&amp;c);
+		// allocating memory for the 2-d array
+		char **s1=(char**)malloc(sizeof(char*)*r);
+		for(int i=0;i&lt;c;++i)
+		{
+			s1[i]=(char*)malloc(sizeof(char)*c);
+		}
+		// allocating memory for the copy of the existing 2-d array, so that we can make changes in the copy of array and read from the original 2-d raay, when we are reading from the file.
+		char **s2=(char**)malloc(sizeof(char*)*r);
+		for(int i=0;i&lt;c;++i)
+		{
+			s2[i]=(char*)malloc(sizeof(char)*c);
+		}
+		char falt=0;
+		fscanf(fptr,&quot;%c&quot;,&amp;falt);     // loop for reading the &quot;\n&quot; character from the last of the array.
+		for(int j=0;j&lt;r;j++)
+		{
+			for(int g=0;g&lt;c;g++)
+			{
+<A NAME="1"></A>				fscanf(fptr,&quot;%c&quot;,&amp;s1[j][g]);
+			}
+		fscanf(fptr,&quot;%c&quot;,&amp;falt);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		}
+		for(int j=0;j&lt;r;++j)
+		{
+			for(int g=0;g&lt;c;++g)
+			{
+			s2[j][g]=s1[j][g];
+			}
+		}</B></FONT>
+                  printarr(s1,r,c); // function call which print the existing array.
+		
+		char chck=0;  // introducing the character variable for taking the input.
+		while (1)
+		{
+		printf(&quot;t)ick or q)uit? &quot;);
+                fflush(stdin);
+               std::cin&gt;&gt;chck;
+		switch (chck)
+		{
+		case 't':
+			cornr(s1,s2,r,c);  
+			internal(s1,s2,r,c);
+			border(s1,s2,r,c);           // the specification of these functions are described near prototypes.
+			printarr(s2,r,c);
+			for (int k=0; k&lt;r; k++)
+			{
+				for (int l=0; l&lt;c; l++)
+				{
+					s1[k][l]=s2[k][l];       // this loop copy the one array to another, specially when we press &quot;t)ick&quot;.
+				}
+			}
+			break;
+
+		case 'q':
+
+			return 0;
+			break;
+                    default:
+               printf(&quot;wrong input, please enter again\n&quot;);
+                 break;
+		}
+		}
+			freemem(s1,r);
+			freemem(s2,r);
+		}
+	
+	return 0;
+}
+	// function for checking the corner elements of the array
+<A NAME="8"></A>void cornr(char**s1,char **s2,int r,int c)
+{
+	//1st corner 
+<FONT color="#bce954"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#8',2,'match18-top.html#8',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int counter=0;
+	if(s1[0][1]=='X')
+		counter++;
+	if(s1[1][0]=='X')
+		++counter;
+	if(s1[1][1]=='X')
+		++counter;
+	if(counter==0||counter==1)
+		s2[0][0]='-';
+	if(counter==3)
+		s2[0][0]='X';
+<A NAME="9"></A>	if(counter&gt;=4)
+		s2[0][0]='-';</B></FONT>
+	//2nd corner
+<FONT color="#f88017"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#9',2,'match18-top.html#9',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	counter=0;
+	if(s1[0][c-2]=='X')
+		++counter;
+	if(s1[1][c-2]=='X')
+		++counter;
+	if(s1[1][c-1]=='X')
+		++counter; 
+	if(counter==0||counter==1)
+		s2[0][c-1]='-';
+	if(counter==3)
+		s2[0][c-1]='X';
+<A NAME="10"></A>	if(counter&gt;=4)
+		s2[0][c-1]='-';</B></FONT>
+//3rd corner 
+<FONT color="#b041ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#10',2,'match18-top.html#10',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	counter=0;
+	if(s1[r-2][0]=='X')
+		++counter;
+	if(s1[r-2][1]=='X')
+		++counter;
+	if(s1[r-1][1]=='X')
+		++counter;
+	if(counter==0||counter==1)
+		s2[r-1][0]='-';
+	if(counter==3)
+		s2[r-1][0]='X';
+<A NAME="7"></A>	if(counter&gt;=4)
+		s2[r-1][0]='-';</B></FONT>
+//4rth corner 
+<FONT color="#c58917"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#7',2,'match18-top.html#7',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	counter=0;
+	if(s1[r-2][c-1]=='X')
+		++counter;
+	if(s1[r-2][c-2]=='X')
+		++counter;
+	if(s1[r-1][c-2]=='X')
+		++counter;
+	if(counter==0||counter==1)
+		s2[r-1][c-1]='-';
+	if(counter==3)
+		s2[r-1][c-1]='X';
+	if(counter&gt;=4)
+		s2[r-1][c-1]='-';
+}
+ // function for checking the internal elements 
+void internal(char **a,char **cpy,int r, int c)
+{
+	int counter=0;</B></FONT>
+	for (int i=0; i&lt;r; i++)
+	{
+<A NAME="4"></A>		for (int j=0; j&lt;c; j++)
+		{
+			if(i&gt;0 &amp;&amp; i&lt;r-1 &amp;&amp; j&gt;0 &amp;&amp; j&lt;c-1)
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#4',2,'match18-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			{
+			counter=0;
+				if (a[i-1][j-1]=='X')
+					counter++;
+			if (a[i-1][j]=='X')
+					counter++;
+			if (a[i-1][j+1]=='X')
+					counter++;
+			if (a[i][j-1]=='X')
+					counter++;
+			if (a[i][j+1]=='X')
+					counter++;
+			if (a[i+1][j-1]=='X')
+				counter++;
+			if (a[i+1][j]=='X')
+				counter++;
+			if (a[i+1][j+1]=='X')
+				counter++;{</B></FONT>
+			if (counter==0 || counter==1)
+				cpy[i][j]='-';
+			if (counter==3)
+				cpy[i][j]='X';
+			if (counter&gt;=4)
+				cpy[i][j]='-';
+			}
+		}
+	}
+	}
+}
+<A NAME="6"></A> // function for checking the border elements of the array
+void border(char**a,char **cpy,int r,int c)
+{
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#6',2,'match18-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int counter=0;
+	// checking the 1st row except 1st element
+		for (int j=1; j&lt;c-1; j++)
+		{
+			counter=0;
+			if (a[1][j]=='X')
+				counter++;
+			if (a[0][j+1]=='X')
+				counter++;
+			if (a[0][j-1]=='X')
+				counter++;
+			if (a[1][j+1]=='X')
+				counter++;
+			if (a[1][j-1]=='X')
+				counter++;
+			if (counter==0 || counter==1)
+				cpy[0][j]='-';
+			if (counter==3)
+				cpy[0][j]='X';
+			if (counter&gt;=4)
+<A NAME="2"></A>				cpy[0][j]='-';
+		}</B></FONT>
+     // checking the left most column except the 1st top element
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i=1; i&lt;r-1; i++)
+		{
+			counter=0;
+			if (a[i][1]=='X')
+				counter++;
+			if (a[i+1][0]=='X')
+				counter++;
+			if (a[i-1][0]=='X')
+				counter++;
+			if (a[i+1][1]=='X')
+				counter++;
+			if (a[i-1][1]=='X')
+				counter++;
+			if (counter==0 || counter==1)
+				cpy[i][0]='-';
+			if (counter==3)
+				cpy[i][0]='X';
+			if (counter&gt;=4)
+<A NAME="3"></A>				cpy[i][0]='-';</B></FONT>
+		}
+		// checking the last row except the starting element
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int j=1; j&lt;c-1; j++)
+		{
+			counter=0;
+			if (a[r-1][j+1]=='X')
+				counter++;
+			if (a[r-1][j-1]=='X')
+				counter++;
+			if (a[r-2][j+1]=='X')
+				counter++;
+			if (a[r-2][j-1]=='X')
+				counter++;
+			if (a[r-2][j]=='X')
+				counter++;
+			if (counter==0 || counter==1)
+				cpy[r-1][j]='-';
+			if (counter==3)
+				cpy[r-1][j]='X';
+			if (counter&gt;=4)
+<A NAME="5"></A>				cpy[r-1][j]='-';
+		}</B></FONT>
+		// checking the rightmost column except top element
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#5',2,'match18-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i=1; i&lt;r-1; i++)
+		{
+			counter=0;
+			if (a[i-1][c-1]=='X')
+				counter++;
+			if (a[i+1][c-1]=='X')
+				counter++;
+			if (a[i-1][c-2]=='X')
+				counter++;
+			if (a[i+1][c-2]=='X')
+				counter++;
+			if (a[i][c-2]=='X')
+				counter++;
+			if (counter==0 || counter==1)
+				cpy[i][c-1]='-';
+			if (counter==3)
+				cpy[i][c-1]='X';
+			if (counter&gt;=4)
+				cpy[i][c-1]='-';
+		}		
+	}
+  //function for freeing the memory
+void freemem(char **a, int r)</B></FONT>
+{
+	for (int i=0; i&lt;r; i++){
+
+<A NAME="11"></A>		free(a[i]);
+}
+   free(a); 
+<FONT color="#571b7e"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#11',2,'match18-top.html#11',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>   }
+  //function for printing the array elements
+void printarr(char **c, int a, int b)
+{
+	for(int i=0;i&lt;a;i++)
+		{
+			for(int j=0;j&lt;b;j++)
+			{</B></FONT>
+				printf(&quot;%c&quot;,c[i][j]);
+			}
+			printf(&quot;\n&quot;);
+		}
+}
+
+</PRE>
+</BODY>
+</HTML>

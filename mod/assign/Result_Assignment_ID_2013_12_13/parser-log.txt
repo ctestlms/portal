@@ -1,0 +1,79 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2013-12-13 09:45:02 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Afeef_Ahmed_.cpp
+Scanning file Afeef_Ahmed_.cpp
+OK
+------ Parsing submission: Amber_Ilyas_assignment.cpp
+Scanning file Amber_Ilyas_assignment.cpp
+OK
+------ Parsing submission: Ayesha_Sarwar_name.cpp
+Scanning file Ayesha_Sarwar_name.cpp
+OK
+------ Parsing submission: Bashir Ud_Din_q.cpp
+Scanning file Bashir Ud_Din_q.cpp
+OK
+------ Parsing submission: Ch Ali Hamza_Cheema_Source.cpp
+Scanning file Ch Ali Hamza_Cheema_Source.cpp
+OK
+------ Parsing submission: Fiza_Batool_Assignment.cpp
+Scanning file Fiza_Batool_Assignment.cpp
+OK
+------ Parsing submission: Haider_Rafique_Source.cpp
+Scanning file Haider_Rafique_Source.cpp
+  Scanning Error in 'Haider_Rafique_Source.cpp':
+  Lexical error at line 1, column 1.  Encountered: "\ufeff" (65279), after : ""
+ERROR -> Submission removed
+------ Parsing submission: Haris_Mehmood_haris.cpp
+Scanning file Haris_Mehmood_haris.cpp
+OK
+------ Parsing submission: Jasvant_Raj_queue.cpp
+Scanning file Jasvant_Raj_queue.cpp
+OK
+------ Parsing submission: Muhammad Asad_Ali_muda.cpp
+Scanning file Muhammad Asad_Ali_muda.cpp
+OK
+------ Parsing submission: Muhammad Hassaan_Hashmi_linkque.cpp
+Scanning file Muhammad Hassaan_Hashmi_linkque.cpp
+OK
+------ Parsing submission: Muhammad Umar_Zahid_.cpp
+Scanning file Muhammad Umar_Zahid_.cpp
+OK
+------ Parsing submission: Muhammad_Danial_queue implementation through linked list.cpp
+Scanning file Muhammad_Danial_queue implementation through linked list.cpp
+OK
+------ Parsing submission: Muhammad_Shaheer_main.cpp
+Scanning file Muhammad_Shaheer_main.cpp
+OK
+------ Parsing submission: Muneeb_Ghani_Assignment.cpp
+Scanning file Muneeb_Ghani_Assignment.cpp
+OK
+------ Parsing submission: Rohit_Kumar_Rohit Kumar-BE34-12-788-MTS A.cpp
+Scanning file Rohit_Kumar_Rohit Kumar-BE34-12-788-MTS A.cpp
+OK
+------ Parsing submission: Saad_Zafar_Assignment (Saad Zafar).cpp
+Scanning file Saad_Zafar_Assignment (Saad Zafar).cpp
+OK
+------ Parsing submission: Saeed_Iqbal_PC Saeed Iqbal DE34-12-810 MTS-A.cpp
+Scanning file Saeed_Iqbal_PC Saeed Iqbal DE34-12-810 MTS-A.cpp
+OK
+------ Parsing submission: Zarqash_Ahmed_ZARQASH AHMED.cpp
+Scanning file Zarqash_Ahmed_ZARQASH AHMED.cpp
+OK
+------ Parsing submission: Zohaib Shabir_Saeedi_zohaib shabir saeedi (832) MTS-34-A.cpp
+Scanning file Zohaib Shabir_Saeedi_zohaib shabir saeedi (832) MTS-34-A.cpp
+OK
+------ Parsing submission: Zubaid_Yasin_.cpp
+Scanning file Zubaid_Yasin_.cpp
+OK
+
+20 submissions parsed successfully!
+1 parser error!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 1 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

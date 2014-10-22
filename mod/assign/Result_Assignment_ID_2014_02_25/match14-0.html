@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Qandeel Rasheed_Abbasi_Students.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Qandeel Rasheed_Abbasi_Students.java</CENTER></H3><HR>
+<PRE>
+
+import java.util.*;
+<A NAME="0"></A>public class Students {
+
+    public static void main(String[] args) {
+        float <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>max = 0;
+        float min = 4;
+        float avg = 0;
+        float avrg = 0;
+        float CGPA = 0;
+        int rank = 1;
+        float compare = 0;
+<A NAME="1"></A>        String name</B></FONT>;
+        String[][] data = new String[10][2];
+        Scanner keybd = new Scanner(System.in);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; data.length; i++) {
+            for (int j = 0; j &lt; data[i].length; j++) {
+                System.out.println(&quot;Enter the name of student No:&quot; + (i + 1) + &quot;:-&quot;);
+                data[i][j] = keybd.next();
+                for (int x = 0; x &lt; i; x++) {
+                    if</B></FONT> (i == 0) {
+                        break;
+                    }
+                    if (data[x][0].equals(data[i][0])) {
+                        System.out.println(&quot;Entry already exists.&quot;);
+                        return;
+                    }
+                }
+                System.out.println(&quot;Enter the CGPA of student No:&quot; + (i + 1) + &quot;:-&quot;);
+                data[i][j + 1] = keybd.next();
+                float z = Float.parseFloat(data[i][j + 1]);
+                if (z &gt; 4.00) {
+                    System.out.println(&quot;Wrong entry, CGPA is greater than 4:&quot;);
+                    return;
+                }
+
+<A NAME="2"></A>                j++;
+            }
+        }
+        System.out.<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>println(&quot;\nNAME\tCGPA&quot;);
+        for (int k = 0; k &lt; data.length; k++) {
+            for (int l = 0; l &lt; data[k].length; l++) {
+                System.out.print</B></FONT>(&quot;&quot; + data[k][l] + &quot; &quot; + &quot;\t&quot;);
+            }
+<A NAME="3"></A>            System.out.print(&quot;&quot; + &quot;\n&quot;);
+        }
+
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int a = 0; a &lt; data.length; a++) {
+            float c = Float.parseFloat(data[a][1]);
+            if (c &gt; max) {
+<A NAME="4"></A>                max = c;
+            }</B></FONT>
+        }
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match14-1.html#4',3,'match14-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int b = 0; b &lt; data.length; b++) {
+<A NAME="5"></A>            float d = Float.parseFloat(data[b][1]);
+            if (d &lt; min) {
+                min =</B></FONT> d;
+            <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match14-1.html#5',3,'match14-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        for (int e = 0; e &lt; data.length; e++) {
+            float f = Float.parseFloat(data[e][1]);
+            avg +=</B></FONT> f;
+            avrg = (avg / data.length);
+        }
+        System.out.println(&quot;\nMax CGPA=&quot; + max +&quot; &quot;+ &quot;Min CGPA=&quot; + min + &quot; &quot; + &quot;Average CGPA=&quot; + avrg);
+        System.out.println(&quot;\nThe students whose GPA is less than average are:&quot;);
+        for (int g = 0; g &lt; data.length; g++) {
+            float h = Float.parseFloat(data[g][1]);
+            if (h &lt; avrg) {
+<A NAME="6"></A>                System.out.println(&quot;=&gt;&quot; + data[g][0]);
+            }
+        }
+        System.out.<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match14-1.html#6',3,'match14-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>println(&quot;\nEnter name of the student&quot;);
+<A NAME="7"></A>        name = keybd.next();
+        for (int x = 0; x &lt; data.length; x++) {
+            if (data[x][0].equals(name)) {
+                CGPA =</B></FONT> Float.<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match14-1.html#7',3,'match14-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>parseFloat(data[x][1]);
+                for (int y = 0; y &lt; data.length; y++) {
+                    compare = Float.parseFloat(data[y][1]);
+                    if</B></FONT> (compare &gt; CGPA) {
+                        rank++;
+                    }
+                }
+                System.out.println(&quot;\nThe CGPA of&quot; + &quot; &quot; + (data[x][0]) + &quot; &quot; + &quot;is&quot; + &quot; &quot; + (data[x][1]) + &quot; &quot; + &quot;and rank is&quot; + &quot; &quot; + rank);
+                return;
+            }
+
+        }
+        System.out.println(&quot;Entry Doesn't exists&quot;);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,16 @@
+--- export_formold.php	2012-06-13 13:38:58.245417559 +0500
++++ export_form.php	2012-06-13 13:42:18.000000000 +0500
+@@ -64,10 +64,11 @@ class mod_attforblock_export_form extend
+ 		$mform->disabledIf('sessionstartdate', 'selectdaterange', 'notchecked');
+         $mform->addElement('date_selector', 'sessionenddate', get_string('sessionenddate','attforblock'));
+ 		$mform->disabledIf('sessionenddate', 'selectdaterange', 'notchecked');
+-
++		
+         $mform->addElement('static', 'description', get_string('notice', 'attforblock'),
+                   "Use pdf format only if you are exporting smaller reports i.e. Monthly or Weekly report");
+-
++		$mform->addElement('checkbox', 'showremarks', 'Show remarks in report', get_string('yes'));
++			
+         //$mform->addElement('html', "<br />Use pdf format only if you are exporting smaller reports i.e. Monthly or Weekly report");
+         $mform->addElement('select', 'format', get_string('format').'<br />',
+         					array('text' => get_string('downloadtext','attforblock'),

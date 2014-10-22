@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Azba_Nawaz_Pec.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Azba_Nawaz_Pec.java</CENTER></H3><HR>
+<PRE>
+/* Name: Azba Nawaz
+   Reg no. : 05243
+  i certify that i have made all of this code and logic on my own and i havent used any help except from slides,
+   provided &quot;MoveBall&quot; code and sir. and i havnt asked any of my fellow students for any sort of help */
+
+/*
+&lt;applet code = &quot;Pec&quot; width = 400 height = 300 &gt;
+<A NAME="0"></A>&lt;/applet&gt;
+*/
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.awt.*;
+import java.applet.*;
+public class Pec extends Applet
+	{
+	int xbot = 370;
+	int ybot = 270;
+<A NAME="1"></A>	int xpos=10; int ypos =</B></FONT> 10;
+	public void paint (Graphics g)
+		{
+		<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (( ypos&lt;= ybot) &amp;&amp; (xpos==10)){		//while ball moves down
+			ypos = ypos+1;
+			g.fillArc(xpos,ypos,25,25,290,320);} 		//printing down pec
+
+		else if(( ypos &gt;= ybot) &amp;&amp; (xpos &lt;= xbot)){		//while ball moves towards right
+			xpos = xpos+1;
+			g.fillArc(xpos,ypos,25,25,20,320); }		//printing right pec
+
+		else if(( xpos &gt;= xbot) &amp;&amp; (ypos&gt;=10)){			//while ball moves up
+			ypos = ypos-1;
+			g.fillArc(xpos,ypos,25,25,110,320);}		//printing up pec
+
+		else if ((ypos &lt;=10)&amp;&amp;(xpos&gt;=10)){		//while ball moves towards left
+			xpos = xpos -1;
+			g.fillArc(xpos,ypos,25,25,210,320);}		//printing left pec
+		try{
+			Thread.sleep(10);
+			}
+			catch(Exception e){}
+		repaint(10); 
+		}		//paint ends here
+}</B></FONT>		//class ends here
+</PRE>
+
+</BODY>
+</HTML>

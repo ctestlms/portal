@@ -1,0 +1,125 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2013-06-14 11:36:02 GMT
+
+Language: Java1.5 Parser
+
+------ Parsing submission: Client.java
+Parsing file Client.java
+OK
+------ Parsing submission: ExampleClient.java
+Parsing file ExampleClient.java
+OK
+------ Parsing submission: ExampleConnect.java
+Parsing file ExampleConnect.java
+OK
+------ Parsing submission: Java
+Parsing file 2.java
+Parsing file 4.java
+  Parsing Error in '4.java':
+  Parse error at line 116, column 9.  Encountered: }
+Parsing file 3.java
+Parsing file 1.java
+ERROR -> Submission removed
+------ Parsing submission: jplagClient
+Parsing file JPlagTyp_setDeveloperState_Fault_SOAPBuilder.java
+Parsing file JPlagException.java
+Parsing file Submission_LiteralSerializer.java
+Parsing file JPlagService_SerializerRegistry.java
+Parsing file JPlagTyp_continueSubmissionUpload_Fault_SOAPSerializer.java
+Parsing file UserDataArray_LiteralSerializer.java
+Parsing file JPlagTyp_startResultDownload_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_setUserData_Fault_SOAPSerializer.java
+Parsing file UserInfo_LiteralSerializer.java
+Parsing file RequestDataArray.java
+Parsing file SetDeveloperStateParams_LiteralSerializer.java
+Parsing file StartResultDownloadData.java
+Parsing file UpdateUserInfoParams_LiteralSerializer.java
+Parsing file SetMailTemplateParams.java
+Parsing file JPlagTyp_finishAccountRequest_Fault_SOAPBuilder.java
+Parsing file ServerInfo_LiteralSerializer.java
+Parsing file JPlagTyp_updateUserInfo_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_startSubmissionUpload_Fault_SOAPBuilder.java
+Parsing file MailTemplate.java
+Parsing file JPlagException_LiteralSerializer.java
+Parsing file NotifyDevelopersParams.java
+Parsing file MailTemplateArray_LiteralSerializer.java
+Parsing file JPlagTyp_getStatus_Fault_SOAPBuilder.java
+Parsing file UpdateUserInfoParams.java
+Parsing file StartSubmissionUploadParams_LiteralSerializer.java
+Parsing file JPlagTyp_notifyDevelopers_Fault_SOAPBuilder.java
+Parsing file StartSubmissionUploadParams.java
+Parsing file JPlagTyp_continueSubmissionUpload_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_compareSource_Fault_SOAPSerializer.java
+Parsing file MailTemplate_LiteralSerializer.java
+Parsing file FinishRequestData.java
+Parsing file UserData.java
+Parsing file JPlagTyp_finishAccountRequest_Fault_SOAPSerializer.java
+Parsing file RequestData_LiteralSerializer.java
+Parsing file Submission.java
+Parsing file UserInfo.java
+Parsing file UserDataArray.java
+Parsing file RequestData.java
+Parsing file JPlagTyp_startSubmissionUpload_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_requestAccount_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_setMailTemplate_Fault_SOAPSerializer.java
+Parsing file SetUserDataParams_LiteralSerializer.java
+Parsing file RequestDataArray_LiteralSerializer.java
+Parsing file NotifyDevelopersParams_LiteralSerializer.java
+Parsing file Option_LiteralSerializer.java
+Parsing file JPlagTyp_requestAccount_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_getResult_Fault_SOAPBuilder.java
+Parsing file UserData_LiteralSerializer.java
+Parsing file JPlagTyp_getServerInfo_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_updateUserInfo_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_getUserDataArray_Fault_SOAPSerializer.java
+Parsing file Option.java
+Parsing file JPlagTyp_getServerInfo_Fault_SOAPBuilder.java
+Parsing file StartResultDownloadData_LiteralSerializer.java
+Parsing file LanguageInfo.java
+Parsing file JPlagTyp_getMailTemplates_Fault_SOAPBuilder.java
+Parsing file JPlagService.java
+Parsing file JPlagTyp_continueResultDownload_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_cancelSubmission_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_Stub.java
+Parsing file LanguageInfo_LiteralSerializer.java
+Parsing file JPlagTyp_getUserDataArray_Fault_SOAPBuilder.java
+Parsing file Status_LiteralSerializer.java
+Parsing file JPlagTyp_startResultDownload_Fault_SOAPSerializer.java
+Parsing file JPlagTyp.java
+Parsing file JPlagTyp_getResult_Fault_SOAPSerializer.java
+Parsing file ServerInfo.java
+Parsing file FinishRequestData_LiteralSerializer.java
+Parsing file JPlagTyp_extendAccount_Fault_SOAPSerializer.java
+Parsing file JPlagService_Impl.java
+Parsing file SetUserDataParams.java
+Parsing file JPlagTyp_getAccountRequests_Fault_SOAPBuilder.java
+Parsing file SetDeveloperStateParams.java
+Parsing file JPlagTyp_continueResultDownload_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_setMailTemplate_Fault_SOAPBuilder.java
+Parsing file Status.java
+Parsing file JPlagTyp_getAccountRequests_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_setDeveloperState_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_notifyDevelopers_Fault_SOAPSerializer.java
+Parsing file JPlagTyp_setUserData_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_compareSource_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_getStatus_Fault_SOAPSerializer.java
+Parsing file MailTemplateArray.java
+Parsing file JPlagTyp_getMailTemplates_Fault_SOAPSerializer.java
+Parsing file SetMailTemplateParams_LiteralSerializer.java
+Parsing file JPlagTyp_extendAccount_Fault_SOAPBuilder.java
+Parsing file JPlagTyp_cancelSubmission_Fault_SOAPBuilder.java
+OK
+------ Parsing submission: util
+Parsing file JPlagClientAccessHandler.java
+Parsing file ZipUtil.java
+Parsing file wscompileSSLLauncher.java
+OK
+
+5 submissions parsed successfully!
+1 parser error!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 10 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

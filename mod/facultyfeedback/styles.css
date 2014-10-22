@@ -1,0 +1,84 @@
+/* styles using by facultyfeedback */
+.facultyfeedback_required_mark {
+    color: #FF0000;
+}
+
+.facultyfeedback_switchrequired img{
+}
+
+div.missingrequire {
+	background:#FFAAAA;
+}
+
+span.facultyfeedback_info {
+	font-weight:bold;
+}
+div.facultyfeedback_item_box_left, div.facultyfeedback_item_box_right {
+}
+
+div.facultyfeedback_depend {
+	background:#DDDDDD;
+}
+
+div.facultyfeedback_complete_depend {
+	background:#EEEEEE;
+}
+
+span.facultyfeedback_depend {
+	color:#ff0000;
+}
+
+div.facultyfeedback_item_number_left, div.facultyfeedback_item_left {
+	float:left;
+}
+div.facultyfeedback_item_number_right, div.facultyfeedback_item_right {
+	float:right;
+}
+
+div.facultyfeedback_item_commands_left {
+	float:right;
+	text-align:right;
+}
+
+div.facultyfeedback_item_commands_right {
+	float:left;
+	text-align:left;
+}
+
+li.facultyfeedback_item_check_h_left,
+li.facultyfeedback_item_check_h_right,
+li.facultyfeedback_item_select_h_left,
+li.facultyfeedback_item_select_h_right,
+li.facultyfeedback_item_radio_h_left,
+li.facultyfeedback_item_radio_h_right{
+	list-style-type:none;
+	display:inline;
+}
+
+li.facultyfeedback_item_check_v_left,
+li.facultyfeedback_item_check_v_right,
+li.facultyfeedback_item_select_v_left,
+li.facultyfeedback_item_select_v_right,
+li.facultyfeedback_item_radio_v_left,
+li.facultyfeedback_item_radio_v_right{
+	list-style-type:none;
+	display:block;
+}
+
+div.facultyfeedback_item_captcha_text_left,
+div.facultyfeedback_item_captcha_img_left {
+	display:inline;
+	margin: 5px;
+}
+div.facultyfeedback_item_captcha_text_right,
+div.facultyfeedback_item_captcha_img_right {
+	display:inline;
+	margin: 5px;
+}
+
+hr.facultyfeedback_pagebreak {
+	height:8px;
+	color:#aaaaaa;
+	background-color:#aaaaaa;
+	border:0px;
+}

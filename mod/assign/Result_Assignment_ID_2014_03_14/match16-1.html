@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Abdullah_Amjad_Abdullah_5508.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Abdullah_Amjad_Abdullah_5508.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+//menu
+
+void menu()
+{
+	printf (&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n\n&quot;);
+    printf (&quot;Grid input file name: &quot;);
+}
+
+
+
+<A NAME="0"></A>//allocation of memory to the 2-D array for the grid
+
+char** generateGrid (int rows, int cols) 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+	char** grid = (char**) malloc(sizeof(char*) * rows);
+	for (int i = 0; i &lt; rows; i++) 
+	{
+		grid[i] = (char*) malloc(sizeof(char) * cols);
+	}</B></FONT>
+	return grid;
+}
+
+//reading from file and storing it in the created 2-D array
+
+void populateGrid (FILE *ptr, char** grid, int rows, int cols)
+{
+	rewind (ptr);
+	fscanf (ptr, &quot;%d %d&quot;, &amp;rows, &amp;cols);
+	 for (int i = 0; i &lt; rows; i++)
+	 {
+		 for (int j = 0; j &lt; cols; j++) 
+		 {
+			  grid [i][j] = fgetc(ptr);
+			  if (grid [i][j]=='\n')
+				  j--;
+		 }
+	 }
+}
+
+<A NAME="3"></A>//printing function
+
+void displayGrid(char** grid, int rows, int cols) 
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#3',2,'match16-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+	for (int i = 0; i &lt; rows; i++)
+	{
+		for (int j = 0; j &lt; cols; j++) 
+		{
+			printf (&quot;%c&quot;, grid [i][j]);
+		}
+		printf (&quot;\n&quot;);
+	}</B></FONT>
+}
+
+//freeing the allocated memory to the 2-D array for grid
+
+void freeGrid(char** grid, int rows, int cols) 
+{
+	for (int i = 0; i &lt; rows; i++) 
+	{
+<A NAME="12"></A>		delete grid[i];
+    }
+		delete grid;
+<FONT color="#3b9c9c"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#12',2,'match16-top.html#12',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+//function to copy temporary grid elements to original one
+
+void copyGrid (char** bacteriaGrid, char** tempGrid, int rows, int cols)
+{
+	for( int i = 0; i &lt; rows; i++)
+	{
+		for ( int j = 0; j &lt; cols; j++)
+		{</B></FONT>
+			bacteriaGrid [i][j]=tempGrid [i][j];
+		}
+	}
+}
+
+//function to check the neighbours from the original grid from 2nd column 2nd row to 2nd last column 2nd last low and populating the temporary grid
+
+void checkGrid1 (char** grid, char** tempGrid, int rows, int cols)
+{
+	int temp = 0;
+	
+		for (int i = 1; i &lt; rows-1; i++)
+<A NAME="13"></A>		{
+			for (int j = 1; j &lt; cols-1; j++)
+			{
+<FONT color="#842dce"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#13',2,'match16-top.html#13',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				if (grid [i-1][j-1]=='X')
+					temp++;
+				if (grid [i-1][j]=='X')
+					temp++;
+				if (grid [i-1][j+1]=='X') 
+					temp++;
+				if (grid [i][j-1]=='X') 
+					temp++;
+				if (grid [i][j+1]=='X') 
+					temp++;
+				if (grid [i+1][j-1]=='X') 
+					temp++;
+				if (grid [i+1][j]=='X') 
+					temp++;
+				if (grid [i+1][j+1]=='X') 
+					temp++;
+				if (temp&lt;=1)
+					tempGrid [i][j] = '-';
+				else if (temp==3)
+					tempGrid [i][j] = 'X';</B></FONT>
+				else if (temp&gt;=4)
+					tempGrid [i][j] = '-';
+<A NAME="5"></A>						
+				temp = 0;
+			}
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#5',2,'match16-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		}
+}
+
+//function for the corner checks
+
+void checkGrid2 (char** grid, char** tempGrid, int rows, int cols)
+{
+	int temp = 0;
+	
+	if (grid [0][1]=='X') 
+		temp++;
+	if (grid [1][0]=='X') 
+		temp++;
+	if (grid [1][1]=='X') 
+<A NAME="6"></A>		temp++;
+	if (temp&lt;=1)</B></FONT>
+		tempGrid [0][0] = '-';
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#6',2,'match16-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	else if (temp==3)
+		tempGrid [0][0] = 'X';
+	else if (temp&gt;=4)
+		tempGrid [0][0] = '-';
+	
+	temp = 0;	
+	if (grid [0][cols-2]=='X') 
+		temp++;
+	if (grid [1][cols-2]=='X') 
+		temp++;
+	if (grid [1][cols-1]=='X')
+		temp++;
+	if (temp&lt;=1)
+	tempGrid [0][cols-1] = '-';
+	else if (temp==3)
+		tempGrid [0][cols-1] = 'X';</B></FONT>
+<A NAME="7"></A>	else if (temp&gt;=4)
+		tempGrid [0][cols-1] = '-';
+	
+<FONT color="#c58917"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#7',2,'match16-top.html#7',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	temp = 0;
+	if (grid [rows-2][0]=='X') 
+		temp++;
+	if (grid [rows-2][1]=='X') 
+		temp++;
+	if (grid [rows-1][1]=='X')
+		temp++;
+	if (temp&lt;=1)
+		tempGrid [rows-1][0] = '-';
+	else if (temp==3)
+		tempGrid [rows-1][0] = 'X';</B></FONT>
+	else if (temp&gt;=4)
+		tempGrid [rows-1][0] = '-';
+	
+
+	temp = 0;
+	if (grid [rows-1][cols-2]=='X') 
+		temp++;
+	if (grid [rows-2][cols-2]=='X') 
+		temp++;
+	if (grid [rows-2][cols-1]=='X')
+		temp++;
+	if (temp&lt;=1)
+		tempGrid [rows-1][cols-1] = '-';
+	else if (temp==3)
+		tempGrid [rows-1][cols-1] = 'X';
+	else if (temp&gt;=4)
+		tempGrid [rows-1][cols-1] = '-';
+}
+
+//function for the checks along the border of the grid
+
+void checkGrid3 (char** grid, char** tempGrid, int rows, int cols)
+{
+	int temp = 0;
+<A NAME="8"></A>	
+	for (int i = 0; i &lt; 1; i++)
+		{
+<FONT color="#bce954"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#8',2,'match16-top.html#8',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			for (int j = 1; j &lt; cols-1; j++)
+			{
+				if (grid [i][j-1]=='X') 
+					temp++;
+				if (grid [i][j+1]=='X') 
+					temp++;
+				if (grid [i+1][j-1]=='X') 
+					temp++;
+				if (grid [i+1][j]=='X') 
+					temp++;
+				if (grid [i+1][j+1]=='X') 
+					temp++;
+				if (temp&lt;=1)
+					tempGrid [i][j] = '-';
+				else if (temp==3)
+<A NAME="2"></A>					tempGrid [i][j] = 'X';</B></FONT>
+				else if (temp&gt;=4)
+					tempGrid [i][j] = '-';
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				temp = 0;
+			}
+		}
+	
+	for (int i = rows-1; i &lt; rows; i++)
+<A NAME="9"></A>	{
+		for (int j = 1; j &lt; cols-1; j++)
+			{</B></FONT>
+<FONT color="#f88017"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#9',2,'match16-top.html#9',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				if (grid [i-1][j-1]=='X')
+					temp++;
+				if (grid [i-1][j]=='X')
+					temp++;
+				if (grid [i-1][j+1]=='X') 
+					temp++;
+				if (grid [i][j-1]=='X') 
+					temp++;
+				if (grid [i][j+1]=='X') 
+					temp++;
+				if (temp&lt;=1)
+					tempGrid [i][j] = '-';
+				else if (temp==3)
+<A NAME="4"></A>					tempGrid [i][j] = 'X';</B></FONT>
+				else if (temp&gt;=4)
+					tempGrid [i][j] = '-';
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#4',2,'match16-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				temp = 0;
+			}
+		}
+		
+	for (int i = 1; i &lt; rows-1; i++)
+<A NAME="10"></A>		{
+			for (int j = 0; j &lt; 1; j++)
+			{</B></FONT>
+<FONT color="#b041ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#10',2,'match16-top.html#10',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				if (grid [i-1][j]=='X')
+					temp++;
+				if (grid [i-1][j+1]=='X') 
+					temp++;				
+				if (grid [i][j+1]=='X') 
+					temp++;			
+				if (grid [i+1][j]=='X') 
+					temp++;
+				if (grid [i+1][j+1]=='X') 
+					temp++;
+				
+				if (temp&lt;=1)
+					tempGrid [i][j] = '-';
+				else if (temp==3)
+					tempGrid [i][j] = 'X';</B></FONT>
+<A NAME="1"></A>				else if (temp&gt;=4)
+					tempGrid [i][j] = '-';
+				temp = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			}
+	}
+			
+		
+	for (int i = 1; i &lt; rows-1; i++)
+<A NAME="11"></A>		{
+			for (int j = cols-1; j &lt; cols; j++)
+			{</B></FONT>
+<FONT color="#571b7e"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#11',2,'match16-top.html#11',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				if (grid [i-1][j-1]=='X')
+					temp++;
+				if (grid [i-1][j]=='X')
+					temp++;				
+				if (grid [i][j-1]=='X') 
+					temp++;
+				if (grid [i+1][j-1]=='X') 
+					temp++;
+				if (grid [i+1][j]=='X') 
+					temp++;
+				if (temp&lt;=1)
+					tempGrid [i][j] = '-';
+				else if (temp==3)
+					tempGrid [i][j] = 'X';</B></FONT>
+				else if (temp&gt;=4)
+					tempGrid [i][j] = '-';
+				temp = 0;
+			}
+		}
+}
+int main () 
+{ 
+	int rows, cols;
+	char file[50];
+	char option;
+	
+    menu ();
+	
+	gets (file);
+
+  FILE *ptr;
+	  ptr=fopen (file, &quot;r&quot;);
+	  {
+		  if (ptr==NULL) 
+		  {
+			  printf (&quot;Error opening file containing. Press any key to terminate the program...&quot;);
+			  getchar ();
+			  return 0;
+		  }
+	  }
+	
+	  //reding rows and cols
+	fscanf (ptr, &quot;%d %d&quot;, &amp;rows, &amp;cols);
+	
+	char** bacteriaGrid = generateGrid(rows, cols);
+	char** tempGrid = generateGrid (rows, cols);
+	populateGrid (ptr, bacteriaGrid, rows, cols);
+	populateGrid (ptr, tempGrid, rows, cols);
+
+	displayGrid (bacteriaGrid, rows, cols);
+	fclose (ptr);
+	
+
+	while (1)
+		{
+			printf (&quot;t)ick, q)uit? &quot;);
+			fflush (stdin);
+			scanf (&quot;%c&quot;, &amp;option);
+			switch (option)
+			{
+			case 't':
+				checkGrid1 (bacteriaGrid, tempGrid, rows, cols);
+				checkGrid2 (bacteriaGrid, tempGrid, rows, cols);
+				checkGrid3 (bacteriaGrid, tempGrid, rows, cols);
+				displayGrid(tempGrid , rows, cols);
+				copyGrid (bacteriaGrid, tempGrid, rows, cols);
+				break;
+			case 'q':
+				freeGrid (bacteriaGrid, rows, cols);
+				freeGrid (tempGrid, rows, cols);
+				return 0;
+			}
+	}
+
+}
+</PRE>
+</BODY>
+</HTML>

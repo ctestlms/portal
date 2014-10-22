@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Awais_Ahmad_Awais Ahmad.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Awais_Ahmad_Awais Ahmad.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+float F;
+float C;
+float kilo;
+float pound;
+float USD;
+float PKR;
+char choice = 'i';
+while (choice!='e')
+
+
+
+
+{
+	printf(&quot;Enter a Char T for Temprature; W for Weight; C for Currecny and e to terminate = &quot;);
+	scanf(&quot; %c&quot;,&amp;choice);
+
+
+	switch(choice)
+	{
+    case 'e':  </B></FONT>
+    printf (&quot;program terminated, press any key to exit\n&quot;);
+    break;
+
+	case'T':
+<A NAME="1"></A>        
+		printf(&quot;Enter the value of temperature: \n&quot;);
+		scanf(&quot;%f&quot;,&amp;C);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        F = C*9/5+32;
+		printf(&quot;temperature in fahrenheit is: %f\n&quot;,F);
+
+              // get input in Celsius and convert to F 		
+		break;
+	case'W':
+		printf(&quot;Enter the value of weight: \n&quot;);
+		scanf(&quot;%f&quot;,&amp;kilo);
+        pound = 0.453592*kilo;
+		printf(&quot;weight in pound is: %f\n&quot;,pound);
+		// get input in Pounds and convert to Kilos
+		break;
+case'C':
+	printf(&quot;Enter the value of currency: \n&quot;);
+	scanf(&quot;%f&quot;,&amp;PKR);
+     USD = 99*PKR;
+	 printf(&quot;currency in USD is: %f\n&quot;,USD);
+	// get input in PKR and convert to USD
+		break;
+
+
+	default:
+		printf(&quot;Wrong input =%c\n&quot;,choice);
+
+	}
+	
+}
+  getche();
+return 0;
+}</B></FONT>
+
+</PRE>
+</BODY>
+</HTML>

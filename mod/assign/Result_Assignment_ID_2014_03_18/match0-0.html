@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Samra_Nasir_Pacman.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Samra_Nasir_Pacman.java</CENTER></H3><HR>
+<PRE>
+/*
+&lt;applet code=&quot;Pacman&quot; width=400 height=300&gt;
+&lt;/applet&gt;
+*/
+<A NAME="0"></A>
+/* This is my own geniune work */
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.awt.*;
+import java.applet.*;
+
+public class Pacman extends Applet
+{
+int xpos=10; int ypos=10;
+int xtop=20; int ytop=20;
+int xbot=370; int ybot=270;
+int xinc=0; int yinc=0;
+<A NAME="1"></A>
+public void paint(Graphics g){
+	g.setColor</B></FONT>(Color.blue);
+	<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if( (ypos&lt;ybot) &amp;&amp; (xpos&lt;=xtop) ){
+		g.fillArc( xpos, ypos, 25, 25, -45, 290);
+		yinc=1;
+		xinc=0;
+		
+	}
+	if(ypos==ybot){
+		g.fillArc( xpos, ypos, 25, 25, 45, 290);
+		yinc=0;
+		xinc=1;
+
+	}
+	
+	if(xpos&gt;=xbot){
+		g.fillArc( xpos, ypos, 25, 25, 115, 290);
+		yinc=-1;
+		xinc=0;
+		
+	}
+	if(ypos&lt;=ytop)
+		g.fillArc( xpos, ypos, 25, 25, 195, 290 );
+	if((ypos&lt;=ytop) &amp;&amp; (xpos&gt;=xbot) ){
+		xinc=-1;
+		yinc=0;
+	}
+	
+	xpos+=xinc; ypos+=yinc;
+	
+	try{
+			Thread.sleep(5);
+			}
+		catch(Exception e){}
+	repaint(5);
+	
+}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

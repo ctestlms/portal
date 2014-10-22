@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hamza_Iqtadar_MoveBall.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Hamza_Iqtadar_MoveBall.java</CENTER></H3><HR>
+<PRE>
+/*
+&lt;applet code=&quot;MoveBall&quot; width=400 height=300&gt;
+&lt;/applet&gt;
+<A NAME="0"></A>*/
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.awt.*;
+import java.applet.*;
+
+public class MoveBall extends Applet 
+{ 
+int xpos=10; int ypos=50; 
+int xinc=0; int yinc=1;
+int xtop=20; int ytop=20; 
+int xbot=370; int ybot=270; 
+
+Color color;
+
+
+public void init()	{ 
+color=Color.yellow;	
+}
+public Color genColor() {
+return new Color((float)Math.random(),(float)Math.random(),(float)Math.random()); 
+}
+
+public void paint(Graphics g){
+
+         
+		if (ypos&gt;=ybot)
+		{ 
+			ypos=</B></FONT>ybot;
+//			color=genColor(); 
+			xinc=1;
+//			yinc=0; 
+
+		}
+		
+		if(xpos&gt;=xbot ) 
+		{ 
+			xpos=xbot; 
+//			xinc=0;
+			yinc=-1; 
+			
+			
+		}	
+
+		if (ypos&lt;=ytop) 
+		{ 
+			ypos=ytop;
+			color=genColor();
+//			yinc=0;  
+			xinc=-1;
+		}
+		
+		 if(xpos&lt;=xtop &amp;&amp; ypos&lt;=ytop) 
+		{ 
+			xpos=xtop; 
+			xinc=0;
+<A NAME="1"></A>			yinc=1; 
+			
+			ypos=40;
+		<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}		
+		xpos+=xinc; 
+		ypos+=yinc;
+		g.setColor(Color.yellow);
+		g.fillArc(xpos,ypos,30,30,45,270);
+		try
+		{
+			Thread.sleep(10);
+		}
+		catch(Exception e){}
+		repaint(10); 
+}//paint ends 
+
+}</B></FONT>//class ends
+</PRE>
+
+</BODY>
+</HTML>

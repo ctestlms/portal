@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad_Shahbal_Shahbal_bac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Muhammad_Shahbal_Shahbal_bac.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+<A NAME="0"></A>#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;							// I acknowledge that for this assignment i took help from Mohsin Latif and Sohaib Ahmed,but the code and logic are both created by me.
+#include &lt;string.h&gt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void display (char ** fileData, int rows,int cols);  //Because we might need to display the bacteria growth more than once, it is being placed in an individual function.
+void checkConditions (char ** fileData,char ** fileNewData,int rows,int cols);
+
+int main (){
+
+	char fileName [20];
+	int rows=0,cols=0;</B></FONT>
+	char tickQuit;
+	FILE* fptr;
+
+
+	std::cout&lt;&lt;&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n\n\nGrid input file name? &quot;;
+	gets(fileName);
+
+
+<A NAME="1"></A>	fptr=fopen(fileName,&quot;r&quot;);
+	if (fptr == NULL) {
+		std::cout&lt;&lt;&quot;\nError file cannot be opened...\n&quot;;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		return 0;}
+
+
+	fscanf(fptr,&quot;%d\n%d\n&quot;,&amp;rows,&amp;cols);
+
+	char **fileData = (char **) malloc (sizeof(char *) * rows);       //Help from Sohaib Ahmed.
+	for (int i = 0; i &lt; rows; i++)	{
+		fileData[i] = (char *) malloc (sizeof(char) * cols);
+	}	
+
+
+	char **fileNewData = (char **) malloc (sizeof(char *) * rows);   //This array stores the changed values from the original fileData.
+	for (int i = 0; i &lt; rows; i++)	{
+		fileNewData[i] = (char *) malloc (sizeof(char) * cols);
+	}	
+
+
+	//By now the file pointer has already ready read the first two lines of file and is now resting on the third line, So we can directly scan the bacteria placement. 	 
+
+	for(int i=0;i&lt;rows;i++){
+		for(int j=0;j&lt;cols;j++){
+			fscanf(fptr,&quot;%c&quot;,&amp;fileData[i][j]);         
+			fileNewData[i][j] = fileData[i][j];
+		}
+		fscanf(fptr,&quot;\n&quot;);                    //This line asks to scan the file for the \n to mark the end of a row. help from Mohsin Latif.
+	}
+
+
+	while(1){</B></FONT>
+
+
+		display(fileNewData,rows,cols);
+
+		//cin is used instead of scanf because it was giving troubles taking character input.	
+		std::cin&gt;&gt;tickQuit;					
+
+		if (tickQuit == 't' || 'T')
+		{
+
+			checkConditions(fileData,fileNewData,rows,cols);
+
+			for (int a = 0; a &lt; rows; a++){
+				for (int b = 0; b &lt; cols;b++)
+					//fileData maintains the previous state of the colony while fileNewData will be amended by conditions for the new state.
+						fileData[a][b] = fileNewData[a][b]  ;
+			}
+
+
+		}
+
+
+		if (tickQuit == 'q')
+		{
+
+			for(int a=0;a&lt;rows;a++){
+				free(fileData[a]);free(fileNewData[a]);}
+
+			free(fileData);free(fileNewData);
+
+			return 0;	
+		}
+
+
+<A NAME="2"></A>	}
+
+
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} //main function ends.
+
+
+
+
+
+void display (char ** fileNewData, int rows,int cols)
+{
+
+	for (int i=0;i&lt;rows;i++)
+	{
+		for(int j=0;j&lt;cols;j++)
+		{</B></FONT>
+			std::cout&lt;&lt; fileNewData[i][j];
+
+		}
+		std::cout&lt;&lt;&quot;\n&quot;;
+<A NAME="3"></A>	}
+	std::cout&lt;&lt;&quot;t)ick, q)uit? \n&quot;;
+
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+void checkConditions (char ** fileData,char ** fileNewData,int rows,int cols)
+{
+
+	int counter=0;
+	for(int i=0;i&lt;rows;i++){                //This function individually checks each cell for infected neighbors.
+		for(int j=0;j&lt;cols;j++){
+			counter = 0;
+
+			if(i&gt;0 &amp;&amp; i&lt;(rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1)){
+
+				if (fileData[i-1][j-1]=='X')
+				{counter++;
+				}
+				if (fileData[i-1][j]=='X')
+				{counter++;
+				}
+
+				if (fileData[i-1][j+1]=='X')
+				{counter++;
+				}
+
+				if (fileData[i][j-1]=='X')
+				{counter++;
+				}
+
+				if (fileData[i][j+1]=='X')
+				{counter++;
+				}
+
+				if (fileData[i+1][j-1]=='X')
+				{counter++;
+				}
+
+				if (fileData[i+1][j]=='X')
+				{counter++;
+				}
+
+				if (fileData[i+1][j+1]=='X')
+				{counter++;
+				}
+			}
+
+
+			if(i == 0 &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1)){
+				if(fileData[i][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i+1][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i+1][j] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i+1][j+1] == 'X' )
+				{counter++;
+				}
+			}
+
+
+
+			if(i == (rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1) ){
+
+				if(fileData[i][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i-1][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i-1][j] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i-1][j+1] == 'X' )
+				{counter++;
+				}
+			}
+
+			if (i == 0 &amp;&amp; j ==0){
+
+				if(fileData[i][j+1] == 'X')
+				{counter++;
+				}
+
+				if(fileData[i+1][j] == 'X')
+				{counter++;
+				}
+
+				if(fileData[i+1][j+1] == 'X')
+				{counter++;
+				}
+			}
+
+			if(i == (rows-1) &amp;&amp; i == (cols-1)){
+
+				if(fileData[i+1][j+1] == 'X')
+				{counter++;
+				}
+
+				if(fileData[i][j+1] == 'X')
+				{counter++;
+				}
+
+				if(fileData[i+1][j+1] == 'X')
+				{counter++;
+				}
+
+			}
+
+			if(j == 0 &amp;&amp; i&gt;0 &amp;&amp; i&lt;(rows-1)){
+				if(fileData[i-1][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i-1][j] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i+1][j] == 'X' )
+				{counter++;
+				}
+
+				if(fileData[i+1][j+1] == 'X' )
+				{counter++;
+				}
+			}
+
+
+
+			if(j == (cols-1) &amp;&amp; i&gt;0 &amp;&amp; j&lt;(rows-1) )
+			{
+
+				if(fileData[i-1][j] == 'X' )
+				{
+					counter++;
+				}
+
+				if(fileData[i-1][j+1] == 'X' )
+				{
+					counter++;
+				}
+
+				if(fileData[i][j+1] == 'X' )
+				{
+					counter++;
+				}
+
+				if(fileData[i+1][j] == 'X' )
+				{
+					counter++;
+				}
+
+				if(fileData[i+1][j+1] == 'X' )
+				{ 	
+					counter++;
+				}
+			}
+
+			if (counter &lt;= 1 || counter &gt; 3 )
+			{
+				fileNewData[i][j] = '-';
+			}
+
+			if (counter == 3)</B></FONT>
+			{
+				fileNewData[i][j] ='X';
+			}
+
+		}
+	}
+
+}
+</PRE>
+</BODY>
+</HTML>

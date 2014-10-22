@@ -1,0 +1,28 @@
+--- update_form.php	2012-09-24 09:35:54.000000000 +0500
++++ update_form.php	2012-09-24 09:41:08.577022875 +0500
+@@ -66,13 +66,24 @@ class mod_attforblock_update_form extend
+         											document.getElementById("id_durtime_hours").value = "1";
+         											document.getElementById("id_durtime_minutes").value = "30";
+         											break;
+-        									}
++        		
++	case "5":
++        											document.getElementById("id_durtime_hours").value = "2";
++        											document.getElementById("id_durtime_minutes").value = "0";
++        											break;
++        										case "6":
++        											document.getElementById("id_durtime_hours").value = "3";
++        											document.getElementById("id_durtime_minutes").value = "0";
++        											break;
++							}
+         						';
+         $sdescription_attributes = array('onChange' => $sdescription_action);
+         
+         $mform->addElement('select', 'sdescription', get_string('classdescriptiontype', 'attforblock'),
+         	array('1' => get_string('normalclass','attforblock'),
+                       '4' => get_string('ninety_minsclass','attforblock'),
++			'5' => get_string('twohoursclass','attforblock'),
++                      '6' => get_string('threehoursclass','attforblock'),
+                       '2' => get_string('twohourslab','attforblock'),
+                       '3' => get_string('threehourslab','attforblock')
+ 

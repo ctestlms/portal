@@ -1,0 +1,31 @@
+--- manage.php	2012-12-19 10:25:00.000000000 +0500
++++ manage.php	2013-01-03 12:06:38.708406935 +0500
+@@ -48,13 +53,28 @@
+ if ($roleid < 0) {
+     $roleid = $instance->roleid;
+ }
++if ($role_id < 0) {
++       $role_id = $instance->role_id;
++}
++
+ $roles = get_assignable_roles($context);
+ $roles = array('0'=>get_string('none')) + $roles;
++$roles1 = get_assignable_roles($context);
++$roles1 = array('0'=>get_string('all')) + $roles1;
++$sortby = array('0'=>get_string('none'),'1'=>"Name",'2'=>"Reg No",'3'=>"UID") ;
+ 
+ if (!isset($roles[$roleid])) {
+     // weird - security always first!
+     $roleid = 0;
+ }
++if (!isset($roles[$role_id])) {
++       // weird - security always first!
++       //$role_id = 0;
++}
++if (!isset($sortby[$sort])) {
++       // weird - security always first!
++       $sort = 0;
++}
+ 
+ if (!$enrol_manual = enrol_get_plugin('manual')) {
+     throw new coding_exception('Can not instantiate enrol_manual');

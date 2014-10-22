@@ -1,0 +1,1121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Rida_Sohail_Rida_384_Syn B.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Rida_Sohail_Rida_384_Syn B.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;	//for using enter key as input
+#include&lt;math.h&gt;	//for using trignometric functions
+#include&lt;fstream&gt;
+using namespace std;
+
+//FUNCTIONS INITIALLIZED
+void Screen_2();
+void Screen_3();
+void Screen_4();
+void Screen_5();
+void matrice();
+void create_2D_array();
+
+//VARIABLES INITIALLIZED
+char screen_select;
+char name[30];
+char grey_name[30];
+char transform_name[30];
+char histogram_name[30];
+char enter;
+double pixel_value=0;
+double **ptr_pixelval2D;
+unsigned char a[1078]={0};	//array in which original image is saved with [header(14)+bitmap data(40)+colour pallete(1024)] bytes
+long *ptr_pixelval;
+long *final;
+FILE *pFile;
+FILE *pgreyFile;
+FILE *ptransformFile;
+float a_0, a_1, a_2;
+float b_0, b_1, b_2;
+double **transport;
+int *transport_scale;
+
+struct header_data
+{
+	int hetype;
+};
+
+struct bitmap_data
+{
+	long biWidth;
+	long biHeight;
+	int biBitCount;
+	long biSizeImage;
+	long biMySize;
+	long biHresolution;
+	long biVresolution;
+
+};
+
+struct bitmap_data dimensions;
+struct header_data validity;
+struct bitmap_data bits_per_pixel;
+struct bitmap_data transform;
+
+int main()
+{
+	
+	while(1)
+	{
+		here:
+		system(&quot;CLS&quot;);
+		cout&lt;&lt;&quot;\t\tDIGITAL IMAGE PROCESSING - Assignment # 1\n&quot;&lt;&lt;endl;
+		//MAIN MENU(Screen_1)
+		cout&lt;&lt;&quot;MAIN MENU\n&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Read image and print information (Press P)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Convert 24 bit to 8 bit gray scale (Press G)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Histogram (Press E)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Input an affine transformation matrix and apply that to the image (Press T)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Exit (Press X)\n&quot;&lt;&lt;endl;
+		cin&gt;&gt;screen_select;
+
+	
+		if(screen_select=='p' || screen_select=='P')
+		{
+			Screen_2();
+			goto here;
+		
+		}
+
+		if(screen_select=='g' || screen_select=='G')
+		{
+			Screen_3();
+			goto here;
+		}
+
+		if(screen_select=='e' || screen_select=='E')
+		{
+			Screen_4();
+			goto here;
+		}
+
+		if(screen_select=='t' || screen_select=='T')
+		{
+			Screen_5();
+			goto here;
+		}
+
+		if(screen_select=='x' || screen_select=='X')
+		{
+			cout&lt;&lt;endl;
+			cout&lt;&lt;&quot;You have exit from the Program&quot;&lt;&lt;endl;
+			exit(1);
+		}
+
+		else
+		{
+			system(&quot;CLS&quot;);
+			cout&lt;&lt;endl;
+			cout&lt;&lt;&quot;You have entered wrong key. Press enter to select again&quot;&lt;&lt;endl;
+			enter=getch();	//use enter as input
+			goto here;
+		}
+
+	}
+	
+}
+void Screen_2()
+{
+	
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;\t\tRead image and print information\n&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;Input file name (24 bit) .bmp&quot;&lt;&lt;endl;
+	cin&gt;&gt;name;
+	
+	pFile=fopen(name, &quot;rb&quot;);
+	
+	if(pFile==NULL)
+	{
+		cout&lt;&lt;endl;
+		perror(&quot;Error opening File&quot;);
+		exit(1);
+	}
+
+	else
+	{
+		cout&lt;&lt;endl;
+		cout&lt;&lt;&quot;Opening File: Successful&quot;&lt;&lt;endl;
+
+		for(int i=0; i&lt;55; i++)
+		{
+			a[i]=fgetc(pFile);
+		}
+		
+		
+		validity.hetype = a[0]+(a[1]*256);	//checking valid bmp file
+		bits_per_pixel.biBitCount = a[28]+(a[29]*256);	//checking for 24 bit image
+		
+		if(validity.hetype==19778 &amp;&amp; bits_per_pixel.biBitCount==24)
+		{
+			cout&lt;&lt;&quot;BMP File: Valid 24 bit&quot;&lt;&lt;endl;
+		}
+
+		else
+		{
+			cout&lt;&lt;&quot;BMP File: NOT Valid 24 bit&quot;&lt;&lt;endl;
+			exit(1);
+		}
+
+		
+		dimensions.biWidth = (a[18]+(a[19]*256)+(a[20]*256*256)+(a[21]*256*256*256));
+		dimensions.biHeight = (a[22]+(a[23]*256)+(a[24]*256*256)+(a[25]*256*256*256));
+		dimensions.biHresolution = (a[38]+(a[39]*256)+(a[40]*256*256)+(a[41]*256*256*256));
+		dimensions.biVresolution = (a[42]+(a[43]*256)+(a[44]*256*256)+(a[45]*256*256*256));
+		dimensions.biSizeImage = (a[34]+(a[35]*256)+(a[36]*256*256)+(a[37]*256*256*256));
+		dimensions.biMySize = (dimensions.biWidth * dimensions.biHeight);
+
+		
+		cout&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Width: &quot;&lt;&lt;dimensions.biWidth&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Height: &quot;&lt;&lt;dimensions.biHeight&lt;&lt;endl;
+		cout&lt;&lt;&quot;Horizontal Resolution: &quot;&lt;&lt;dimensions.biHresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Vertical Resolution: &quot;&lt;&lt;dimensions.biVresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Size: &quot;&lt;&lt;dimensions.biMySize&lt;&lt;endl;
+		cout&lt;&lt;endl;
+		
+		cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+		enter=getch();	//use enter as input
+		
+		
+	}
+}
+
+void Screen_3()
+{
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;\t\tGrey Image\n&quot;&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;Enter the file name(.bmp) to save 8bit Grey image&quot;&lt;&lt;endl;
+	cin&gt;&gt;grey_name;
+
+	pgreyFile=fopen(grey_name, &quot;wb&quot;);
+
+	//PIXEL VALUE
+	
+	long h=0;
+	ptr_pixelval=new long [dimensions.biHeight * dimensions.biWidth];
+	while(!feof(pFile))	//calculating pixel values
+	{
+		pixel_value = ( (0.3*fgetc(pFile))+(0.59*fgetc(pFile))+(0.11*fgetc(pFile)) );
+		ptr_pixelval[h] = ceil(pixel_value);	//ceil function returns closest int value greater than pixel_value
+		h++;
+	}
+
+	create_2D_array();
+
+	fclose(pFile);
+
+	//CREATING HEADER FOR Grey Image in a[]
+	long number = ( (dimensions.biWidth * dimensions.biHeight)+1024+54 );	//total size of the file=size of image+header+colour palette
+	a[5]=(number/(256*256*256));	//converting the total file size into high bytes and low bytes
+	number=(number%(256*256*256));
+	a[4]=(number/(256*256));
+	number=(number%(256*256));
+	a[3]=(number/(256));
+	number=(number%256);
+	a[2]=(number);
+
+	a[10]=54;	//SOD indicate the bytes from which actual data of image has started
+	a[11]=4;
+	a[12]=0;
+	a[13]=0;
+
+	a[26]=1;	//no of coloue planes being used
+	a[27]=0;
+
+	a[28]=8;	//if BPP=8 then image is 256
+	a[29]=0;
+
+	a[46]=0;	//no of colours used by colour palette-CU= 0 for max colours and CU=256 for min
+	a[47]=1;
+	a[48]=0;
+	a[49]=0;
+
+	a[50]=0;	//if ICU=zero then all colours are important
+	a[51]=0;
+	a[52]=0;
+<A NAME="0"></A>	a[53]=0;
+
+	//CREATING Grey Palette
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	int k=54;	//as colour palette starts from 54 byte
+	for(int d=0; d&lt;256; d++)
+	{
+		for(int e=0; e&lt;3; e++)
+		{
+			a[k++]=d;
+		}
+<A NAME="1"></A>		a[k++]=0;
+	}</B></FONT>
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for(int f=0; f&lt;1078; f++)	//putting new header and colour palette in pgreyFile
+	{
+		fputc(a[f], pgreyFile);
+	}
+
+	for(long int g=0; g&lt;dimensions.biMySize; g++)	//putting the pixel value in pgreyFile
+	{
+		fputc(ptr_pixelval[g], pgreyFile);
+	}
+
+	fclose(pgreyFile);
+
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;File has been successfully converted to grey scale&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+	enter=getch();	//use enter as input</B></FONT>
+	
+}
+
+void Screen_4()
+{
+	double histogram[256]={0};
+	ofstream phistogram;
+	
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;\t\tHistogram\n&quot;&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;Enter the file name(.txt) to save histogram data&quot;&lt;&lt;endl;
+	cin&gt;&gt;histogram_name;
+
+	phistogram.open(histogram_name);
+
+	if(phistogram==NULL)
+	{
+		perror(&quot;Error opening file&quot;);
+	}
+
+	else
+	{
+		
+		long int count;
+		
+		count=1;
+		phistogram&lt;&lt;&quot;Histogram Data:&quot;&lt;&lt;endl;
+
+		phistogram&lt;&lt;&quot;greyScale values          &quot;;
+		phistogram&lt;&lt;&quot;pixel values&quot;&lt;&lt;endl;
+
+		for(long int k=0; k&lt;256;k++)
+		{
+			for(long int g=1078; g&lt;dimensions.biMySize; g++)
+			{
+				if(ptr_pixelval[g]==k)
+				{
+					histogram[k]=count;
+					count++;
+					
+				}
+				
+			}
+
+			phistogram&lt;&lt;k;
+			phistogram&lt;&lt;&quot;                          &quot;;
+			phistogram&lt;&lt;histogram[k]&lt;&lt;endl;
+			
+		}
+		double max=0;
+		max = histogram[0];
+		for(long int k=0; k&lt;256;k++)
+		{			
+			if(histogram[k]&gt;max)
+			{
+				max=histogram[k];
+			}
+		}
+
+		phistogram&lt;&lt;endl&lt;&lt;&quot;Histogram:&quot;&lt;&lt;endl;
+
+		for(long int k=max; k&gt;0; k--)
+		{
+			for(long int g=0; g&lt;205; g++)
+			{
+				if(histogram[g]==k || histogram[g]&gt;k)
+				{
+					phistogram&lt;&lt;&quot;*&quot;;
+				}
+				else
+				{
+					phistogram&lt;&lt;&quot; &quot;;
+				}
+
+				phistogram&lt;&lt;&quot;    &quot;;
+			}
+			phistogram&lt;&lt;endl;
+			
+		}
+		
+		long int scale=0;
+		for(long int k=0; k&lt;205; k++)
+		{
+			phistogram&lt;&lt;scale;
+			if(k&gt;=0 &amp;&amp; k&lt;=9)
+			{
+				phistogram&lt;&lt;&quot;    &quot;;
+			}
+			if(k&gt;=10 &amp;&amp; k&lt;=99)
+			{
+				phistogram&lt;&lt;&quot;   &quot;;
+			}
+			if(k&gt;=100 &amp;&amp; k&lt;=256)
+			{
+				phistogram&lt;&lt;&quot;  &quot;;
+			}
+
+			scale++;
+		}
+		
+		phistogram&lt;&lt;endl;
+		for(long int z=0; z&lt;1024;z++)
+		{
+			phistogram&lt;&lt;&quot;-&quot;;
+		}
+		phistogram&lt;&lt;endl;
+
+		for(long int k=max; k&gt;0; k--)
+		{
+			for(long int g=205; g&lt;256; g++)
+			{
+				if(histogram[g]==k || histogram[g]&gt;k)
+				{
+					phistogram&lt;&lt;&quot;*&quot;;
+				}
+				else
+				{
+					phistogram&lt;&lt;&quot; &quot;;
+				}
+
+				phistogram&lt;&lt;&quot;    &quot;;
+			}
+			phistogram&lt;&lt;endl;
+			
+		}
+		
+		
+		for(long int k=205; k&lt;256; k++)
+		{
+			phistogram&lt;&lt;scale;
+			phistogram&lt;&lt;&quot;  &quot;;
+			scale++;
+		}
+
+	}
+	phistogram.close();
+
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;Task has been performed&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+	enter=getch();	//use enter as input
+	
+
+
+}
+void Screen_5()
+{
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;\t\tTransformation Matrix\n&quot;&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;Enter the file name(.bmp) to save output image&quot;&lt;&lt;endl;
+	cin&gt;&gt;transform_name;
+
+	ptransformFile=fopen(transform_name, &quot;wb&quot;);
+
+	cout&lt;&lt;&quot;The transformation matrice is as follows:&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;| a0 b0 0 |&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;| a1 b1 0 |&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;| a2 b2 1 |&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	
+	cout&lt;&lt;&quot;Enter values of following, according to the desired transformation required:&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;NOTE:&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;For translation can only put value between -120&lt;a_2&lt;120 and -120&lt;b_2&lt;120&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;For rotation put value of a_0, b_0, a_1, b_1 between 0 and 1&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;a0 = &quot;;
+	cin&gt;&gt;a_0;
+	cout&lt;&lt;&quot;b0 = &quot;;
+	cin&gt;&gt;b_0;
+	cout&lt;&lt;&quot;a1 = &quot;;
+	cin&gt;&gt;a_1;
+	cout&lt;&lt;&quot;b1 = &quot;;
+	cin&gt;&gt;b_1;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;a2 = &quot;;
+	cin&gt;&gt;a_2;
+	cout&lt;&lt;&quot;b2 = &quot;;
+	cin&gt;&gt;b_2;
+
+
+	//#################################################TRANSLATION################################################
+	
+	if(a_0==1 &amp;&amp; b_0==0 &amp;&amp; a_1==0 &amp;&amp; b_1==1 /*&amp;&amp; a_2!=0 &amp;&amp; b_2!=0*/)
+	{
+		
+		system(&quot;CLS&quot;);
+		cout&lt;&lt;&quot;\t\tTransformation Matrix\n&quot;&lt;&lt;endl;
+
+		matrice();
+		cout&lt;&lt;&quot;This is a Translation matrice&quot;&lt;&lt;endl;
+		
+		if(a_2&gt;=0 &amp;&amp; b_2&gt;=0)	//for positive translation in both x and y
+		{
+			transform.biHeight = dimensions.biHeight + b_2;
+			transform.biWidth = dimensions.biWidth + a_2;
+		
+			transport = new double*[transform.biWidth];	//creating a 2 D array of new image
+			for(long int o=0; o&lt;transform.biWidth; o++)
+			{
+				transport[o]=new double[transform.biHeight];
+			}
+
+			create_2D_array();
+					
+			for(long int p=0; p&lt;transform.biWidth; p++)	//transferring translated values
+			{
+				for (long int q=0; q&lt;transform.biHeight; q++)
+				{
+				
+						long int remain_x = (long int) p - a_2;
+						long int remain_y = (long int) q - b_2;
+						
+						if(remain_x&gt;=0 &amp;&amp; remain_x &lt; dimensions.biWidth &amp;&amp; remain_y&gt;=0 &amp;&amp; remain_y &lt; dimensions.biHeight)
+						{
+							transport[p][q] = ptr_pixelval2D[remain_x][remain_y];
+						}
+				}
+			}
+		}
+
+		if(a_2&lt;0 &amp;&amp; b_2&lt;0)	//for negative translation in both x and y
+		{
+			transform.biHeight = dimensions.biHeight +(-1* b_2);
+			transform.biWidth = dimensions.biWidth + (-1*a_2);
+		
+			transport = new double*[transform.biWidth];	//creating a 2 D array of new image
+			for(long int o=0; o&lt;transform.biWidth; o++)
+			{
+				transport[o]=new double[transform.biHeight];
+			}
+
+			create_2D_array();
+			
+			for(long int p=(a_2*-1); p&lt;transform.biWidth-a_2; p++)	//transferring translated values
+			{
+				for (long int q=(b_2*-1); q&lt;transform.biHeight-b_2; q++)
+				{
+				
+						long int remain_x = (long int) p + a_2;
+						long int remain_y = (long int) q + b_2;
+						
+						if( remain_x &lt; dimensions.biWidth  &amp;&amp; remain_y &lt; dimensions.biHeight)
+						{
+							transport[(long int)(p+a_2)][(long int)(q+b_2)] = ptr_pixelval2D[remain_x][remain_y];
+						}
+				}
+			}
+
+		}
+
+		if(a_2&gt;0 &amp;&amp; b_2&lt;0)	//for positive translation in x but negative in y
+		{
+			transform.biHeight = dimensions.biHeight +(-1* b_2);
+			transform.biWidth = dimensions.biWidth + (a_2);
+		
+			transport = new double*[transform.biWidth];	//creating a 2 D array of new image
+			for(long int o=0; o&lt;transform.biWidth; o++)
+			{
+				transport[o]=new double[transform.biHeight];
+			}
+
+			create_2D_array();
+			
+			for(long int p=(0); p&lt;transform.biWidth; p++)	//transferring translated values
+			{
+				for (long int q=(b_2*-1); q&lt;transform.biHeight-b_2; q++)
+				{
+				
+						long int remain_x = (long int) p - a_2;
+						long int remain_y = (long int) q + b_2;
+						
+						if(remain_x&gt;0 &amp;&amp; remain_x &lt; dimensions.biWidth  &amp;&amp; remain_y &lt; dimensions.biHeight)
+						{
+							transport[p][(long int)(q+b_2)] = ptr_pixelval2D[remain_x][remain_y];
+						}
+				}
+			}
+
+		}
+
+		if(a_2&lt;0 &amp;&amp; b_2&gt;0)	//for positive translation in y but negative in x
+		{
+			transform.biHeight = dimensions.biHeight +( b_2);
+			transform.biWidth = dimensions.biWidth + (-1*a_2);
+		
+			transport = new double*[transform.biWidth];	//creating a 2 D array of new image
+			for(long int o=0; o&lt;transform.biWidth; o++)
+			{
+				transport[o]=new double[transform.biHeight];
+			}
+
+			create_2D_array();
+			
+			for(long int p=(a_2*-1); p&lt;transform.biWidth-a_2; p++)	//transferring translated values
+			{
+				for (long int q=(0); q&lt;transform.biHeight; q++)
+				{
+						long int remain_x = (long int) p + a_2;
+						long int remain_y = (long int) q - b_2;
+						
+						if( remain_x &lt; dimensions.biWidth &amp;&amp; remain_y&gt;0 &amp;&amp; remain_y &lt; dimensions.biHeight)
+						{
+							transport[(long int)(p+a_2)][q] = ptr_pixelval2D[remain_x][remain_y];
+						}
+				}
+			}
+
+<A NAME="2"></A>		}
+
+		//CREATING HEADER FOR Translated Grey Image in a[]
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		long number_transform =( ( transform.biHeight * transform.biWidth)+54+1024);	//total size of the new file=size of image+header+colour palette
+
+		a[5] = number_transform/(256*256*256);	//converting file size to high bytes and low bytes
+		number_transform=number_transform % (256*256*256);
+		a[4] = number_transform/(256*256);
+		number_transform = number_transform % (256*256);
+		a[3]= number_transform/(256);
+		number_transform = number_transform % 256;
+		a[2] = number_transform;
+
+		transform.biMySize = (transform.biHeight * transform.biWidth);	//new image size
+		number_transform = transform.biMySize;
+
+		a[37] = number_transform/(256*256*256);	//converting new image size to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[36] = number_transform /(256*256);
+		number_transform = number_transform %(256*256);
+		a[35] = number_transform /(256);
+		number_transform = number_transform %256;
+		a[34] = number_transform;
+
+		number_transform = transform.biWidth;
+		a[21] = number_transform /(256*256*256);	//converting the new image width to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[20] = number_transform /(256*256);
+		number_transform = number_transform % (256*256);
+		a[19] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[18] = number_transform;
+
+		number_transform = transform.biHeight;
+		a[25] = number_transform / (256*256*256);	//converting the new image height to high bytes and low bytes
+		number_transform = number_transform %(256*256*256);
+		a[24] = number_transform /(256*256);
+		number_transform = number_transform % (256*256);
+		a[23] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[22] = number_transform;</B></FONT>
+
+		for(int l=0; l&lt;1078; l++)	//putting new header and palette in ptransformFile
+		{
+			fputc(a[l], ptransformFile);
+		}
+<A NAME="3"></A>			
+		long w=0;
+		final = new long [transform.biHeight*transform.biWidth];
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match7-1.html#3',3,'match7-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		for(long int u=0; u&lt;transform.biHeight;u++)	//creating a final translated array with pixel values
+		{
+			for(long int v=0; v&lt; transform.biWidth; v++)
+			{
+				final[w] = transport[v][u];
+				w++;
+			}
+		}
+		
+		for(long int z=0; z&lt;transform.biMySize; z++)	//putting the new final pixel value in ptransformFile
+		{</B></FONT>
+			fputc(final[z], ptransformFile);
+		}
+
+		cout&lt;&lt;&quot;Image has been successfully translated&quot;&lt;&lt;endl;
+				
+		cout&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Width: &quot;&lt;&lt;transform.biWidth&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Height: &quot;&lt;&lt;transform.biHeight&lt;&lt;endl;
+		cout&lt;&lt;&quot;Horizontal Resolution: &quot;&lt;&lt;transform.biHresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Vertical Resolution: &quot;&lt;&lt;transform.biVresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Size: &quot;&lt;&lt;transform.biMySize&lt;&lt;endl;
+		cout&lt;&lt;endl;
+		
+		cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+		enter=getch();	//use enter as input
+		
+	}
+	
+	//#################################################TRANSLATION END################################################
+
+	//#################################################ROTATION#######################################################
+
+	if(a_2==0 &amp;&amp; b_2==0 &amp;&amp; (a_0&lt;1||a_0==1) &amp;&amp; (a_0&gt;-1||a_0==-1) &amp;&amp; (b_0&lt;1||b_0==1) &amp;&amp; (b_0&gt;-1||b_0==-1) &amp;&amp; (a_1&lt;1||a_1==1) &amp;&amp; (a_1&gt;-1||a_1==-1) &amp;&amp; (b_1&lt;1||b_1==1) &amp;&amp; (b_1&gt;-1||b_1==-1))
+	{
+		system(&quot;CLS&quot;);
+		cout&lt;&lt;&quot;\t\tTransformation Matrix\n&quot;&lt;&lt;endl;
+
+		matrice();
+		cout&lt;&lt;&quot;This is a Rotation matrice&quot;&lt;&lt;endl;
+
+		transform.biHeight=dimensions.biHeight+100;
+		transform.biWidth=dimensions.biWidth+100;
+		
+<A NAME="4"></A>		long center_x=dimensions.biWidth/2;
+		long center_y=dimensions.biHeight/2;
+
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match7-1.html#4',3,'match7-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		float rads=acos(a_0);
+		
+		//Creating new header for the rotated image
+		long number_transform = ((transform.biHeight*transform.biWidth)+1024+54);
+
+		a[5]=number_transform/(256*256*256);	//converting the total size into high and low byte
+		number_transform=number_transform%(256*256*256);
+		a[4]=number_transform/(256*256);
+		number_transform=number_transform%(256*256);
+		a[3]=number_transform/256;
+		number_transform=number_transform%256;
+		a[2]=number_transform;
+
+		transform.biMySize=(transform.biHeight*transform.biWidth);
+		number_transform=transform.biMySize;	
+		
+		a[37] = number_transform/(256*256*256);	//converting new image size to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[36] = number_transform /(256*256);
+		number_transform = number_transform %(256*256);
+		a[35] = number_transform /(256);
+		number_transform = number_transform %256;
+		a[34] = number_transform;
+
+		number_transform = transform.biWidth;
+		a[21] = number_transform /(256*256*256);	//converting the new image width to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[20] = number_transform /(256*256);
+		number_transform = number_transform % (256*256);
+		a[19] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[18] = number_transform;
+
+		number_transform = transform.biHeight;
+		a[25] = number_transform / (256*256*256);	//converting the new image height to high bytes and low bytes
+		number_transform = number_transform %(256*256*256);
+		a[24] = number_transform /(256*256);</B></FONT>
+		number_transform = number_transform % (256*256);
+		a[23] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[22] = number_transform;
+
+		for(int l=0; l&lt;1078; l++)	//putting new header and palette in ptransformFile
+		{
+			fputc(a[l], ptransformFile);
+		}
+	
+		transport = new double*[transform.biWidth];	//creating a 2 D array of new image
+		for(long int o=0; o&lt;transform.biWidth; o++)
+		{
+			transport[o]=new double[transform.biHeight];
+		}
+
+		create_2D_array();
+	
+		
+			for(long int p=0; p&lt;transform.biWidth; p++)	//transferring translated values
+			{
+				for (long int q=0; q&lt;transform.biHeight; q++)
+				{
+				
+					long int remain_x=(long int)((center_x)+ (p-center_x)*cos(rads) )- (q-center_y)*sin(rads);
+					long int remain_y=(long int)((center_y)+(p-center_x)*sin(rads) )+ (q-center_y)*cos(rads);
+					if(remain_x&gt;=0 &amp;&amp; remain_x &lt; dimensions.biWidth &amp;&amp; remain_y&gt;=0 &amp;&amp; remain_y &lt; dimensions.biHeight)
+					{
+						transport[p][q] = ptr_pixelval2D[remain_x][remain_y];
+					}
+				}
+			}
+<A NAME="5"></A>
+			long w=0;
+			final = new long [transform.biHeight*transform.biWidth];
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match7-1.html#5',3,'match7-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			for(long int u=0; u&lt;transform.biHeight;u++)	//creating a final translated array with pixel values
+			{
+				for(long int v=0; v&lt; transform.biWidth; v++)
+				{
+					final[w] = transport[v][u];
+					w++;
+				}
+			}</B></FONT>
+		
+
+		for(long int z=0; z&lt;transform.biMySize; z++)	//putting the new final pixel value in ptransformFile
+		{
+			fputc(final[z], ptransformFile);
+		}
+
+		cout&lt;&lt;&quot;Image has been successfully rotated&quot;&lt;&lt;endl;
+				
+		cout&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Width: &quot;&lt;&lt;transform.biWidth&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Height: &quot;&lt;&lt;transform.biHeight&lt;&lt;endl;
+		cout&lt;&lt;&quot;Horizontal Resolution: &quot;&lt;&lt;transform.biHresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Vertical Resolution: &quot;&lt;&lt;transform.biVresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Size: &quot;&lt;&lt;transform.biMySize&lt;&lt;endl;
+		cout&lt;&lt;endl;
+		
+		cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+		enter=getch();	//use enter as input
+	}
+	
+	//#################################################ROTATION END################################################
+
+	//#################################################SCALING######################################################
+	
+	if(b_0==0 &amp;&amp; a_1==0 &amp;&amp; a_2==0 &amp;&amp; b_2==0)
+	{
+		system(&quot;CLS&quot;);
+		cout&lt;&lt;&quot;\t\tTransformation Matrix\n&quot;&lt;&lt;endl;
+
+		matrice();
+		cout&lt;&lt;&quot;This is a Scaling matrice&quot;&lt;&lt;endl;
+
+		if (a_0&gt;0 &amp;&amp; b_1&gt;0)
+		{
+			transform.biHeight=(dimensions.biHeight * b_1);
+			transform.biWidth=(dimensions.biWidth * a_0);
+
+			transport_scale = new int[transform.biWidth*transform.biHeight];	//creating a 2 D array of new image
+			//APPLYING BiLINEAR INTERPOLATION
+
+			int A, B, C, D,index,x,y, End;
+			float x_diff,y_diff,ya,yb;
+			float x_ratio = ((float)(dimensions.biWidth-1)/transform.biWidth);
+			float y_ratio= ((float)(dimensions.biHeight-1)/transform.biHeight);
+			int offset=0;
+
+				for(long int p=0; p&lt;transform.biHeight; p++)	//transferring translated values
+				{
+					for (long int q=0; q&lt;transform.biWidth; q++)
+					{
+						x=(int)(x_ratio*q);
+						y=(int)(y_ratio*p);
+						x_diff=(x_ratio*q)-x;
+						y_diff=(y_ratio*p)-y;
+						index=y*dimensions.biWidth+x;
+					
+						//range is 0 to 255 thus bitwise AND with 0xff
+						A=ptr_pixelval[index] &amp; 0xff;
+						B=ptr_pixelval[index+1] &amp; 0xff;
+						C=ptr_pixelval[index+dimensions.biWidth] &amp; 0xff;
+						D=ptr_pixelval[index+dimensions.biWidth+1] &amp; 0xff;
+
+						End=(int)(A*(1-x_diff)*(1-y_diff) + B*(x_diff)*(1-y_diff) + C*(y_diff)*(1-x_diff) + D*(x_diff*y_diff));					
+					
+						transport_scale[offset++]=End;
+					
+					}
+				
+				}
+	
+		}
+
+		if (a_0&lt;0 &amp;&amp; b_1&lt;0)
+		{
+			transform.biHeight=(dimensions.biHeight /(-1* b_1));
+			transform.biWidth=(dimensions.biWidth / (-1*a_0));
+
+			transport_scale = new int[transform.biWidth*transform.biHeight];	//creating  array of new image
+			//APPLYING BiLINEAR INTERPOLATION
+
+			int A, B, C, D,index,x,y, End;
+			float x_diff,y_diff,ya,yb;
+			float x_ratio = ((float)(transform.biWidth-1)/(dimensions.biWidth));
+			float y_ratio= ((float)(transform.biHeight-1)/(dimensions.biHeight));
+			int offset=0;
+
+				for(long int p=0; p&lt;transform.biHeight; p++)	//transferring translated values
+				{
+					for (long int q=0; q&lt;transform.biWidth; q++)
+					{
+						x=(int)(x_ratio*q);
+						y=(int)(y_ratio*p);
+						x_diff=(x_ratio*q)-x;
+						y_diff=(y_ratio*p)-y;
+						index=y*dimensions.biWidth+x;
+					
+						//range is 0 to 255 thus bitwise AND with 0xff
+						A=ptr_pixelval[index] &amp; 0xff;
+						B=ptr_pixelval[index+1] &amp; 0xff;
+						C=ptr_pixelval[index+dimensions.biWidth] &amp; 0xff;
+						D=ptr_pixelval[index+dimensions.biWidth+1] &amp; 0xff;
+
+						End=(int)(A*(1-x_diff)*(1-y_diff) + B*(x_diff)*(1-y_diff) + C*(y_diff)*(1-x_diff) + D*(x_diff*y_diff));					
+					
+						transport_scale[offset++]=End;
+					
+					}
+				
+				}
+	
+		}
+
+		//Creating new header for the scaled image
+		long number_transform = ((transform.biHeight*transform.biWidth)+1024+54);
+		
+		a[5]=number_transform/(256*256*256);	//converting the total size into high and low byte
+		number_transform=number_transform%(256*256*256);
+		a[4]=number_transform/(256*256);
+		number_transform=number_transform%(256*256);
+		a[3]=number_transform/256;
+		number_transform=number_transform%256;
+		a[2]=number_transform;
+
+		transform.biMySize=(transform.biHeight*transform.biWidth);
+		number_transform = transform.biMySize;	//converting new image size into low and high bytes
+
+		a[37]=number_transform/(256*256*256);	
+		number_transform=number_transform%(256*256*256);
+		a[36]=number_transform/(256*256);
+		number_transform=number_transform%(256*256);
+		a[35]=number_transform/256;
+		number_transform=number_transform%256;
+		a[34]=number_transform;
+
+		number_transform = transform.biWidth;
+		a[21] = number_transform /(256*256*256);	//converting the new image width to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[20] = number_transform /(256*256);
+		number_transform = number_transform % (256*256);
+		a[19] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[18] = number_transform;
+
+		number_transform = transform.biHeight;
+		a[25] = number_transform / (256*256*256);	//converting the new image height to high bytes and low bytes
+		number_transform = number_transform %(256*256*256);
+		a[24] = number_transform /(256*256);
+<A NAME="6"></A>		number_transform = number_transform % (256*256);
+		a[23] = number_transform / (256);
+		number_transform = number_transform % 256;
+<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match7-1.html#6',3,'match7-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		a[22] = number_transform;
+
+		for(int l=0; l&lt;1078; l++)	//putting new header and palette in ptransformFile
+		{
+			fputc(a[l], ptransformFile);
+		}
+	
+		
+					
+
+		for(long int z=0; z&lt;transform.biMySize; z++)	//putting the new final pixel value in ptransformFile
+		{
+			fputc(transport_scale[z], ptransformFile);
+		}
+
+		cout&lt;&lt;&quot;Image has been successfully scaled&quot;&lt;&lt;endl;
+				
+		cout&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Width: &quot;&lt;&lt;transform.biWidth&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Height: &quot;&lt;&lt;transform.biHeight&lt;&lt;endl;
+		cout&lt;&lt;&quot;Horizontal Resolution: &quot;&lt;&lt;transform.biHresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Vertical Resolution: &quot;&lt;&lt;transform.biVresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Size: &quot;&lt;&lt;transform.biMySize&lt;&lt;endl;
+		cout&lt;&lt;endl;
+		
+		cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+		enter=getch();	//use enter as input</B></FONT>
+
+	}
+	
+	//#################################################SCALING END################################################
+	
+	//#################################################SHEAR######################################################
+	
+	if(a_0==1 &amp;&amp; b_1==1 &amp;&amp; a_2==0 &amp;&amp; b_2==0)
+	{
+		system(&quot;CLS&quot;);
+		cout&lt;&lt;&quot;\t\tTransformation Matrix\n&quot;&lt;&lt;endl;
+
+		matrice();
+		cout&lt;&lt;&quot;This is a Shear matrice&quot;&lt;&lt;endl;
+
+		transform.biHeight = dimensions.biHeight+(1 *b_0);
+		transform.biWidth = dimensions.biWidth +(1*a_1);
+		
+		long center_x=dimensions.biWidth/2;
+		long center_y=dimensions.biHeight/2;
+
+		//CREATING HEADER FOR Sheared Grey Image in a[]
+		long number_transform =( ( transform.biHeight * transform.biWidth)+54+1024);	//total size of the new file=size of image+header+colour palette
+
+		a[5] = number_transform/(256*256*256);	//converting file size to high bytes and low bytes
+		number_transform=number_transform % (256*256*256);
+		a[4] = number_transform/(256*256);
+		number_transform = number_transform % (256*256);
+		a[3]= number_transform/(256);
+		number_transform = number_transform % 256;
+		a[2] = number_transform;
+
+		transform.biMySize = (transform.biHeight * transform.biWidth);	//new image size
+		number_transform = transform.biMySize;
+
+		a[37] = number_transform/(256*256*256);	//converting new image size to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[36] = number_transform /(256*256);
+		number_transform = number_transform %(256*256);
+		a[35] = number_transform /(256);
+		number_transform = number_transform %256;
+		a[34] = number_transform;
+
+		number_transform = transform.biWidth;
+		a[21] = number_transform /(256*256*256);	//converting the new image width to high bytes and low bytes
+		number_transform = number_transform % (256*256*256);
+		a[20] = number_transform /(256*256);
+		number_transform = number_transform % (256*256);
+		a[19] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[18] = number_transform;
+
+		number_transform = transform.biHeight;
+		a[25] = number_transform / (256*256*256);	//converting the new image height to high bytes and low bytes
+		number_transform = number_transform %(256*256*256);
+		a[24] = number_transform /(256*256);
+		number_transform = number_transform % (256*256);
+		a[23] = number_transform / (256);
+		number_transform = number_transform % 256;
+		a[22] = number_transform;
+
+		for(int l=0; l&lt;1078; l++)	//putting new header and palette in ptransformFile
+		{
+			fputc(a[l], ptransformFile);
+		}
+	
+		transport = new double*[transform.biWidth];	//creating a 2 D array of new image
+		for(long int o=0; o&lt;transform.biWidth; o++)
+		{
+			transport[o]=new double[transform.biHeight];
+		}
+
+		create_2D_array();
+	
+		
+			for (long int q=0; q&lt;transform.biHeight; q++)//transferring sheared values
+			{
+			
+				for(long int p=0 ; p&lt;transform.biWidth; p++)
+				{
+					
+					long int remain_x= p + (q*a_1)-((dimensions.biWidth*a_1)/2);
+					long int remain_y= q+(p*b_0)-((dimensions.biHeight*b_0)/2);
+						
+					if(remain_x&gt;=0 &amp;&amp; remain_x &lt; dimensions.biWidth &amp;&amp; remain_y&gt;=0 &amp;&amp; remain_y &lt; dimensions.biHeight)
+					{
+						transport[q][p] = ptr_pixelval2D[remain_y][remain_x];
+					}
+					
+				}
+				
+				
+				
+			}
+
+			long w=0;
+			final = new long [transform.biHeight*transform.biWidth];
+			for(long int u=0; u&lt;transform.biHeight;u++)	//creating a final translated array with pixel values
+			{
+				for(long int v=0; v&lt; transform.biWidth; v++)
+				{
+					final[w] = transport[v][u];
+					w++;
+				}
+			}
+		
+		
+		for(long int z=0; z&lt;transform.biMySize; z++)	//putting the new final pixel value in ptransformFile
+		{
+			fputc(final[z], ptransformFile);
+		}
+
+		cout&lt;&lt;&quot;Image has been successfully sheared&quot;&lt;&lt;endl;
+				
+		cout&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Width: &quot;&lt;&lt;transform.biWidth&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Height: &quot;&lt;&lt;transform.biHeight&lt;&lt;endl;
+		cout&lt;&lt;&quot;Horizontal Resolution: &quot;&lt;&lt;transform.biHresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Vertical Resolution: &quot;&lt;&lt;transform.biVresolution&lt;&lt;endl;
+		cout&lt;&lt;&quot;Image Size: &quot;&lt;&lt;transform.biMySize&lt;&lt;endl;
+		cout&lt;&lt;endl;
+
+		fclose(ptransformFile);
+		
+		cout&lt;&lt;&quot;Press Enter to go to Main Menu&quot;&lt;&lt;endl;
+		enter=getch();	//use enter as input
+		
+	
+	
+	}
+	//#################################################SHEAR END######################################################
+	
+}
+
+void matrice()
+{
+	cout&lt;&lt;&quot;You hav entered:&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;| &quot;&lt;&lt;a_0&lt;&lt;&quot; &quot;&lt;&lt;b_0&lt;&lt;&quot; 0 |&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;| &quot;&lt;&lt;a_1&lt;&lt;&quot; &quot;&lt;&lt;b_1&lt;&lt;&quot; 0 |&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;| &quot;&lt;&lt;a_2&lt;&lt;&quot; &quot;&lt;&lt;b_2&lt;&lt;&quot; 1 |&quot;&lt;&lt;endl;
+	cout&lt;&lt;endl;
+}
+
+<A NAME="7"></A>void create_2D_array()
+{
+	int count=0;
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match7-1.html#7',3,'match7-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	ptr_pixelval2D = new double*[dimensions.biWidth];
+	for(long int t=0; t&lt;dimensions.biWidth; t++)
+	{
+		ptr_pixelval2D[t] = new double[dimensions.biHeight];
+	}
+
+	
+	for(long int r=0; r &lt; dimensions.biHeight; r++)
+	{
+		for (long int s=0; s&lt;dimensions.biWidth; s++)
+		{
+			ptr_pixelval2D[s][r] = ptr_pixelval[count];</B></FONT>
+			count++;
+		}
+	}
+
+}
+</PRE>
+</BODY>
+</HTML>

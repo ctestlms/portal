@@ -1,0 +1,140 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-03-23 11:37:03 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Adeel_Riaz_Lab 5 updated.cpp
+Scanning file Adeel_Riaz_Lab 5 updated.cpp
+OK
+------ Parsing submission: Amna_Ashraf_lab task 5 final.cpp
+Scanning file Amna_Ashraf_lab task 5 final.cpp
+OK
+------ Parsing submission: Anas_Asad_Lab 5.cpp
+Scanning file Anas_Asad_Lab 5.cpp
+OK
+------ Parsing submission: Asim_Iltaf_task.cpp
+Scanning file Asim_Iltaf_task.cpp
+OK
+------ Parsing submission: Danish_Tahir_DAN.cpp
+Scanning file Danish_Tahir_DAN.cpp
+  Scanning Error in 'Danish_Tahir_DAN.cpp':
+  Lexical error at line 10, column 8.  Encountered: "$" (36), after : ""
+ERROR -> Submission removed
+------ Parsing submission: Daniyal Shahid_Mir_Daniyal Mir.cpp
+Scanning file Daniyal Shahid_Mir_Daniyal Mir.cpp
+OK
+------ Parsing submission: Dawar_Ali_lab task 5.cpp
+Scanning file Dawar_Ali_lab task 5.cpp
+OK
+------ Parsing submission: Faisal_Jamshaid_jds_lab_5.cpp
+Scanning file Faisal_Jamshaid_jds_lab_5.cpp
+OK
+------ Parsing submission: Farooq_Ellahi_value convertor(farooq).cpp
+Scanning file Farooq_Ellahi_value convertor(farooq).cpp
+OK
+------ Parsing submission: Hamza_._hamza_wajid.cpp
+Scanning file Hamza_._hamza_wajid.cpp
+OK
+------ Parsing submission: Hymna_Taimoor_hj.cpp
+Scanning file Hymna_Taimoor_hj.cpp
+OK
+------ Parsing submission: Iqrash_Suhaib_KASHI.cpp
+Scanning file Iqrash_Suhaib_KASHI.cpp
+OK
+------ Parsing submission: Jawad_Asif_Jawad Asif Lab 5.cpp
+Scanning file Jawad_Asif_Jawad Asif Lab 5.cpp
+OK
+------ Parsing submission: Kaleem_Yousaf_Unit converter.cpp
+Scanning file Kaleem_Yousaf_Unit converter.cpp
+OK
+------ Parsing submission: M Muneeb Ul_Hassan_Lab 5.cpp
+Scanning file M Muneeb Ul_Hassan_Lab 5.cpp
+OK
+------ Parsing submission: Mahnoor_Shah_Mahnoor.cpp
+Scanning file Mahnoor_Shah_Mahnoor.cpp
+OK
+------ Parsing submission: Mahrukh_Mahmood_Mahrukh_lab5.cpp
+Scanning file Mahrukh_Mahmood_Mahrukh_lab5.cpp
+OK
+------ Parsing submission: Malik Mohammad Abdullah_Iftikhar_abdullah lab 5.cpp
+Scanning file Malik Mohammad Abdullah_Iftikhar_abdullah lab 5.cpp
+OK
+------ Parsing submission: Mansoor Ahmad_Rashid_MansoorRashid2.cpp
+Scanning file Mansoor Ahmad_Rashid_MansoorRashid2.cpp
+OK
+------ Parsing submission: Mariam_Tabarik_as.cpp
+Scanning file Mariam_Tabarik_as.cpp
+OK
+------ Parsing submission: Maryam _Adhami_Maryam adhami.cpp
+Scanning file Maryam _Adhami_Maryam adhami.cpp
+OK
+------ Parsing submission: Maryam_Saghir_mmmm.cpp
+Scanning file Maryam_Saghir_mmmm.cpp
+OK
+------ Parsing submission: Mohammad Hamza Javed_Alvi_Source.cpp
+Scanning file Mohammad Hamza Javed_Alvi_Source.cpp
+OK
+------ Parsing submission: Mughees Ur_Rehman_Mughees Rehman.cpp
+Scanning file Mughees Ur_Rehman_Mughees Rehman.cpp
+OK
+------ Parsing submission: Muhammad Hamza_Zafar_hamza 5.cpp
+Scanning file Muhammad Hamza_Zafar_hamza 5.cpp
+OK
+------ Parsing submission: Muhammad Mujahid_Nawaz_muji.cpp
+Scanning file Muhammad Mujahid_Nawaz_muji.cpp
+OK
+------ Parsing submission: Muhammad Salman_Arif_Source1.cpp
+Scanning file Muhammad Salman_Arif_Source1.cpp
+OK
+------ Parsing submission: Muhammad Umer_Khalid_umer.cpp
+Scanning file Muhammad Umer_Khalid_umer.cpp
+OK
+------ Parsing submission: Muhammad Usman_Shoaib_usman.cpp
+Scanning file Muhammad Usman_Shoaib_usman.cpp
+  Scanning Error in 'Muhammad Usman_Shoaib_usman.cpp':
+  Lexical error at line 64, column 9.  Encountered: "\'" (39), after : "\'"
+ERROR -> Submission removed
+------ Parsing submission: Muhammad Zafar_Khan_unit converter.cpp
+Scanning file Muhammad Zafar_Khan_unit converter.cpp
+OK
+------ Parsing submission: Muhammad_Mukarram_lab5.cpp
+Scanning file Muhammad_Mukarram_lab5.cpp
+OK
+------ Parsing submission: Muhammad_Sajid_Muhammad Sajid.cpp
+Scanning file Muhammad_Sajid_Muhammad Sajid.cpp
+OK
+------ Parsing submission: Sajawal Sajjad_Dhillo_ssd.cpp
+Scanning file Sajawal Sajjad_Dhillo_ssd.cpp
+OK
+------ Parsing submission: Syed Ali Salman_Hassan_Lab Task 5.cpp
+Scanning file Syed Ali Salman_Hassan_Lab Task 5.cpp
+OK
+------ Parsing submission: Syed Irfan_Raies_sir.cpp
+Scanning file Syed Irfan_Raies_sir.cpp
+OK
+------ Parsing submission: Talha_Waseem_Talha Lab.cpp
+Scanning file Talha_Waseem_Talha Lab.cpp
+OK
+------ Parsing submission: Umar_Riaz_Umar Riaz.cpp
+Scanning file Umar_Riaz_Umar Riaz.cpp
+  Scanning Error in 'Umar_Riaz_Umar Riaz.cpp':
+  Lexical error at line 18, column 24.  Encountered: "W" (87), after : "\"\\t\\t\\t\\"
+ERROR -> Submission removed
+------ Parsing submission: Usman Bin_Khalid_usmna.cpp
+Scanning file Usman Bin_Khalid_usmna.cpp
+OK
+------ Parsing submission: Uzair_Rehman_Uzair- Converter.cpp
+Scanning file Uzair_Rehman_Uzair- Converter.cpp
+OK
+------ Parsing submission: Zeeshan_Haider_Zeeshan.cpp
+Scanning file Zeeshan_Haider_Zeeshan.cpp
+OK
+
+37 submissions parsed successfully!
+3 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 2 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad_Abbas_Abbas.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad_Abbas_Abbas.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+float a;
+float b;
+float c;
+float fahr;
+float pounds;
+float pkr;
+char choice = 'i';
+while (choice!='e')
+{
+	printf(&quot;enter t for temperature conversion\nenter w for Weight conversion\nenter c for currency conversion\nPress e to exit the program\n&quot;);
+	scanf(&quot; %c&quot;,&amp;choice);
+
+
+	switch(choice)
+	{
+	case't':
+		printf(&quot;enter the temperature in celcius:&quot;);
+		 scanf(&quot;%f&quot;,&amp;a);
+			 fahr=a*1.8+32;
+			 printf(&quot;the temperature in farehheits is %.2f\n\n&quot;,fahr);
+		break;
+	case'w':
+		
+		printf(&quot;enter the weight in kilograms:&quot;);
+		 scanf(&quot;%f&quot;,&amp;b);
+			 pounds=2.2*b;
+			 printf(&quot;the weight in pounds is %.2f\n\n&quot;,pounds);
+		break;
+case'c':
+		printf(&quot;enter the value in US dollars:&quot;);
+		 scanf(&quot;%f&quot;,&amp;c);
+			 pkr=99*c;
+			 printf(&quot;the value in pkr is %.2f\n\n&quot;,pkr);
+		break;
+}
+	
+}
+getche();
+return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

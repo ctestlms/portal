@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hammad_Nayyer_Hammad Nayyer DE34 MTS B.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Hammad_Nayyer_Hammad Nayyer DE34 MTS B.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;iostream&gt;
+using namespace std;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class node
+{
+public:
+	int dat;
+	node* nxtptr;
+	node(int d, node* nptr)
+	{
+		dat=d;
+		nxtptr=nptr;
+	}
+};
+
+class linklist
+{
+private:
+	node* head;
+public:
+	void addnode(int);</B></FONT>
+	void deletenode(int);
+	void insertnode(int,int);
+	void printnode();
+	
+	linklist()
+	{
+		head=NULL;
+<A NAME="1"></A>	}
+
+};
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void linklist::addnode(int val)
+{
+	node* n;
+	n=head;
+	if(head==NULL)
+	{
+		head=new node(val,NULL);
+	}
+	else
+	{
+		while(n-&gt;nxtptr!=NULL)
+		{
+			n=n-&gt;nxtptr;
+		}
+		n-&gt;nxtptr=new node(val,NULL);
+	}
+}
+void linklist::printnode()</B></FONT>
+{
+	int i=0;
+	node* n;
+	n=head;
+	while(n!=NULL)
+	{
+		cout&lt;&lt;&quot;Node = &quot;&lt;&lt;n-&gt;dat&lt;&lt;endl;
+		n=n-&gt;nxtptr;
+	}
+}
+void linklist::deletenode(int dpos)
+{
+	node* n;
+	node* delnode;
+	node* prevnode;
+	node* nxtnode;
+	n=head;
+	for(int i=1;i&lt;=dpos;i++)
+	{
+		if(i==dpos)
+		{
+			prevnode=n;
+		}
+		n=n-&gt;nxtptr;
+	}
+	delnode=n;
+	nxtnode=delnode-&gt;nxtptr;
+<A NAME="2"></A>	prevnode-&gt;nxtptr=nxtnode;
+	delete delnode;
+}
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void linklist::insertnode(int insertval, int pos)
+{
+	node* n;
+	node* addnode;
+	node* prevnode;
+	node* nxtnode;
+	n=head;
+	for(int i=1;i&lt;=pos;i++)
+	{
+		if(i==pos)
+		{
+			prevnode=n;
+		}
+		n=n-&gt;nxtptr;
+	}
+	addnode=new node(insertval,n);</B></FONT>
+	nxtnode=addnode-&gt;nxtptr;
+	prevnode-&gt;nxtptr=addnode;
+}
+int main()
+{
+	linklist mylist;
+	for(int i=1;i&lt;7;i++)
+	{
+		mylist.addnode(i);
+	}
+	cout&lt;&lt;&quot;Original list is: &quot;&lt;&lt;endl;
+	mylist.printnode();
+	int delp,insval,insp;
+	cout&lt;&lt;&quot;Please enter value for insertion along with its position respectively: &quot;&lt;&lt;endl;
+	cin&gt;&gt;insval&gt;&gt;insp;
+	mylist.insertnode(insval,insp);
+	cout&lt;&lt;&quot;List after insertion: &quot;&lt;&lt;endl;
+	mylist.printnode();
+	cout&lt;&lt;&quot;Please enter position for deletion: &quot;&lt;&lt;endl;
+	cin&gt;&gt;delp;
+	mylist.deletenode(delp);
+	cout&lt;&lt;&quot;List after deletion: &quot;&lt;&lt;endl;
+	mylist.printnode();
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

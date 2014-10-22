@@ -1,0 +1,30 @@
+--- lib.php	2013-01-04 15:03:15.506917789 +0500
++++ libnew.php	2012-12-18 14:39:00.007962956 +0500
+@@ -179,6 +179,27 @@ class feedback_item_textfield extends fe
+         return $row_offset;
+     }
+ 
++	//Added By Hina Yousuf
++        function pdfprint_item(&$content, $item, $groupid, $courseid = false) {
++        $analysed_item = $this->get_analysed($item, $groupid, $courseid);
++                $label=$_SESSION['count'];
++                $rowOffset+=2;
++                $content = $content.'<table cellpadding="2" border="1"><tr>';
++                $content = $content.'<tr><td></td></tr><td width="30%"><b>'.$item->name.'</b></td>';
++        $data = $analysed_item->data;
++        if(is_array($data)) {
++            $content = $content.'<td width="70%"><b>'.$data[0].'</b></td></tr>';
++            $rowOffset++;
++            $sizeofdata = sizeof($data);
++            for($i = 1; $i < $sizeofdata; $i++) {
++                $content = $content.'<tr><td width="30%"></td><td width="70%"><b>'. $data[$i].'</b></td></tr>';
++                $rowOffset++;
++            }
++                $content.="</table>";
++        }
++    }
++    //end of pdf  
++
+     /**     
+      * print the item at the edit-page of feedback
+      *

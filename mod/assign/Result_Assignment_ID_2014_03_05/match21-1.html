@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Osama Bin_Abid_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Osama Bin_Abid_Source.cpp</CENTER></H3><HR>
+<PRE>
+// Assignment no 1 : Bactarial Colony growth
+// Programmer : Osama Bin Abid
+// Submitted to : Sir Tahir Azeem
+// Acknowledgements :: Mohsin Latif, M.Shahbal Khan, Stackoverflow
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;iostream&gt;
+void display (char ** GRID, int rows,int cols);
+void checkConditions (char ** GRID,char ** GRID_2,int rows,int cols);
+
+<A NAME="0"></A>int main ()
+{
+	char file_name [20];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int rows=0,cols=0;
+	FILE* fptr;
+
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n\n\nGrid input file name?  :&quot;);
+	gets(file_name);
+
+	fptr=fopen(file_name,&quot;r&quot;);
+	if (fptr ==NULL) 
+	{
+		printf(&quot;Error opening file...\n&quot;);
+		return 0;
+	}
+
+	fscanf(fptr,&quot;%d\n%d\n&quot;,&amp;rows,&amp;cols);		// reading row no and column no from file and storing in array
+
+	char **GRID = (char **) malloc (sizeof(char *) * rows);		//syntex help :&gt; stackoverflow
+	for (int i = 0; i &lt; rows; i++)	{
+		GRID[i] = (char *) malloc (sizeof(char) * cols);
+	}	</B></FONT>
+
+	char **GRID_2 = (char **) malloc (sizeof(char *) * rows);   //GRID_2 stores the changed values from the original GRID.
+	for (int i = 0; i &lt; rows; i++)	{
+		GRID_2[i] = (char *) malloc (sizeof(char) * cols);
+	}	
+
+	for(int i=0;i&lt;rows;i++){
+		for(int j=0;j&lt;cols;j++){
+			fscanf(fptr,&quot;%c&quot;,&amp;GRID[i][j]);          //GRID maintains the original state of the colony while GRID_2 will be amended by conditions for the new state.
+			GRID_2[i][j] = GRID[i][j];
+		}
+		fscanf(fptr,&quot;\n&quot;);                    //This line reads the end of line. Courtesy:: Mohsin Latif.
+	}
+
+	display(GRID_2,rows,cols);               //displays the original condition of the colony.
+
+	while(1)
+	{
+		char opt;
+		std::cin&gt;&gt; opt;
+		if (opt == 't')
+		{
+			checkConditions(GRID,GRID_2,rows,cols);
+			display(GRID_2,rows,cols);						//Displays the current condition of the colony.
+		}
+		if (opt == 'q'){
+			break;
+		}
+		for (int i = 0; i &lt; rows; i++)	{
+			for (int j = 0; j &lt; cols; j++) {
+				GRID[i][j] = GRID_2[i][j];	}
+		}
+	}
+	return 0;	 
+<A NAME="1"></A>}
+void display (char ** GRID_2, int rows,int cols){
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for (int i=0;i&lt;rows;i++)
+	{
+		for(int j=0;j&lt;cols;j++)
+		{
+			printf(&quot;%c&quot;,GRID_2[i][j]);
+		}
+		printf(&quot;\n&quot;);
+	}</B></FONT>
+<A NAME="2"></A>	printf(&quot;\n t)ick, q)uit? &quot;);
+
+}
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void checkConditions (char ** GRID,char ** GRID_2,int rows,int cols){
+
+	int counter=0;
+	for(int i=0;i&lt;rows;i++){                //function for checking each cell for infected neighbors.
+		for(int j=0;j&lt;cols;j++)				// help taken from M. Shahbal Khan and Mohsin Latif in implementation of logic and debugging issues.</B></FONT>
+		{
+<A NAME="3"></A>
+			counter = 0;
+
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(i&gt;0 &amp;&amp; i&lt;(rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1)){
+
+				if (GRID[i-1][j-1]=='X')
+				{counter++;
+				}
+				if (GRID[i-1][j]=='X')
+				{counter++;
+				}
+
+				if (GRID[i-1][j+1]=='X')
+				{counter++;
+				}
+
+				if (GRID[i][j-1]=='X')
+				{counter++;
+				}
+
+				if (GRID[i][j+1]=='X')
+				{counter++;
+				}
+
+				if (GRID[i+1][j-1]=='X')
+				{counter++;
+				}
+
+				if (GRID[i+1][j]=='X')
+				{counter++;
+				}
+
+				if (GRID[i+1][j+1]=='X')
+				{counter++;
+				}</B></FONT>
+<A NAME="4"></A>			}
+
+
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#4',2,'match21-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(i == 0 &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1)){
+				if(GRID[i][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i+1][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i+1][j] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i+1][j+1] == 'X' )
+				{counter++;
+<A NAME="5"></A>				}</B></FONT>
+			}
+
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#5',2,'match21-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(i == rows &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1) ){
+
+				if(GRID[i][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i-1][j-1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i-1][j] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i-1][j+1] == 'X' )
+				{counter++;
+				}</B></FONT>
+			}
+<A NAME="8"></A>
+			if (i == 0 &amp;&amp; j ==0){
+
+<FONT color="#bce954"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#8',2,'match21-top.html#8',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				if(GRID[i][j+1] == 'X')
+				{counter++;
+				}
+
+				if(GRID[i+1][j] == 'X')
+				{counter++;
+				}
+
+				if(GRID[i+1][j+1] == 'X')
+				{counter++;
+				}</B></FONT>
+			}
+<A NAME="9"></A>
+			if(i == rows &amp;&amp; i == cols){
+
+<FONT color="#f88017"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#9',2,'match21-top.html#9',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				if(GRID[i+1][j+1] == 'X')
+				{counter++;
+				}
+
+				if(GRID[i][j+1] == 'X')
+				{counter++;
+				}
+
+				if(GRID[i+1][j+1] == 'X')
+				{counter++;
+				}</B></FONT>
+<A NAME="6"></A>
+			}
+
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#6',2,'match21-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(j == 0 &amp;&amp; i&gt;0 &amp;&amp; i&lt;(rows-1)){
+				if(GRID[i-1][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i-1][j] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i+1][j] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i+1][j+1] == 'X' )
+				{counter++;
+<A NAME="7"></A>				}</B></FONT>
+			}
+
+<FONT color="#c58917"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#7',2,'match21-top.html#7',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(j == cols &amp;&amp; i&gt;0 &amp;&amp; j&lt;(rows-1) ){
+
+				if(GRID[i-1][j] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i-1][j+1] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i][j+1] == 'X' )
+				{counter++;
+
+				}
+
+				if(GRID[i+1][j] == 'X' )
+				{counter++;
+				}
+
+				if(GRID[i+1][j+1] == 'X' )
+				{counter++;
+				}</B></FONT>
+			}
+
+			if (counter &lt;= 1){
+				GRID_2[i][j] = '-';
+			}
+			if (counter &gt;=4)
+				GRID_2[i][j] = '-';
+			if (counter == 3){
+				GRID_2[i][j] ='X';
+			}
+
+		}
+	}
+
+}
+</PRE>
+</BODY>
+</HTML>

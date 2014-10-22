@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Syed Aal E_Husnain_header file.h</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Syed Aal E_Husnain_header file.h</CENTER></H3><HR>
+<PRE>
+// The header file for the function used.
+
+
+
+
+
+
+
+
+
+
+
+
+
+<A NAME="0"></A>void display (char ** newData, int rows,int cols)
+{
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for (int i=0;i&lt;rows;i++)
+	{
+		for(int j=0;j&lt;cols;j++)
+		{
+			cout   &lt;&lt;  newData[i][j];
+			
+		}
+		cout  &lt;&lt;  &quot;\n&quot;;
+	}</B></FONT>
+		cout  &lt;&lt;   &quot;t)ick, q)uit? \n&quot;;
+<A NAME="1"></A>	
+}
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void check (char ** fileData,char ** newData,int rows,int cols)
+{
+
+	int counter=0;
+	for(int i=0;i&lt;rows;i++){  
+
+		for(int j=0;j&lt;cols;j++){</B></FONT>
+
+<A NAME="2"></A>			counter = 0 ;
+
+	if(i&gt;0 &amp;&amp; i&lt;(rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1))
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	{
+
+		if (fileData[i-1][j-1]=='X')
+         {
+			 counter++;
+		}
+		if (fileData[i-1][j]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i-1][j+1]=='X')
+          {
+			  counter++;
+		}
+
+		if (fileData[i][j-1]=='X')
+          {
+			  counter++;
+		}
+
+		if (fileData[i][j+1]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i+1][j-1]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i+1][j]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i+1][j+1]=='X')
+          {
+			  counter++ ;
+		}</B></FONT>
+
+
+	}
+
+<A NAME="3"></A>
+	if(i == 0 &amp;&amp; j &gt; 0 &amp;&amp; j &lt; (cols-1))
+	
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match4-1.html#3',3,'match4-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	{
+		if(fileData[i][j-1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j-1] == 'X' )
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X' )
+			 {
+				 counter++;
+		}</B></FONT>
+
+
+
+	}
+	
+	
+	
+<A NAME="4"></A>	if(i == (rows-1) &amp;&amp; j &gt; 0 &amp;&amp; j &lt; (cols-1) )
+	
+	
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match4-1.html#4',3,'match4-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	{
+
+		if(fileData[i][j-1] == 'X' )
+		 {
+			 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i-1][j-1] == 'X' )
+			 {counter++;
+		}
+
+		if(fileData[i-1][j] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i-1][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}</B></FONT>
+
+
+	}
+
+<A NAME="5"></A>	if (i == 0 &amp;&amp; j ==0)
+	{
+
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match4-1.html#5',3,'match4-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		if(fileData[i][j+1] == 'X')
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j] == 'X')
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X')
+			 {
+				 
+				 counter++;
+		}</B></FONT>
+	}
+<A NAME="6"></A>	
+	if(i == (rows-1) &amp;&amp; i == (cols-1)){
+		
+<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match4-1.html#6',3,'match4-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		if(fileData[i+1][j+1] == 'X')
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X')
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X')
+			 {
+				  counter++;
+		}</B></FONT>
+<A NAME="7"></A>
+	}
+
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match4-1.html#7',3,'match4-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	if(j == 0 &amp;&amp; i&gt;0 &amp;&amp; i&lt;(rows-1)){
+		if(fileData[i-1][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i-1][j] == 'X' )
+			 {
+				 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+
+
+		if(fileData[i+1][j] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X' )
+			 {
+				 counter++;
+		}</B></FONT>
+	}
+	
+<A NAME="8"></A>	
+	
+	if(j == (cols-1) &amp;&amp; i&gt;0 &amp;&amp; j&lt;(rows-1) )
+<FONT color="#bce954"><A HREF="javascript:ZweiFrames('match4-1.html#8',3,'match4-top.html#8',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+
+		if(fileData[i-1][j] == 'X' )
+		 {
+			counter++;
+		}
+
+		if(fileData[i-1][j+1] == 'X' )
+		 {
+			counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+		 {
+
+			counter++;
+		}
+
+		if(fileData[i+1][j] == 'X' )
+		{
+			
+			counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X' )
+		{ 	
+			counter++;
+		}</B></FONT>
+}
+
+	if (counter &lt;= 1 || counter &gt; 3 )
+	{
+		newData[i][j] = '-';
+	}
+
+	if (counter == 3)
+	{
+		newData[i][j] ='X';
+	}
+
+			}
+
+
+
+
+		}
+
+
+
+
+
+		
+}
+</PRE>
+</BODY>
+</HTML>

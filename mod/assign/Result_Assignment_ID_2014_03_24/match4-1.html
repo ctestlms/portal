@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Ahmed Kazim_Fakih_ahmed kazim.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Ahmed Kazim_Fakih_ahmed kazim.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int main()
+{
+ float tempc;
+ float tempf;
+ float weightkg;
+ float weightp;
+ float currus;
+ float currpk;
+char choice = 'i';
+while (choice!='e')
+{
+	printf(&quot;Enter a Char (T for Temprature; W for Weight, C for Currecny = &quot;);
+	scanf(&quot; %c&quot;,&amp;choice);
+
+
+	switch(choice)
+	{
+	case 'T':
+    printf (&quot;enter your value in fahrenheit \n&quot;);
+	scanf (&quot;%f&quot;,&amp; tempf);
+	tempc= (tempf*1.8)+32;// get input in F and convert to Celsius
+	printf (&quot;temperature in degrees celsius is %f, \n&quot;, tempc);
+		break;
+	case 'W':
+		printf (&quot;enter your weight in pounds: &quot;);
+		scanf (&quot;%f&quot;, &amp; weightp);
+		weightkg= weightp*0.453592; // get input in Pounds and convert to Kilos
+		printf (&quot;your weight in kilograms is %f, \n&quot;, weightkg);
+		break;
+       case 'C':
+		printf (&quot;enter your amount in pakistani rupees baby: &quot;);
+		scanf (&quot;%f&quot;, &amp; currpk);
+		currus= currpk/99; // get input in PKR and convert to USD
+		printf (&quot;your amount in US dollars is: %f \n,&quot; ,currus);
+		break;
+
+
+	default:
+		printf(&quot;Wrong input =%c\n&quot;,choice);
+
+	}
+	
+}
+  getche();
+  return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

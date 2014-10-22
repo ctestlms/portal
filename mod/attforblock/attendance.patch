@@ -1,0 +1,22 @@
+--- attendances.php	2012-09-24 16:40:34.830696806 +0500
++++ attendances.php	2012-09-24 16:39:30.707695090 +0500
+@@ -89,11 +89,14 @@
+ 		}
+ 		$attforblockrecord = $DB->get_record('attforblock', array('course'=>$course->id));
+ 		//Added By Hina Yousuf
+-		$topic=new stdClass();
+-		$topic->topicname=$form->topic;
+-		$topic->id=$sessionid;
+-		$DB->update_record('attendance_sessions', $topic);
+-		//end
++		 if($form->topic!=""){
++                        $topic=new stdClass();
++                        $topic->topicname=$form->topic;
++                        $topic->id=$sessionid;
++                        $DB->update_record('attendance_sessions', $topic);
++                }
++		
++//end
+ 		foreach($students as $student) {
+ 			if ($log = $DB->get_record('attendance_log', array('sessionid'=>$sessionid, 'studentid'=>$student->studentid))) {
+ 				$student->id = $log->id; // this is id of log

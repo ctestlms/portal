@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Moazzam_Khan_PacMann.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Moazzam_Khan_PacMann.java</CENTER></H3><HR>
+<PRE>
+/*
+&lt;applet code=&quot;PacMann&quot; width=400 height=400&gt;
+&lt;/applet&gt;
+*/
+
+//Muhammad Moazzam Khan
+//5372
+<A NAME="0"></A>//I certify that this is my own work
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.awt.*;
+import java.applet.*;
+
+public class PacMann extends Applet 
+{ 
+int xpos=1; int ypos=1; 
+int xinc=2; int yinc=2;
+int xtop=20; int ytop=20; 
+int xbot=370; int ybot=270; 
+Color color;
+
+
+public void init()	{ 
+color=Color.red;	
+}
+public Color genColor() {
+return new Color((float)Math.random(),(float)Math.random(),(float)Math.random()); 
+}
+
+public void paint(Graphics g){
+
+         
+		if</B></FONT> (ypos&lt;=ybot &amp;&amp; xpos&lt;=xbot)
+                
+               {   g.fillArc(xpos, ypos,25,25,300,300); //for down face
+                   color=genColor(); 
+                   ypos+=yinc; 
+                   
+              
+
+               }
+
+                else if(xpos&lt;=xbot &amp;&amp; ypos&gt;=ybot ) 
+              
+              { 
+                  g.fillArc(xpos, ypos,25,25,30,300); //for right face
+                  color=genColor(); 
+                  xpos+=xinc; 
+              }
+
+                else if (xpos&gt;=xtop &amp;&amp; ypos&gt;=ytop) 
+              
+              { 
+                   g.fillArc(xpos, ypos,25,25,120,300); //for up face
+                  color=genColor(); 
+                 
+                  ypos-=yinc; 
+                 
+              }
+                 
+               else if (xpos&gt;=xbot &amp;&amp; ypos&lt;=ytop) 
+              
+              { 
+                  g.fillArc(xpos, ypos,25,25,30,300); //for left right face
+<A NAME="1"></A>                  color=genColor(); 
+                 
+                  xpos-=xinc; 
+              <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+              //  else if(xpos&lt;=xbot &amp; ypos&lt;=ybot) 
+              
+             // { 
+              //    color=genColor(); 
+             //     xinc=1; 
+             // }
+		
+                
+              // else if(xpos&lt;=xbot &amp; ypos&gt;=ybot) 
+              
+               //{ 
+               //    color=genColor(); 
+               //    xinc=1; 
+              // }
+
+
+		//   else if (ypos&gt;=ybot)
+
+            //  { 
+
+                //   color=genColor(); 
+               //    xinc=-1;
+ 
+             // }
+
+		//else if(ypos&lt;=ytop) { color=genColor(); yinc=1; }
+		//xpos+=xinc; 
+                //ypos+=yinc;
+		//g.setColor(color);
+		
+                //g.fillArc(xpos, ypos,25,25,30,300); //for left right face
+                //g.fillArc(xpos+30, ypos+30,25,25,120,300); //for up face
+                //g.fillArc(xpos+60, ypos+60,25,25,210,300); //for right face
+                //g.fillArc(xpos, ypos,25,25,300,300); //for down face
+		try{
+			Thread.sleep(30);
+			}
+		catch(Exception e){}
+		repaint(10); 
+}//paint ends 
+
+}</B></FONT>//class ends
+</PRE>
+
+</BODY>
+</HTML>

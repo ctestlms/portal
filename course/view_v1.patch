@@ -1,0 +1,212 @@
+--- view.php	2014-02-04 09:08:12.000000000 +0500
++++ view_new.php	2014-02-04 09:12:50.000000000 +0500
+@@ -289,9 +289,9 @@
+ 			$roleid = 0;
+ 	}
+ 	
+-	// if($parent->name=="Workshops"|| $parent->name=="Miscellaneous"){ // Do nothing 
+-	// }
+-	// else {
++	if($parent->name=="Workshops"|| $parent->name=="Miscellaneous"){ // Do nothing 
++	}
++	else {
+ 		if(isset($attforblock->module)) {	
+ 		//echo $attforblock->instance."<br/>";
+ 			if($roleid == 5) { // show only for student
+@@ -309,93 +309,114 @@
+ 					 GROUP BY ats.id";
+ 			
+ 					$data = $DB->get_records_sql($qry);
+-										
+-					$statsarray = array();
+-					
+-					foreach ($data as $status) {
+-						//echo "<br/> $status->statusid: Status count: $status->stcnt<br/>";
+-						$classtype = $status->description;
+-						switch ($classtype) {
+-							case "90-Mins Lecture":
+-								if (array_key_exists($status->statusid, $statsarray))
+-									$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 1.5);
+-								else {
+-									$statsarray[$status->statusid]->statusid = $status->statusid;
+-									$statsarray[$status->statusid]->stcnt = $status->stcnt * 1.5;
+-								}
+-								break;
+-							case "Two Hours Lecture":
+-								if (array_key_exists($status->statusid, $statsarray))
+-									$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 2);
+-								else{
+-									$statsarray[$status->statusid]->statusid = $status->statusid;
+-									$statsarray[$status->statusid]->stcnt = $status->stcnt * 2;
+-								}
+-								break;
+-							case "Three Hours Lecture":
+-								if (array_key_exists($status->statusid, $statsarray))
+-									$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 3);
+-								else {
+-									$statsarray[$status->statusid]->statusid = $status->statusid;
+-									$statsarray[$status->statusid]->stcnt = $status->stcnt * 3;
+-								}
+-								break;
+-							case "Three Hours Studio":
+-								if (array_key_exists($status->statusid, $statsarray))
+-									$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 1.5);
+-								else {
+-									$statsarray[$status->statusid]->statusid = $status->statusid;
+-									$statsarray[$status->statusid]->stcnt = $status->stcnt * 1.5;
+-								}
+-								break;
+-							default:
+-								if (array_key_exists($status->statusid, $statsarray))
+-									$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + $status->stcnt;
+-								else {
+-									$statsarray[$status->statusid]->statusid = $status->statusid;
+-									$statsarray[$status->statusid]->stcnt = $status->stcnt;
+-								}
+-						}
++						
++					if(!$data) {
++						// dont show attendance alert
+ 					}
+-					
+-					//print_r($statsarray);
+-					 
+-					$presentcount = $statsarray[$present->id]->stcnt;
+-					//echo "Present count: ".$presentcount;
+-					
+-					$absentcount = $statsarray[$absent->id]->stcnt;
+-					//echo "ABsent count: ".$absentcount;
+-					
+-					$totalcount = $presentcount + $absentcount;
+-					//echo "Total count: ".$totalcount;
+-					
+-					 if($presentcount)
+-						$percent = ($presentcount / $totalcount) * 100;
+ 					else {
+-						$presentcount = 0;
+-						$percent = ($presentcount / $totalcount) * 100;
+-					}	
+-					if($percent < 75) { 
+-						echo "<b><div style='width:100%;position:relative;'>
+-									<div style='width:90%; height:50px;overflow:hidden; margin: auto;background-color:red;'>
+-										<div style='width:100%; height:100%; float:left; display: inline-block; font-style:bold; 
+-										font-size:110%;margin: auto;margin-top:4px;padding-top:10px;text-align:center; color:white;'>
+-										Your attendance is short in this course. You need minimum 75%. Your current attendance is ".($percent)."%.
++						$statsarray = array();
++					
++						foreach ($data as $status) {
++							//echo "<br/> $status->statusid: Status count: $status->stcnt<br/>";
++							$classtype = $status->description;
++							switch ($classtype) {
++								case "90-Mins Lecture":
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 1.5);
++									else {
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt * 1.5;
++									}
++									break;
++								case "Two Hours Lecture":
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 2);
++									else{
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt * 2;
++									}
++									break;
++								case "Three Hours Lecture":
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 3);
++									else {
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt * 3;
++									}
++									break;
++								case "Three Hours Studio":
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 1.5);
++									else {
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt * 1.5;
++									}
++									break;
++								case "Two Hours Ward":
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 2);
++									else {
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt * 2;
++									}
++									break;
++								case "Four Hours Ward":
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 4);
++									else {
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt * 4;
++									}
++									break;
++								default:
++									if (array_key_exists($status->statusid, $statsarray))
++										$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + $status->stcnt;
++									else {
++										$statsarray[$status->statusid]->statusid = $status->statusid;
++										$statsarray[$status->statusid]->stcnt = $status->stcnt;
++									}
++							}
++						}
++						
++						//print_r($statsarray);
++						 
++						$presentcount = $statsarray[$present->id]->stcnt;
++						//echo "Present count: ".$presentcount;
++						
++						$absentcount = $statsarray[$absent->id]->stcnt;
++						//echo "ABsent count: ".$absentcount;
++						
++						$totalcount = $presentcount + $absentcount;
++						//echo "Total count: ".$totalcount;
++						
++						 if($presentcount)
++							$percent = ($presentcount / $totalcount) * 100;
++						else {
++							$presentcount = 0;
++							$percent = ($presentcount / $totalcount) * 100;
++						}	
++						if($percent < 75) { 
++							echo "<b><div style='width:100%;position:relative;'>
++										<div style='width:90%; height:50px;overflow:hidden; margin: auto;background-color:red;'>
++											<div style='width:100%; height:100%; float:left; display: inline-block; font-style:bold; 
++											font-size:110%;margin: auto;margin-top:4px;padding-top:10px;text-align:center; color:white;'>
++											Your attendance is short in this course. You need minimum 75%. Your current attendance is ".($percent)."%.
++											</div>
+ 										</div>
+-									</div>
+-								</div></b><br/>";
+-					}
+-					if($percent >= 75 && $percent <= 80) {
++									</div></b><br/>";
++						}
++						if($percent >= 75 && $percent <= 80) {
+ 
+-                        echo "<b><div style='width:100%;position:relative;'>
+-									<div style='width:90%; height:50px;overflow:hidden; margin: auto;background-color:#FF9900;'>
+-										<div style='width:100%; height:100%; float:left; display: inline-block; font-style:bold; 
+-										font-size:110%;margin: auto;margin-top:4px;padding-top:10px;text-align:center; color:white;'>
+-										Your attendance is low in this course. You may fall short of the required attendance (i.e. below 75%). Your  attendance is ".($percent)."%.
++							echo "<b><div style='width:100%;position:relative;'>
++										<div style='width:90%; height:50px;overflow:hidden; margin: auto;background-color:#FF9900;'>
++											<div style='width:100%; height:100%; float:left; display: inline-block; font-style:bold; 
++											font-size:110%;margin: auto;margin-top:4px;padding-top:10px;text-align:center; color:white;'>
++											Your attendance is low in this course. You may fall short of the required attendance (i.e. below 75%). Your  attendance is ".($percent)."%.
++											</div>
+ 										</div>
+-									</div>
+-								</div></b><br/>";
+-					}	
++									</div></b><br/>";
++						}
++					}
+ 			}
+ 		}
+ 	}  // end of attendance short notice

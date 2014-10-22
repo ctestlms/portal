@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Danyal_Nasir_Danyal Nasir.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Danyal_Nasir_Danyal Nasir.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void Corner(char **s1,char **s2,int a,int b);
+void Centre(char **s1,char **s2,int a,int b);
+void Edge(char **s1,char **s2,int a,int b);
+int main(void)
+{
+	//Starting
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n&quot;);
+	FILE *ptr;
+	char option[30];
+	int a=0;
+	int b=0;
+	//File Name
+	printf(&quot;please enter The name of the file\n&quot;);
+	fflush(stdin);
+<A NAME="0"></A>	gets(option);
+	ptr=fopen(option,&quot;r&quot;);
+	if(!ptr==NULL)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	{
+		fscanf(ptr,&quot;%d&quot;,&amp;a);
+		fscanf(ptr,&quot;%d&quot;,&amp;b);
+		//Memory allocation
+		//checking grid
+		char **check=(char **)malloc(sizeof(char *)*a);
+		for(int i=0;i&lt;a;++i)
+		{
+			check[i]=(char *)malloc(sizeof(char)*b);
+		}</B></FONT>
+		//checking grid
+		char **grid=(char **)malloc(sizeof(char *)*a);
+		for(int i=0;i&lt;a;++i)
+		{
+			grid[i]=(char *)malloc(sizeof(char)*b);
+		}
+		fflush(stdin);
+		char q=0;
+		fscanf(ptr,&quot;%c&quot;,&amp;q);
+		//reading
+		for(int y=0;y&lt;a;++y)
+		{
+			for (int z = 0; z &lt; b+1; z++)
+			{
+<A NAME="12"></A>				fflush(stdin);
+				fscanf(ptr,&quot;%c&quot;,&amp;grid[y][z]);
+				//check[y][z]=grid[y][z];
+<FONT color="#3b9c9c"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#12',2,'match10-top.html#12',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			}
+			printf(&quot;\n&quot;);
+		}
+		for (int i = 0; i &lt; a; i++)
+<A NAME="8"></A>		{
+			for (int y = 0; y &lt; b; y++)
+			{</B></FONT>
+<FONT color="#bce954"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#8',2,'match10-top.html#8',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				check[i][y]=grid[i][y];
+			}
+		}
+		for(int y=0;y&lt;a;++y)
+		{
+			for (int z = 0; z &lt; b; z++)
+			{</B></FONT>
+				printf(&quot;%c&quot;,check[y][z]);
+			}
+			printf(&quot;\n&quot;);
+		}
+		//asking for continuing the process
+
+		while(1)
+		{
+
+			printf(&quot;t)Tick OR q)Quit&quot;);
+			char d=0;
+			fflush(stdin);
+			scanf(&quot;%c&quot;,&amp;d);
+<A NAME="2"></A>
+			switch (d)
+			{
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			case 't':{
+				Corner(check,grid,a-1,b-1);
+				Edge(check,grid,a-1,b-1);
+				Centre(check,grid,a-1,b-1);
+				for(int y=0;y&lt;a;++y)
+				{
+					for (int z = 0; z &lt; b; z++)
+					{
+						printf(&quot;%c&quot;,grid[y][z]);
+					}
+					printf(&quot;\n&quot;);
+				}</B></FONT>
+				for (int i = 0; i &lt; a; i++)
+<A NAME="10"></A>				{
+					for (int y = 0; y &lt; b; y++)
+					{
+<FONT color="#b041ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#10',2,'match10-top.html#10',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>						check[i][y]=grid[i][y];
+					}
+				}
+				printf(&quot;check after call is\n\n&quot;);
+				for(int y=0;y&lt;a;++y)
+				{
+					for (int z = 0; z &lt; b; z++)
+					{</B></FONT>
+						printf(&quot;%c&quot;,check[y][z]);
+					}
+					printf(&quot;\n&quot;);
+				}
+				break;}
+			case 'q':
+				exit(0);
+				// break;
+			default:
+				break;
+			}
+		}
+	}
+<A NAME="4"></A>	else
+	{
+		puts(&quot;error&quot;);
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#4',2,'match10-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	}
+
+	fclose(ptr);
+}
+
+void Corner(char **s1,char **s2,int a,int b)
+{
+	//first corner
+	int count=0;
+	if(s1[0][1]=='X')
+		++count;
+	if(s1[1][1]=='X')
+		++count;
+	if(s1[1][0]=='X')
+		++count;
+	if(count==1 || count==0)</B></FONT>
+	{
+		s2[0][0]='-';
+	}
+	else
+		if(count==3){
+			s2[0][0]='X';
+		}//second corner
+		count=0;
+		if(s1[a][1]=='X')
+			++count;
+		if(s1[a-1][1]=='X')
+<A NAME="5"></A>			++count;
+		if(s1[a-1][0]=='X')
+			++count;
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#5',2,'match10-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		if(count==1 || count==0)
+			s2[a][0]='-';
+		else
+			if(count==3)
+				s2[a][0]='X';
+		//third corner
+		count=0;
+		if(s1[0][b-1]=='X')
+			++count;
+		if(s1[1][b-1]=='X')
+			++count;
+		if(s1[1][b]=='X')
+			++count;
+		if(count==1 || count==0)
+			s2[0][b]='-';
+		else
+<A NAME="6"></A>			if(count==3)
+				s2[0][b]='X';</B></FONT>
+		//fourth corner
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#6',2,'match10-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		count=0;
+		if(s1[a][b-1]=='X')
+			++count;
+		if(s1[a-1][b-1]=='X')
+			++count;
+		if(s1[a-1][b]=='X')
+			++count;
+		if(count==1 || count==0)
+			s2[a][b]='-';
+		else
+			if(count==3)
+				s2[a][b]='X';</B></FONT>
+		return;
+}
+<A NAME="7"></A>void Edge(char **s1,char **s2,int a,int b)
+{
+	int count=0;
+<FONT color="#c58917"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#7',2,'match10-top.html#7',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for(int i=1;i&lt;b;++i)
+	{
+		//upper Edge
+		if(s1[0][i-1]=='X')
+			count++;
+		if(s1[0][i+1]=='X')
+			count++;
+		if(s1[1][i]=='X')
+			count++;
+		if(s1[1][i-1]=='X')
+			count++;
+		if(s1[1][i+1]=='X')
+			count++;
+		if(count==1 || count==0 || count &gt;=4)
+			s2[0][i]='-';
+		else
+			if(count==3)
+<A NAME="9"></A>				s2[0][i]='X';</B></FONT>
+		//lower Edge
+		count=0;
+<FONT color="#f88017"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#9',2,'match10-top.html#9',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		if(s1[a][i-1]=='X')
+			count++;
+		if(s1[a][i+1]=='X')
+			count++;
+		if(s1[a-1][i]=='X')
+			count++;
+		if(s1[a-1][i-1]=='X')
+			count++;
+		if(s1[a-1][i+1]=='X')
+			count++;
+		if(count==1 || count==0 || count&gt;=4)
+			s2[a][i]='-';
+		else
+			if(count==3)
+				s2[a][i]='X';</B></FONT>
+	}
+	for(int i=1;i&lt;a;++i)
+<A NAME="11"></A>	{
+		//right Edge
+		count=0;
+<FONT color="#571b7e"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#11',2,'match10-top.html#11',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		if(s1[i-1][b]=='X')
+			count++;
+		if(s1[i+1][b]=='X')
+			count++;
+		if(s1[i-1][b-1]=='X')
+			count++;
+		if(s1[i][b-1]=='X')
+			count++;
+		if(s1[i+1][b-1]=='X')
+			count++;
+		if(count==1 || count==0 || count&gt;=4)
+			s2[i][b]='-';
+		else
+			if(count==3)
+<A NAME="13"></A>				s2[i][b]='X';</B></FONT>
+		//left Edge
+		count=0;
+<FONT color="#842dce"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#13',2,'match10-top.html#13',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		if(s1[i-1][0]=='X')
+			count++;
+		if(s1[i-1][1]=='X')
+			count++;
+		if(s1[i][1]=='X')
+			count++;
+		if(s1[i+1][1]=='X')
+			count++;
+		if(s1[i+1][0]=='X')
+			count++;
+		if(count==1 || count==0 || count&gt;=4)
+			s2[i][0]='-';
+		else
+			if(count==3)
+				s2[i][0]='X';</B></FONT>
+		return;
+	}
+
+<A NAME="1"></A>
+
+}
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void Centre(char **s1,char **s2,int a,int b)
+{
+	for(int i=1;i&lt;a;++i)
+	{
+<A NAME="3"></A>		for(int y=1;y&lt;b;++y)
+		{</B></FONT>
+			int count=0;
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#3',2,'match10-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(s1[i][y+1]=='X')
+				count++;
+			if(s1[i][y-1]=='X')
+				count++;
+			if(s1[i+1][y-1]=='X')
+				count++;
+			if(s1[i-1][y-1]=='X')
+				count++;
+			if(s1[i+1][y]=='X')
+				count++;
+			if(s1[i+1][y+1]=='X')
+				count++;
+			if(s1[i-1][y+1]=='X')
+				count++;
+			if(s1[i-1][y]=='X')
+				count++;
+			if(count==1 || count==0 || count&gt;=4)
+				s2[i][y]='-';
+			else
+				if(count==3)
+					s2[i][y]='X';</B></FONT>
+		}
+	}
+	return;
+}
+</PRE>
+</BODY>
+</HTML>

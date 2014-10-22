@@ -1,0 +1,20 @@
+JPlag (Version 2.11.6)
+2013-02-22 07:23:08 GMT
+
+Language: Java1.2 Parser
+
+------ Parsing submission: Ammara_Bhatti_asda.java
+Parsing file Ammara_Bhatti_asda.java
+OK
+------ Parsing submission: Bakhtiar_Khan_asda.java
+Parsing file Bakhtiar_Khan_asda.java
+OK
+
+2 submissions parsed successfully!
+0 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 131 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

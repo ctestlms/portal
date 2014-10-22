@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hamza_Sajid_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Hamza_Sajid_Source.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+char** memoryalloc(int horizontal, int cols);
+int** memoryalloc2(int horizontal, int cols);
+
+void main()
+{
+	FILE *fileptr;
+	int horizontal, columns;
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony. \nCells (X) live and die by the following rules: \n- A cell with 1 or fewer neighbors dies. \n- Locations with 2 neighbors remain stable. \n- Locations with 3 neighbors will create life. \n- A cell with 4 or more neighbors dies.\nGrid input file name?&quot;);
+	char filename[50];
+<A NAME="0"></A>	gets(filename);
+	fopen(&amp;fileptr, filename, &quot;r&quot;);
+	fscanf(fileptr, &quot;%d\n%d\n&quot;, &amp;horizontal, &amp;columns);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	char **grid = memoryalloc(horizontal, columns);
+	int **grid2 = memoryalloc2(horizontal, columns);
+	rewind(fileptr);
+	fscanf(fileptr, &quot;%d\n%d\n&quot;, &amp;horizontal, &amp;columns);
+	char temp;
+	for (int a = 0; a&lt; horizontal; a++)
+	{
+		for (int b = 0; b &lt; columns; b++)
+		{
+			fscanf(fileptr, &quot;%c&quot;, &amp;grid[a][b], 1);
+		}   fscanf(fileptr, &quot;%c&quot;, &amp;temp, 1);
+	}
+	for (int a = 0; a &lt; horizontal; a++)
+	{
+
+		for (int b = 0; b &lt; columns; b++)
+		{
+			printf(&quot;%c&quot;, grid[a][b]);
+		}   printf(&quot;\n&quot;);
+	}
+	while (1)
+	{
+		printf(&quot;t)ick, q)uit? &quot;);
+		char option;
+		fflush(stdin);
+		scanf(&quot;%c&quot;, &amp;option, 1);
+		if (option == 't')
+		{														//this part was done with the help of some friends		
+			int checker = 0;
+			for (int a = 0; a&lt;horizontal; a++)
+			{
+				for (int b = 0; b&lt;columns; b++)
+				{
+					if (a&gt;0 &amp;&amp; b&gt;0)
+					{
+						if (grid[a - 1][b - 1] == 'X')
+							checker++;
+					}
+					if (a&gt;0)
+					{
+						if (grid[a - 1][b] == 'X')
+							checker++;
+					}
+					if (b&gt;0)
+					{
+						if (grid[a][b - 1] == 'X')
+							checker++;
+					}
+					if (a&lt;horizontal - 1)
+					{
+						if (grid[a + 1][b] == 'X')
+							checker++;
+					}
+					if (b&gt;0 &amp;&amp; a&lt;horizontal - 1)
+					{
+						if (grid[a + 1][b - 1] == 'X')
+							checker++;
+					}
+					if (b&lt;columns - 1)
+					{
+						if (grid[a][b + 1] == 'X')
+							checker++;
+					}
+					if (a&gt;0)
+					{
+						if (grid[a - 1][b + 1] == 'X')
+							checker++;
+					}
+					if (a&lt;horizontal - 1 &amp;&amp; b&lt;columns - 1)
+					{
+						if (grid[a + 1][b + 1] == 'X')
+							checker++;
+					}
+					grid2[a][b] = checker;
+					checker = 0;
+				}
+			}
+		}
+		for (int a = 0; a&lt;horizontal; a++)
+		{
+			for (int b = 0; b&lt;columns; b++)
+			{
+				if (grid2[a][b]&lt;2)
+				{
+					grid[a][b] = '-';
+					printf(&quot;%c&quot;, grid[a][b]);
+				}
+				if (grid2[a][b] == 2)
+				{
+					printf(&quot;%c&quot;, grid[a][b]);
+				}
+				if (grid2[a][b] &gt;= 4)
+				{
+					grid[a][b] = '-';
+					printf(&quot;%c&quot;, grid[a][b]);
+				}
+				if (grid2[a][b] == 3)
+				{
+					grid[a][b] = 'X';
+					printf(&quot;%c&quot;, grid[a][b]);
+				}
+			}
+			printf(&quot;\n&quot;);
+		}
+		if (option == 'q')
+			return;
+		if (option != 't' &amp;&amp; option != 'q')
+		{
+			printf(&quot;&gt;&gt;access denied&lt;&lt;, enter the choice again.\n&quot;);
+			continue;
+		}
+<A NAME="2"></A>	}
+	getchar();
+}</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int** memoryalloc2(int horizontal, int cols)
+{
+	int** grid2 = new int*[horizontal];
+	for (int a = 0; a &lt; horizontal; a++)
+	{
+		grid2[a] = new int[cols];
+<A NAME="1"></A>	}
+	return grid2;
+}</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char** memoryalloc(int horizontal, int cols)
+{
+	char** grid = new char*[horizontal];
+	for (int a = 0; a &lt; horizontal; a++)
+	{
+		grid[a] = new char[cols];
+	}
+	return grid;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,168 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-03-27 07:03:41 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul Hadi_Chara_Abdul Hadi Chara SCME.cpp
+Scanning file Abdul Hadi_Chara_Abdul Hadi Chara SCME.cpp
+OK
+------ Parsing submission: Abdul Rehman_Azam_josh.cpp
+Scanning file Abdul Rehman_Azam_josh.cpp
+OK
+------ Parsing submission: Abdul_Wahab_lab5 Abdul Wahab.cpp
+Scanning file Abdul_Wahab_lab5 Abdul Wahab.cpp
+OK
+------ Parsing submission: Ahmed Kazim_Fakih_ahmed kazim.cpp
+Scanning file Ahmed Kazim_Fakih_ahmed kazim.cpp
+OK
+------ Parsing submission: Ahmed_Osama_AHMED OSAMA.cpp
+Scanning file Ahmed_Osama_AHMED OSAMA.cpp
+OK
+------ Parsing submission: Ahsan_Ayub_ahsan lab 05.cpp
+Scanning file Ahsan_Ayub_ahsan lab 05.cpp
+OK
+------ Parsing submission: Ali Ghazi_Muzaffar_ghazi.cpp
+Scanning file Ali Ghazi_Muzaffar_ghazi.cpp
+OK
+------ Parsing submission: Ali Shujaat_Nabi_Ali Shujaat.cpp
+Scanning file Ali Shujaat_Nabi_Ali Shujaat.cpp
+OK
+------ Parsing submission: Ali_Qayum_Ali Qayum Lab 5.cpp
+Scanning file Ali_Qayum_Ali Qayum Lab 5.cpp
+OK
+------ Parsing submission: Alina_Takreem_lab5.cpp
+Scanning file Alina_Takreem_lab5.cpp
+OK
+------ Parsing submission: Annas Ul Hassan_Qureshi_Lab 5.cpp.cpp
+Scanning file Annas Ul Hassan_Qureshi_Lab 5.cpp.cpp
+OK
+------ Parsing submission: Arslan_Raza_marss.cpp
+Scanning file Arslan_Raza_marss.cpp
+OK
+------ Parsing submission: Awais_Ahmad_Awais Ahmad.cpp
+Scanning file Awais_Ahmad_Awais Ahmad.cpp
+OK
+------ Parsing submission: Ayesha_Bibi_lab 5.cpp
+Scanning file Ayesha_Bibi_lab 5.cpp
+OK
+------ Parsing submission: Bilal_Murtaza_Bilal Murtaza.cpp
+Scanning file Bilal_Murtaza_Bilal Murtaza.cpp
+OK
+------ Parsing submission: Emad_Aamer_Emad Aamer Lab 5.cpp
+Scanning file Emad_Aamer_Emad Aamer Lab 5.cpp
+OK
+------ Parsing submission: Farhaad_Hussain_fhm.cpp
+Scanning file Farhaad_Hussain_fhm.cpp
+OK
+------ Parsing submission: Ghulam_Habib_india.cpp
+Scanning file Ghulam_Habib_india.cpp
+OK
+------ Parsing submission: Hamza _Ali_conversions.cpp
+Scanning file Hamza _Ali_conversions.cpp
+OK
+------ Parsing submission: Hanan_Zulfiqar_Hanan Zulfiqar Lab assignment 5.cpp
+Scanning file Hanan_Zulfiqar_Hanan Zulfiqar Lab assignment 5.cpp
+OK
+------ Parsing submission: Haris_Bhatti_bhatti1.cpp
+Scanning file Haris_Bhatti_bhatti1.cpp
+OK
+------ Parsing submission: Jawad_Gul_jagga daku 5.cpp
+Scanning file Jawad_Gul_jagga daku 5.cpp
+OK
+------ Parsing submission: Mohammad Ali_Muzzammil_Lab 5.cpp
+Scanning file Mohammad Ali_Muzzammil_Lab 5.cpp
+OK
+------ Parsing submission: Mohammad_Shaaz_Mohammad Shaaz.cpp
+Scanning file Mohammad_Shaaz_Mohammad Shaaz.cpp
+OK
+------ Parsing submission: Mohammad_Talal_lab5 (Mohammad Talal).c
+Scanning file Mohammad_Talal_lab5 (Mohammad Talal).c
+OK
+------ Parsing submission: Mohib Ur_Rahman_Mohib_Lab5_Che06.cpp
+Scanning file Mohib Ur_Rahman_Mohib_Lab5_Che06.cpp
+OK
+------ Parsing submission: Muhammad Abdul Qadeem_Khan_Lab-5-scme.cpp
+Scanning file Muhammad Abdul Qadeem_Khan_Lab-5-scme.cpp
+OK
+------ Parsing submission: Muhammad Afraz Khan_Sherwani_Afraz.cpp
+Scanning file Muhammad Afraz Khan_Sherwani_Afraz.cpp
+OK
+------ Parsing submission: Muhammad Basit_Bosan_BASIT.cpp
+Scanning file Muhammad Basit_Bosan_BASIT.cpp
+OK
+------ Parsing submission: Muhammad Maaz_Khattak_maaz.cpp
+Scanning file Muhammad Maaz_Khattak_maaz.cpp
+OK
+------ Parsing submission: Muhammad Nouman_Abbasi_abbasi.cpp
+Scanning file Muhammad Nouman_Abbasi_abbasi.cpp
+OK
+------ Parsing submission: Muhammad Talha_Athar_talha athar.cpp
+Scanning file Muhammad Talha_Athar_talha athar.cpp
+OK
+------ Parsing submission: Muhammad Zaheer Ud Din_Qamar_1.cpp
+Scanning file Muhammad Zaheer Ud Din_Qamar_1.cpp
+OK
+------ Parsing submission: Muhammad Zeeshan_Tariq_Conversion .cpp
+Scanning file Muhammad Zeeshan_Tariq_Conversion .cpp
+OK
+------ Parsing submission: Muhammad_Abbas_Abbas.cpp
+Scanning file Muhammad_Abbas_Abbas.cpp
+OK
+------ Parsing submission: Muhammad_Mahad_mahad.cpp
+Scanning file Muhammad_Mahad_mahad.cpp
+  Scanning Error in 'Muhammad_Mahad_mahad.cpp':
+  Lexical error at line 1, column 1.  Encountered: "\ufeff" (65279), after : ""
+ERROR -> Submission removed
+------ Parsing submission: Mustafa_Akmal_mus lab 5.cpp
+Scanning file Mustafa_Akmal_mus lab 5.cpp
+OK
+------ Parsing submission: Naveed_Ahmad_army.cpp
+Scanning file Naveed_Ahmad_army.cpp
+  Scanning Error in 'Naveed_Ahmad_army.cpp':
+  Lexical error at line 16, column 36.  Encountered: "P" (80), after : "\"CONVERSION OPTIONS    \\t\\t\\"
+ERROR -> Submission removed
+------ Parsing submission: Nayab_Nasir_Lab 5.cpp
+Scanning file Nayab_Nasir_Lab 5.cpp
+OK
+------ Parsing submission: Nisar_Ahmed_lab task.cpp
+Scanning file Nisar_Ahmed_lab task.cpp
+OK
+------ Parsing submission: Rida_Mehtab_Rida Mehtab.cpp
+Scanning file Rida_Mehtab_Rida Mehtab.cpp
+OK
+------ Parsing submission: Sana_Munir_sana.cpp
+Scanning file Sana_Munir_sana.cpp
+OK
+------ Parsing submission: Sehrish_Faiz_sf.cpp
+Scanning file Sehrish_Faiz_sf.cpp
+OK
+------ Parsing submission: Shahzeb_Zafar_lab05.cpp
+Scanning file Shahzeb_Zafar_lab05.cpp
+OK
+------ Parsing submission: Sidra_Maqbool_lab 5.cpp
+Scanning file Sidra_Maqbool_lab 5.cpp
+OK
+------ Parsing submission: Syed Minhas_Mahmood_Lab 5 .cpp
+Scanning file Syed Minhas_Mahmood_Lab 5 .cpp
+OK
+------ Parsing submission: Talha_Mujeeb_lab task.cpp
+Scanning file Talha_Mujeeb_lab task.cpp
+OK
+------ Parsing submission: Usama_Rauf_rauf lab code.cpp
+Scanning file Usama_Rauf_rauf lab code.cpp
+OK
+------ Parsing submission: Usama_Shabbir_Usama Shabbir.cpp
+Scanning file Usama_Shabbir_Usama Shabbir.cpp
+OK
+------ Parsing submission: Zohan Hasan_Tariq_ZohanLab.cpp
+Scanning file Zohan Hasan_Tariq_ZohanLab.cpp
+OK
+
+48 submissions parsed successfully!
+2 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 2 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

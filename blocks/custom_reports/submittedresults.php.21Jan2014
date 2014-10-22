@@ -1,0 +1,518 @@
+<?php
+require_once('../../config.php');
+require_once("../../mod/feedback/lib.php");
+require_once($CFG->libdir . '/blocklib.php');
+require_once($CFG->libdir . '/formslib.php');
+
+//require('../../lib/tcpdf1/config/lang/eng.php');
+//require('../../lib/tcpdf1/tcpdf.php');
+require('../../mod/attforblock/tcpdf/config/lang/eng.php');
+require('../../mod/attforblock/tcpdf/tcpdf.php');
+include('dbcon.php');
+?>
+
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+			
+        $('#loader').hide();
+        $('#show_heading').hide();
+			
+        $('#school_').change(function(){
+			
+            $('#show_departments').fadeOut();
+            $('#loader').show();
+            // alert($('#school_').val());
+            $.post("get_chid_categories.php", {
+				
+                parent_id: $('#school_').val(),
+            }, function(response){
+					
+                setTimeout("finishAjax('show_departments', '"+escape(response)+"')", 400);
+            });
+            return false;
+        });
+    });
+
+    function finishAjax(id, response){
+        $('#loader').hide();
+        if($('#school_').val()!="0|NUST CAMPUS"){
+            $('#show_heading').show();
+        }
+        if($('#school_').val()=="0|NUST CAMPUS"){
+            $('#show_heading').hide();
+        }
+        $('#'+id).html(unescape(response));
+        $('#'+id).fadeIn();
+    } 
+
+    function alert_id()
+    {
+        if($('#sub_category_id').val() == '')
+            alert('Please select a sub category.');
+        else
+            alert($('#sub_category_id').val());
+        return false;
+    }
+</script>
+<?php
+require_login($course->id);
+session_start();
+$dept = optional_param('dept', "", PARAM_ALPHANUM); //get user sub group.
+$school_ = $_GET['school_'];
+$unique_courses[] = -1;
+$hod = 0;
+$observer = 0;
+$user->id = 0;
+$export = optional_param('export', false, PARAM_BOOL);
+$context = get_context_instance(CONTEXT_COURSECAT, $categoryid);
+$navlinks[] = array('name' => get_string('resultsubmission', 'block_custom_reports'), 'link' => null, 'type' => 'activityinstance');
+$navigation = build_navigation($navlinks);
+
+if (!$export)
+    print_header(get_string('resultsubmission', 'block_custom_reports'), get_string('resultsubmission', 'block_custom_reports'), $navigation, '', '', true, '', user_login_string($SITE) . $langmenu);
+if (isset($_POST['report']) or $export) {
+
+    $month = (int) date('m');
+    if ($month == 6 || $month == 7 || $month == 8) {
+
+        $currentSemester = strtotime("-3 months", time());
+    } elseif ($month == 9) {
+
+        $currentSemester = strtotime("-1 months", time()); //1
+    } elseif ($month == 10) {
+
+        $currentSemester = strtotime("-2 months", time());
+    } elseif ($month == 11) {
+
+        $currentSemester = strtotime("-3 months", time());
+    } elseif ($month == 12 || $month == 6) {
+
+        $currentSemester = strtotime("-5 months", time());
+    } else {
+
+        $currentSemester = strtotime("-6 months", time());
+    }
+    $department = $_POST['dept'];
+    $school = $_POST['school_'];
+    if (isset($_POST['report'])) {
+        $_SESSION['department'] = $department;
+        $_SESSION['school'] = $school;
+    }
+    if ($export) {
+        $department = $_SESSION['department'];
+        $school = $_SESSION['school'];
+    }
+    $id_name = explode("|", $school);
+    $id = $id_name[0];         // school id
+    $name = $id_name[1];
+    //checking for permissions
+    $context = get_context_instance(CONTEXT_COURSECAT, $id);
+
+    if ($id != 0) {     //If the school is selected not NUST
+        //check if user is the HOD
+        $sql = "SELECT u.id
+				FROM mdl_user u
+				JOIN mdl_role_assignments ra ON ra.userid = u.id
+				JOIN mdl_role r ON ra.roleid = r.id
+				JOIN mdl_context c ON ra.contextid = c.id
+				WHERE r.id=17 and u.id= $USER->id and u.user_subgroup='$department'";
+
+        $user = $DB->get_record_sql($sql);
+        if ($user->id == $USER->id && has_capability('block/custom_reports:getfeedbackreport', $context)) {
+            $hod = 1;
+            //echo "hod";
+        }
+    }
+    //check if user is the observer
+    $sql = "SELECT u.id
+				FROM mdl_user u
+				JOIN mdl_role_assignments ra ON ra.userid = u.id
+				JOIN mdl_role r ON ra.roleid = r.id
+				JOIN mdl_context c ON ra.contextid = c.id
+				WHERE r.id = 9 and u.id= $USER->id ";
+
+    $user = $DB->get_record_sql($sql);
+    if ($user->id == $USER->id && has_capability('block/custom_reports:getsubmittedresults', $context)) {
+        $observer = 1;
+        //echo "observer";
+    }
+
+
+    $context = get_context_instance(CONTEXT_USER, $USER->id);
+    if (has_capability('block/custom_reports:getsubmittedresults', $context)) {
+        $admin = 1;
+        // echo  "admin";
+    }
+
+
+    if ($hod == 1 || $observer == 1 || $admin == 1) {
+        echo "<br/>";
+        echo '<div style="text-align: center; font-weight: bold;">Results Submitted to HOD <br></div>';
+        if ($department != "") {
+            echo '<div style="text-align: center; font-weight: bold;">SCHOOL:&nbsp;' . $name . '<br></div>';
+            echo '<div style="text-align: center; font-weight: bold;">Department:&nbsp;' . $department . '<br></div>';
+        } else {
+            echo '<div style="text-align: center; font-weight: bold;">NUST CAMPUS <br></div>';
+        }
+        //	echo '<div style="text-align: center; font-weight: bold;">Department:&nbsp;'.$department .'<br></div>';
+        echo '<div style="text-align: left; padding-left: 20px; margin: 5px 0;">
+						<form method="post" style="display: inline; margin: 0; padding: 0;">';
+        echo "<b>Download:</b>";
+        echo "<select name='downloadType'>";
+        echo '<option value="pdf">Download in pdf Format </option>';
+        echo '<option value="Excel">Download in Excel Format </option>';
+        echo '</select>';
+
+
+        echo '<input type="hidden" name="export" value="true" /><input type="submit" value="Download" />
+						</form>';
+        echo "<br/>";
+       
+        $no_of_departments = 0;
+        $table = new html_table();
+        $table->head = array();
+
+        $table->head[] = 'S/No';
+        $table->align[] = 'center';
+        $table->size[] = '';
+
+        $table->head[] = 'Teacher';
+        $table->align[] = 'center';
+        $table->size[] = '';
+
+        $table->head[] = 'Course';
+        $table->align[] = 'center';
+        $table->size[] = '';
+        
+        $table->head[] = 'Teacher Submission';
+        $table->align[] = 'center';
+        $table->size[] = '';
+
+        $table->head[] = 'Hod Submission';
+        $table->align[] = 'center';
+        $table->size[] = '';
+
+        $table->head[] = 'Senior Hod Submission';
+        $table->align[] = 'center';
+        $table->size[] = '';
+
+        $table->head[] = 'Dean Submission';
+        $table->align[] = 'center';
+        $table->size[] = '';
+
+       
+
+        ////get course of the selected department
+        if ($id != 0) {
+            $user_subgroup = "AND user_subgroup = '$department'";
+        }
+        if ($id == 0) {
+            $user_subgroup = "";
+        }
+        $sql = "SELECT u.id, firstname,lastname
+				FROM mdl_user u
+				JOIN mdl_role_assignments ra ON ra.userid = u.id
+				JOIN mdl_role r ON ra.roleid = r.id
+				JOIN mdl_context c ON ra.contextid = c.id
+				WHERE r.id =3
+				$user_subgroup
+				GROUP BY u.id
+				ORDER BY firstname ASC,lastname ASC";
+        //echo $sql;
+        $users = $DB->get_records_sql($sql);
+        $i = 0;
+        foreach ($users as $user) {
+            $sql = "SELECT e.courseid as courseid, fullname,e.timecreated as timecreated
+						FROM mdl_user_enrolments ue
+						JOIN mdl_enrol e ON ( e.id = ue.enrolid )
+						JOIN mdl_course c ON ( c.id = e.courseid )
+						AND ue.userid =$user->id AND c.startdate>$currentSemester";
+            //echo $sql."<br/>";
+            $courses = $DB->get_records_sql($sql);
+            foreach ($courses as $course) {
+                $context = get_context_instance(CONTEXT_COURSE, $course->courseid, MUST_EXIST);
+               
+                //end
+
+                $sql = " SELECT ra.userid FROM mdl_role_assignments ra WHERE ra.roleid =3 AND ra.userid=$user->id and contextid =$context->id ";
+                if ($teacher = $DB->get_records_sql($sql)) {
+
+                  
+                    if (!in_array($course->courseid, $unique_courses)) {
+                        $unique_courses[] = $course->courseid;
+                        $i++;
+                        
+                        $facultynames = "";
+                        $sql = "SELECT firstname, lastname
+                          FROM mdl_user u
+                          JOIN mdl_user_enrolments ue ON ( ue.userid = u.id )
+                          WHERE u.id
+                          IN (
+
+                          SELECT ra.userid
+                          FROM mdl_role_assignments ra
+                          WHERE ra.roleid =3
+                          AND contextid =$context->id)";
+
+                        $teachers = $DB->get_records_sql($sql);
+                        $facultynames = "";
+                        foreach ($teachers as $teacherz) {
+                            if ($facultynames == "") {
+                                $facultynames.=$teacherz->firstname . " " . $teacherz->lastname;
+                            } else {
+                                $facultynames.=" , " . $teacherz->firstname . " " . $teacherz->lastname;
+                            }
+                        }
+
+                        $coursefullname = $course->fullname; // course name
+
+                        $courseid = $course->courseid; // course id
+
+                        $submission = $DB->get_record_sql("select * from {gradereport_grader} where courseid=$courseid");
+                        $table->data[$i][] = ++$sno;
+                        $table->data[$i][] = $facultynames;
+                        $table->data[$i][] = ($submission->facultytimestamp != "") ? "<a href='{$CFG->wwwroot}/grade/report/grader/index.php?id=$courseid'>" . $coursefullname . "</a>" : $coursefullname;
+                        $table->data[$i][] = ($submission->facultytimestamp != "") ? date(" M jS, Y", $submission->facultytimestamp) : "Not Submitted";
+                        $table->data[$i][] = ($submission->hodtimestamp != "") ? date(" M jS, Y", $submission->hodtimestamp) : "Not Submitted";
+                        $table->data[$i][] = ($submission->seniorhodtimestamp != "") ? date(" M jS, Y", $submission->seniorhodtimestamp) : "Not Submitted";
+                        $table->data[$i][] = ($submission->deantimestamp != "") ? date(" M jS, Y", $submission->deantimestamp) : "Not Submitted";
+                    }
+                }
+            }
+        }
+
+        
+    } else {
+        echo "Sorry! You do not have permission to access this report.";
+    }
+} else {
+    echo '<form name="myform" action="submittedresults.php" method="POST">';
+    echo "<div align='center'><h1>Submitted Results Report</h1></div>";
+   
+    echo "<br/><b>Select School:</b>";
+    $query = "SELECT id,name FROM {course_categories} WHERE parent =0";
+    if ($groups = $DB->get_records_sql($query)) {
+        echo "<select name='school_' id='school_'>";
+        echo "<option value='0|NUST CAMPUS'>NUST CAMPUS</option>";
+        foreach ($groups as $group) {
+            $school_name = str_replace("&", "and", $group->name);
+            $value = $group->id . "|" . $school_name;
+            $selected = ($value == $school_) ? "selected = 'selected'" : "";
+            echo "<option value='{$value}' {$selected} >{$group->name}</option>";
+        }
+        echo "</select><br/>";
+        ?>	
+        <h4  id="show_heading">Select Department:</h4>
+        <div id="show_departments" >
+            <img src="loader.gif"  id="loader" alt="" />
+        </div>
+        <?php
+    }
+    echo '<br/><input type="submit" value="View Report" name="report">';
+    $OUTPUT->box_start('generalbox categorybox');
+    echo '</form>';
+}
+if ($export) {
+    $downloadType = $_POST['downloadType'];
+    if ($downloadType == "Excel")
+        ExportToExcel($table);
+    if ($downloadType == "pdf")
+        ExportToPDF($table, $name, $type);
+}
+/* if($export   ){               
+  ExportToExcel($table);
+  } */
+if (isset($_POST['report']) && ($hod == 1 || $observer == 1 || $admin == 1)) {
+    echo html_writer::table($table);
+}
+$OUTPUT->box_end();
+echo $OUTPUT->footer();
+
+//================Export to Excel================//    
+function ExportToExcel($data, $name, $type) {
+    global $CFG;
+    global $headings;
+    global $name, $type;
+    global $department;
+    //require_once("$CFG->libdir/excellib.class.php");/*
+    require_once($CFG->dirroot . '/lib/excellib.class.php');
+    $filename = "Submitted_Results_Report.xls";
+
+    $workbook = new MoodleExcelWorkbook("-");
+/// Sending HTTP headers
+    ob_clean();
+    $workbook->send($filename);
+/// Creating the first worksheet
+    $myxls = & $workbook->add_worksheet('Submitted Results Report');
+/// format types
+    $formatbc = & $workbook->add_format();
+    $formatbc1 = & $workbook->add_format();
+    $formatbc->set_bold(1);
+    $myxls->set_column(0, 0, 50);
+    $myxls->set_column(1, 7, 20);
+    $formatbc->set_align('center');
+    $formatbc1->set_align('center');
+    $xlsFormats = new stdClass();
+    $xlsFormats->default = $workbook->add_format(array(
+        'width' => 40));
+    //$formatbc->set_size(14);
+    $myxls->write(0, 2, "Submitted Results Report", $formatbc);
+    $myxls->write(1, 2, $name, $formatbc);
+
+    $myxls->write(2, 2, "Department: " . $department, $formatbc);
+
+
+    foreach ($headings as $heading)
+        $myxls->write_string(4, $j++, strtoupper($heading), $formatbc);
+
+    $i = 5;
+    $j = 0;
+    foreach ($data->data as $row) {
+        foreach ($row as $cell) {
+
+            //$myxls->write($i, $j++, $cell);
+            if (is_numeric($cell)) {
+                $myxls->write_number($i, $j++, strip_tags($cell), $formatbc1);
+            } else {
+                $myxls->write_string($i, $j++, strip_tags($cell), $formatbc1);
+            }
+        }
+        $i++;
+        $j = 0;
+    }
+    $workbook->close();
+    exit;
+}
+
+//export to pdf
+
+function ExportToPDF($data, $name, $type) {
+    //echo "pdf";
+    global $CFG;
+    global $headings;
+    global $name, $type;
+    global $department;
+    //$pdf=new PDF();
+    //Column titles
+    //$header=$data->tabhead;
+    // create new PDF document
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('');
+    $pdf->SetTitle('Feedback Report');
+    $pdf->SetSubject('Feedback Report');
+
+    // remove default header/footer
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+
+    // set default monospaced font
+    //$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+    //set margins
+    //$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+
+    //set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    //set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    //set some language-dependent strings
+    $pdf->setLanguageArray($l);
+
+    // ---------------------------------------------------------
+    // set font
+    $pdf->SetFont('helvetica', '', 6);
+
+    // add a page
+    $pdf->AddPage('P', 'A4');
+    ob_clean();
+    // print a line using Cell()
+    //$pdf->Cell(0, 10, 'Example 002', 1, 1, 'C');
+    $htmcont = ImprovedTable($headings, $data);
+    $pdf->writeHTML($htmcont, true, false, false, false, '');
+    //echo $htmcont;
+    // ---------------------------------------------------------
+    //Close and output PDF document
+    $pdf->Output("Submitted_Results_Report", 'D');
+    exit;
+}
+
+//
+
+function ImprovedTable($headings, $data) {
+    global $CFG;
+    global $headings;
+    global $name, $type;
+    global $department;
+    //echo "improe";
+    //Column widths
+    //$w=array(40,35,40,45);
+    //Header
+    $content = $content . '<table cellpadding="2" border="0"><tr><td ><img src="NUST_Logo.jpg" height="52" width="52" /> <font size="15"><b>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted Results Report</b><br/></font></td></tr></table>';
+
+    $content = $content . '<h3 align="left">School: ' . $name . '</h3>';
+    $content = $content . '<h3 align="left">Department: ';
+    $content = $content . $department;
+    $content = $content . '</h3>';
+    $content = $content . '<table cellpadding="2" border="1"><tr>';
+    /* $content = $content.'<td width="3%">-</td><td width="%10">Lecture Hours/Lab</td><td width="13%">-</td>';
+      foreach ($lecture as $l){
+      $content = $content.'<td width="18">'.$l.'</td>';
+      }
+      $content = $content.'<td width="18">-</td><td width="18">-</td><td width="25">-</td></tr><tr>'; */
+    for ($i = 0; $i < count($headings); $i++)
+    //$this->Cell($w[$i],7,$header[$i],1,0,'C');
+        if ($i == 0) {
+            $content = $content . '<td width="20%"><b>' . $headings[$i] . '</b></td>';
+        } elseif ($i == 1) {
+            $content = $content . '<td width="30%"><b>' . $headings[$i] . '</b></td>';
+        } elseif ($i == 2) {
+            $content = $content . '<td width="10%"><b>' . $headings[$i] . '</b></td>';
+        } elseif ($i == 3) {
+            $content = $content . '<td width="15%"><b>' . $headings[$i] . '</b></td>';
+        } elseif ($i == 4) {
+            $content = $content . '<td width="15%"><b>' . $headings[$i] . '</b></td>';
+        } elseif ($i == 5) {
+            $content = $content . '<td width="8%"><b>' . $headings[$i] . '</b></td>';
+        } elseif ($i == 6) {
+            $content = $content . '<td width="8%"><b>' . $headings[$i] . '</b></td>';
+        }
+    //$this->Ln();
+    $content = $content . '</tr>';
+    //Data
+    foreach ($data->data as $row) {
+        $content = $content . '<tr>';
+        $i = 0;
+        foreach ($row as $col) {
+            if ($i == 0) {
+                $content = $content . '<td width="20%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 1) {
+                $content = $content . '<td width="30%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 2) {
+                $content = $content . '<td width="10%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 3) {
+                $content = $content . '<td width="15%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 4) {
+                $content = $content . '<td width="15%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 5) {
+                $content = $content . '<td width="8%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 6) {
+                $content = $content . '<td width="8%">' . strip_tags($col) . '</td>';
+            }
+            $i = $i + 1;
+        }
+        $content = $content . '</tr>';
+    }
+    $content = $content . '</table>';
+    //Closure line
+    //$this->Cell(array_sum($w),0,'','T');
+    //echo 'Hello';
+    return $content;
+}
+?>

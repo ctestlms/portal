@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hanan_Zulfiqar_Lab 14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Hanan_Zulfiqar_Lab 14.cpp</CENTER></H3><HR>
+<PRE>
+//Hanan Zulfiqar and Hamza Khan ChE-06//
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt;
+<A NAME="0"></A>
+int main()
+{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	int *ptr,n1=0,i,n2=0,class_average,total=0,b=1,n3=0;
+	char choice = 'i';
+	char boolean ='Y';
+	while (choice!='q')
+	{
+		printf(&quot;Press any key to continue OR press q to quit and display results...\n&quot;);
+		scanf(&quot; %c&quot;,&amp;choice);
+		switch(choice)
+		{
+		case 'q':</B></FONT>
+			if(n3==0)
+			{
+			class_average=total/(n1+n2);
+			printf(&quot;Class average = %d&quot;,class_average);
+			}
+			else
+			{
+			class_average=total/(n1+n3);
+<A NAME="1"></A>			printf(&quot;Class average = %d&quot;,class_average);
+			}
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			break;
+		default:
+			printf(&quot;Enter the number of records you would like to enter...\n&quot;);
+			scanf(&quot; %d&quot;,&amp;n1);
+			ptr=(int*)malloc(n1*sizeof(int));
+			for(i=0;i&lt;n1;i++)
+			{
+				printf(&quot;Enter marks for student %d\n&quot;,i+1);
+				scanf(&quot;%d&quot;,ptr+i);
+				total=total+*(ptr+i);
+			}
+			printf(&quot;Would you like to enter more records ?\nPress Y for Yes or N for no...\n&quot;);
+			scanf(&quot; %c&quot;,&amp;boolean);
+			while(boolean=='Y')
+			{</B></FONT>
+				printf(&quot;How many more records would you like to enter?...\n&quot;);
+				scanf(&quot;%d&quot;,&amp;n2);
+				n3=n3+n2;
+				ptr=(int*)realloc(ptr,(n1+n3)*sizeof(int));
+				for(i;i&lt;(n1+n3);i++)
+				{
+					printf(&quot;Enter marks for student %d\n&quot;,i+b);
+					scanf(&quot;%d&quot;,ptr+i);
+					total=total+*(ptr+i);
+				}
+				printf(&quot;Would you like to enter more records ?\nPress Y for Yes or N for no...\n&quot;);
+				scanf(&quot; %c&quot;,&amp;boolean);
+			}
+			break;
+		}}
+
+	getch();
+	return 0;
+}
+
+
+
+</PRE>
+</BODY>
+</HTML>

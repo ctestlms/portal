@@ -1,0 +1,9 @@
+.noprint
+{
+    display: none;
+}
+
+.draggable
+{
+    display: none;
+}

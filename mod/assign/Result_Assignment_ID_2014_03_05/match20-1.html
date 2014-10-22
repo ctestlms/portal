@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Nouman Shafi_Chaudhry_assign1_oop_nouman.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Nouman Shafi_Chaudhry_assign1_oop_nouman.cpp</CENTER></H3><HR>
+<PRE>
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;iostream&gt;
+#define _CRT_SECURE_NO_WARNINGS 1
+
+
+
+
+void printFile(char** pDish,int row,int col,char** cpyDish);
+char** genDish(int row,int col);
+void corners(char** pDish,int row,int col,char**);
+void masterCheck(char** pDish,int row,int col,char** cpyDish);
+char** dishcpy(char** pDish,int row,int col);
+char** swapDish(char** cpyDish,int row,int col,char** pDish);
+void sides(char**pDish,int row,int col,char **cpyDish);
+void  inBetween(char** pDish ,int row,int col,char** cpyDish);
+void freeMem(char**pDish,int row,int col);
+void genericPrint(char** dish,int row,int col);
+
+
+void fileRead(char fileName[]){
+	int row,col;
+
+
+	FILE* fptr;
+	fptr=fopen(fileName,&quot;r&quot;);
+
+
+
+         //tells weather file is opened correctly or not
+	if (fptr==NULL){
+		printf(&quot;\nerror opening file!\n&quot;);
+	}
+
+        //takes row and col respectivly
+	fscanf(fptr,&quot;%d&quot;,&amp;row);
+	fscanf(fptr,&quot;%d&quot;,&amp;col);
+
+	
+          //generates a 2d array
+	char** pDish=genDish(row,col);
+         //used to avid segmentation error
+	fflush(stdin);
+	char losi;
+	fscanf(fptr,&quot;%c&quot;,&amp;losi);
+	for(int i =0;i&lt;row;i++){
+
+		for (int j=0;j&lt;col+1 ;j++){
+
+			fscanf(fptr,&quot;%c&quot;,&amp;pDish[i][j]);
+
+		}
+
+
+	}
+        //copies the array read from the file to another array for future use
+	char** cpyDish=dishcpy(pDish,row,col);
+
+	
+
+	printFile(pDish,row,col,cpyDish);
+}
+
+int tQ(char** pDish,int row,int col,char** cpyDish){
+          //this was used to avoid the error of segmentation given in g++
+        char tttt;
+        scanf(&quot;%c&quot;,&amp;tttt);
+
+        //takes user input
+	char	input;
+	while (1){
+		printf(&quot;\nt)ick, q)uit?&quot;);
+		fflush(stdin);
+		scanf(&quot;%c&quot;,&amp;input);
+
+		switch (input)
+		{
+		case 't' :
+		case'T':
+                          //calls mastercheck function
+			masterCheck(pDish,row,col,cpyDish);
+			break;
+		case 'q':
+		case'Q':exit(0);
+                        break;
+		default:
+			freeMem(pDish,row,col);
+freeMem(cpyDish,row,col);
+			exit(0);
+			break;
+		}
+	}
+}
+
+//prints given array
+void printFile(char** pDish,int row,int col,char** cpyDish){
+
+	printf(&quot;\n\n&quot;);
+
+	for(int i =0;i&lt;row;i++){
+
+		for (int j=0;j&lt;col;j++){
+			printf(&quot;%c&quot;,pDish[i][j]);
+		}
+		printf(&quot;\n&quot;);
+
+	}
+
+       //takes input about tick and quit
+	tQ(pDish,row,col,cpyDish);
+}
+
+
+int main(){
+
+	char fileName[20];
+
+
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.&quot;);
+
+
+	printf(&quot;\n\nplease enter the name of file you want to open: &quot;);
+	scanf(&quot;%s&quot;,fileName);
+        
+        //reads from file 
+	fileRead(fileName);
+
+
+}
+
+//frees the momory allocated to the char arrays
+void freeMem(char**pDish,int row,int col){
+
+	for(int i=0;i&lt;col;i++){
+	delete(pDish[i]);
+	}
+
+	delete(pDish);
+}
+
+
+//parent function which contains other functino which checks and manipulate the array
+void masterCheck(char** pDish,int row,int col,char** cpyDish){
+
+	
+	// chaeks corners and make changes to the orignal array 
+	corners(pDish,row,col,cpyDish);
+
+	
+
+	//checks the sides of the cpyDish and changes pDish accordingly
+	sides(pDish,row,col,cpyDish);
+
+	
+
+	//checks rest of cpydish for neighbours and changes pdish accordingly
+	inBetween(pDish,row,col,cpyDish);
+
+	
+
+	//swaps pdish into cpyDish
+	swapDish(cpyDish,row,col,pDish);
+
+	
+
+	//prints file and the loop continues
+	printFile(pDish,row,col,cpyDish);
+}
+
+//function takes rows and cols and allocates memory to array of that size
+char** genDish(int row,int col){
+
+	char** pDish=new char*[row];
+	
+
+	for(int i=0;i&lt;row;i++){
+
+		pDish[i]=new char[col];
+		
+	}
+
+	return pDish;
+
+
+}
+//cheks corners for neighbours and makes changes in pDish
+void corners(char** pDish,int row,int col,char** cpyDish){
+	int c1=0,c2=0,c3=0,c4=0;
+<A NAME="3"></A>
+
+	//for 1st corner
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#3',2,'match20-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if (cpyDish[0][1]=='X'){
+		c1++;
+	}
+	if (cpyDish[1][0]=='X'){
+		c1++;
+	}
+	if (cpyDish[1][1]=='X'){
+		c1++;
+	}
+
+
+	//for 2nd corner
+	if (cpyDish[0][col-2]=='X'){
+		c2++;
+	}
+<A NAME="4"></A>	if (cpyDish[1][col-2]=='X'){
+		c2++;
+	}</B></FONT>
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#4',2,'match20-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if (cpyDish[1][col-1]=='X'){
+		c2++;
+	}
+
+	//for 3rd corner
+
+	if (cpyDish[row-2][0]=='X'){
+		c3++;
+	}
+	if (cpyDish[row-2][1]=='X'){
+		c3++;
+	}
+	if (cpyDish[row-1][1]=='X'){
+		c3++;
+	}
+
+	//for 4rth corner
+
+<A NAME="5"></A>	if (cpyDish[row-2][col-1]=='X'){
+		c4++;
+	}</B></FONT>
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#5',2,'match20-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if (cpyDish[row-1][col-2]=='X'){
+		c4++;
+	}
+	if (cpyDish[row-2][col-2]=='X'){
+		c4++;
+	}
+
+
+	// cell with 0 or 1 infected members die
+	if(c1==0 || c1== 1 ) {
+
+		pDish[0][0]='-';
+	}
+
+	if(c2==0 || c2==1 ){
+
+		pDish[0][col-1]='-';
+	}
+
+
+	if(c3 == 0|| c3==1){
+
+<A NAME="6"></A>		pDish[row-1][0]='-';
+	}</B></FONT>
+
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#6',2,'match20-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if(c4 ==0 || c4==1){
+
+		pDish[row-1][col-1]='-';
+	}
+
+
+	if (c1==3){
+
+		pDish[0][0]='X';
+	}
+
+	if (c2==3){
+		pDish[0][col-1]='X';
+	}
+
+	if (c3==3){
+		pDish[row-1][0]='X';
+	}
+	if (c4==3){
+		pDish[row-1][col-1]='X';
+	}</B></FONT>
+<A NAME="1"></A>	return;
+}
+//cheks the rest of the dish and make changes to the pDish
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void  inBetween(char** pDish ,int row,int col,char** cpyDish){
+	int counter=0;
+
+	for (int i=1;i&lt;row-1;i++){
+
+		for(int j=1;j&lt;col-1;j++){
+			counter=0;
+			if(cpyDish[i-1][j-1]=='X'){</B></FONT>
+<A NAME="2"></A>				counter++;}
+			if(cpyDish[i-1][j]=='X'){
+				counter++;}
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(cpyDish[i-1][j+1]=='X'){
+				counter++;}
+			if(cpyDish[i][j-1]=='X'){
+				counter++;}
+			if(cpyDish[i][j+1]=='X'){
+				counter++;}
+			if(cpyDish[i+1][j-1]=='X'){
+				counter++;}
+			if(cpyDish[i+1][j]=='X'){
+				counter++;}
+			if(cpyDish[i+1][j+1]=='X'){
+				counter++;}
+
+			if (counter==0|| counter==1 ||counter &gt;=4){
+				pDish[i][j]='-';}
+			if (counter==3){
+				pDish[i][j]='X';}
+		}</B></FONT>
+	}
+}
+
+
+
+
+//allocates memory to array and copy given array to newly made array
+char** dishcpy(char** pDish,int row,int col){
+
+	char**cpydish=genDish(row,col);
+	
+
+	for (int i =0;i&lt;row;i++){
+
+		for (int j=0;j&lt;col;j++){
+
+			cpydish[i][j]=pDish[i][j];
+		}
+	}
+
+
+	return cpydish;
+}
+//swaps values of one array to another array
+char** swapDish(char** cpyDish,int row,int col,char** pDish){
+
+	for (int i=0;i&lt;row;i++){
+
+		for (int j=0;j&lt;col;j++){
+
+			cpyDish[i][j]=pDish[i][j];
+		}
+
+	}
+
+	return pDish;
+
+
+}
+// check sides and makes changes to the pDish
+void sides(char**pDish,int row,int col,char **cpyDish)
+{
+	int count=0;
+	for(int y=1;y&lt;col-1;++y)
+	{
+		count=0;
+		//uper
+		if(cpyDish[0][y-1]=='X')
+			++count;
+		if(cpyDish[0][y+1]=='X')
+			++count;
+		if(cpyDish[1][y-1]=='X')
+			++count;
+		if(cpyDish[1][y+1]=='X')
+			++count;
+		if(cpyDish[1][y]=='X')
+			++count;
+		if(count==0||count==1||count==4)
+			pDish[0][y]='-';
+		if(count==3)
+			pDish[0][y]='X';
+		//lower
+		count=0;
+		if(cpyDish[row-1][y-1]=='X')
+			++count;
+		if(cpyDish[row-1][y+1]=='X')
+			++count;
+		if(cpyDish[row-2][y-1]=='X')
+			++count;
+		if(cpyDish[row-2][y+1]=='X')
+			++count;
+		if(cpyDish[row-2][y]=='X')
+			++count;
+		if(count==0||count==1||count==4)
+			pDish[row-1][y]='-';
+		if(count==3)
+			pDish[row-1][y]='X';
+	}
+	for(int y=1;y&lt;row-1;++y)
+	{
+		//right
+		count=0;
+		if(cpyDish[y][col-2]=='X')
+			++count;
+		if(cpyDish[y-1][col-2]=='X')
+			++count;
+		if(cpyDish[y-1][col-1]=='X')
+			++count;
+		if(cpyDish[y+1][col-1]=='X')
+			++count;
+		if(cpyDish[y+1][col-2]=='X')
+			++count;
+		if(count==0||count==1||count==4)
+			pDish[y][col-1]='-';
+		if(count==3)
+			pDish[y][col-1]='X';
+		//left
+		count=0;
+		if(cpyDish[y-1][0]=='X')
+			++count;
+		if(cpyDish[y+1][0]=='X')
+			++count;
+		if(cpyDish[y][1]=='X')
+			++count;
+		if(cpyDish[y-1][1]=='X')
+			++count;
+		if(cpyDish[y+1][1]=='X')
+			++count;
+		if(count==0||count==1||count==4)
+			pDish[y][0]='-';
+		if(count==3)
+			pDish[y][0]='X';
+	}
+
+<A NAME="0"></A>}
+
+//generic print function used for debugging B|
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void genericPrint(char** dish,int row,int col){
+
+
+	printf(&quot;\n\n&quot;);
+
+	for(int i =0;i&lt;row;i++){
+
+		for (int j=0;j&lt;col;j++){
+			printf(&quot;%c&quot;,dish[i][j]);
+		}
+		printf(&quot;\n&quot;);
+
+	}
+
+
+
+}</B></FONT>
+
+
+
+</PRE>
+</BODY>
+</HTML>

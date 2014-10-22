@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Sajawal Sajjad_Dhillo_ssd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Sajawal Sajjad_Dhillo_ssd.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+	float Celcius;
+	float Fahr;
+	float USD;
+	float PKR;
+	float pound;
+	float kilo;
+
+char choice = 'I';
+while (choice!='E')
+{
+
+	printf(&quot;Enter T for Temprature, W for Weight, C for Currecny\n&quot;);
+	scanf(&quot; %c&quot;,&amp;choice);
+	
+	 switch(choice)
+	{
+	
+	 case'W':
+		printf(&quot;Enter weight in pound\n&quot;);
+		scanf(&quot;%f&quot;,&amp;pound);
+		kilo=0.453592*pound;//This converts kilo to pound;
+		printf(&quot;Weight in kilo is %f\n&quot;,kilo);
+			break;
+	 case'T':
+              printf(&quot;Enter temperature in Celcius\n&quot;);
+			  scanf(&quot;%f&quot;,&amp;Celcius);
+			  Fahr= Celcius * 9/5 + 32; //This converts Fahr to Celcius;
+				  printf(&quot;Temperature in Fahr is %f\n&quot;,Fahr);
+		break;
+	case'C':
+		printf(&quot;Enter amount in USD\n&quot;);
+		scanf(&quot;%f&quot;,&amp;USD);
+		PKR = 99*USD; //This converts PKR to USD;
+			printf(&quot;Amount in PKR is %f\n&quot;,PKR);
+	
+
+		break;
+
+	 
+
+	default:
+		printf(&quot;Wrong input =%c\n&quot;,choice);
+
+		
+
+	}
+	 
+	
+}
+  getche();
+return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

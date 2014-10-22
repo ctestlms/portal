@@ -1,0 +1,608 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Bushra_Sohail_Bushra_376_Syn_B.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Bushra_Sohail_Bushra_376_Syn_B.cpp</CENTER></H3><HR>
+<PRE>
+//	DIGITAL IMAGE PROCESSING
+
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include&lt;math.h&gt;
+#include&lt;conio.h&gt;
+#include&lt;fstream&gt;
+#include &lt;vector&gt;
+using std::vector;
+using namespace std;
+
+char main_menu();
+void file_reader();
+void Bit54_Grey_ImageHeader();
+void Grey_pallete();
+void TransformInput();
+void Translation();
+
+struct IMAGE 
+{
+	unsigned short int  bfType;
+	long int Size_hw;
+	long int File_Size;
+	long int Width;
+	long int Height;
+	long X_Res;
+	long Y_Res;
+	int Bits_Count;			// Bits per pixel 
+
+}Image_Data,Trans;
+
+
+//GLOBAL VRAIABLES
+char ans_ent;
+char filename[15];
+char filename_grey[15];
+char filename_histo[15];
+char filename_transformer[15];
+unsigned char Image_ki_info[1078]={0};
+
+long *Image_Data_pointer = NULL; 
+long Trans_info[1078]={0};
+
+//VARIABLES FOR TRANSFORMATION
+int input[3][3] = {0};
+long *trans_pointer = NULL;
+double **Translated_Image_Data=NULL;
+
+int main()
+{
+	char mode;
+start:
+	//system(&quot;cls&quot;);
+
+	mode = main_menu();	//CALL MAIN MENU
+	
+	if(mode=='p')
+	{
+		file_reader();
+		Bit54_Grey_ImageHeader();
+		Grey_pallete();
+
+		//PRINTING INFORMATION OF IMAGE
+		printf(&quot;\nType: %hd&quot;, Image_Data.bfType);
+		printf(&quot;\nSize: %d&quot;, Image_Data.Size_hw);
+		printf(&quot;\nWidth: %d&quot;, Image_Data.Width);
+	    printf(&quot;\nHeight: %d&quot;, Image_Data.Height);
+	    printf(&quot;\nBits per pixel: %d&quot;, Image_Data.Bits_Count);
+	    printf(&quot;\nxResolution: %d&quot;, Image_Data.X_Res);	
+	    printf(&quot;\nyResolution: %d&quot;, Image_Data.Y_Res);	
+
+		cout&lt;&lt;&quot;\nTo go to main menu, please press enter&quot;&lt;&lt;endl;
+	    while(ans_ent!=13)
+	    {
+		  ans_ent = getch();
+	    }
+		system(&quot;cls&quot;);
+		goto start;
+
+	}	// MODE P ENDS HERE
+
+	else if(mode=='g')
+	{
+		FILE *grey_opener;
+
+		system(&quot;cls&quot;);
+		cout&lt;&lt;&quot;\t24 BIT TO 8-BIT CONVERTER LAUCNHED&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\nPlease Enter the name with which you would like to save\n the new grey 8-bit bmp file&quot;&lt;&lt;endl;
+		cin&gt;&gt;filename_grey;
+
+		grey_opener= fopen(filename_grey,&quot;wb&quot;); 
+		for (int count=0; count &lt; 1078; count++)
+		{
+			fputc(Image_ki_info[count],grey_opener);
+		}
+
+		for (long int count2 = 0; count2 &lt; Image_Data.Size_hw; count2++)
+		{
+			fputc(Image_Data_pointer[count2] , grey_opener);
+		}
+		fclose(grey_opener);
+
+		cout&lt;&lt;&quot;\n\tIMAGE IS CONVERTED TO GREY AND SAVED&quot;&lt;&lt;endl;
+		ans_ent='d';
+		cout&lt;&lt;&quot;\nTo go to main menu, please press enter&quot;&lt;&lt;endl;
+	    while(ans_ent!=13)
+	    {
+		  ans_ent = getch();
+	    }
+		system(&quot;cls&quot;);
+		goto start;
+	}	//mode g ends here
+
+	else if (mode =='e')
+	{
+		long freqArray[256]={'0'};
+
+<A NAME="2"></A>		for(long int qmob=0; qmob&lt; Image_Data.Size_hw ; qmob++)
+		{
+			freqArray[Image_Data_pointer[qmob]] = freqArray[Image_Data_pointer[qmob]] + 1; //cout&lt;&lt;black_ki_info[qmob]&lt;&lt;&quot;\t&quot;;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		}
+
+		system(&quot;cls&quot;);
+		cout&lt;&lt;&quot;\tHISTOGRAM WINDOW&quot;&lt;&lt;endl;
+
+		cout&lt;&lt;&quot;ENTER A NAME FOR SAVING HISTOGRAM DATA: (end with .txt)&quot;&lt;&lt;endl;
+		cin&gt;&gt;filename_histo;
+		
+		ofstream histo_opener;
+		histo_opener.open(filename_histo);
+
+		for(int fileCount=0; fileCount&lt; 256 ; fileCount++)	//printig histogram data in a file
+		{
+			histo_opener&lt;&lt;freqArray[fileCount]&lt;&lt;endl;
+		}
+
+		//	histo_opener.close();	
+		histo_opener&lt;&lt;endl&lt;&lt;endl;
+		
+		
+		for(int disp=0; disp&lt;256; disp++)	//printing histogram in a file
+		{</B></FONT>
+			histo_opener&lt;&lt;disp&lt;&lt;&quot;: &quot;;
+
+			while(!freqArray[disp] == 0)
+			{
+				histo_opener&lt;&lt;&quot;*&quot;;
+				freqArray[disp]--;
+			}
+			histo_opener&lt;&lt;endl;
+		}
+
+		histo_opener.close();	
+
+		cout&lt;&lt;&quot;\n\tTASK HAS BEEN PERFORMED&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\n HISTOGRAM DATA IS SAVED IN A FILE&quot;&lt;&lt;endl;
+		ans_ent='d';
+		cout&lt;&lt;&quot;\nTo go to main menu, please press enter&quot;&lt;&lt;endl;
+
+	    while(ans_ent!=13)
+	    {
+		  ans_ent = getch();
+	    }
+		system(&quot;cls&quot;);
+		goto start;
+
+	}// mode g ends here
+
+	else if( mode == 't')
+	{
+		system(&quot;cls&quot;);
+		cout&lt;&lt;&quot;\n\tTRANSFORMATION WINDOW&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\nENTER THE NAME FOR SAVING THE TRANSFORMED FILE :&quot;&lt;&lt;endl;
+		cin&gt;&gt;filename_transformer;
+
+		cout&lt;&lt;&quot;\nPLEASE ENTER THE MATRIX VALUES FOR TRANSFORMATION:&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\t| a0 b0 0 |&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\t| a1 b1 0 |&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\t| a2 b2 1 |&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;\nKEY&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;a2 and b2		    : PROVIDE TRANSLATION&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;a0 and b1		    : PROVIDE SCALING&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;a1 and b0		    : PROVIDE SHEARING&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;(a0,b0) AND (a1,b1)	    : PROVIDE ROTATION&quot;&lt;&lt;endl;
+
+		TransformInput();	//gets users input matrix
+
+		if(  (input[2][0] !=1 ) || ( input [2][1] != 1) )
+		{
+			Translation();
+			goto start;
+		}
+		else
+		{
+			cout&lt;&lt;&quot;\nno trans&quot;&lt;&lt;endl;
+		}
+
+	}	// mode t ends here
+
+	else if( mode == 'x')
+	{
+		exit(1);
+	}
+
+	else
+	{
+		system(&quot;cls&quot;);
+		cout&lt;&lt;&quot;OPTION DOES NOT EXIST, PLEASE SELECT AGAIN&quot;&lt;&lt;endl&lt;&lt;endl;
+		goto start;
+	}
+
+	while(1);
+	return 0;
+}
+
+char main_menu()
+{
+	char ans;
+	cout&lt;&lt;&quot;******   PLEASE SELECT THE REQUIRED ACTION   ******&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;\n . Read image and print information (Press P)&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;\n . Convert 24 bit to 8bit gray scale (Press G)&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;\n . Histogram and Histogram equalization (Press E)&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;\n . Take an affine transformation matrix as an input and\n   apply that transformation to the image. (Press T)&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;\n . Exit (Press X )&quot;&lt;&lt;endl;
+
+	cin&gt;&gt;ans;
+	return(ans);
+}
+
+void file_reader()
+{
+	FILE *opener;
+	system(&quot;cls&quot;);
+
+takin_file_name:
+	
+	cout&lt;&lt;&quot;Enter the file name: (in bmp format) &quot;&lt;&lt;endl;
+	cin&gt;&gt;filename;
+	cout&lt;&lt;endl&lt;&lt;endl;	
+	opener = fopen(filename,&quot;rb&quot;);
+	if(opener == NULL)	
+	{
+		perror(&quot;ERROR OPENING FILE&quot;);
+		goto takin_file_name;
+	}
+	else
+	{
+		for (int i=0;i&lt;55;i++)
+		{
+			Image_ki_info[i]=fgetc(opener);
+		}
+
+		Image_Data.bfType = Image_ki_info[0] + Image_ki_info[1]*256;
+	
+	 	if (Image_Data.bfType == 0x4D42)
+		{
+			cout&lt;&lt;&quot;it is a valid BMP file&quot;&lt;&lt;endl;
+			Image_Data.Bits_Count = Image_ki_info[28]+(Image_ki_info[29]*256); 
+
+			if (Image_Data.Bits_Count==8) 
+			cout&lt;&lt;&quot;Bits per Pixel of Image is 8&quot;&lt;&lt;endl;
+
+			else if(Image_Data.Bits_Count==8)
+			cout&lt;&lt;&quot;Bits per Pixel of Image is 16&quot;&lt;&lt;endl;
+
+			else if (Image_Data.Bits_Count==24)
+			cout&lt;&lt;&quot;Bits per Pixel of Image is 24&quot;&lt;&lt;endl;
+		}
+
+		else 
+		{
+			cout&lt;&lt;&quot;It is not a valid BMP file&quot;&lt;&lt;endl;
+			exit(1);
+		}
+
+		Image_Data.Width = (Image_ki_info[18]+(Image_ki_info[19]*256)+(Image_ki_info[20]*256*256)+(Image_ki_info[21]*256*256*256)); 
+		Image_Data.Height = (Image_ki_info[22]+(Image_ki_info[23]*256)+(Image_ki_info[24]*256*256)+(Image_ki_info[25]*256*256*256));
+		Image_Data.Size_hw = Image_Data.Height * Image_Data.Width;
+		Image_Data.File_Size = ((Image_ki_info[34])+(Image_ki_info[35]*256)+(Image_ki_info[36]*256*256)+(Image_ki_info[37]*256*256*256));
+		Image_Data.X_Res= ((Image_ki_info[38])+(Image_ki_info[39]*256)+(Image_ki_info[40]*256*256)+(Image_ki_info[41]*256*256*256));
+		Image_Data.Y_Res= ((Image_ki_info[42])+(Image_ki_info[43]*256)+(Image_ki_info[44]*256*256)+(Image_ki_info[45]*256*256*256));
+
+	}
+
+	Image_Data_pointer = new long [Image_Data.Size_hw];
+	double grey_scale = 0;
+	long i=0;
+
+	while(!feof(opener))
+	{
+		grey_scale= 0.3*fgetc(opener) + 0.59*fgetc(opener) + 0.11*fgetc(opener);
+		Image_Data_pointer[i]=(int)ceil(grey_scale); 
+		i++;
+		
+	}
+	fclose(opener);
+
+}//file_reader() ends here
+<A NAME="1"></A>
+void Bit54_Grey_ImageHeader()
+{
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	long sizes =((Image_Data.Size_hw) + 1024 + 54);
+	
+	//DIVIDING THE SIZE OF FILE INTO INDIVIUAL BYTES ND SAVIN THEM INTO NEW HEADER
+	Image_ki_info[5]=sizes/(256*256*256);
+	sizes = sizes%(256*256*256);
+	Image_ki_info[4]=sizes/(256*256);
+	sizes = sizes%(256*256);
+	Image_ki_info[3]=sizes/(256);
+	Image_ki_info[2]=sizes%256;
+
+	sizes = (Image_Data.Size_hw);
+
+	//DIVIDING SOF IMAGE INTO INDIVIDUAL BYTES
+	Image_ki_info[37]=sizes/(256*256*256);
+	sizes=sizes%(256*256*256);
+	Image_ki_info[36]=sizes/(256*256);
+	sizes=sizes%(256*256);
+	Image_ki_info[35]=sizes/(256);</B></FONT>
+	Image_ki_info[34]=sizes%256;
+
+	
+	Image_ki_info[46]=0;
+	Image_ki_info[47]=1;
+	Image_ki_info[48]=0;
+	Image_ki_info[49]=0;
+	Image_ki_info[50]=0;
+	Image_ki_info[51]=0;
+	Image_ki_info[52]=0;
+	Image_ki_info[53]=0;
+
+	Image_ki_info[28]=8;
+	Image_ki_info[29]=0;
+
+	Image_ki_info[10]=54;
+	Image_ki_info[11]=4;
+	Image_ki_info[12]=0;
+	Image_ki_info[13]=0;
+	Image_ki_info[14]=40;
+	Image_ki_info[15]=0;
+	Image_ki_info[16]=0;
+	Image_ki_info[17]=0;
+	Image_ki_info[26]=1;
+	Image_ki_info[27]=0;
+
+}//Bit54_Grey_ImageHeader() ends here
+
+<A NAME="0"></A>void Grey_pallete()
+{
+	int k=54;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for(int i=0; i&lt;256; i++)
+	{
+		for(int j=0; j&lt;3;j++)
+		{
+			Image_ki_info[k++]=i;		
+		}
+		Image_ki_info[k++]=0;
+	}</B></FONT>
+
+}// Grey_pallete() ends here
+
+void TransformInput()
+{
+	cout&lt;&lt;&quot;\nENTER VALUE FOR a0: &quot;;
+	cin&gt;&gt;input[0][0];
+
+	cout&lt;&lt;&quot;ENTER VALUE FOR b0: &quot;;
+	cin&gt;&gt;input[0][1];
+
+	input[0][2]= 0;
+
+	cout&lt;&lt;&quot;ENTER VALUE FOR a1: &quot;;
+	cin&gt;&gt;input[1][0];
+
+	cout&lt;&lt;&quot;ENTER VALUE FOR b1: &quot;;
+	cin&gt;&gt;input[1][1];
+
+	input[1][2]= 0;
+
+	cout&lt;&lt;&quot;ENTER VALUE FOR a2: &quot;;
+	cin&gt;&gt;input[2][0];
+
+	cout&lt;&lt;&quot;ENTER VALUE FOR b2: &quot;;
+	cin&gt;&gt;input[2][1];
+
+	input[2][2] = 1;
+
+}	//	TransformInput() ends here
+
+void Translation()
+{
+	system(&quot;cls&quot;);
+	cout&lt;&lt;input[2][0]&lt;&lt;endl;
+	cout&lt;&lt;input[2][1]&lt;&lt;endl;
+	cout&lt;&lt;&quot;\n\t TRANSLATION WINDOW&quot;&lt;&lt;endl;
+
+	// input[2][0] has X-TRANS
+	// input[2][1] has Y-TRANS
+
+//---------------- TRANSLATED IMAGE HEADER STARTS ----------------------------------//
+	Trans.Width = Image_Data.Width  + input[2][0] ;
+	Trans.Height = Image_Data.Height + input[2][1] ;
+	Trans.Size_hw = Trans.Width * Trans.Height;
+
+	long trans_file_change = ((Trans.Size_hw)+1024+54);
+
+	Image_ki_info[5] = trans_file_change/(256*256*256);
+	trans_file_change = trans_file_change%(256*256*256);
+	Image_ki_info[4] = trans_file_change/(256*256);
+	trans_file_change = trans_file_change%(256*256);
+	Image_ki_info[3] = trans_file_change/(256);
+	Image_ki_info[2] = trans_file_change%256;
+
+	trans_file_change= Trans.Size_hw;	//dividing file size
+
+	Image_ki_info[37]=trans_file_change/(256*256*256);
+	trans_file_change=trans_file_change%(256*256*256);
+	Image_ki_info[36]=trans_file_change/(256*256);
+	trans_file_change=trans_file_change%(256*256);
+	Image_ki_info[35]=trans_file_change/(256);
+	Image_ki_info[34]=trans_file_change%256;
+
+	trans_file_change= Trans.Width;	//dividing width
+
+	Image_ki_info[21]=trans_file_change/(256*256*256);
+	trans_file_change=trans_file_change%(256*256*256);
+	Image_ki_info[20]=trans_file_change/(256*256);
+	trans_file_change=trans_file_change%(256*256);
+	Image_ki_info[19]=trans_file_change/(256);
+	Image_ki_info[18]=trans_file_change%256;
+
+	trans_file_change=Trans.Height;	//dividing height
+
+	Image_ki_info[25]=trans_file_change/(256*256*256);
+	trans_file_change=trans_file_change%(256*256*256);
+	Image_ki_info[24]=trans_file_change/(256*256);
+	trans_file_change=trans_file_change%(256*256);
+	Image_ki_info[23]=trans_file_change/(256);
+	Image_ki_info[22]=trans_file_change%256;
+
+	cout&lt;&lt;&quot;H = &quot;&lt;&lt;Trans.Height&lt;&lt;endl;
+	cout&lt;&lt;&quot;W = &quot;&lt;&lt;Trans.Width&lt;&lt;endl;
+//---------------- TRANSLATED IMAGE HEADER READY----------------------------------//
+
+	Translated_Image_Data = new double*[Trans.Width];
+
+	for (long int i=0; i&lt; Trans.Width;i++)//i is less than new image width
+	{
+		Translated_Image_Data[i]=new double[Trans.Height];
+	}
+	
+	for (long int j=0;j&lt;Trans.Height;j++)//j is less than new image height
+	{
+		for (long int i=0;i&lt;Trans.Width;i++)
+		{
+			Translated_Image_Data[i][j]=0;
+		}
+	}
+//VECTOR LIES HERE//
+/*
+	vector&lt;vector&lt;long&gt; &gt; Translated_Image_Data;
+
+  // Set up sizes (HEIGHT x WIDTH)
+  Translated_Image_Data.resize(Trans.Width);
+
+  for (int it = 0; it &lt; Trans.Width; ++it)
+  {
+    Translated_Image_Data[it].resize(Trans.Height);	// making 2-D array for image data
+  }
+
+  */
+  long int transformer=(Image_Data.Height * Image_Data.Width);
+//-------- FILLING 2D ARRAY OF DATA -------------------------------------------------//
+	for(long int col_tran=Trans.Width  ; col_tran &gt; (input[2][0]); col_tran--)
+	{
+		for(long int row_tran=Trans.Height  ; row_tran &gt;(input[2][1]) ; row_tran--)
+		{
+			
+				 Translated_Image_Data[row_tran][col_tran] = Image_Data_pointer[transformer];
+				 transformer--;
+
+		}
+	}
+
+
+
+	/*
+	for(long int remon = Image_Data.Width; remon &lt; Trans.Width; remon++)
+	{
+		for(long int col_tran=0; col_tran &lt; Trans.Height; col_tran++)
+		{
+			Translated_Image_Data[remon][col_tran] = 0;	//filling reaming rows with black
+		}
+	}
+
+	*/
+
+	/*
+	cout&lt;&lt;&quot;input[2][0]  X-TRANS = &quot; &lt;&lt;input[2][0] &lt;&lt;endl;
+	cout&lt;&lt;&quot;input[2][1]  Y-TRANS = &quot; &lt;&lt;input[2][1] &lt;&lt;endl;
+	
+	//for(long int muggoR=0; muggoR &lt; Trans.Height; muggoR++)
+	for(long int muggoR=Image_Data.Width; muggoR &lt; Trans.Width ; muggoR++)			// first 5-10 rows
+	{
+		//for(long int muggoC=0; muggoC &lt; Trans.Width; muggoC++)
+		for(long int muggoC=0; muggoC &lt; 20 ; muggoC++)		// first 30 columns
+		{
+			cout&lt;&lt;Translated_Image_Data[muggoR][muggoC];
+		}
+		cout&lt;&lt;endl;
+	}
+	cout&lt;&lt;endl;
+
+	*/
+	
+	
+	
+	trans_pointer = new long [Trans.Height * Trans.Width];
+
+	long tray= (Trans.Height * Trans.Width);
+
+	for(long int row_tran1 =Trans.Height ; row_tran1 &gt; 0 ; row_tran1--)
+	{
+		//for(long int col_tran1 = 0; col_tran1 &lt; Trans.Height; col_tran1++)
+		for(long int col_tran1 = Trans.Width ; col_tran1 &gt; 0 ; col_tran1--)
+		{
+
+			trans_pointer[tray] = Translated_Image_Data[col_tran1][row_tran1];
+			tray--;
+		}
+	}
+
+	
+
+	for(long int row_tran2 = 0; row_tran2 &lt; 1078; row_tran2++)
+	{
+		Trans_info[row_tran2] = Image_ki_info[row_tran2];	//SAVING IMAGE HEADER &amp; PALLETE
+	}
+	
+	FILE *trans_opener;
+
+	trans_opener= fopen(filename_transformer,&quot;wb&quot;); 
+
+	for (long int count=0; count &lt; 1078; count++)
+	{
+		fputc(Trans_info[count],trans_opener);
+	}
+
+		//for(long int col_tran1 = 0; col_tran1 &lt; Trans.Height; col_tran1++)
+	for(long int colgate = 0 ; colgate &lt;Trans.Size_hw ; colgate++)
+	{
+		fputc(trans_pointer[colgate] , trans_opener);
+	}
+	
+	
+	
+	fclose(trans_opener);
+
+	Trans.X_Res= ((Trans_info[38])+(Trans_info[39]*256)+(Trans_info[40]*256*256)+(Trans_info[41]*256*256*256));
+	Trans.Y_Res= ((Trans_info[42])+(Trans_info[43]*256)+(Trans_info[44]*256*256)+(Trans_info[45]*256*256*256));
+
+	cout&lt;&lt;&quot;Image has been successfully translated&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;\nTranslated Image's Data &quot;&lt;&lt;endl;
+
+	printf(&quot;\nSize: %d&quot;, Trans.Size_hw);
+	printf(&quot;\nWidth: %d&quot;, Trans.Width);
+	printf(&quot;\nHeight: %d&quot;, Trans.Height);
+	printf(&quot;\nxResolution: %d&quot;, Trans.X_Res);	
+	printf(&quot;\nyResolution: %d&quot;, Trans.Y_Res);
+	cout&lt;&lt;&quot;\nIt is 8-bit Image&quot;&lt;&lt;endl;
+
+	
+	ans_ent='d';
+	cout&lt;&lt;&quot;\nTo go to main menu, please press enter&quot;&lt;&lt;endl;
+
+	while(ans_ent!=13)
+	{
+		ans_ent = getch();
+	}
+	system(&quot;cls&quot;);
+
+	
+	return;
+
+}	// Translation() ends here
+</PRE>
+</BODY>
+</HTML>

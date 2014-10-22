@@ -1,0 +1,163 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-05-26 07:19:26 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul Hadi_Chara_Question2 Abdul Hadi.cpp
+Scanning file Abdul Hadi_Chara_Question2 Abdul Hadi.cpp
+OK
+------ Parsing submission: Abdul Rehman_Azam_golu2.cpp
+Scanning file Abdul Rehman_Azam_golu2.cpp
+OK
+------ Parsing submission: Abdul_Wahab_q2.cpp
+Scanning file Abdul_Wahab_q2.cpp
+OK
+------ Parsing submission: Ahmed Kazim_Fakih_Source.cpp
+Scanning file Ahmed Kazim_Fakih_Source.cpp
+OK
+------ Parsing submission: Ahmed_Osama_Q2.cpp
+Scanning file Ahmed_Osama_Q2.cpp
+OK
+------ Parsing submission: Ali Ghazi_Muzaffar_hjmn.cpp
+Scanning file Ali Ghazi_Muzaffar_hjmn.cpp
+OK
+------ Parsing submission: Ali_Qayum_Question 2.cpp
+Scanning file Ali_Qayum_Question 2.cpp
+OK
+------ Parsing submission: Alina_Takreem_question-2.cpp
+Scanning file Alina_Takreem_question-2.cpp
+OK
+------ Parsing submission: Annas Ul Hassan_Qureshi_ANNAS LAB CODE 8 Q 2.cpp
+Scanning file Annas Ul Hassan_Qureshi_ANNAS LAB CODE 8 Q 2.cpp
+OK
+------ Parsing submission: Arslan_Raza_arslan.cpp
+Scanning file Arslan_Raza_arslan.cpp
+OK
+------ Parsing submission: Awais_Ahmad_Awais ahmad4.cpp
+Scanning file Awais_Ahmad_Awais ahmad4.cpp
+OK
+------ Parsing submission: Ayesha_Bibi_question no.02.cpp
+Scanning file Ayesha_Bibi_question no.02.cpp
+OK
+------ Parsing submission: Bilal_Murtaza_,.cpp
+Scanning file Bilal_Murtaza_,.cpp
+OK
+------ Parsing submission: Emad_Aamer_lab 8 Q2.cpp
+Scanning file Emad_Aamer_lab 8 Q2.cpp
+OK
+------ Parsing submission: Farhaad_Hussain_farhaadlab8q2.cpp
+Scanning file Farhaad_Hussain_farhaadlab8q2.cpp
+OK
+------ Parsing submission: Ghulam_Habib_india 50.cpp
+Scanning file Ghulam_Habib_india 50.cpp
+OK
+------ Parsing submission: Hamza _Ali_Q2.cpp
+Scanning file Hamza _Ali_Q2.cpp
+OK
+------ Parsing submission: Hamza_Khan_Question 2.cpp
+Scanning file Hamza_Khan_Question 2.cpp
+OK
+------ Parsing submission: Hanan_Zulfiqar_Question 2.cpp
+Scanning file Hanan_Zulfiqar_Question 2.cpp
+OK
+------ Parsing submission: Haris_Bhatti_bhatti.cpp
+Scanning file Haris_Bhatti_bhatti.cpp
+OK
+------ Parsing submission: Jawad_Gul_Juga Daku 2.cpp
+Scanning file Jawad_Gul_Juga Daku 2.cpp
+OK
+------ Parsing submission: Mohammad Ali_Muzzammil_Question2 Ali Muzzammil.cpp
+Scanning file Mohammad Ali_Muzzammil_Question2 Ali Muzzammil.cpp
+OK
+------ Parsing submission: Mohammad_Shaaz_Mohammad Shaaz Lab 8 Question 2.cpp
+Scanning file Mohammad_Shaaz_Mohammad Shaaz Lab 8 Question 2.cpp
+OK
+------ Parsing submission: Mohammad_Talal_lab8(mohammad talal).cpp
+Scanning file Mohammad_Talal_lab8(mohammad talal).cpp
+OK
+------ Parsing submission: Mohib Ur_Rahman_Lab8 Q2 Mohib.cpp
+Scanning file Mohib Ur_Rahman_Lab8 Q2 Mohib.cpp
+OK
+------ Parsing submission: Muhammad Abdul Qadeem_Khan_Task 2.cpp
+Scanning file Muhammad Abdul Qadeem_Khan_Task 2.cpp
+OK
+------ Parsing submission: Muhammad Abdul_Manan_M Abdul Manan Q2.cpp
+Scanning file Muhammad Abdul_Manan_M Abdul Manan Q2.cpp
+OK
+------ Parsing submission: Muhammad Afraz Khan_Sherwani_Q2.cpp
+Scanning file Muhammad Afraz Khan_Sherwani_Q2.cpp
+  Scanning Error in 'Muhammad Afraz Khan_Sherwani_Q2.cpp':
+  Lexical error at line 29, column 18.  Encountered: "E" (69), after : "\"\\"
+ERROR -> Submission removed
+------ Parsing submission: Muhammad Basit_Bosan_Bosan36.cpp
+Scanning file Muhammad Basit_Bosan_Bosan36.cpp
+OK
+------ Parsing submission: Muhammad Maaz_Khattak_Question 2.c
+Scanning file Muhammad Maaz_Khattak_Question 2.c
+OK
+------ Parsing submission: Muhammad Talha_Athar_Question 2.cpp
+Scanning file Muhammad Talha_Athar_Question 2.cpp
+OK
+------ Parsing submission: Muhammad Zaheer Ud Din_Qamar_Q2.cpp
+Scanning file Muhammad Zaheer Ud Din_Qamar_Q2.cpp
+OK
+------ Parsing submission: Muhammad Zeeshan_Tariq_Q2.cpp
+Scanning file Muhammad Zeeshan_Tariq_Q2.cpp
+OK
+------ Parsing submission: Muhammad_Mahad_12.cpp
+Scanning file Muhammad_Mahad_12.cpp
+OK
+------ Parsing submission: Mustafa_Akmal_muslab08_Q2.cpp
+Scanning file Mustafa_Akmal_muslab08_Q2.cpp
+OK
+------ Parsing submission: Naveed_Ahmad_q2.cpp
+Scanning file Naveed_Ahmad_q2.cpp
+OK
+------ Parsing submission: Nayab_Nasir_Lab 08 Question no 2.cpp
+Scanning file Nayab_Nasir_Lab 08 Question no 2.cpp
+OK
+------ Parsing submission: Nisar_Ahmed_nisar Q2.cpp
+Scanning file Nisar_Ahmed_nisar Q2.cpp
+OK
+------ Parsing submission: Rida_Mehtab_Question 2.cpp
+Scanning file Rida_Mehtab_Question 2.cpp
+OK
+------ Parsing submission: Sana_Munir_boooooo.cpp
+Scanning file Sana_Munir_boooooo.cpp
+OK
+------ Parsing submission: Sehrish_Faiz_sadaas.cpp
+Scanning file Sehrish_Faiz_sadaas.cpp
+OK
+------ Parsing submission: Shahzeb_Zafar_lab8q2szz.cpp
+Scanning file Shahzeb_Zafar_lab8q2szz.cpp
+OK
+------ Parsing submission: Sidra_Maqbool_QNO2.cpp
+Scanning file Sidra_Maqbool_QNO2.cpp
+OK
+------ Parsing submission: Syed Minhas_Mahmood_Syed Minhas Mahmood_LAB VIII.cpp
+Scanning file Syed Minhas_Mahmood_Syed Minhas Mahmood_LAB VIII.cpp
+OK
+------ Parsing submission: Syed Muhammad Shaheer_Hashmi_Shaheer 2.cpp
+Scanning file Syed Muhammad Shaheer_Hashmi_Shaheer 2.cpp
+OK
+------ Parsing submission: Talha_Mujeeb_a.cpp
+Scanning file Talha_Mujeeb_a.cpp
+OK
+------ Parsing submission: Usama_Rauf_Q1.cpp
+Scanning file Usama_Rauf_Q1.cpp
+OK
+------ Parsing submission: Usama_Shabbir_usama shabbir q 2.cpp
+Scanning file Usama_Shabbir_usama shabbir q 2.cpp
+OK
+------ Parsing submission: Zohan Hasan_Tariq_Q2.cpp
+Scanning file Zohan Hasan_Tariq_Q2.cpp
+OK
+
+48 submissions parsed successfully!
+1 parser error!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 1 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

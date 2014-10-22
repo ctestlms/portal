@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Ghazanfer_Ali_GC GHAZANFER ALI_400.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Ghazanfer_Ali_GC GHAZANFER ALI_400.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;windows.h&gt;
+#include &lt;cstdio&gt;
+#include &lt;math.h&gt;
+
+using namespace std;
+
+void main()						
+
+{	
+	Beep(300,300);
+	Beep(300,300);
+	Beep(300,300);
+	Beep(300,900);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+	char NAME_OF_FILE[50];		// DECLARING VARIABLE TO GET FILE NAME                                       
+	                                          
+	char* IMAGE_FILE;			// DECLARING VARIABLE FOR READING IMAGE FILE  
+	long TEMPERORY;
+	                          
+	int IMAGE_PALETTE[1024]={0};// DECLARING VARIABLE FOR READING IMAGE IMAGE_PALETTE                       
+
+	FILE *INSTRUCTION=NULL;
+	int SIZE_OF_IMAGE;			// DECLARING VARIABLE FOR STORING SIZE_OF_IMAGE OF IMAGE                       
+	char OPTION=0;				// DECLARING VARIABLE FOR USER OPTION 
+	int WIDTH_OF_IMAGE;			// DECLARING VARIABLE FOR CALCULATING WIDTH_OF_IMAGE OF IMAGE                    
+	int HEIGHT_OF_IMAGE;		// DECLARING VARIABLE FOR CALCULATING HEIGHT_OF_IMAGE OF IMAGE  
+	int IMAGE_HEADER[54]={0};	// DECLARING VARIABLE FOR READING HEADER OF IMAGE 
+
+	int *DATA_OF_IMAGE;		// POINTER TO STORE DATA OF IMAGE                        
+<A NAME="1"></A>	
+	int G=0;
+	long int LOOP=0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	long int LOOP2=0;
+	
+
+	for( LOOP=0;LOOP&lt;256;LOOP++)
+
+	{
+		for(LOOP2=0;LOOP2&lt;3;LOOP2++)
+
+		{
+			IMAGE_PALETTE[G]=LOOP;
+			G++;
+		}</B></FONT>
+
+		IMAGE_PALETTE[G]=0;
+		G++;
+
+	}
+
+	while(OPTION!='X')
+
+	{
+		Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+	system(&quot;cls&quot;);
+	cout&lt;&lt;&quot; ********************************************&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; *                                          *&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; *         DIP ASSIGNMENT WITH MUZIC        *&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; *      ENTER YOUR DESIRED ACTION           *&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; *  P: READ AND PRINT INFORMATION OF IMAGE  *&quot;&lt;&lt;endl;       // MAIN MENU
+	cout&lt;&lt;&quot; *  G: CONVERT IMAGE FILE TO GREYSCALE      *&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; *  X: TO EXIT                              *&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; *                                          *&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot; ********************************************&quot;&lt;&lt;endl;
+
+	cin&gt;&gt;OPTION;			// INPUTS THE OPTIONS
+	
+	Beep(300,300);
+	Beep(300,300);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+
+
+	/////////////////////////////////////////////  INFORMATIONN READING PART  /////////////////////////////////////
+	
+	if(OPTION=='P')														// CHECKS OPTION FOR INFO PARAMETER
+
+	{
+		system(&quot;cls&quot;);												// TO CLEAR THE SCREEN
+
+		cout&lt;&lt;&quot;ENTER THE FILE NAME WITH PATH TO OPEN THE FILE&quot;&lt;&lt;endl;
+		
+		
+	Beep(300,300);
+	Beep(300,300);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+
+		cin.getline(NAME_OF_FILE,20);								// GETTING FILE NAME
+
+		cin.getline(NAME_OF_FILE,20);								// GETTING FILE NAME
+
+		INSTRUCTION=fopen(NAME_OF_FILE,&quot;rb&quot;);						// OPENS THE FILE
+
+		if(INSTRUCTION==NULL)                                       // CHECK FOR FILE EXISTANCE
+
+		{
+			cout&lt;&lt;&quot;CANNOT LOAD THE IMAGE FILE&quot;&lt;&lt;endl;
+		}
+
+		else
+
+		{
+			fseek(INSTRUCTION,0,SEEK_SET);
+
+			for( LOOP=0;LOOP&lt;54;LOOP++)                           // READS THE HEADER FILE
+			
+			{
+				IMAGE_HEADER[LOOP]=fgetc(INSTRUCTION);            // STORES THE HEADER DATA
+			}
+
+		if(IMAGE_HEADER[1]*256+IMAGE_HEADER[0]!=19778)            // CHECK FOR VALIDITY OF HEADER
+
+		{
+			cout&lt;&lt;&quot;THIS IS AN INVALID OR CORRUPTED IMAGE FILE &quot;;
+		}
+
+		else
+
+		{
+			SIZE_OF_IMAGE=IMAGE_HEADER[2]+IMAGE_HEADER[3]*256+IMAGE_HEADER[4]*(256*256)+IMAGE_HEADER[5]*(256*256*256);  // CALCULATES THE SIZE OF IMAGE FILE
+
+			WIDTH_OF_IMAGE=IMAGE_HEADER[18]+IMAGE_HEADER[19]*256+IMAGE_HEADER[20]*(256*256)+IMAGE_HEADER[21]*(256*256*256);     // CALCULATES THE WIDTH OF IMAGE
+
+			HEIGHT_OF_IMAGE=IMAGE_HEADER[22]+IMAGE_HEADER[23]*256+IMAGE_HEADER[24]*(256*256)+IMAGE_HEADER[25]*(256*256*256);    // CALCULATES THE HEIGHT OF IMAGE
+
+
+			cout&lt;&lt;endl&lt;&lt;&quot; THIS IS A VALID BMP FILE&quot;&lt;&lt;endl;
+
+			cout&lt;&lt;&quot; NAME OF THE IMAGE FILE IS    &quot;;
+
+			for(LOOP=0;NAME_OF_FILE[LOOP]!=NULL;LOOP++)    // OUTPUTS THE ENTERED IMAGE FILE NAME
+
+			{
+				cout&lt;&lt;NAME_OF_FILE[LOOP];
+			}
+	Beep(300,300);
+	Beep(300,300);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+			cout&lt;&lt;endl&lt;&lt;&quot; TOTAL WIDTH OF THE FILE IS &quot;&lt;&lt;WIDTH_OF_IMAGE&lt;&lt;&quot; PIXELS &quot;&lt;&lt;endl;      // OUTPUTS THE WIDTH OF IMAGE FILE
+			cout&lt;&lt;&quot; TOTAL HEIGHT OF THE IMAGE IS &quot;&lt;&lt;HEIGHT_OF_IMAGE&lt;&lt;&quot; PIXELS &quot;&lt;&lt;endl;			// OUTPUTS THE HEIGHT OF THE IMAGE FILE
+			cout&lt;&lt;&quot; TOTAL SIZE OF THE FILE IS &quot;&lt;&lt;SIZE_OF_IMAGE&lt;&lt;&quot; BYTES&quot;&lt;&lt;endl;					// OUTPUTS THE SIZE OF THE FILE
+			cout&lt;&lt;&quot; TYPE OF THE LOADED IMAGE IS &quot;&lt;&lt;IMAGE_HEADER[28]+IMAGE_HEADER[29]*256&lt;&lt;&quot; BIT IMAGE &quot;&lt;&lt;endl;  // OUTPUTS THE TYPE OF LOADED IMAGE
+
+			DATA_OF_IMAGE=new int [WIDTH_OF_IMAGE*HEIGHT_OF_IMAGE*((IMAGE_HEADER[28]+IMAGE_HEADER[29]*256)/8)];  //   CALCULATES THE TOTAL DATA OF IMAGE
+			fseek(INSTRUCTION,(IMAGE_HEADER[10]+IMAGE_HEADER[11]*256+IMAGE_HEADER[12]*(256*256)+IMAGE_HEADER[13]*(256*256*256)),SEEK_SET);
+			for(LOOP=0;LOOP&lt;WIDTH_OF_IMAGE*HEIGHT_OF_IMAGE*((IMAGE_HEADER[28]+IMAGE_HEADER[29]*256)/8);LOOP++)
+			{
+				DATA_OF_IMAGE[LOOP]=fgetc(INSTRUCTION);
+			}
+		}
+		}
+		
+		
+		
+		cin.get(OPTION);			// TAKES THE INPUT OPTIONS
+		
+	
+	
+	}
+
+	else if(OPTION=='X')									// INPUTS OPTION FOR EXIT
+
+	{
+		
+	Beep(300,300);
+	Beep(300,300);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+		cin.get(OPTION);
+	
+		break;												// EXITS THE LOOP
+	}
+
+
+     
+//////////////////////////////////////////////// GREYSCALE CONVERSION PART ///////////////////////////////////////////////
+
+
+
+	else if(OPTION=='G')								// CHECK OPTION TO CONVERT TO GREYSCALE
+
+	{
+	Beep(300,300);
+	Beep(300,300);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+		system(&quot;cls&quot;);									// CLEARS THE SCREEN
+
+		if(INSTRUCTION==NULL)
+
+		{
+			cout&lt;&lt;&quot; NO IMAGE FILE LOADED &quot;&lt;&lt;endl;		// OUTPUTS ERROR
+
+			cin.get(OPTION);
+		}
+
+		else if(IMAGE_HEADER[1]*256+IMAGE_HEADER[0]!=19778)  // CHECKS THE VALIDITY OF THE HEADER
+		{
+			cout&lt;&lt;&quot; INVALID BMP FILE &quot;&lt;&lt;endl;
+			
+			cin.get(OPTION);                                // ASKS FOR OPTIONS
+
+		}
+
+		
+		else
+
+		{
+<A NAME="0"></A>
+			long SIZE_OF_IMAGE=(WIDTH_OF_IMAGE*HEIGHT_OF_IMAGE);  // DECLARING THE VARIABLE TO STORE DATA OF IMAGE
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			char ch=0;
+
+			rewind(INSTRUCTION);
+
+			FILE *GREYSCALE_IMAGE;                               // DECLARING POINTER TO STORE GREYSCALE IMAGE
+
+			cout&lt;&lt;endl&lt;&lt;&quot;ENTER THE DESIRED NAME FOR YOUR OUTPUT FILE&quot;&lt;&lt;endl;
+
+			cin.getline(NAME_OF_FILE,20);						// INPUTS FILE NAME
+
+			cin.getline(NAME_OF_FILE,20);						// INPUTS FILE NAME
+
+			GREYSCALE_IMAGE=fopen(NAME_OF_FILE,&quot;wb&quot;);			// OPENS GREYSCALE IMAGE
+
+			IMAGE_HEADER[34]=(SIZE_OF_IMAGE%256);				// EXTRACTING BYTE NO 34
+			
+			IMAGE_HEADER[35]=(SIZE_OF_IMAGE/256)%256;			// EXTRACTING BYTE NO 35
+
+			IMAGE_HEADER[36]=(SIZE_OF_IMAGE/65536)%256;			// EXTRACTING BYTE NO 36
+
+			SIZE_OF_IMAGE=SIZE_OF_IMAGE+1078;					
+
+			IMAGE_HEADER[2]=(SIZE_OF_IMAGE)%256;				
+
+			IMAGE_HEADER[3]=(SIZE_OF_IMAGE/256)%256;			
+
+			IMAGE_HEADER[4]=(SIZE_OF_IMAGE/65536)%256;			// EXTRACTING HEADER
+
+			IMAGE_HEADER[5]=(SIZE_OF_IMAGE/(65536*256))%256;	
+
+			IMAGE_HEADER[10]=54;								
+
+			IMAGE_HEADER[11]=04;
+
+			IMAGE_HEADER[28]=8;
+
+			IMAGE_HEADER[47]=1;</B></FONT>
+
+			fseek(GREYSCALE_IMAGE,0,SEEK_SET);
+
+			for(LOOP=0;LOOP&lt;54;LOOP++)
+
+			{
+
+			fprintf(GREYSCALE_IMAGE,&quot;%c&quot;,IMAGE_HEADER[LOOP]);
+
+			}
+
+			fseek(GREYSCALE_IMAGE,54,SEEK_SET);
+
+			for(LOOP=0;LOOP&lt;1024;LOOP++)
+
+			{
+
+			fprintf(GREYSCALE_IMAGE,&quot;%c&quot;,IMAGE_PALETTE[LOOP]);
+
+			}
+
+			fseek(GREYSCALE_IMAGE,1078,SEEK_SET);
+
+			SIZE_OF_IMAGE=(WIDTH_OF_IMAGE*HEIGHT_OF_IMAGE);
+
+			for( LOOP=0;LOOP&lt;SIZE_OF_IMAGE;LOOP++)
+
+			{
+				ch=(DATA_OF_IMAGE[LOOP*3]+DATA_OF_IMAGE[LOOP*3+1]+DATA_OF_IMAGE[LOOP*3+2])/3;
+
+				fprintf(GREYSCALE_IMAGE,&quot;%c&quot;,ch);
+			}
+
+			cout&lt;&lt;&quot;IMAGE HAS BEEN SUCCESSFULLY BUILT&quot;&lt;&lt;endl;
+
+			fclose(GREYSCALE_IMAGE);						// CLOSES GREYSCALE IMAGE
+			
+		}
+		
+		cin.get(OPTION);									// INPUTS OPTIONS
+	}
+    
+	////////////////////////////////////////////////////////////  INVALID OPTION PART //////////////////////////////////////////////////
+
+	else
+
+	{
+
+	Beep(300,300);
+	Beep(300,300);
+	Beep(1000,500);
+	Beep(3000,500);
+	Beep(5000,300);
+	Beep(800,300);
+	Beep(1300,300);
+		system(&quot;cls&quot;);
+		cout&lt;&lt;&quot;ENTER A VALID OPTION&quot;;				// CHECK FOR WRONG INPUT
+		cin.get(OPTION);							// INPUTS THE OPTION
+		cin.get(OPTION);							// INPUTS THE OPTION
+	}
+	
+	}
+}
+
+</PRE>
+</BODY>
+</HTML>

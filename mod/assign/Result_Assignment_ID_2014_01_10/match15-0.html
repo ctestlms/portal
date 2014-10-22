@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Shahzaib Farooq_Hadi_task.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Shahzaib Farooq_Hadi_task.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;iostream&gt;
+using namespace std;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Node
+{
+public:
+	int data ;
+	Node *next;
+	Node ( int a , Node* temp )
+	{
+		data = a ;
+		next = temp;
+	}
+};
+
+class list
+{
+private:
+	Node* start;
+public:
+	void addnode(int a)
+	{
+		Node* temp;
+		temp = start;
+		if(start == NULL)
+		{
+			start = new Node(a,NULL); 
+		}
+		else
+<A NAME="1"></A>		{
+			while(temp-&gt;next!=NULL)</B></FONT>
+				temp = temp-&gt;next;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			temp-&gt;next = new Node(a,NULL);
+		}
+	}
+
+	void insertnode(int a,int pos)
+	{
+		Node* temp;
+		temp = start;
+		Node* prev_node;
+		Node* next_node;
+		Node* new_node;
+		for (int i=1; i&lt;pos; i++)</B></FONT>
+			temp = temp-&gt;next;
+		prev_node = temp;
+		temp = temp-&gt;next;
+		next_node = temp;
+<A NAME="2"></A>		new_node = new Node(a,NULL);
+		prev_node-&gt;next = new_node;
+		new_node-&gt;next = next_node;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	}
+
+	void print_node()
+	{
+		Node *temp;
+		temp = start;
+		while(temp-&gt;next!=NULL)
+		{
+			cout &lt;&lt; &quot;Value: &quot; &lt;&lt; temp-&gt;data &lt;&lt; endl;
+			temp = temp-&gt;next;
+		}
+		cout &lt;&lt; &quot;Value: &quot; &lt;&lt; temp-&gt;data &lt;&lt; endl;
+	}
+
+	list()
+	{
+		start = NULL;
+	}
+
+};
+
+int main()
+{</B></FONT>
+	int pos,data;
+	list obj;
+	obj.addnode(1);
+	obj.addnode(2);
+	obj.addnode(3);
+	obj.addnode(4);
+	obj.addnode(5);
+	obj.print_node();
+	cout &lt;&lt; &quot;Enter position for data: \n&quot;;
+	cin &gt;&gt; pos;
+	cout&lt;&lt; &quot;Enter data: \n&quot;;
+	cin &gt;&gt; data;
+	obj.insertnode(data,pos);
+	obj.print_node();
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

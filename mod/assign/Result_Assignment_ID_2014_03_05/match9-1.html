@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Jafer Khan_Shamshad_JaferKhan.c</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Jafer Khan_Shamshad_JaferKhan.c</CENTER></H3><HR>
+<PRE>
+// Header files
+#include &lt;stdio.h&gt;
+#include &lt;malloc.h&gt;
+
+// This function copies a string into a row of a 2D char array.
+void copyString(char **arr2D, char *str, int columns, int constant) {
+	for (int i = 0; i &lt; columns; i ++) {
+		arr2D[constant][i] = str[i];
+	}
+}
+
+// This function frees a 2D array.
+void freeArray(char **arr2D, int rows) {
+	for (int i = 0; i &lt; rows; i ++) {
+		free(arr2D[i]);
+	}	
+	free(arr2D);
+<A NAME="0"></A>}
+
+// This function copies a whole array element-wise. It takes 4 arguments, first one being the pointer to the array to which the elements needs to be copied, second one being the pointer to the array from which the elements needs to be copied, and third and fourth arguments are obvious.
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void copyArrays(char **firstArray, char **secondArray, int rows, int columns) {
+	for (int i = 0; i &lt; rows; i ++) {
+		for (int j = 0; j &lt; columns; j ++) {
+			firstArray[i][j] = secondArray[i][j];
+		}
+	}
+}
+
+// This function finds neighbours of each and every location, and then act accordingly.
+void findAndChange(char **firstArray, char **secondArray, int rows, int columns) {
+	int i = 0, j = 0, m = 0, n = 0, neighbours = 0;
+	// Developed the following loop by considering the neighbours of 4-5 locations of a 5x9 array.
+	for (i = 0; i &lt; rows; i ++) {
+		for (j = 0; j &lt; columns; j ++) {
+			for (m = i - 1;  m &lt; i + 2; m ++) {
+				for (n = j - 1; n &lt; j + 2; n ++) {
+					if (m &gt;= 0 &amp;&amp; n &gt;= 0 &amp;&amp; m &lt; rows &amp;&amp; n &lt; columns) { // This is written, so that, the neighbours are not outside of the original array.
+						if (m != i || n != j) { // This is to ensure that a location can't be the neighbour of itself.
+							if (firstArray[m][n] == 'X') {
+								neighbours += 1; // Adds a 1 if a neighbour is found.
+							}
+						}
+					}
+				}
+			}
+
+			// The following switch function adds/delete bacteria in the temporary array.
+			switch (neighbours) {
+			case 3:
+				secondArray[i][j] = 'X';
+				break;
+			default:
+				if (neighbours &lt;= 1) {
+					secondArray[i][j] = '-';
+				}
+				if (neighbours &gt;= 4) {
+					secondArray[i][j] = '-';
+				}
+				break;
+			}
+
+			neighbours = 0; // Reset the neighbours to 0.
+		}
+	}
+
+	copyArrays(firstArray, secondArray, rows, columns); // This copies the temporary array to the original array.
+}
+
+int main () {
+	int rows = 0, columns = 0;
+	char currentOption = 't'; // By default, it contains 't'.
+	char fileName[20];
+
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\n&quot;);
+	printf(&quot;Cells (X) live and die by the following rules:\n&quot;);
+	printf(&quot;- A cell with 1 or fewer neighbors dies.\n&quot;);
+	printf(&quot;- Locations with 2 neighbors remain stable.\n&quot;);
+	printf(&quot;- Locations with 3 neighbors will create life.\n&quot;);
+	printf(&quot;- A cell with 4 or more neighbors dies.\n\nGrid input file name? &quot;);
+	gets(fileName);
+
+	FILE *ptrFile = fopen(fileName, &quot;r&quot;); // Declaring a FILE pointer.
+
+	if (!ptrFile) {
+		printf(&quot;An error occured while accessing the file. Press any key to exit the program.\n&quot;);
+		return 0;
+	}
+
+	fscanf(ptrFile, &quot;%d %d&quot;, &amp;rows, &amp;columns); // This gets the 'r' and 'c' in the text file (as mentioned in the text file).
+
+	// Declaring two 2D Arrays.
+	char **Real2DGrid = (char **) malloc(sizeof(char*) * rows);
+	char **Temp2DGrid = (char **) malloc(sizeof(char*) * rows);
+
+	for (int i = 0; i &lt; rows; i ++) {
+		Real2DGrid[i] = (char *) malloc(sizeof(char) * columns);
+		Temp2DGrid[i] =  (char *) malloc(sizeof(char) * columns);
+	}</B></FONT>
+
+	char *tempString = (char *) malloc(sizeof(char) * columns);
+<A NAME="1"></A>
+	// The following loop reads the lines of the text file, which contains ONLY the two-dimensional grid cell and then copies them to the array. It also ignores the lines of text after that.
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for (int i = 0; i &lt; rows; i ++) {
+		fscanf(ptrFile, &quot;%s&quot;, tempString);
+		copyString(Real2DGrid, tempString, columns, i);
+	}
+
+	copyArrays(Temp2DGrid, Real2DGrid, rows, columns); // Copying one array to the other.
+	
+	fclose(ptrFile); // This closes the file.
+
+	do {
+		for (int i = 0; i &lt; rows ; i ++) {</B></FONT>
+			for (int j = 0; j &lt; columns; j ++) {
+				printf(&quot;%c&quot;, Real2DGrid[i][j]); // Prints the two-dimensional grid.
+		}
+			printf(&quot;\n&quot;);
+		}
+		
+		findAndChange(Real2DGrid, Temp2DGrid, rows, columns); // This function call finds neighbours of all locations in the first 2D array and then manipulates the second 2D Array.
+		printf(&quot;t)ick, q)uit? &quot;);
+		scanf(&quot; %c&quot;, &amp;currentOption); // The space before %c means to store a value other than whitespace, or new-line feed into the variable. fflush() has undefined behavior in Ubuntu.
+	} while (currentOption == 't');
+
+	// The following three statements frees the temporary string and the two arrays.	
+	free(tempString);
+	freeArray(Real2DGrid, rows);
+	freeArray(Temp2DGrid, rows);
+
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

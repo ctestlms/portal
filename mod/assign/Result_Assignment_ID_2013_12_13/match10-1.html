@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Ayesha_Sarwar_name.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Ayesha_Sarwar_name.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;iostream&gt;
+#include&lt;conio.h&gt;
+using namespace std;
+class queue //class
+{  private:
+	int num;
+    queue* next;
+	queue*top;
+	queue*bottom;
+
+public:
+	queue() //constructor
+	{   
+		top=NULL;
+		bottom=NULL;
+	}
+
+	bool is_Empty() //if is empty
+	{
+		if (top==NULL)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+		
+	}
+	void addnode(int val) //insertion
+	{
+	    queue*p=new queue;
+		p-&gt;num=val;
+		p-&gt;next=NULL;
+
+		if(is_Empty()) //In case of one node only
+		{
+			top=p;
+			bottom=p;
+		}
+		else
+		{
+			bottom-&gt;next=p;
+			bottom=p;
+		}
+
+	}
+
+<A NAME="0"></A>	void deletevalue() //delete node
+	{
+		if (is_Empty())
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		{
+			cout&lt;&lt;&quot;Queue is empty&quot;&lt;&lt;endl;
+			
+		}
+
+		else if (top==bottom) 
+		{
+			top=bottom=NULL;
+		}
+		else
+		{
+			queue*p=top;</B></FONT>
+			top=top-&gt;next;
+			delete p;
+			p=NULL;
+		}
+
+
+	}
+
+   void print()
+	{
+		queue*p;
+		p=top;
+
+		if(is_Empty()) 
+		{
+			cout&lt;&lt;&quot;\nQueue is empty.&quot;&lt;&lt;endl;
+		}
+		while(p!=NULL)
+		{
+			cout&lt;&lt;p-&gt;num&lt;&lt;endl;
+			p=p-&gt;next;
+		}
+	}
+	~queue()
+	{
+		delete top;
+		delete bottom;
+		
+	}
+
+
+};
+
+void main()
+{
+	queue list;
+	int x;
+	list.addnode(1);
+	list.addnode(2);
+	list.addnode(3);
+	list.addnode(4);
+	list.addnode(5);
+	cout&lt;&lt;&quot;Print list as in queue&quot;&lt;&lt;endl;
+	list.print();
+	cout&lt;&lt;endl;
+	cout&lt;&lt;&quot;After deleting first node as per queue implementation&quot;&lt;&lt;endl;
+	list.deletevalue();
+	cout&lt;&lt;endl;
+	list.print();
+	getch();
+	
+}
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

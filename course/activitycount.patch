@@ -1,0 +1,23 @@
+--- liborg.php	2013-02-25 14:25:03.633282779 +0500
++++ lib.php	2013-06-18 17:18:23.366479972 +0500
+@@ -1889,6 +1889,20 @@ function print_section($course, $section
+                     }
+                 }
+             }
++	    ///get activity count
++         if($mod->modname!="label" &&( $mod->modname!="feedback" && $mod->modname!="attforblock")){
++     $sql = "SELECT count(distinct(l.userid)) as numviews
++              FROM mdl_course_modules cm
++                  
++                   JOIN mdl_log l     ON l.cmid = cm.id
++             WHERE cm.course =? AND l.action LIKE 'view%' and cm.id=$mod->id
++         ";
++    $views = $DB->get_record_sql($sql, array($course->id));
++//end
++             echo "<div style='color:grey;float:right;'><b>(seen by ".($views->numviews!=""?$views->numviews:"0").")</b></div>";
++            }else{
++		 echo "<div style='color:grey;float:right;'><b>-</b></div>";
++	    }
+ 
+             echo html_writer::end_tag('div');
+             echo html_writer::end_tag('li')."\n";

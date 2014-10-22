@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Amal_Mubashar_new.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Amal_Mubashar_new.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;string.h&gt;
+#include &lt;iostream&gt;
+<A NAME="0"></A>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int columns,
+int rows;
+void mymenu();
+void free(char**);
+void nextgen (char**);
+void griddisplay(char**);
+
+
+
+int main(void)
+ {
+
+
+ char option;
+ char name[40];
+ FILE * cfptr= NULL;
+ char row[2];
+ char column[2];
+
+
+ mymenu();
+ fflush(stdin);
+ gets(name);
+ cfptr=fopen(name,&quot;r&quot;);
+ if(cfptr==NULL)
+ printf(&quot;Error loading file\n&quot;);
+ fread(&amp;row[0],sizeof(char),1,cfptr);
+ fseek(cfptr,sizeof(char)*1,SEEK_CUR);</B></FONT>
+ fread(&amp;column[0],sizeof(char),1,cfptr);
+ fseek(cfptr,sizeof(char)*1,SEEK_CUR);
+ row[1]='\0';
+ column[1]='0';
+<A NAME="1"></A> rows=atoi(row);
+ columns=atoi(column);
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> char** grid = new char*[rows];
+  for(int i=0 ;i&lt;rows; i++ ){
+<A NAME="2"></A> grid[i]= new char[columns];</B></FONT>
+ }
+char** count = new char*[rows];
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  for(int i=0 ;i&lt;rows; i++ ){
+   count[i]= new int[columns];
+ } 
+
+
+  for(int i=0 ;i&lt;rows; i++ ){</B></FONT>
+   count[i][j]= 0;
+ }
+
+<A NAME="3"></A>  for(int i=0 ;i&lt;rows; i++ ){
+
+
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>   for(int j=0;j&lt;columns;j++){
+
+
+     if(grid[i][j+1]=='X')
+       count[i][j]++;
+    
+     if(grid[i+1][j]=='X')
+       count[i][j]++;
+    
+     if(grid[i+1][j+1]=='X')
+       count[i][j]++;
+ }
+
+
+ else
+ {
+ if (i==0 &amp;&amp; j != columns-1)
+ {
+ if (grid[i][j-1]=='X')
+  count[i][j]++;
+
+ if (grid[i][j+1]=='X')
+  count[i][j]++;
+
+<A NAME="4"></A> if (grid[i][j+1]=='X')
+  count[i][j]++;</B></FONT>
+
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match14-1.html#4',3,'match14-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> if (grid[i+1][j]=='X')
+  count[i][j]++;
+
+ if (grid[i+1][j+1]=='X')
+  count[i][j]++;
+
+ if (grid[i+1][j-1]=='X')
+  count[i][j]++;
+
+
+ }
+
+ else{
+
+ if(i==rows-1&amp;&amp;j!columns-1)
+ {
+ if (grid[i][j-1]=='X')
+  count[i][j]++;
+ if (grid[i-1][j-1]=='X')
+  count[i][j]++;
+ if (grid[i-1][j]=='X')
+  count[i][j]++;
+ if (grid[i-1][j+1]=='X')
+  count[i][j]++;
+ if (grid[i][j+1]=='X')
+  count[i][j]++;
+
+ }
+ else{
+ if(i==rows-1&amp;&amp;j==columns-1)
+ {
+ if (grid[i][j-1]=='X')
+  count[i][j]++;
+ if (grid[i-1][j-1]=='X')
+  count[i][j]++;
+ if (grid[i-1][j]=='X')
+  count[i][j]++;
+ }
+ else{
+ if(j==0)
+ {
+ if (grid[i][j+1]=='X')
+  count[i][j]++;
+
+ if (grid[i-1][j+1]=='X')
+  count[i][j]++;
+
+ if (grid[i+1][j]=='X')
+  count[i][j]++;
+ }
+
+ else{
+ if (grid[i-1][j-1]=='X')</B></FONT>
+  count[i][j]++;
+ if (grid[i-1][j]=='X')
+  count[i][j]++;
+
+ if (grid[i-1][j+1]=='X')
+  count[i][j]++;
+
+ if (grid[i][j-1]=='X'){
+  count[i][j]++;
+       }
+ if (grid[i][j+1]=='X'){
+  count[i][j]++;
+      }
+
+ if (grid[i+1][j]=='X')
+  count[i][j]++;
+
+ if (grid[i+1][j+1]=='X')
+  count[i][j]++;
+<A NAME="5"></A>
+ if (grid[i+1][j-1]=='X')
+  count[i][j]++;
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match14-1.html#5',3,'match14-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> }}}}}
+
+
+
+
+ for (int i=0;i&lt;rows;i++)
+ {
+ for (int i=0;i&lt;columns;i++)
+ {
+  if(count[i][j]==0)||count[i][j]==1||count[i][j]&gt;=4)
+  grid[i][j]='-';
+ 
+ if(count[i][j]==3)
+ grid[i][j]='X';
+ }
+
+
+ }
+
+
+
+
+ for(int i=0; i&lt;rows; i++)</B></FONT>
+{
+      delete count[i];
+ delete count;
+ }
+
+<A NAME="6"></A>void mymenu () {
+
+ printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony\n\nCells (X) live and die by the following rules:\n\n1- A cell with 1 or fewer neighbors dies.\n2- Locations with 2 neighbors remain stable.\n3- Locations with 3 neighbors will create life.\n4- A cell with 4 or more neighbors dies.\n&quot; );
+<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match14-1.html#6',3,'match14-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+
+
+
+ void griddisplay(char **grid)
+ {
+ for(int i=0; i&lt;rows; i++)
+ {
+
+ for(int j=0; j&lt;columns;j++)</B></FONT>
+
+
+
+ printf(&quot;%c&quot;,grid[i][j]);
+ printf(&quot;\n&quot;);
+ }
+
+ }
+
+
+
+ void free(char** grid)
+
+
+ {
+ for (int i=0;i&lt;rows; i++)
+<A NAME="7"></A>   delete grid[i];
+ delete grid;
+
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match14-1.html#7',3,'match14-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> }
+
+
+
+
+ for (int i=0;i&lt;rows; i++)
+
+
+ {
+
+ fread(grid[i],sizeof(char)*1,columns,cfptr);
+ fseek(cfptr,sizeof(char)*1,SEEK_CUR);
+
+ }
+
+
+
+ griddisplay(grid);
+ while(1)
+
+ {
+
+ printf(&quot;\nt)ick, q)uit&quot;);
+ std::cin&gt;&gt;option;
+switch(option)
+
+
+ {
+ case 't' :
+ nextgen(grid);
+ griddisplay(grid);
+ break;
+
+
+ case 'q':
+ free(grid);
+ return 0;
+
+
+ default:
+ return 0;
+ }
+
+ }
+
+
+
+ return 0;
+ }</B></FONT>
+
+}
+ 
+</PRE>
+</BODY>
+</HTML>

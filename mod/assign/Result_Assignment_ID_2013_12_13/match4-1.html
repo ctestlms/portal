@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Afeef_Ahmed_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Afeef_Ahmed_.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+struct node
+{
+   int num;
+   node *link;
+};
+class Tqueue
+{
+ private:
+    node *startPt,*endPt;
+ public:
+    Tqueue()
+    {
+<A NAME="0"></A>        startPt=NULL;
+        endPt=NULL;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void add(int n)
+    {
+        node *temp;
+        temp=new node;
+       if(temp==NULL)
+           cout&lt;&lt;&quot;\nqUEUE FULL&quot;;
+        temp-&gt;num=n;
+        temp-&gt;link=NULL;
+        if(startPt==NULL)
+        {
+            endPt=startPt=temp;
+            return;
+<A NAME="1"></A>        }</B></FONT>
+           endPt-&gt;link=temp;
+            endPt=endPt-&gt;link;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    int del()
+    {
+        if(startPt==NULL)
+        {
+            cout&lt;&lt;&quot;\nqUEUE EmPTY&quot;;
+            return NULL;
+        }
+        node *temp;
+        int n;
+        n=startPt-&gt;num;
+        temp=startPt;
+        startPt=startPt-&gt;link;
+       delete temp;
+        return n;
+    }
+    ~Tqueue()
+    {
+       if(startPt==NULL)
+           return;
+        node *temp;
+        while(startPt!=NULL)
+        {
+            temp=startPt;
+            startPt=startPt-&gt;link;
+            delete temp;
+        }
+	}
+};
+
+int qain()
+{
+    Tqueue q;
+    q.add(1);
+    q.add(2);
+    q.add(3);
+    cout&lt;&lt;&quot;Item Deleted = &quot;&lt;&lt;q.del();
+    cout&lt;&lt;&quot;\nItem Deleted = &quot;&lt;&lt;q.del();
+    cout&lt;&lt;&quot;\nItem Deleted = &quot;&lt;&lt;q.del()&lt;&lt;&quot;\n&quot;;
+    return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Anwaar_Khan_1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Anwaar_Khan_1.cpp</CENTER></H3><HR>
+<PRE>
+///////////////////////////////////////////////
+//GC M.ANWAAR KHAN REG#NO.406 MTS-3-SYN &quot;B&quot;////
+///////////////////////////////////////////////
+
+#include&lt;stdio.h&gt; //.h is necessary to include this header file,otherwise error
+#include&lt;iostream&gt;
+#include&lt;math.h&gt;
+using namespace std;// system(&quot;cls&quot;) command works only this way
+void func_P();
+void func_G();
+void func_E();
+void func_T();
+FILE* pFile;
+char choice;
+char name[20];
+char gray[20];
+char histo_name[20];
+float info_color[54]={0};
+float info_gray[54]={0};
+int width,height;
+int i;
+int size1;
+float size2;
+float size3;
+int histogram[256];
+
+struct databmp
+{	char data;
+	databmp* next;
+};
+databmp* data_grayy;
+databmp* head_gray;
+
+
+
+void main()
+{	cout&lt;&lt;&quot;_________________________________________________________________&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;__________________GC MUHAMMAD ANWAAR KHAN________________________&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;__________________REGN # NO. 406_________________________________&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;__________________MTS-33-SYN B___________________________________&quot;&lt;&lt;endl;
+<A NAME="0"></A>	cout&lt;&lt;&quot;_________________________________________________________________&quot;&lt;&lt;endl;
+	system(&quot;pause&quot;);
+while(1)	
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	{system(&quot;cls&quot;);
+	cout&lt;&lt;&quot;______________________MAIN MENU_____________________\n&quot;;
+	cout&lt;&lt;&quot; PRESS\n&quot;;
+	cout&lt;&lt;&quot;	P to read image and print information       \n&quot;;
+	cout&lt;&lt;&quot;	G to convert 24 bit to gray scale           \n&quot;;
+	cout&lt;&lt;&quot;	E for histogram and histogram equalization  \n&quot;;
+	cout&lt;&lt;&quot;	T for affine transformation matrix procedure\n&quot;;
+	cout&lt;&lt;&quot;	X to exit                                   \n&quot;;
+	cout&lt;&lt;&quot;____________________________________________________\n&quot;;
+	cout&lt;&lt;&quot;ENTER CHOICE\n&quot;;
+	cin&gt;&gt;choice;
+	if ((choice=='P') || (choice=='p'))
+	{func_P();}
+	if ((choice=='G') || (choice=='g'))
+	{func_G();}
+	if ((choice=='E') || (choice=='e'))
+	{func_E();}
+	if ((choice=='T') || (choice=='t'))
+	{func_T();}
+
+	if ((choice=='x') || (choice=='X'))
+	{break;}</B></FONT>
+	}//while ends here
+}//main ends
+
+///////////////////////////////////////////////////print info procedure/////////////////////////////////////////////////////////////////
+void func_P() //print information + read image data for grey sacle conversion use
+{
+	
+cout&lt;&lt;&quot;enter file name&quot;&lt;&lt;&quot;   enter full name e.g. IMAGE.BMP etc. &quot;&lt;&lt;endl;
+cin&gt;&gt;name;
+pFile=fopen(name,&quot;rb&quot;);
+if(pFile==NULL) 
+{
+cout&lt;&lt;&quot;Error opening file&quot;&lt;&lt;endl;
+system(&quot;pause&quot;);}
+else{
+for(i=0;i&lt;54;i++)
+info_color[i]=fgetc(pFile);
+
+
+	size1=info_color[34]+info_color[35]*256+info_color[36]*256*256+info_color[37]*256*256*256;//BYTES
+	size2=size1/1024;//KB
+	size3=size2/1024;//MB
+	width=info_color[18]+info_color[19]*256+info_color[20]*256*256+info_color[21]*256*256*256;
+	height=info_color[22]+info_color[23]*256+info_color[24]*256*256+info_color[25]*256*256*256;
+
+
+	databmp* head_color=new databmp;
+	databmp* cur4=head_color;
+	cur4-&gt;data=fgetc(pFile);;			
+
+			
+
+
+
+
+for(int p=1;p&lt;size1;p++)
+{	cur4-&gt;next=new databmp;
+	cur4=cur4-&gt;next;
+	
+	cur4-&gt;data=fgetc(pFile);
+}
+cur4-&gt;next=NULL;//data extracted
+cur4=head_color;
+
+databmp* cur8=new databmp;
+data_grayy=cur8;
+head_gray=data_grayy;
+for(int f=0;f&lt;size1/3;f++)
+{	
+	cur8-&gt;next=new databmp;
+	cur8-&gt;data=(cur4-&gt;data+cur4-&gt;next-&gt;data+cur4-&gt;next-&gt;next-&gt;data)/3;
+	cur8=cur8-&gt;next;
+	cur4=cur4-&gt;next-&gt;next-&gt;next;
+}
+
+
+
+
+
+fclose(pFile);
+
+	system(&quot;cls&quot;);//clear screen command
+	if((info_color[0]+256*info_color[1])==19778)
+	{cout&lt;&lt;&quot;VALID BMP FILE: file successfully opened&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  WIDTH= &quot;&lt;&lt;width&lt;&lt;&quot; pixels&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  HEIGHT= &quot;&lt;&lt;height&lt;&lt;&quot; pixels&quot;&lt;&lt;endl;
+	
+	if(size1&lt;1024)
+	cout&lt;&lt;&quot;  IMAGE SIZE= &quot;&lt;&lt;size1&lt;&lt;&quot; BYTES&quot;&lt;&lt;endl;
+	else if(size2&lt;1024)
+	cout&lt;&lt;&quot;  IMAGE SIZE= &quot;&lt;&lt;size2&lt;&lt;&quot; KB&quot;&lt;&lt;endl;
+	else cout&lt;&lt;&quot;  IMAGE SIZE= &quot;&lt;&lt;size3&lt;&lt;&quot; MB&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  RESOLUTION:&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  HORIZONTAL= &quot;&lt;&lt;info_color[38]+info_color[39]*256+info_color[40]*256*256+info_color[41]*256*256*256&lt;&lt;&quot; pixels per meter&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  VERTICAL  = &quot;&lt;&lt;info_color[42]+info_color[43]*256+info_color[44]*256*256+info_color[45]*256*256*256&lt;&lt;&quot; pixels per meter&quot;&lt;&lt;endl;
+	system(&quot;pause&quot;);}
+
+	info_gray[0]=info_color[0];
+	info_gray[1]=info_color[1];
+	
+	info_gray[2]=(1024+54+(size1/3))%256;
+	info_gray[3]=(1024+54+(size1/3))/256;
+	info_gray[4]=(1024+54+(size1/3))/(256*256);
+	info_gray[5]=(1024+54+(size1/3))/(256*256*256);
+	
+	for(int z=6;z&lt;=9;z++)
+	info_gray[z]=info_color[z];
+
+<A NAME="1"></A>	info_gray[10]=(1024+54)%256;
+	info_gray[11]=(1024+54)/256;
+	
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for(int x=12;x&lt;=25;x++)
+	info_gray[x]=info_color[x];
+
+	info_gray[26]=1;
+	info_gray[27]=0;;
+
+	info_gray[28]=8;
+	info_gray[29]=0;
+	
+	for(int b=30;b&lt;=33;b++)
+	info_gray[b]=info_color[b];
+
+	info_gray[34]=(size1/3)%256;
+	info_gray[35]=(size1/3)/256;
+	info_gray[36]=(size1/3)/(256*256);
+	info_gray[37]=(size1/3)/(256*256*256);</B></FONT>
+	
+	for(int n=38;n&lt;=45;n++)
+	info_gray[n]=info_color[n];
+
+	info_gray[46]=255;
+	info_gray[47]=0;
+	info_gray[48]=0;
+	info_gray[49]=0;
+	for(int s=50;s&lt;=53;s++)
+	info_gray[s]=info_color[s];
+
+
+	
+
+}
+
+
+
+
+}
+///////////////////////////////////////////////////gray scale conversion/////////////////////////////////////////////////////////////////
+void func_G()
+{
+	system(&quot;cls&quot;);
+cout&lt;&lt;&quot;Input name of gray scale image&quot;&lt;&lt;&quot;    enter full name e.g. IMAGE.BMP etc. &quot;&lt;&lt;endl;
+cin&gt;&gt;gray;
+
+
+
+
+	FILE* file=fopen(gray,&quot;wb&quot;);
+
+	for(i=0;i&lt;54;i++)
+	{fputc(info_gray[i],file);}
+
+	for(i=0;i&lt;256;i++)
+	{
+		fputc(i,file);
+		fputc(i,file);
+		fputc(i,file);
+		fputc(0,file);
+	}
+
+	for(i=0;i&lt;size1/3;i++)
+	{
+		{fputc(data_grayy-&gt;data,file);}
+		data_grayy=data_grayy-&gt;next;
+	}
+
+	fclose(file);
+
+system(&quot;cls&quot;);
+cout&lt;&lt;endl&lt;&lt;endl;
+	size1=size1/3;
+	size2=size1/1024;//KB
+	size3=size2/1024;//MB
+
+cout&lt;&lt;&quot;FILE CONVERTED SUCCESFULLY&quot;&lt;&lt;endl&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;  WIDTH= &quot;&lt;&lt;info_gray[18]+info_gray[19]*256+info_gray[20]*256*256+info_gray[21]*256*256*256&lt;&lt;&quot; pixels&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  HEIGHT= &quot;&lt;&lt;info_gray[22]+info_gray[23]*256+info_gray[24]*256*256+info_gray[25]*256*256*256&lt;&lt;&quot; pixels&quot;&lt;&lt;endl;
+	
+	if(size1&lt;1024)
+	cout&lt;&lt;&quot;  IMAGE SIZE= &quot;&lt;&lt;size1&lt;&lt;&quot; BYTES&quot;&lt;&lt;endl;
+	else if(size2&lt;1024)
+	cout&lt;&lt;&quot;  IMAGE SIZE= &quot;&lt;&lt;size2&lt;&lt;&quot; KB&quot;&lt;&lt;endl;
+	else cout&lt;&lt;&quot;  IMAGE SIZE= &quot;&lt;&lt;size3&lt;&lt;&quot; MB&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  RESOLUTION:&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  HORIZONTAL= &quot;&lt;&lt;info_gray[38]+info_gray[39]*256+info_gray[40]*256*256+info_gray[41]*256*256*256&lt;&lt;&quot; pixels per meter&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;  VERTICAL  = &quot;&lt;&lt;info_gray[42]+info_gray[43]*256+info_gray[44]*256*256+info_gray[45]*256*256*256&lt;&lt;&quot; pixels per meter&quot;&lt;&lt;endl;
+	system(&quot;pause&quot;);
+}
+
+
+////////////////////////////////////////////////////histogram/////////////////////////////////////////////////////////////////////////////
+void func_E()
+{system(&quot;cls&quot;);
+cout&lt;&lt;&quot;Input name of histogram equalized file&quot;&lt;&lt;&quot;   enter full name e.g. HISTOGRAM.TXT &quot;&lt;&lt;endl;
+cin&gt;&gt;histo_name;
+int histo=0;
+char gray_digit;
+while(histo&lt;size1)
+{
+gray_digit=head_gray-&gt;data*1;
+histogram[gray_digit]++;
+head_gray=head_gray-&gt;next;
+histo++;
+}
+
+pFile=fopen(histo_name,&quot;wb&quot;);
+for(i=0;i&lt;255;i++)
+	{fputc(i,pFile);
+	fputc('\r',pFile);
+	fputc(histogram[i],pFile);
+	fputc('\r',pFile);}
+
+
+
+fclose(pFile);
+
+
+
+
+
+
+
+cout&lt;&lt;&quot;file saved succsfully&quot;&lt;&lt;endl;
+system(&quot;pause&quot;);
+}
+//////////////////////////////////////////////////////transformation matrix///////////////////////////////////////////////////////////////
+void func_T()
+{system(&quot;cls&quot;);
+cout&lt;&lt;&quot;Input name of output image&quot;&lt;&lt;endl;
+cout&lt;&lt;&quot;specify transformation matrix&quot;&lt;&lt;endl;
+cout&lt;&lt;&quot;file converted succsfully&quot;&lt;&lt;endl;
+system(&quot;pause&quot;);
+}
+</PRE>
+</BODY>
+</HTML>

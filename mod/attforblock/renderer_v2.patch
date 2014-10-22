@@ -1,0 +1,11 @@
+--- renderer.php	2014-02-06 10:46:13.634789459 +0500
++++ renderer_new.php	2014-02-06 11:28:50.000000000 +0500
+@@ -597,7 +597,7 @@
+                 $this->construct_fullname_head($takedata),
+ 				$subgroup
+             );
+-        $table->align = array('center', 'center', 'center', 'center');
++        $table->align = array('center', 'center', 'left', 'center');
+         $table->size = array('20px', '', '', '');
+         $table->wrap[1] = 'nowrap';
+ 		

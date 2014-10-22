@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Saood_Najib_bacteria.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Saood_Najib_bacteria.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;string.h&gt;
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;cstdlib&gt;
+
+
+
+<A NAME="0"></A>void freeMatrix(char** mat, int rows, int cols); // frees allocated memory
+char** generategrid(int rows, int cols);// allocates memory to a 2-D array
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void checkcentre(char** mygrid, char** mytemp,int rows, int cols);// checks for all locations except 
+//boundaries
+
+void check_firstrow(char** mygrid,char** mytemp, int rows, int cols); //checks first row locations except vertices
+void check_lastrow(char** mygrid,char** mytemp, int rows, int cols);//checks last row locations except vertices
+void check_firstcol(char** mygrid,char** mytemp, int rows, int cols);//checks first row locations except vertices</B></FONT>
+void check_lastcol(char** mygrid,char** mytemp, int rows, int cols);//checks first row locations except vertices
+void check_topleft(char** mygrid,char** mytemp, int rows, int cols);// checks topleft vertix
+void check_bottomleft(char** mygrid,char** mytemp, int rows, int cols);// checks topleft vertix
+void check_topright(char** mygrid,char** mytemp, int rows, int cols);// checks topleft vertix
+void check_bottomright(char** mygrid,char** mytemp, int rows, int cols);// checks topleft vertix
+char** transfer_from_to(char** mygrid, char** mytemp, int rows, int cols);// transfers values from first array to second
+void printgrid(char** mygrid, int rows, int cols);// prints grid
+
+int main () {
+
+    int r,c;  // r and are rows and columns respectively
+    int i=0;   // i and j are counters
+    int j=0;
+    int n=0;  // n is used for counting certain neighbours
+   
+
+
+
+
+    FILE *fptr;  //pointer to file
+    char option='t'; // option is used for tick or quit
+
+    char filename[15];
+   
+    std::cout&lt;&lt;&quot;Welcome to a simulation of the lifecycle of a bacteria colony.&quot;
+    &quot;\nCells (X) live and die by the following rules:&quot;
+    &quot;\n- A cell with 1 or fewer neighbors dies.&quot;
+    &quot;\n- Locations with 2 neighbors remain stable.&quot;
+    &quot;\n- Locations with 3 neighbors will create life.&quot;
+    &quot;\n- A cell with 4 or more neighbors dies.;&quot;;
+
+    std::cout&lt;&lt;&quot;\n\n&quot;&lt;&lt;&quot;Grid input filename  &quot;;
+    std::cin&gt;&gt;filename; // takes filename and stores in array/string called filename 
+   
+
+    fptr=fopen(filename,&quot;r&quot;);// opens file
+    if(fptr==NULL)
+    {
+        printf(&quot;file not opened&quot;);
+        return 0;
+    }
+
+
+    fscanf(fptr,&quot;%d %d&quot;,&amp;r,&amp;c);// scans rows and column numbers
+    char **grid=generategrid(r,c);
+    char **temp=generategrid(r,c);
+
+   
+
+    while(!feof(fptr)){// scans grid from file
+
+             fscanf(fptr,&quot;%s&quot;,grid[i]);
+
+
+             i++;
+
+
+         }
+
+
+
+   
+    transfer_from_to(grid,temp,r,c);
+    printgrid(temp,r,c);
+   
+   
+
+
+
+
+
+  printf(&quot;\nt)ick, q)uit? &quot;);
+
+    std::cin&gt;&gt;option; //takes input of 't' or 'q'
+    if(option=='q'){ // exits if q pressed
+          return 0;
+      }
+
+
+
+  while (option=='t'){  // loop for shuffling locations if t is pressed/untill q is pressed
+
+     
+
+    checkcentre(grid,temp,r,c);
+    check_firstrow(grid,temp,r,c);
+    check_lastrow(grid,temp,r,c);
+    check_firstcol(grid,temp,r,c);
+    check_lastcol(grid,temp,r,c);
+    check_topleft(grid,temp,r,c);
+    check_topright(grid,temp,r,c);
+    check_bottomright(grid,temp,r,c);
+    check_bottomleft(grid,temp,r,c);
+
+    transfer_from_to(temp,grid,r,c);
+    printgrid(temp,r,c);
+
+       
+
+        printf(&quot;\nt)ick, q)uit? &quot;); // takes input again at end of loop
+        std::cin&gt;&gt;option;
+       
+        if(option=='q')
+            return 0; //exits loop if q is pressed.
+
+
+        }
+
+
+
+
+
+    freeMatrix(grid,r,c);
+    freeMatrix(temp,r,c);
+    
+    
+    return 0;
+}
+
+
+
+
+ char** generategrid(int rows, int cols) {
+  char** mygrid = new char*[rows];
+<A NAME="1"></A>
+  for (int i = 0; i &lt; rows; i++) {
+    mygrid[i] = new char[cols];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  }
+
+  for (int i = 0; i &lt; rows; i++) {
+    for (int j = 0; j &lt; cols; j++) {
+      mygrid[i][j] = rand() % 250;
+    }
+  }</B></FONT>
+
+  return mygrid;
+}
+
+void freeMatrix(char** mygrid, int rows, int cols) {
+
+    for (int i = 0; i &lt; rows; i++) {
+       delete mygrid[i];
+      }
+    delete mygrid;
+}
+
+
+void checkcentre(char** mygrid,char** mytemp, int rows, int cols)
+<A NAME="2"></A>{
+    int n=0;
+    for(int i=1; i&lt;rows-1; i++){
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int j=1; j&lt;cols-1; j++) {
+             n=0;
+            if(mygrid[i][j+1]=='X')
+               n++;
+            if(mygrid[i][j-1]=='X')
+                n++;
+            if(mygrid[i+1][j]=='X')
+                n++;
+            if(mygrid[i+1][j-1]=='X')
+                n++;
+            if(mygrid[i+1][j+1]=='X')
+                n++;
+            if(mygrid[i-1][j-1]=='X')
+                n++;
+            if(mygrid[i-1][j+1]=='X')
+                n++;
+            if(mygrid[i-1][j]=='X')
+                n++;</B></FONT>
+
+
+            if(n&gt;3)
+                mytemp[i][j]='-';
+            if(n==3)
+                mytemp[i][j]='X';
+
+            if(n&lt;2)
+                mytemp[i][j]='-';
+
+            }
+
+        }
+}
+
+void check_firstrow(char** mygrid,char** mytemp, int rows, int cols)
+{
+   
+
+<A NAME="3"></A>   int  n=0;
+   int i=0;
+   int j=1;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>   for( j=1; j&lt;cols-1; j++){
+        n=0;
+        if(mygrid[0][j-1]=='X')
+            n++;
+        if(mygrid[0][j+1]=='X')
+            n++;
+        if(mygrid[1][j+1]=='X')
+            n++;
+        if(mygrid[1][j-1]=='X')
+            n++;
+        if(mygrid[1][j]=='X')
+            n++;
+        if(n&gt;3)
+            mytemp[i][j]='-';
+        if(n==3)
+            mytemp[i][j]='X';
+
+        if(n&lt;2)
+            mytemp[i][j]='-';
+     }</B></FONT>
+
+}
+
+void check_lastrow(char** mygrid,char** mytemp, int rows, int cols)
+{
+
+<A NAME="4"></A>    int n=0;
+    int i=rows-1;
+    int j;
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match1-1.html#4',3,'match1-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for( j=1; j&lt;cols-1; j++){
+        n=0;
+        if(mygrid[i][j-1]=='X')
+            n++;
+        if(mygrid[i][j+1]=='X')
+            n++;
+        if(mygrid[i-1][j+1]=='X')
+            n++;
+        if(mygrid[i-1][j-1]=='X')
+            n++;
+        if(mygrid[i-1][j]=='X')
+            n++;
+        if(n&gt;3)
+            mytemp[i][j]='-';
+        if(n==3)
+            mytemp[i][j]='X';
+
+        if(n&lt;2)
+            mytemp[i][j]='-';</B></FONT>
+    }
+
+
+
+}
+   
+
+void check_firstcol(char** mygrid,char** mytemp, int rows, int cols)
+{
+
+<A NAME="5"></A>  int j=0;
+  int n=0;
+
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match1-1.html#5',3,'match1-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for(int i=1; i&lt;rows-1; i++){
+        n=0;
+        if(mygrid[i][j+1]=='X')
+            n++;
+        if(mygrid[i+1][j+1]=='X')
+            n++;
+        if(mygrid[i-1][j+1]=='X')
+            n++;
+        if(mygrid[i-1][j-1]=='X')
+            n++;
+        if(mygrid[i-1][j]=='X')
+            n++;
+        if(n&gt;3)
+            mytemp[i][j]='-';
+        if(n==3)
+            mytemp[i][j]='X';
+
+        if(n&lt;2)
+            mytemp[i][j]='-';
+
+
+    }
+}
+
+
+<A NAME="6"></A>void check_lastcol(char** mygrid,char** mytemp, int rows, int cols)</B></FONT>
+{
+    int j=cols-1;
+<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match1-1.html#6',3,'match1-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int n=0;
+
+    for(int i=1; i&lt;rows-1; i++){
+        n=0;
+        if(mygrid[i][j-1]=='X')
+            n++;
+        if(mygrid[i-1][j-1]=='X')
+            n++;
+        if(mygrid[i+1][j-1]=='X')
+            n++;
+        if(mygrid[i+1][j]=='X')
+            n++;
+        if(mygrid[i-1][j]=='X')
+            n++;
+        if(n&gt;3)
+            mytemp[i][j]='-';
+        if(n==3)
+            mytemp[i][j]='X';
+
+        if(n&lt;2)
+            mytemp[i][j]='-';
+
+
+    }</B></FONT>
+}
+
+void check_topleft(char** mygrid,char** mytemp, int rows, int cols)
+<A NAME="7"></A>{
+    int i=0;
+    int j=0;
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match1-1.html#7',3,'match1-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int n=0;
+
+
+
+        if(mygrid[i+1][j+1]=='X')
+            n++;
+        if(mygrid[i+1][j]=='X')
+            n++;
+        if(mygrid[i][j+1]=='X')
+            n++;
+        if(n&gt;3)
+            mytemp[i][j]='-';
+        if(n==3)
+            mytemp[i][j]='X';
+
+        if(n&lt;2)
+            mytemp[i][j]='-';
+
+}
+
+void check_bottomleft(char** mygrid,char** mytemp, int rows, int cols)
+{
+<A NAME="8"></A>   
+       int i=rows-1;</B></FONT>
+        int j=0;
+<FONT color="#bce954"><A HREF="javascript:ZweiFrames('match1-1.html#8',3,'match1-top.html#8',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n=0;
+
+        if(mygrid[i-1][j]=='X')
+            n++;
+        if(mygrid[i-1][j+1]=='X')
+            n++;
+        if(mygrid[i][j+1]=='X')
+            n++;
+        if(n&gt;3)
+            mytemp[i][j]='-';
+        if(n==3)
+            mytemp[i][j]='X';
+
+        if(n&lt;2)
+            mytemp[i][j]='-';</B></FONT>
+}
+
+void check_bottomright(char** mygrid,char** mytemp, int rows, int cols)
+<A NAME="9"></A>{
+     int i=rows-1;
+     int j=cols-1;
+<FONT color="#f88017"><A HREF="javascript:ZweiFrames('match1-1.html#9',3,'match1-top.html#9',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>     int n=0;
+          
+
+
+                if(mygrid[i-1][j-1]=='X')
+                    n++;
+                if(mygrid[i-1][j]=='X')
+                    n++;
+                if(mygrid[i][j-1]=='X')
+                    n++;
+                if(n&gt;3)
+                    mytemp[i][j]='-';
+                if(n==3)
+                    mytemp[i][j]='X';
+
+                if(n&lt;2)
+                    mytemp[i][j]='-';</B></FONT>
+
+}
+
+void check_topright(char** mygrid,char** mytemp, int rows, int cols)
+<A NAME="10"></A>{
+    int i=0;
+    int j=cols-1;
+<FONT color="#b041ff"><A HREF="javascript:ZweiFrames('match1-1.html#10',3,'match1-top.html#10',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int n=0;
+
+
+
+            if(mygrid[i+1][j-1]=='X')
+                n++;
+            if(mygrid[i+1][j]=='X')
+                n++;
+            if(mygrid[i][j-1]=='X')
+                n++;
+            if(n&gt;3)
+                mytemp[i][j]='-';
+            if(n==3)
+                mytemp[i][j]='X';
+
+            if(n&lt;2)
+                mytemp[i][j]='-';</B></FONT>
+}
+
+char** transfer_from_to(char** mygrid, char** mytemp, int rows, int cols)
+{
+     for(int i=0; i&lt;rows; i++)
+        for(int j=0; j&lt;cols; j++){
+           mytemp[i][j]=mygrid[i][j];
+<A NAME="11"></A>
+        }
+ return mytemp;
+<FONT color="#571b7e"><A HREF="javascript:ZweiFrames('match1-1.html#11',3,'match1-top.html#11',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+void printgrid(char** mygrid, int rows, int cols)
+{
+    printf(&quot;\n&quot;);
+
+        for(int i=0; i&lt;rows; i++){
+            for(int j=0; j&lt;cols; j++){</B></FONT>
+                printf(&quot;%c&quot;, mygrid[i][j]);
+                {
+                  if(j==cols-1)
+                    printf(&quot;\n&quot;);
+                }
+            }
+        }
+}
+</PRE>
+</BODY>
+</HTML>

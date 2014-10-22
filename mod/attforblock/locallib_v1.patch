@@ -1,0 +1,33 @@
+--- locallib.php	2014-02-02 15:29:57.000000000 +0500
++++ locallib_new.php	2014-02-03 18:51:42.000000000 +0500
+@@ -1564,6 +1564,30 @@
+ 							$statsarray[$status->statusid]->stcnt = $status->stcnt * 1.5;
+ 						}
+ 						break;
++					case "Two Hours Ward":
++						//echo "Its a Two Hours Ward";
++						if (array_key_exists($status->statusid, $statsarray))
++						{
++							$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 2);
++						}
++						else
++						{
++							$statsarray[$status->statusid]->statusid = $status->statusid;
++							$statsarray[$status->statusid]->stcnt = $status->stcnt * 2;
++						}
++						break;
++					case "Four Hours Ward":
++						//echo "Its a Four Hours Ward";
++						if (array_key_exists($status->statusid, $statsarray))
++						{
++							$statsarray[$status->statusid]->stcnt = $statsarray[$status->statusid]->stcnt + ($status->stcnt * 4);
++						}
++						else
++						{
++							$statsarray[$status->statusid]->statusid = $status->statusid;
++							$statsarray[$status->statusid]->stcnt = $status->stcnt * 4;
++						}
++						break;
+ 					default:
+ 						//echo "Default lecture ";
+ 						if (array_key_exists($status->statusid, $statsarray))

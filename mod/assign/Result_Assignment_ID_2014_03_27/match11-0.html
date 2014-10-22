@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Talha_Mujeeb_lab task.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Talha_Mujeeb_lab task.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+    float fahr=0;
+	float celcius=0;
+	float kelvin=0;
+	float lb=0;
+	float kg=0;
+	float PKR=0;
+	float USD=0;
+	float sq_mile=0;
+	float sq_km=0;
+	float cubic_inch=0;
+	float cubic_cm=0;
+	char choice=0;
+	while (choice !='e')
+	{
+		printf(&quot;Welcome to my converter application!\nPress a,b,h,i for temperature conversions\nPress c,d for mass calculations\nPress f,g for currency conversions\nPress j,k for area conversions\nPress l,m for volume conversions\n&quot;);
+		scanf(&quot;%c&quot;, &amp;choice);
+		switch (choice)
+		{
+		case 'a':
+			printf(&quot;Temperature in fahr?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;fahr);
+			celcius=(fahr-32)*5/9;
+			printf(&quot;The temperature in celcius is %f\n&quot;,celcius);
+			break;
+		case 'b':
+			printf(&quot;Temperature in Celcius?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;celcius);
+			fahr=(celcius*9/5)+32;
+			printf(&quot;The temperature in fahrenheit is %f\n&quot;,fahr);
+			break;
+		case 'c':
+			printf(&quot;Weight in pounds?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;lb);
+			kg=lb*0.453592;
+			printf(&quot;Weight in kg is %f\n&quot;,kg);
+			break;
+		case 'd':
+			printf(&quot;Weight in kg?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;kg);
+			lb=kg/0.453592;
+			printf(&quot;Weight in lb is %f\n&quot;,lb);
+			break;
+		case 'f':
+			printf(&quot;Enter currency in USD:\n&quot;);
+			scanf(&quot;%f&quot;,&amp;USD);
+			PKR=USD*99;
+			printf(&quot;The value in PKR is %f\n&quot;,PKR);
+			break;
+		case 'g':
+			printf(&quot;Enter currency in PKR:\n&quot;);
+			scanf(&quot;%f&quot;,&amp;PKR);
+			USD=PKR/99;
+			printf(&quot;The value in USD is %f\n&quot;,USD);
+			break;
+		case 'h':
+			printf(&quot;Enter Temperature in kelvin:\n&quot;);
+			scanf(&quot;%f&quot;,&amp;kelvin);
+			celcius=kelvin-273;
+			printf(&quot;The temperature in celcius is %f\n&quot;,celcius);
+			break;
+		case 'i':
+			printf(&quot;Enter Temperature in celcius:\n&quot;);
+			scanf(&quot;%f&quot;,&amp;celcius);
+			kelvin=celcius+273;
+			printf(&quot;The temperature in kelvin is %f\n&quot;,kelvin);
+			break;
+		case 'j':
+			printf(&quot;Area in square miles?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;sq_mile);
+			sq_km=sq_mile*2.26;
+			printf(&quot;Area in square km is %f\n&quot;,sq_km);
+			break;
+		case 'k':
+			printf(&quot;Area in square km?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;sq_km);
+			sq_mile=sq_km/2.26;
+			printf(&quot;Area in square mile is %f\n&quot;,sq_mile);
+			break;
+		case 'l':
+			printf(&quot;Volume in Cubic inches?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;cubic_inch);
+			cubic_cm=cubic_inch*16.39;
+			printf(&quot;Volume in Cubic cm is %f\n&quot;,cubic_cm);
+			break;
+		case 'm':
+			printf(&quot;Volume in Cubic cm?\n&quot;);
+			scanf(&quot;%f&quot;,&amp;cubic_cm);
+			cubic_inch=cubic_cm/16.39;
+			printf(&quot;Volume in Cubic inch is %f\n&quot;,cubic_inch);
+			break;
+		default:
+			printf(&quot;Invalid input\nTry again\n&quot;);}}
+		
+	getchar();
+		return 0;
+}</B></FONT>
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

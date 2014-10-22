@@ -1,0 +1,20 @@
+--- renderer.php	2014-02-12 18:46:42.000000000 +0500
++++ renderer_new.php	2014-02-12 18:50:15.000000000 +0500
+@@ -229,7 +229,16 @@
+     }
+ 
+     private function construct_date_time_actions(attforblock_manage_data $sessdata, $sess) {
+-        global $CFG, $cm;
++		//global $CFG, $cm;
++		global $CFG, $context, $cm, $DB, $OUTPUT, $USER, $course;
++		
++		$category = $course->category;
++		//echo $category."<br/>";
++		$semester = $DB->get_record_sql("select parent,name,path from {course_categories} where id=$category");
++		$path = explode("/", $semester->path);
++		$school = $DB->get_record_sql("select id,name from {course_categories} where id=$path[1]");
++		// echo $category.": ".$school->name."<br/>";
++		
+ 		$CFG->pixpath = $CFG->wwwroot."/pix";
+ 		$context = context_module::instance($cm->id);
+ 		$lockdate = mktime(23, 59, 59, date("m"), 5, date("Y"));

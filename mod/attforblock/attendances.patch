@@ -1,0 +1,31 @@
+--- attendancesold.php	2012-06-13 13:57:24.967400413 +0500
++++ attendances.php	2012-06-13 14:00:56.000000000 +0500
+@@ -93,14 +93,14 @@
+ 			if ($log = $DB->get_record('attendance_log', array('sessionid'=>$sessionid, 'studentid'=>$student->studentid))) {
+ 				$student->id = $log->id; // this is id of log
+ 				//To unmark the taken attendance. '-' will be displayed in report instead of 'A' or 'P'. Khyam Shahzad
+-				if($student->statusid == 0){
++				if($student->statusid == 0 || $student->remarks=="Medical Leave" ){
+ 					$DB->delete_records('attendance_log', array('sessionid'=>$student->sessionid, 'studentid'=>$student->studentid));
+ 					continue;
+ 				}
+ 				$DB->update_record('attendance_log', $student);
+ 			} else {
+ 				//To ignore the operation for unmarked attendances. Khyam Shahzad
+-				if($student->statusid == 0)
++				if($student->statusid == 0 || $student->remarks=="Medical Leave")
+ 					continue;
+ 				$DB->insert_record('attendance_log', $student);
+ 			}
+@@ -266,7 +266,10 @@
+             if(has_capability('mod/attforblock:unmarkattendance', $context))
+                     @$table->data[$student->id][] = '<input name="student'.$student->id.'" type="radio" value="0"'.((!$att && $update)? "checked" : "").' />';
+ 			$table->data[$student->id][] = get_attendance($student->id, $course, $present).'/'.get_attendance($student->id, $course);//.'='.get_percent($student->id, $course).'%';
+-            $table->data[$student->id][] = '<input type="text" name="remarks'.$student->id.'" size="" value="'.($att ? $att->remarks : '').'">';
++            $table->data[$student->id][] = '<select name="remarks'.$student->id.'" >  <option value=""'.($att->remarks == "" ? "selected = 'selected'" : "").'>None</option><option value="Medical Leave"'.($att->remarks == "Medical Leave" ? "selected = 'selected'" : "").'>Medical Leave</option><option value="On Field Duty"'.($att->remarks == "On Field Duty" ? "selected = 'selected'" : "").'>On Field Duty</option><option value="Left Early"'.($att->remarks == "Left Early" ? "selected = 'selected'" : "").'>Left Early</option><option value="Came Late"'.($att->remarks == "Came Late" ? "selected = 'selected'" : "").'>Came Late</option><option value="Advisory Note"'.($att->remarks == "Advisory Note" ? "selected = 'selected'" : "").'>Advisory Note
++		
++		</option>';
++			//$table->data[$student->id][] = '<input type="text" name="remarks'.$student->id.'" size="" value="'.($att ? $att->remarks : '').'">';
+         }
+         if($counttotal!=$serial_no-1){
+           echo "<div>$counttotal is not equal to $serial_no. Unable to compute</div>";

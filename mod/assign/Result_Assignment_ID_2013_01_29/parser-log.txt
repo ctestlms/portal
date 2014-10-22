@@ -1,0 +1,20 @@
+JPlag (Version 2.11.6)
+2013-01-29 11:51:09 GMT
+
+Language: Java1.2 Parser
+
+------ Parsing submission: Ghulam Ul Hassan_Ali_asda.java
+Parsing file Ghulam Ul Hassan_Ali_asda.java
+OK
+------ Parsing submission: Khursheed_Ahmed_asda.java
+Parsing file Khursheed_Ahmed_asda.java
+OK
+
+2 submissions parsed successfully!
+0 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 165 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 1 msec

@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad_Umar_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Muhammad_Umar_Source.cpp</CENTER></H3><HR>
+<PRE>
+/* 
+*Assignment # 1 
+* Course : OOP 
+* Muhammad Umar
+* Name: Bacteria Colony Growth
+* Class : BS(CS)-3A 
+* Reg# 05721 
+* Instructor : Tahir Azeem
+*/
+#include &lt;stdio.h&gt;
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+void output (char **colony, int Num_Rows, int Num_Colmn);
+void loadFile (FILE *fptr, char **A, int Num_Rows, int Num_Colmn);
+void shuffleArray (char **Array1 , char **Array2, int Num_Rows, int Num_Colmn);
+void checkFunc (char **A , char **B, int i, int j, int ini_val_loop1, int limit_value_loop1, int ini_val_loop2, int limit_value_loop2 );
+int main (void)
+{
+	FILE *fptr;
+	int Num_Rows = 0, Num_Colmn = 0;
+
+	char fileName[20];
+	printf(&quot;please Enter the filename alongwith its extention:&quot;);
+	gets_s (fileName);
+
+	fptr = fopen(fileName,&quot;r&quot;);
+	if(fptr == NULL)	{
+		printf(&quot;HA HA HA Error 404! :D File not found!!!&quot;);
+		exit (0);
+	} 
+	fscanf(fptr,&quot;%d\n%d\n&quot;,&amp;Num_Rows, &amp;Num_Colmn);
+
+	char **A = (char **) malloc (sizeof(char *) * Num_Rows);	//allocation of memory dynamically
+	for (int i = 0; i &lt; Num_Rows; i++)	{
+		A[i] = (char *) malloc (sizeof(char) * Num_Colmn);
+	}	
+	char **B = (char **) malloc (sizeof(char *) * Num_Rows);	//2D grid for new pattern storage
+	for (int i = 0; i &lt; Num_Rows; i++)	{
+		B[i] = (char *) malloc (sizeof(char) * Num_Colmn);
+	}
+	loadFile(fptr,A, Num_Rows, Num_Colmn);  // function to input, file's content
+	{
+		output (A, Num_Rows, Num_Colmn);
+		while (1) {
+			printf(&quot; t)ick, q)uit? &quot;);
+			char opt;
+			std::cin &gt;&gt;opt;
+			if (opt == 't')	{
+				{
+
+					shuffleArray(B, A, Num_Rows, Num_Colmn);
+
+					for (int i = 0; i &lt; Num_Rows; i++)
+<A NAME="2"></A>					{
+						for (int j = 0; j &lt; Num_Colmn ; j++)
+						{
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>							int counter = 0;
+
+							if(i&gt;0 &amp;&amp; i&lt;(Num_Rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(Num_Colmn-1)){
+
+								if (A[i-1][j-1]=='X')
+								{counter++;
+								}
+								if (A[i-1][j]=='X')
+								{counter++;
+								}
+
+								if (A[i-1][j+1]=='X')
+								{counter++;
+								}
+
+								if (A[i][j-1]=='X')
+								{counter++;
+								}
+
+								if (A[i][j+1]=='X')
+								{counter++;
+								}
+
+								if (A[i+1][j-1]=='X')
+								{counter++;
+								}
+
+								if (A[i+1][j]=='X')
+								{counter++;
+								}
+
+								if (A[i+1][j+1]=='X')
+								{counter++;
+								}
+							}
+
+							if(i == 0 &amp;&amp; j&gt;0 &amp;&amp; j&lt;(Num_Colmn-1)){
+								if(A[i][j-1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i][j+1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i+1][j-1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i+1][j] == 'X' )
+								{counter++;
+								}
+
+								if(A[i+1][j+1] == 'X' )
+								{counter++;
+								}
+							}
+
+
+
+							if(i == (Num_Rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(Num_Colmn-1) ){
+
+								if(A[i][j-1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i][j+1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i-1][j-1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i-1][j] == 'X' )
+								{counter++;
+								}
+
+								if(A[i-1][j+1] == 'X' )
+								{counter++;
+								}
+							}
+
+							if (i == 0 &amp;&amp; j ==0){
+
+								if(A[i][j+1] == 'X')
+								{counter++;
+								}
+
+								if(A[i+1][j] == 'X')
+								{counter++;
+								}
+
+								if(A[i+1][j+1] == 'X')
+								{counter++;
+								}
+							}
+
+							if(i == (Num_Rows-1) &amp;&amp; i == (Num_Colmn-1)){
+
+								if(A[i+1][j+1] == 'X')
+								{counter++;
+								}
+
+								if(A[i][j+1] == 'X')
+								{counter++;
+								}
+
+								if(A[i+1][j+1] == 'X')
+								{counter++;
+								}
+
+							}
+
+							if(j == 0 &amp;&amp; i&gt;0 &amp;&amp; i&lt;(Num_Rows-1)){
+								if(A[i-1][j+1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i-1][j] == 'X' )
+								{counter++;
+								}
+
+								if(A[i][j+1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i+1][j] == 'X' )
+								{counter++;
+								}
+
+								if(A[i+1][j+1] == 'X' )
+								{counter++;
+								}
+							}
+
+
+
+							if(j == (Num_Colmn-1) &amp;&amp; i&gt;0 &amp;&amp; j&lt;(Num_Rows-1) ){
+
+								if(A[i-1][j] == 'X' )
+								{counter++;
+								}
+
+								if(A[i-1][j+1] == 'X' )
+								{counter++;
+								}
+
+								if(A[i][j+1] == 'X' )
+								{counter++;
+
+								}
+
+								if(A[i+1][j] == 'X' )
+								{counter++;
+								}
+
+								if(A[i+1][j+1] == 'X' )
+								{counter++;
+								}
+							}
+
+							if (counter &lt;= 1 || counter &gt; 3 ){
+								B[i][j] = '-';
+							}
+
+							if (counter == 3){
+								B[i][j] ='X';
+							}
+
+						}
+					}
+					shuffleArray(A, B, Num_Rows, Num_Colmn); 
+				}</B></FONT>
+				output (A, Num_Rows, Num_Colmn);	
+			}
+			else if (opt == 'q')
+				break;
+		}
+		for(unsigned int i=0 ; i&lt;Num_Rows; i++) {
+			free(A[i]);
+			free(B[i]);
+		}
+
+		free (A);
+		free (B);
+<A NAME="0"></A>	}
+	return 0;
+}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void output (char **colony, int Num_Rows, int Num_Colmn)	// function for dislaying bacterial growth on screen
+{
+	printf(&quot;\n\n&quot;);
+	for (int i = 0; i &lt; Num_Rows ; i++)	{
+		for(int j=0; j&lt; Num_Colmn; j++) {
+			printf(&quot;%c&quot;,colony[i][j]);
+		}
+		printf(&quot;\n&quot;);
+	}
+}
+void loadFile (FILE *fptr, char **A, int Num_Rows, int Num_Colmn)</B></FONT>
+{
+	while (!feof(fptr)) {
+		for (int i = 0; i &lt; Num_Rows; i++)	{
+			for (int j = 0; j &lt; Num_Colmn; j++)	{
+				fscanf(fptr, &quot;%c&quot; , &amp;A[i][j]); 
+			}
+			fscanf(fptr,&quot;\n&quot;);	
+		}
+	}
+}
+void shuffleArray (char **Array1 , char **Array2, int Num_Rows, int Num_Colmn)
+{
+	for (int i = 0; i &lt; Num_Rows ; i++) {
+		for (int j = 0; j &lt; Num_Colmn; j++) {
+			Array1[i][j] = Array2[i][j];
+		}
+<A NAME="1"></A>	}
+}
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void checkFunc (char **A , char **B, int i, int j, int ini_val_loop1, int limit_val_loop1, int ini_val_loop2, int limit_val_loop2 )
+{
+	int count = 0;
+	for (int x = ini_val_loop1; x &lt;= limit_val_loop1; x++)
+	{
+		for (int y = ini_val_loop2; y &lt;= limit_val_loop2; y++)
+		{</B></FONT>
+			if(x == i &amp;&amp; y == j) {
+				continue;
+			}
+			if(A[x][y] == '-') {
+				continue;
+			}
+			if(A[x][y] == 'X') {
+				count++;
+				continue;
+			}
+		}
+	}
+	if(count &lt;= 1) {
+		B[i][j] = '-';
+	}
+	if(count == 2) {
+	}
+	if(count == 3) {
+		B[i][j] = 'X';
+	}
+	if(count &gt;= 4) {
+		B[i][j] = '-';
+	}
+}
+</PRE>
+</BODY>
+</HTML>

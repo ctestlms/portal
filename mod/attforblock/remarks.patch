@@ -1,0 +1,39 @@
+--- exportold.php	2012-06-13 13:38:58.243417560 +0500
++++ export.php	2012-06-13 13:46:34.000000000 +0500
+@@ -117,12 +117,21 @@ require('tcpdf/tcpdf.php');
+ 			if ($sessions = $DB->get_records_select('attendance_sessions', $select, null, 'sessdate ASC')) {
+ 				foreach($sessions as $sess) {
+ 					$data->tabhead[] = "'". userdate($sess->sessdate, get_string('strftimedm', 'attforblock'))."'";
++				if (isset($fromform->showremarks)) {
++					$data->tabhead[] ="Remarks";
++				}
+                                         if($sess->description){
+                                             $data->lecture[] = get_description($sess->description, true);
++                                        if (isset($fromform->showremarks)) {
++						$data->lecture[] = "-";
++					}
+                                         }
+                                         else
+                                         {
+                                             $data->lecture[] = "Class";
++                                        if (isset($fromform->showremarks)) {
++						$data->lecture[] = "-";
++					}
+                                         }
+ 				}
+ 			} else {
+@@ -165,8 +174,14 @@ require('tcpdf/tcpdf.php');
+ 				foreach ($sessions as $sess) {
+ 					if ($rec = $DB->get_record('attendance_log', array('sessionid'=>$sess->id, 'studentid'=>$student->id))) {
+ 						$data->table[$i][] = $statuses[$rec->statusid]->acronym;
++					if (isset($fromform->showremarks)) {
++						$data->table[$i][] = $rec->remarks;//$statuses[$rec->statusid]->acronym;
++					}
+ 					} else {
+ 						$data->table[$i][] = '-';
++					if (isset($fromform->showremarks)) {
++						$data->table[$i][] = '-';
++					}
+ 					}
+                                         
+ 				}

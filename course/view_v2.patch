@@ -1,0 +1,60 @@
+--- view.php	2014-02-11 10:30:40.000000000 +0500
++++ view_new.php	2014-02-11 10:32:13.000000000 +0500
+@@ -4,9 +4,12 @@
+ 
+     require_once('../config.php');
+     require_once('lib.php');
+-    require_once($CFG->dirroot.'/mod/forum/lib.php');
+-    require_once($CFG->libdir.'/conditionlib.php');
+-    require_once($CFG->libdir.'/completionlib.php');
++//    require_once($CFG->dirroot.'/mod/forum/lib.php');
++  //  require_once($CFG->libdir.'/conditionlib.php');
++    //require_once($CFG->libdir.'/completionlib.php');
++    require_once($CFG->dirroot.'/mod/assignment/lib.php');//Added By Hina Yousuf
++    require_once($CFG->libdir.'/filelib.php');//@Hina 
++    require_once("$CFG->libdir/filestorage/stored_file.php");//Hina
+ 
+     $id          = optional_param('id', 0, PARAM_INT);
+     $name        = optional_param('name', '', PARAM_RAW);
+@@ -21,6 +24,8 @@
+     $switchrole  = optional_param('switchrole',-1, PARAM_INT);
+     $modchooser  = optional_param('modchooser', -1, PARAM_BOOL);
+     $return      = optional_param('return', 0, PARAM_LOCALURL);
++    $download = optional_param('download',false, PARAM_BOOL);
++
+ 
+     $params = array();
+     if (!empty($name)) {
+@@ -59,6 +64,19 @@
+     }
+ 
+     require_login($course);
++     //Added By Hina Yousuf
++        if($download){
++                if(has_capability('moodle/course:downloadmaterial', $context)) {
++                        set_time_limit ( 300 );
++                         course_material($course);
++                }
++        }
++    require_once('lib.php');
++    require_once($CFG->dirroot.'/mod/forum/lib.php');
++    require_once($CFG->libdir.'/completionlib.php');
++    require_once('../mod/attforblock/locallib.php');
++    require_once($CFG->dirroot.'/mod/assignment/lib.php');//Added By Hina Yousuf
++    //end
+ 
+     // Switchrole - sanity check in cost-order...
+     $reset_user_allowed_editing = false;
+@@ -117,8 +135,10 @@
+     }
+     add_to_log($course->id, 'course', $loglabel, "view.php?". $logparam, $infoid);
+ 
+-    // Fix course format if it is no longer installed
+-    $course->format = course_get_format($course)->get_format();
++    $course->format = clean_param($course->format, PARAM_ALPHA);
++    if (!file_exists($CFG->dirroot.'/course/format/'.$course->format.'/format.php')) {
++        $course->format = 'weeks';  // Default format is weeks
++    }
+ 
+     $PAGE->set_pagelayout('course');
+     $PAGE->set_pagetype('course-view-' . $course->format);

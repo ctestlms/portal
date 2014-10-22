@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Mohammad Ibrahim_Sahibzada_Assignment 1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Mohammad Ibrahim_Sahibzada_Assignment 1.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;iostream&gt;                 //Assignment by Mohammad Ibrahim Sahibzada (BSCS-3B).
+#include&lt;stdio.h&gt;                  //Discussed with Khubaib Pirzada and Usama Zafar of BSCS-3A.
+#include&lt;cstdlib&gt;
+#include&lt;string&gt;                  
+
+using namespace std;
+
+int a, b;
+
+void mainmenu() 
+{
+std::cout &lt;&lt; &quot;Welcome to a simulation of the lifecycle of a bacteria colony.&quot; &lt;&lt; std::endl;                 //Main Menu Display Function.
+std::cout &lt;&lt; &quot;Cells (X) live and die by the following rules:&quot; &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;- A cell with 1 or fewer neighbors dies.&quot; &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;- Locations with 2 neighbors remain stable.&quot; &lt;&lt; std::endl;
+<A NAME="0"></A>std::cout &lt;&lt; &quot;- Locations with 3 neighbors will create life.&quot; &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;- A cell with 4 or more neighbors dies.&quot; &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;\nGrid input file name? &quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+char** memAlloc(int ARRAY_ROWS, int ARRAY_COLS)              //Memory Allocation Function.
+{                            
+char **grid = new char*[ARRAY_ROWS];
+for (int i = 0; i&lt;ARRAY_ROWS; i++) 
+{
+	grid[i] = new char[ARRAY_COLS];
+}
+return grid;
+}</B></FONT>
+
+char** readFile()            //File Read Function.
+{                                  
+	std::string fileName;
+	std::cin &gt;&gt; fileName;
+	FILE* fptr = fopen(fileName.c_str(), &quot;r&quot;);
+	if (fptr == NULL) 
+	{
+		return NULL;
+	}
+	else 
+	{
+		fscanf(fptr, &quot;%d\n%d&quot;, &amp;a, &amp;b);
+		char **grid = memAlloc(a, b + 1);
+		for (int i = 0; i&lt;a; i++) 
+		{
+			for (int j = 0; j&lt;b + 1; j++) 
+			{
+				grid[i][j] = fgetc(fptr);
+			}
+		}
+		return grid;
+	}
+}
+
+void gridDisplay(char **grid)      //Displays grid in &quot;grid&quot; memory.
+{              
+	for (int i = 0; i&lt;a; i++) 
+	{
+		for (int j = 0; j&lt;b + 1; j++) 
+<A NAME="2"></A>		{
+			std::cout &lt;&lt; grid[i][j];
+		}
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	}
+}
+
+char** neighbourCheck(char** grid, char** tempGrid, char element, int row, int col)                    // [i-1][j-1]   [i-1][j]  [i-1][j+1]
+{                                                                                                      // [i][j-1]     [i][j]    [i][j+1]
+	int neighbourCount = 0;                                                                            // [i+1][j-1]   [i+1][j]  [i+1][j+1]
+	switch (element) 
+	{                                                                             
+case '-':                                                                                   
+	if ((row - 1) &gt;= 0 &amp;&amp; (col - 1) &gt;= 0) neighbourCount = (tempGrid[row - 1][col - 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row - 1) &gt;= 0)                  neighbourCount = (tempGrid[row - 1][col] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row - 1) &gt;= 0 &amp;&amp; (col + 1)&lt;b)  neighbourCount = (tempGrid[row - 1][col + 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((col - 1) &gt;= 0)                  neighbourCount = (tempGrid[row][col - 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((col + 1)&lt;b)                  neighbourCount = (tempGrid[row][col + 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row + 1)&lt;a &amp;&amp; (col - 1) &gt;= 0)  neighbourCount = (tempGrid[row + 1][col - 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row + 1)&lt;a)                  neighbourCount = (tempGrid[row + 1][col] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row + 1)&lt;a &amp;&amp; (col + 1)&lt;b)   neighbourCount = (tempGrid[row + 1][col + 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+
+	if (neighbourCount == 3)
+		grid[row][col] = 'X';
+	break;
+case 'X':
+	if ((row - 1) &gt;= 0 &amp;&amp; (col - 1) &gt;= 0) neighbourCount = (tempGrid[row - 1][col - 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row - 1) &gt;= 0)                  neighbourCount = (tempGrid[row - 1][col] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row - 1) &gt;= 0 &amp;&amp; (col + 1)&lt;b)  neighbourCount = (tempGrid[row - 1][col + 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((col - 1) &gt;= 0)                  neighbourCount = (tempGrid[row][col - 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((col + 1)&lt;b)                  neighbourCount = (tempGrid[row][col + 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row + 1)&lt;a &amp;&amp; (col - 1) &gt;= 0)  neighbourCount = (tempGrid[row + 1][col - 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row + 1)&lt;a)                  neighbourCount = (tempGrid[row + 1][col] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((row + 1)&lt;a &amp;&amp; (col + 1)&lt;b)      neighbourCount = (tempGrid[row + 1][col + 1] == 'X') ? neighbourCount + 1 : neighbourCount;
+	if ((neighbourCount &lt;= 1) || (neighbourCount &gt;= 4))
+		grid[row][col] = '-';
+	break;
+	}
+<A NAME="1"></A>return grid;
+}</B></FONT>
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void freeMem(char **grid)            //Freeing allocated memory.
+{                   
+	for (int i = 0; i&lt;a; i++) 
+	{
+		delete grid[i];
+	}
+<A NAME="3"></A>	delete[] grid;
+}</B></FONT>
+
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char** futureGen(char **9grid)      //A temporary 2D storage array for comparison with old grid
+{
+	char** tempGrid = memAlloc(a, b + 1);                                    
+	for (int i = 0; i&lt;a; i++) 
+	{
+		for (int j = 0; j&lt;b + 1; j++)
+		{
+			tempGrid[i][j] = grid[i][j];
+		}
+	}
+
+	for (int i = 0; i&lt;a; i++) 
+	{
+		for (int j = 0; j&lt;b; j++) 
+		{
+			grid = neighbourCheck(grid, tempGrid, tempGrid[i][j], i, j);
+		}
+	}
+	freeMem(tempGrid);
+	return grid;
+}
+
+int main()                                         //Main function.
+{         
+	char option;
+	mainmenu();
+	char** grid = readFile();
+	if (grid == NULL)
+	{
+		cout &lt;&lt; &quot;\nError! Unable to read file. &quot;;
+		system(&quot;PAUSE&quot;);
+		return 0;
+	}
+	while (1) 
+	{
+		gridDisplay(grid);
+		cout &lt;&lt; &quot;\nt)ick, q)uit? &quot;;
+		cin &gt;&gt; option;
+		if (option == 'q')</B></FONT>
+			return 0;
+		else if (option == 't')
+			futureGen(grid);
+		else
+			continue;
+	}
+	freeMem(grid);
+	system(&quot;PAUSE&quot;);
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

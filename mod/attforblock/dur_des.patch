@@ -1,0 +1,13 @@
+--- duration_description_form.php	2012-09-24 09:35:54.000000000 +0500
++++ duration_description_form.php	2012-09-24 09:41:09.076022889 +0500
+@@ -66,7 +66,9 @@ class mod_attforblock_description_form e
+         	array('1' => get_string('normalclass','attforblock'),
+                       '4' => get_string('90minsclass','attforblock'),
+                       '2' => get_string('twohourslab','attforblock'),
+-                      '3' => get_string('threehourslab','attforblock')
++                      '3' => get_string('threehourslab','attforblock'),
++			'5' => get_string('twohoursclass','attforblock'),
++                      '6' => get_string('threehoursclass','attforblock')
+                 ));
+ 
+ 

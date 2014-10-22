@@ -1,0 +1,20 @@
+***************
+*** 266,272 ****
+              if(has_capability('mod/attforblock:unmarkattendance', $context))
+                      @$table->data[$student->id][] = '<input name="student'.$student->id.'" type="radio" value="0"'.((!$att && $update)? "checked" : "").' />';
+  			$table->data[$student->id][] = get_attendance($student->id, $course, $present).'/'.get_attendance($student->id, $course);//.'='.get_percent($student->id, $course).'%';
+-             $table->data[$student->id][] = '<input type="text" name="remarks'.$student->id.'" size="" value="'.($att ? $att->remarks : '').'">';
+          }
+          if($counttotal!=$serial_no-1){
+            echo "<div>$counttotal is not equal to $serial_no. Unable to compute</div>";
+--- 266,275 ----
+              if(has_capability('mod/attforblock:unmarkattendance', $context))
+                      @$table->data[$student->id][] = '<input name="student'.$student->id.'" type="radio" value="0"'.((!$att && $update)? "checked" : "").' />';
+  			$table->data[$student->id][] = get_attendance($student->id, $course, $present).'/'.get_attendance($student->id, $course);//.'='.get_percent($student->id, $course).'%';
++             $table->data[$student->id][] = '<select name="remarks'.$student->id.'" >  <option value=""'.($att->remarks == "" ? "selected = 'selected'" : "").'>None</option><option value="Medical Leave"'.($att->remarks == "Medical Leave" ? "selected = 'selected'" : "").'>Medical Leave</option><option value="On Field Duty"'.($att->remarks == "On Field Duty" ? "selected = 'selected'" : "").'>On Field Duty</option><option value="Left Early"'.($att->remarks == "Left Early" ? "selected = 'selected'" : "").'>Left Early</option><option value="Came Late"'.($att->remarks == "Came Late" ? "selected = 'selected'" : "").'>Came Late</option><option value="Advisory Note"'.($att->remarks == "Advisory Note" ? "selected = 'selected'" : "").'>Advisory Note
++ 		
++ 		</option>';
++ 			//$table->data[$student->id][] = '<input type="text" name="remarks'.$student->id.'" size="" value="'.($att ? $att->remarks : '').'">';
+          }
+          if($counttotal!=$serial_no-1){
+            echo "<div>$counttotal is not equal to $serial_no. Unable to compute</div>";

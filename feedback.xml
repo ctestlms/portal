@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<FEEDBACK VERSION="200701" COMMENT="XML-Importfile for mod/feedback">
+     <ITEMS>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[696]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[The objective of the course was clear and was communicated through course outline.]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[697]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Organizes lecture appropriately and utilizes class time effectively]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[698]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Creates understanding and interest in the subject]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[699]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Uses appropriate language]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[700]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Effectively uses teaching/training aids]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[701]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Level of patience]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[702]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Conducts tests and assignments on time and shares grades]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[703]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Provides timely feedback to students by letting them know what is expected of them]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[704]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Creates an environment of fairness in class]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[705]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Handles questions to clarify all ambiguities]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[706]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Maintains a standard against which papers are marked]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[707]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Available and guides during office hours]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[708]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Followed the course outline]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[709]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Encourages student's participation]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[710]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Conducts labs/projects appropriately]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[711]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Clarity of speech]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[712]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Completes lecture in allocated time]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[713]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Punctual in class]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[714]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Conducts student evaluation(in test, quizzes, exam, assignment etc) fairly]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="multichoicerated" REQUIRED="1">
+               <ITEMID>
+                    <![CDATA[715]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Integrates knowledge with other courses of same discipline]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[r>>>>>5####Excellent
+|4####Good 
+|3####Average
+|2####Below Average 
+|1####Poor<<<<<1]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[h]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+          <ITEM TYPE="textfield" >
+               <ITEMID>
+                    <![CDATA[716]]>
+               </ITEMID>
+               <ITEMTEXT>
+                    <![CDATA[Your Comments (if any:)]]>
+               </ITEMTEXT>
+               <ITEMLABEL>
+                    <![CDATA[]]>
+               </ITEMLABEL>
+               <PRESENTATION>
+                    <![CDATA[150|150]]>
+               </PRESENTATION>
+               <OPTIONS>
+                    <![CDATA[]]>
+               </OPTIONS>
+               <DEPENDITEM>
+                    <![CDATA[0]]>
+               </DEPENDITEM>
+               <DEPENDVALUE>
+                    <![CDATA[]]>
+               </DEPENDVALUE>
+          </ITEM>
+     </ITEMS>
+</FEEDBACK>

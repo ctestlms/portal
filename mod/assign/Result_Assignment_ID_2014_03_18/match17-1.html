@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Fatima_Nasir_MoveBall.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Fatima_Nasir_MoveBall.java</CENTER></H3><HR>
+<PRE>
+/*
+&lt;applet code=&quot;MoveBall&quot; width=400 height=300&gt;
+&lt;/applet&gt;
+<A NAME="0"></A>*/
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.awt.*;
+import java.applet.*;
+
+public class MoveBall extends Applet 
+{ 
+int xpos=10; int ypos=20; 
+int xinc=0; int yinc=3;
+int xtop=10; int ytop=30; 
+int xbot=370; int ybot=270; 
+Color color;
+
+
+public void init()	{ 
+color=Color.red;	
+}</B></FONT>
+int i=280;
+int j=335;
+public void paint(Graphics g){
+
+         	
+		if (xpos==xbot){   yinc=-3; xinc=0; }
+<A NAME="1"></A>		else if(xpos&lt;xtop) { xinc=-3; yinc=0;  }
+		
+		else if (ypos&gt;ybot) {  xinc=3;  yinc=0;  }
+		else if(ypos==ytop) {  yinc=-3;   xinc=0;<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+		
+			//else if(xpos==xtop)  { xinc=-3; yinc=0; }
+		xpos+=xinc; ypos+=yinc;
+		g.fillArc(xpos, ypos, 30,30 , i,j);
+		
+		try{
+			Thread.sleep(40);
+			}
+		catch(Exception e){}
+		repaint(10); 
+}//paint ends 
+
+}</B></FONT>//class ends
+</PRE>
+
+</BODY>
+</HTML>

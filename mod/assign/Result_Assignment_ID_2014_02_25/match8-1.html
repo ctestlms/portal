@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Khawaja Muhammad Abdullah_Anwer_Lab.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Khawaja Muhammad Abdullah_Anwer_Lab.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.*;
+import java.lang.*;
+
+public class Lab {
+
+		public static void main(String[] args) {
+	
+		Scanner in=new Scanner(System.in);
+		
+		//System.out.println(&quot;Enter the number of Students you want to enter the data of:  &quot;);
+<A NAME="1"></A>		//int k=in.nextInt();
+		int counter</B></FONT>=0;
+
+		float gpa=0,temp=0,min=4,<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>max=0,average=0,sum=0,comp=4;
+		String check;
+		String[][] data=new String[5][2];
+		
+		
+			for(int i=0;i&lt;data.length;i++)
+			{
+				for(int j=0;j&lt;data[i].length;j++)
+				{
+					System.out.println(&quot;Enter the name of Student No. &quot;+(i+1)+&quot;: &quot;);
+					data[i][j]=in.nextLine();
+				
+					check=data[i][j];
+				
+					for(int i1=0;i1&lt;data.length;i1++)
+					{
+						for(int j1=0;j1&lt;data[i1].length;j1++)
+						{
+							if((i==i1) &amp;&amp; (j==j1))
+							{
+								continue;
+							}
+							else
+							{
+								if(check.equalsIgnoreCase(data[i1][j1]))
+								{
+									do
+									{
+										System.out.println(&quot;Match Found!&quot;);
+										System.out.println(&quot;No Duplication Allowed&quot;);
+										System.out.println(&quot;TRY AGAIN&quot;);
+										data[i][j]=in.nextLine();
+										check=data[i][j];
+									}
+									while(check.equalsIgnoreCase(data[i1][j1]));
+								}	
+							}
+						}
+					}
+					
+					System.out.println(&quot;Enter the CGPA of Student No. &quot;+(i+1)+&quot;: &quot;);
+					data[i][++j]=in.nextLine();
+				
+					gpa=Float.parseFloat(data[i][j]);
+				
+					if(!(gpa&lt;0.00|gpa&gt;4.00))
+					{
+						temp=gpa;
+						if(temp&lt;min)
+						{
+							min=temp;
+						}
+						if(temp&gt;max)
+						{
+							max=temp;
+						}
+						sum+=temp;
+					}
+
+					if(gpa&lt;0.00|gpa&gt;4.00)
+					{
+						do
+						{
+							System.out.println(&quot;Invallid Entry!&quot;);
+							System.out.println(&quot;TRY AGAIN&quot;);
+							data[i][j]=in.nextLine();
+							gpa=Float.parseFloat(data[i][j]);
+
+							if(!(gpa&lt;0.00|gpa&gt;4.00))
+								{
+									temp=gpa;
+									if(temp&lt;min)
+									{
+										min=temp;
+									}
+									if(temp&gt;max)
+									{
+										max=temp;
+									}
+									sum+=temp;
+								}
+							
+						}
+						while (gpa&lt;0.00|gpa&gt;4.00);
+					}
+				}
+			}
+
+			System.out.println(&quot;&quot;);
+			System.out.println(&quot;Name\t\tCGPA&quot;);
+			for(int i=0;i&lt;data.length;i++)
+			{
+				for(int j=0;j&lt;data[i].length;j++)
+				{
+					System.out.println(&quot;&quot;+data[i][j]+&quot;\t&quot;+data[i][++j]);
+				}
+			}
+			average=sum/5;
+			System.out.println(&quot;&quot;);
+			System.out.println(&quot;Minimum CGPA = &quot;+min);
+			System.out.println(&quot;Maximum CGPA = &quot;+max);
+			System.out.println(&quot;Average CGPA = &quot;+(average));
+		
+			System.out.println(&quot;&quot;);
+			System.out.println(&quot;Following Students got less than average marks.&quot;);
+			for(int x=0;x&lt;data.length;x++)
+			{
+				for(int y=0;y&lt;data[x].length;y++)
+				{
+					gpa=Float.parseFloat(data[x][++y]);
+				
+					if(gpa&lt;average)
+					{
+						System.out.println(&quot;&quot;+data[x][y-1]);
+					}
+
+				}
+			}
+		
+				
+				System.out.println(&quot;&quot;);			
+				System.out.println(&quot;Enter the name of Student you want to search: &quot;);
+				check=in.nextLine();
+				
+				outer: for(int i=0;i&lt;data.length;i++)
+				{
+					for(int j=0;j&lt;data[i].length;j++)
+					{
+						
+				
+						
+									if(check.equalsIgnoreCase(data[i][j]))
+									{
+											System.out.println(&quot;&quot;);
+											System.out.println(&quot;Match Found!&quot;);
+											System.out.println(&quot;Name\t\tCGPA&quot;);
+											System.out.println(&quot;&quot;+data[i][j]+&quot;\t&quot;+data[i][++</B></FONT>j]);
+											gpa=Float.parseFloat(data[i][j]);
+											temp=gpa;
+											
+											break outer;
+									}	
+					}
+				}
+				
+				for(int i=0;i&lt;data.length;i++)
+				{
+					for(int j=0;j&lt;data[i].length;j++)
+					{
+						if(temp&lt;gpa)	
+						{
+							counter++;
+						}
+					}
+				}	
+				System.out.print(&quot;\nRank of the Student is : \n&quot;+(counter+1));		
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

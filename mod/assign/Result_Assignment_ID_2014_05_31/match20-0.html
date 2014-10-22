@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Hussain_Jaffri_Digital Image Processing Assignment.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Hussain_Jaffri_Digital Image Processing Assignment.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+<A NAME="0"></A>using namespace std;
+
+void main()
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{ 
+	for(int q=1; q&lt;=35; q++)
+	{ cout&lt;&lt;&quot;==&quot;;}
+	
+	cout&lt;&lt;endl; 
+	
+	cout&lt;&lt;&quot;                 DIGITAL IMAGE PROCESSING (ASSIGNMENT)              &quot;&lt;&lt;endl;
+
+	for(int m=1; m&lt;=35; m++)
+	{ cout&lt;&lt;&quot;==&quot;;}</B></FONT>
+	
+	cout&lt;&lt;endl;
+    
+	cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;                     Welcome to HJ Productions!                        &quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl;
+
+	string a;
+
+	while(1)
+	{
+		char pic[50];
+		
+		system(&quot;pause&quot;);
+		system(&quot;cls&quot;);
+		
+		cout&lt;&lt;&quot;                      MAIN MENU                     &quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;1. Read image and print information (Press P)&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;2. Convert 24 bit to 8bit gray scale (Press G)&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;3. Histogram (Press E)&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;4. Take an affine transformation matrix as an input and apply that transformation  to the image. (Press T)&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;5. Exit (Press X )&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;Enter your input: &quot;;
+		cin&gt;&gt;a;
+		cout&lt;&lt;endl;
+
+		system(&quot;pause&quot;);
+		system(&quot;cls&quot;);
+
+		int soi,woi,hoi,SOD;
+		int ch[54]={0};
+		int res, reso;
+
+		if(a==&quot;P&quot;)
+		{
+			cout&lt;&lt;&quot;Option 1 is selected: 'Print the information' &quot;&lt;&lt;endl&lt;&lt;endl;
+			
+			cout&lt;&lt;&quot;Enter the file name: &quot;;
+			cin&gt;&gt;pic;
+	
+			FILE *fp, *ft;
+
+			fp = fopen(pic,&quot;rb&quot;);
+
+			if(fp == NULL )
+				cout&lt;&lt;&quot;File opening not successful.&quot;&lt;&lt;endl;
+			else
+			{
+				cout&lt;&lt;&quot;File opening successful.&quot;&lt;&lt;endl&lt;&lt;endl;
+
+				for(int i=0; i&lt;54; i++)
+				{
+					ch[i]=fgetc (fp);
+				}
+
+				soi=ch[2]+(ch[3]*256)+(ch[4]*256*256)+(ch[5]*256*256*256);
+				woi=ch[18]+(ch[19]*256)+(ch[20]*256*256)+(ch[21]*256*256*256);
+				hoi=ch[22]+ch[23]*256+ch[24]*256*256+ch[25]*256*256*256;
+				res=woi*hoi;
+
+				cout&lt;&lt;&quot;Image Size: &quot;&lt;&lt;soi&lt;&lt;&quot;  &quot;&lt;&lt;&quot;bytes&quot;&lt;&lt;endl&lt;&lt;endl;
+				cout&lt;&lt;&quot;Image Width: &quot;&lt;&lt;woi&lt;&lt;&quot;  &quot;&lt;&lt;&quot;pixels&quot;&lt;&lt;endl&lt;&lt;endl;
+				cout&lt;&lt;&quot;Image Height: &quot;&lt;&lt;hoi&lt;&lt;&quot;  &quot;&lt;&lt;&quot;pixels&quot;&lt;&lt;endl&lt;&lt;endl;
+				cout&lt;&lt;&quot;Image Resolution: &quot;&lt;&lt;res&lt;&lt;&quot;  &quot;&lt;&lt;&quot;pixels&quot;&lt;&lt;endl&lt;&lt;endl;
+			}
+		
+		}
+
+		else if(a==&quot;G&quot;)
+		{
+			cout&lt;&lt;&quot;Option 2 is selected: CONVERSION TO GREY SCALE&quot;&lt;&lt;endl;
+
+			char pfinal[50];
+
+			cout&lt;&lt;&quot;Enter the final name: &quot;;
+			cin&gt;&gt;pfinal;
+	
+			FILE *fp, *ft;
+
+			int ch[54]={0};
+
+			fp = fopen(pic,&quot;rb&quot;);
+
+			if(fp == NULL )
+				cout&lt;&lt;&quot;File opening not successful.&quot;&lt;&lt;endl;
+			else
+			{
+				cout&lt;&lt;&quot;Conversion File opening has been successful.&quot;&lt;&lt;endl&lt;&lt;endl;
+
+				for(int i=0; i&lt;54; i++)
+				{
+					ch[i]=fgetc (fp);
+				}
+
+				soi=ch[2]+(ch[3]*256)+(ch[4]*256*256)+(ch[5]*256*256*256);
+				woi=ch[18]+(ch[19]*256)+(ch[20]*256*256)+(ch[21]*256*256*256);
+				hoi=ch[22]+ch[23]*256+ch[24]*256*256+ch[25]*256*256*256;
+				res=woi*hoi;
+
+				reso=res*3;
+
+				char* color = new char[reso];
+				char* grey = new char[reso/3];
+
+
+				for(int i=0; i&lt;reso; i++) //reading the original data
+				{
+					color[i]=fgetc (fp);
+				}
+
+				int i=0;
+
+				for(int z=0; z&lt;(reso/3);z++)	//converting into grey scale
+				{
+					grey[z]=(color[i]*0.3+color[i+1]*0.59+color[i+2]*0.11);
+					i=i+3;
+				}
+
+<A NAME="1"></A>				int a=0;
+				int pal[1024];
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				for(int i=0;i&lt;256;i++)		//making palette
+				{
+					for(int j=0;j&lt;3;j++)
+					{	pal[a++]=i;}</B></FONT>
+
+					pal[a++]=0;
+				}
+
+				ch[11]=4;	//start of data changed
+				
+				res=hoi*woi;
+				int res1, res2, res3, res4;
+
+				res1=res/(256*256*256);
+				res2=res%(256*256*256);
+				res2=res2/(256*256);
+				res3=res2%(256*256);
+				res3=res3/256;
+				res4=res3%256;
+
+				ch[34] = res4;
+				ch[35] = res3;
+				ch[36] = res2;
+				ch[37] = res1; //Size of Image changed
+
+				ch[29]=0;
+				ch[28]=8; //BPP changed
+
+				soi=hoi*woi+1078; //size of file changing
+
+				int res5, res6, res7, res8;
+
+				res5=soi/(256*256*256);
+				res6=soi%(256*256*256);
+				res6=res6/(256*256);
+				res7=res6%(256*256);
+				res7=res7/256;
+				res8=res7%256;
+
+				ch[2] = res8;
+				ch[3] = res7;
+				ch[4] = res6;
+				ch[5] = res5;
+
+				ft = fopen(pfinal, &quot;wb&quot;);
+
+<A NAME="2"></A>				for(int i=0; i&lt;54; i++)
+				{
+					fputc(ch[i], ft);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				}
+
+				for(int j=0; j&lt;1024; j++)
+				{
+					fputc(pal[j], ft);
+				}
+
+				for(int k=0; k&lt;reso/3; k++)
+				{
+					fputc(grey[k], ft);
+				}
+
+
+				cout&lt;&lt;&quot;Data successfully converted!&quot;&lt;&lt;endl&lt;&lt;endl;
+			}</B></FONT>
+
+		}
+
+		else if(a==&quot;E&quot;)
+		{
+			cout&lt;&lt;&quot;Option 3 is selected: HISTOGRAM MAKING&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;Histrogram data is being processed. Please wait a few minutes....&quot;&lt;&lt;endl&lt;&lt;endl;
+			
+			res=hoi*woi;
+
+			char* grey = new char[res];
+			int x=0, y=0, z=0;
+			long int histo[255]={0};
+			while(y&lt;256)
+			{
+				long int q=0;
+
+					while(x&lt;res)
+					{	
+						int q;
+
+						if( grey[x++] == 0 )
+						{q++;}
+					}
+
+					histo[z]=q;
+					y++;
+					z++;
+			}
+
+			cout&lt;&lt;&quot;histogram data has been converted and saved in the array of histo[255] - check the code&quot;&lt;&lt;endl&lt;&lt;endl;
+		
+		}
+
+		else if(a==&quot;T&quot;)
+		{
+			char a;
+
+			cout&lt;&lt;&quot;Option 4 is selected: TRANSFORMATION&quot;&lt;&lt;endl;
+
+			cout&lt;&lt;&quot;1. Press S for scaling.&quot;&lt;&lt;endl&lt;&lt;endl&lt;&lt;&quot;Your Input: &quot;;
+			cin&gt;&gt;a;
+
+			system(&quot;pause&quot;);
+			system(&quot;cls&quot;);
+
+			if(a=='S')
+			{
+				int b, c;
+
+				cout&lt;&lt;&quot;Enter scaling factor(width): &quot;;
+				cin&gt;&gt;b;
+
+				cout&lt;&lt;&quot;Enter scaling factor(height): &quot;;
+				cin&gt;&gt;c;
+
+				int newwoi, newhoi, newsoi, newsoi2;
+
+				newwoi=woi+b;
+				newhoi=hoi+c;
+
+				//width of image, height of image, size of image, size of file.
+
+				newsoi=newhoi*newwoi+1078; //size of file changing
+
+				int res11, res22, res33, res44;
+
+				res11=newsoi/(256*256*256);
+				res22=newsoi%(256*256*256);
+				res22=res22/(256*256);
+				res33=res22%(256*256);
+				res33=res33/256;
+				res44=res33%256;
+
+				ch[2] = res44;
+				ch[3] = res33;
+				ch[4] = res22;
+				ch[5] = res11; //size of file changed
+
+				newsoi2=newhoi*newwoi;
+
+				int res111, res222, res333, res444;
+
+				res111=newsoi2/(256*256*256);
+				res222=newsoi2%(256*256*256);
+				res222=res222/(256*256);
+				res333=res222%(256*256);
+				res333=res333/256;
+				res444=res333%256;
+
+				ch[34] = res444;
+				ch[35] = res333;
+				ch[36] = res222;
+				ch[37] = res111; //size of image changed.
+
+				int ab1, ab2, ab3, ab4;
+				
+				ab1=newwoi/(256*256*256);
+				ab2=newwoi%(256*256*256);
+				ab2=ab2/(256*256);
+				ab3=ab2%(256*256);
+				ab3=ab3/256;
+				ab4=ab3%256;
+
+				ch[18] = ab4;
+				ch[19] = ab3;
+				ch[20] = ab2;
+				ch[21] = ab1; //width of image changed;
+
+				int ab11, ab22, ab33, ab44;
+
+				ab11=newhoi/(256*256*256);
+				ab22=newhoi%(256*256*256);
+				ab22=ab22/(256*256);
+				ab33=ab22%(256*256);
+				ab33=ab33/256;
+				ab44=ab33%256;
+
+				ch[22] = ab44;
+				ch[23] = ab33;
+				ch[24] = ab22;
+				ch[25] = ab11; //height of image changed;
+
+				cout&lt;&lt;&quot;Scaling has been applied to the image.&quot;&lt;&lt;endl&lt;&lt;endl;
+			}
+
+			else
+			{
+			}
+		
+		}
+
+		else if(a==&quot;X&quot;)
+		{
+			cout&lt;&lt;&quot;Option 5 is selected. Program is exiting&quot;&lt;&lt;endl;
+			break;
+		}
+
+		else;
+
+	}
+}
+</PRE>
+</BODY>
+</HTML>

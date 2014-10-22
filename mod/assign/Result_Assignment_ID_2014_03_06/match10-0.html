@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hussain_Wali_my.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Hussain_Wali_my.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;string.h&gt;
+<A NAME="0"></A>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+char** createGrid (int rows, int cols) 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+	char** a = (char**) malloc(sizeof(char*) * rows);
+	for (int i = 0; i &lt; rows; i++) 
+	{
+		a[i] = (char*) malloc(sizeof(char) * cols);
+<A NAME="1"></A>	}</B></FONT>
+	return a;
+}
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void nogrid (FILE *fptr, char** a, int rows, int cols)
+{
+	rewind (fptr);
+	fscanf (fptr, &quot;%d %d&quot;, &amp;rows, &amp;cols);
+	 for (int i = 0; i &lt; rows; i++)
+	 {
+		 for (int j = 0; j &lt; cols; j++) 
+		 {</B></FONT>
+			  a [i][j] = fgetc(fptr);
+			  if (a [i][j]=='\n')
+<A NAME="2"></A>				  j--;
+		 }}}
+void outputGrid(char** a, int rows, int cols) 
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+	for (int i = 0; i &lt; rows; i++)
+	{
+		for (int j = 0; j &lt; cols; j++) 
+		{
+			printf (&quot;%c&quot;, a[i][j]);
+		}
+		printf (&quot;\n&quot;);
+	}</B></FONT>
+}
+void remGrid(char*   * a, int rows, int cols) 
+{
+	for (int i = 0; i &lt; rows; i++) 
+	{
+		delete a[i];
+    }
+		delete a;
+}
+void searchGrid1 (char** a, char** teGrid, int rows, int cols)
+{
+	int te = 0;
+	
+		for (int i = 1; i &lt; rows-1; i++)
+<A NAME="3"></A>		{
+			for (int j = 1; j &lt; cols-1; j++)
+			{				
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (a [i-1][j-1]=='X')
+					te++;
+				if (a [i-1][j]=='X')
+					te++;
+				if (a [i-1][j+1]=='X') 
+					te++;
+				if (a [i][j-1]=='X') 
+					te++;
+				if (a [i][j+1]=='X') 
+					te++;
+				if (a [i+1][j-1]=='X') 
+					te++;
+				if (a [i+1][j]=='X') 
+					te++;
+				if (a [i+1][j+1]=='X') 
+					te++;
+				if (te&lt;=1)
+					teGrid [i][j] = '-';
+				else if (te==3)
+					teGrid [i][j] = 'X';</B></FONT>
+<A NAME="4"></A>				else if (te&gt;=4)
+					teGrid [i][j] = '-';			
+				te= 0;
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match10-1.html#4',3,'match10-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			}}}
+void searchGrid2 (char** a, char** teGrid, int rows, int cols)
+{
+	int te = 0;
+	if (a [0][1]=='X') 
+		te++;
+	if (a [1][0]=='X') 
+		te++;
+	if (a [1][1]=='X') 
+<A NAME="5"></A>		te++;
+	if (te&lt;=1)</B></FONT>
+		teGrid [0][0] = '-';
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match10-1.html#5',3,'match10-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	else if (te==3)
+		teGrid [0][0] = 'X';
+	else if (te&gt;=4)
+		teGrid [0][0] = '-';
+	te= 0;	
+	if (a [0][cols-2]=='X') 
+		te++;
+	if (a [1][cols-2]=='X') 
+		te++;
+	if (a [1][cols-1]=='X')
+		te++;
+	if (te&lt;=1)
+	teGrid [0][cols-1] = '-';
+	else if (te==3)
+<A NAME="6"></A>		teGrid [0][cols-1] = 'X';</B></FONT>
+	else if (te&gt;=4)
+		teGrid [0][cols-1] = '-';
+<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match10-1.html#6',3,'match10-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	te = 0;
+	if (a [rows-2][0]=='X') 
+		te++;
+	if (a [rows-2][1]=='X') 
+		te++;
+	if (a [rows-1][1]=='X')
+		te++;
+	if (te&lt;=1)
+		teGrid [rows-1][0] = '-';
+	else if (te==3)
+		teGrid [rows-1][0] = 'X';</B></FONT>
+	else if (te&gt;=4)
+		teGrid [rows-1][0] = '-';
+	te = 0;
+	if (a [rows-1][cols-2]=='X') 
+		te++;
+	if (a [rows-2][cols-2]=='X') 
+		te++;
+	if (a [rows-2][cols-1]=='X')
+		te++;
+	if (te&lt;=1)
+		teGrid [rows-1][cols-1] = '-';
+	else if (te==3)
+		teGrid [rows-1][cols-1] = 'X';
+	else if (te&gt;=4)
+		teGrid [rows-1][cols-1] = '-';
+}
+void searchGrid3 (char** a, char** teGrid, int rows, int cols)
+{
+<A NAME="7"></A>	int te = 0;
+	for (int i = 0; i &lt; 1; i++)
+		{
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match10-1.html#7',3,'match10-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			for (int j = 1; j &lt; cols-1; j++)
+			{
+				if (a [i][j-1]=='X') 
+					te++;
+				if (a [i][j+1]=='X') 
+					te++;
+				if (a [i+1][j-1]=='X') 
+					te++;
+				if (a [i+1][j]=='X') 
+					te++;
+				if (a [i+1][j+1]=='X') 
+					te++;
+				if (te&lt;=1)
+					teGrid [i][j] = '-';
+				else if (te==3)
+<A NAME="8"></A>					teGrid [i][j] = 'X';</B></FONT>
+				else if (te&gt;=4)
+					teGrid [i][j] = '-';
+<FONT color="#bce954"><A HREF="javascript:ZweiFrames('match10-1.html#8',3,'match10-top.html#8',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				te = 0;
+			}		}
+	for (int i = rows-1; i &lt; rows; i++)
+<A NAME="9"></A>	{
+		for (int j = 1; j &lt; cols-1; j++)
+			{</B></FONT>
+<FONT color="#f88017"><A HREF="javascript:ZweiFrames('match10-1.html#9',3,'match10-top.html#9',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (a [i-1][j-1]=='X')
+					te++;
+				if (a [i-1][j]=='X')
+					te++;
+				if (a [i-1][j+1]=='X') 
+					te++;
+				if (a [i][j-1]=='X') 
+					te++;
+				if (a [i][j+1]=='X') 
+					te++;
+				if (te&lt;=1)
+					teGrid [i][j] = '-';
+				else if (te==3)
+<A NAME="10"></A>					teGrid [i][j] = 'X';</B></FONT>
+				else if (te&gt;=4)
+					teGrid [i][j] = '-';
+<FONT color="#b041ff"><A HREF="javascript:ZweiFrames('match10-1.html#10',3,'match10-top.html#10',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				te = 0;
+			}		}
+	for (int i = 1; i &lt; rows-1; i++)
+<A NAME="11"></A>		{
+			for (int j = 0; j &lt; 1; j++)
+			{</B></FONT>
+<FONT color="#571b7e"><A HREF="javascript:ZweiFrames('match10-1.html#11',3,'match10-top.html#11',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (a [i-1][j]=='X')
+					te++;
+				if (a [i-1][j+1]=='X') 
+					te++;				
+				if (a [i][j+1]=='X') 
+					te++;			
+				if (a [i+1][j]=='X') 
+					te++;
+				if (a [i+1][j+1]=='X') 
+					te++;			
+				if (te&lt;=1)
+					teGrid [i][j] = '-';
+				else if (te==3)
+					teGrid [i][j] = 'X';</B></FONT>
+<A NAME="12"></A>				else if (te&gt;=4)
+					teGrid [i][j] = '-';
+				te = 0;
+<FONT color="#3b9c9c"><A HREF="javascript:ZweiFrames('match10-1.html#12',3,'match10-top.html#12',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			}	}
+	for (int i = 1; i &lt; rows-1; i++)
+<A NAME="13"></A>		{
+			for (int j = cols-1; j &lt; cols; j++)
+			{</B></FONT>
+<FONT color="#842dce"><A HREF="javascript:ZweiFrames('match10-1.html#13',3,'match10-top.html#13',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (a [i-1][j-1]=='X')
+					te++;
+				if (a [i-1][j]=='X')
+					te++;				
+				if (a [i][j-1]=='X') 
+					te++;
+				if (a [i+1][j-1]=='X') 
+					te++;
+				if (a [i+1][j]=='X') 
+					te++;
+				if (te&lt;=1)
+					teGrid [i][j] = '-';
+				else if (te==3)
+					teGrid [i][j] = 'X';</B></FONT>
+				else if (te&gt;=4)
+					teGrid [i][j] = '-';
+				te = 0;
+			}}}
+int main () 
+{ 
+	int rows, cols;
+	char file[50];
+	char option;
+    printf(&quot;Enter a name for file&quot;);
+    scanf (&quot;%s&quot;,file);
+  FILE *fptr;
+	  fptr=fopen (&quot;bacteria.txt&quot;, &quot;r&quot;);
+	  {
+		  if (fptr==NULL) 
+		  {
+			  printf (&quot;Error opening file containing. Press any key to terminate the program...&quot;);
+			  getchar ();
+			  return 0;
+		  }}
+	fscanf (fptr, &quot;%d %d&quot;, &amp;rows, &amp;cols);
+	char** bacteria = createGrid(rows, cols);
+	char** teGrid = createGrid (rows, cols);
+	nogrid(fptr, bacteria, rows, cols);
+	nogrid (fptr, teGrid, rows, cols);
+	fclose (fptr);
+	outputGrid(bacteria, rows, cols);
+	outputGrid(teGrid, rows, cols);
+	printf (&quot;\n \n \n&quot;);
+	searchGrid1 (bacteria, teGrid, rows, cols);
+	searchGrid2 (bacteria, teGrid, rows, cols);
+	searchGrid3 (bacteria, teGrid, rows, cols);
+	outputGrid(teGrid, rows, cols);
+	remGrid (bacteria, rows, cols);
+	remGrid (teGrid, rows, cols);
+return 0;
+}
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Zubaid_Yasin_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Zubaid_Yasin_.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+
+using namespace std;
+
+
+class queues
+{
+ private:
+    queues *head,*tail;
+	int values;
+	queues* lnk;
+
+ public:
+    queues()
+    {
+    	head=NULL;
+<A NAME="0"></A>    	tail=NULL;
+    }
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int add(int x)
+    {
+    	queues *temp;
+    	temp=new queues;
+    	if(temp==NULL)
+    	   cout&lt;&lt;&quot;\nQUEUE FULL&quot;;
+
+    	temp-&gt;values=x;
+    	temp-&gt;lnk=NULL;
+    	if(head==NULL)
+    	{
+    		tail=head=temp;
+    		return x;
+    	}</B></FONT>
+		else
+<A NAME="1"></A>           { tail-&gt;lnk=temp;
+		tail=tail-&gt;lnk;}
+		return x;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+
+    int del()
+    {
+    	if(head==NULL)
+    	{
+    		cout&lt;&lt;&quot;\nQUEUE EMPTY&quot;;
+    		return NULL;
+    	}
+        queues *temp;
+        int n;
+        n=head-&gt;values;
+        temp=head;
+        head=head-&gt;lnk;
+        delete temp;
+        return n;
+    }
+
+    ~queues()
+    {
+    	if(head==NULL)
+    	   return;
+    	queues *temp;
+    	while(head!=NULL)
+    	{
+    		temp=head;
+    		head=head-&gt;lnk;
+    		delete temp;
+    	}
+     }
+};
+
+int main()
+{
+	queues Q;
+	Q.add(11);
+	Q.add(22);
+	Q.add(33);
+	Q.add(44);
+	Q.add(55);
+	cout&lt;&lt;&quot;\nItem added= &quot;&lt;&lt;Q.add(11);
+	cout&lt;&lt;&quot;\nItem added = &quot;&lt;&lt;Q.add(12);
+	cout&lt;&lt;&quot;\nItem added = &quot;&lt;&lt;Q.add(33);
+	cout&lt;&lt;&quot;\nItem added= &quot;&lt;&lt;Q.add(44);
+    cout&lt;&lt;&quot;\nItem added= &quot;&lt;&lt;Q.add(55);
+	
+	cout&lt;&lt;&quot;\nItem Deleted = &quot;&lt;&lt;Q.del();
+	cout&lt;&lt;&quot;\nItem Deleted = &quot;&lt;&lt;Q.del();
+	cout&lt;&lt;&quot;\nItem Deleted = &quot;&lt;&lt;Q.del();
+	cout&lt;&lt;&quot;\nItem Deleted = &quot;&lt;&lt;Q.del();
+
+	return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

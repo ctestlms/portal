@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Nouman_Tahir_noumantahir360B.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Nouman_Tahir_noumantahir360B.cpp</CENTER></H3><HR>
+<PRE>
+/*
+ * main.cpp
+ *
+ *  Created on: Apr 30, 2014
+ *      Author: nomo
+ */
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;stdio.h&gt;
+
+using namespace std;
+
+void PrintInfo();
+void Histogram();
+void Transform();
+void C24to8G();
+int ChartoInt(unsigned char*, char);
+
+struct ImageProp
+{
+	unsigned int w,h,r,d,s;
+	char name[20];
+};
+
+ImageProp im;
+ImageProp gim;
+FILE* image;
+FILE* gimage;
+
+int main()
+{
+	char s;
+	while(1)
+	{
+		system(&quot;CLS&quot;);
+		cout&lt;&lt;&quot;\t\tMAIN MENU\n\n\t1: Print Information \t\t(Press P)\n&quot;;
+			cout&lt;&lt;&quot;\t2: Convert 24b to 8b GrayScale \t(Press G)\n&quot;;
+			cout&lt;&lt;&quot;\t3: Histogram \t\t\t(Press E)\n&quot;;
+			cout&lt;&lt;&quot;\t4: Transform Image \t\t(Press T)\n&quot;;
+			cout&lt;&lt;&quot;\t5: Exit \t\t\t(Press X)\n&quot;;
+		cin&gt;&gt;s;
+		switch(s)
+		{
+		case 'p': PrintInfo();break;
+		case 'g': C24to8G(); break;
+		case 'e': Histogram();break;
+		case 't': Transform();break;
+		case 'x': break;
+		default: break;
+		}
+	}
+
+}
+
+void PrintInfo()
+{
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;Input File Name: &quot;;
+	cin&gt;&gt;im.name;
+	image = fopen(im.name,&quot;r&quot;);
+	unsigned char c[54];
+	for(int i = 0; i &lt; 54; i++)
+	c[i] = getc(image);
+
+	if(c[0] == 'B' &amp;&amp; c[1] == 'M')
+		{
+	int fileSize = ChartoInt(&amp;c[2],4);
+	im.w = ChartoInt(&amp;c[18],4);
+	im.h = ChartoInt(&amp;c[22],4);
+	im.d = ChartoInt(&amp;c[34],4);
+	im.s = ChartoInt(&amp;c[10],4);
+	int res = ChartoInt(&amp;c[28],4);
+
+	cout&lt;&lt;&quot;Image Open Success&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;	-Width: 	&quot;&lt;&lt;im.w&lt;&lt;&quot;p&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;	-Height: 	&quot;&lt;&lt;im.h&lt;&lt;&quot;p&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;	-Resolution:	&quot;&lt;&lt;res&lt;&lt;&quot;bits&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;	-File Size: 	&quot;&lt;&lt;fileSize&lt;&lt;&quot; B&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;	-Start: 	&quot;&lt;&lt;ChartoInt(&amp;c[14],2)&lt;&lt;&quot; B&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;End of Informaiton: Press Enter to Continue&quot;&lt;&lt;endl&lt;&lt;endl;
+	cin.ignore();
+	}
+	else
+	cout&lt;&lt;&quot;Image Open Failed&quot;&lt;&lt;endl;
+
+}
+
+void C24to8G()
+{
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;Input Output filename: &quot;;
+	cin&gt;&gt;gim.name;
+	gimage = fopen(gim.name,&quot;w&quot;);
+	image = fopen(im.name,&quot;r&quot;);
+
+	for(int i=0; i&lt;54; i++)
+	fputc(fgetc(image), gimage);
+	//332014 size
+	//Write header
+	gim.w = im.w;
+	gim.h = im.h;
+	gim.d = gim.w*gim.h;
+	fseek(gimage, 54, SEEK_SET);
+
+	for(int i = 0; i&lt;= 255; i++)
+	{
+		fputc(i,gimage);
+		fputc(i,gimage);
+		fputc(i,gimage);
+		fputc(0,gimage);
+	}
+
+	fseek(image, 54, SEEK_SET);
+	fseek(gimage, 1078, SEEK_SET);
+	unsigned char B,G,R;
+	for(unsigned int i = 0,n = 0; i&lt;(im.h*im.w); i++,n++)
+	{
+		B = fgetc(image);
+		G = fgetc(image);
+		R = fgetc(image);
+		fputc((B+G+R)/3, gimage);
+		/*if(n == im.w)
+		{
+			fputc((B+G+R)/3,gimage);
+			n=0;
+		}
+		*/
+	}
+
+	fseek(gimage, 28, SEEK_SET);
+	fputc(8,gimage);
+	fseek(gimage, 10, SEEK_SET);
+	fputc(54,gimage);
+	fputc(4, gimage);
+<A NAME="0"></A>
+	int size = im.h*im.w;
+	int h4,h3,h2,h1,s3,s2;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	h4 = size/(256*256*256);
+	s3 = size-(256*256*256*h4);
+	h3 = s3/(256*256);
+	s2 = s3-(256*256*h3);
+	h2 = s2/256;
+	h1 = s2 - (256*h2);
+
+	fseek(gimage, 34, SEEK_SET);
+	fputc(h1,gimage);
+	fputc(h2, gimage);
+	fputc(h3,gimage);
+	fputc(h4, gimage);
+
+	size = size + 1078;
+	h4 = size/(256*256*256);
+	s3 = size-(256*256*256*h4);
+	h3 = s3/(256*256);
+	s2 = s3-(256*256*h3);
+	h2 = s2/256;
+	h1 = s2 - (256*h2);</B></FONT>
+
+	fseek(gimage, 2, SEEK_SET);
+	fputc(h1,gimage);
+	fputc(h2, gimage);
+	fputc(h3,gimage);
+	fputc(h4, gimage);
+
+	fclose(gimage);
+	cout&lt;&lt;&quot;Done writing file: Press Enter to Continue&quot;&lt;&lt;endl&lt;&lt;endl;
+	cin.ignore();
+}
+
+void Histogram()
+{
+	system(&quot;CLS&quot;);
+	ImageProp hisim;
+	FILE* histfile = fopen(&quot;Histogram.bmp&quot;,&quot;w&quot;);
+	gimage = fopen(gim.name,&quot;r&quot;);
+	hisim.w = 256*3;
+	hisim.h = 500;
+	fseek(gimage, 1078, SEEK_SET);
+	unsigned int hist[256] = {0};
+	for(unsigned int i = 0; i &lt; gim.d ; i++)
+	{
+		hist[fgetc(gimage)]++;
+	}
+	float gpix = 0;
+
+	for(int i = 0; i&lt;256; i++)
+	{	if (hist[i] &gt; gpix)
+			gpix = hist[i];
+	}
+	float factor = hisim.h/gpix;
+	gpix = gpix*factor;
+	for(int i = 0; i&lt;256; i++)
+		hist[i]*=factor;
+
+	rewind(gimage);
+	for(int i = 0; i &lt; 1078; i++)
+		fputc(fgetc(gimage), histfile);
+
+	for(unsigned int i = 0; i &lt;hisim.h; i++)
+	{
+		for(unsigned int j = 0; j &lt;hisim.w/3; j++)
+			if(hist[j] &gt; i){
+				fputc(120,histfile);
+				fputc(120,histfile);
+				fputc(120,histfile);
+			}
+			else{
+				fputc(215,histfile);
+				fputc(215,histfile);
+				fputc(215,histfile);
+			}
+
+		}
+
+	/*
+	for(int i = 0; i &lt;hisim.h; i++)
+	{
+		for(unsigned int j = 0; j &lt;hisim.w; j++)
+			if(hist[i] &gt; j)
+				fputc(120,histfile);
+			else
+				fputc(215,histfile);
+		for(unsigned int j = 0; j &lt;hisim.w; j++)
+			if(hist[i] &gt; j)
+				fputc(120,histfile);
+			else
+				fputc(230,histfile);
+	}
+
+*/
+
+	int h4,h3,h2,h1,s3,s2;
+	s2 = hisim.w;
+	h2 = s2/256;
+	h1 = s2 - (256*h2);
+	fseek(histfile, 18, SEEK_SET);
+	fputc(h1, histfile);
+	fputc(h2, histfile);
+	fputc(00, histfile);
+	fputc(00, histfile);
+
+	s2 = hisim.h;
+		h2 = s2/256;
+		h1 = s2 - (256*h2);
+		fseek(histfile, 22, SEEK_SET);
+		fputc(h1, histfile);
+<A NAME="1"></A>		fputc(h2, histfile);
+		fputc(00, histfile);
+	    fputc(00, histfile);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	    int size = im.h*im.w;
+
+	    	h4 = size/(256*256*256);
+	    	s3 = size-(256*256*256*h4);
+	    	h3 = s3/(256*256);
+	    	s2 = s3-(256*256*h3);
+	    	h2 = s2/256;
+	    	h1 = s2 - (256*h2);
+
+	    	fseek(histfile, 34, SEEK_SET);
+	    	fputc(h1,histfile);
+	    	fputc(h2, histfile);
+	    	fputc(h3,histfile);
+	    	fputc(h4, histfile);
+
+	    	size = size + 1078;
+	    	h4 = size/(256*256*256);
+	    	s3 = size-(256*256*256*h4);
+	    	h3 = s3/(256*256);
+	    	s2 = s3-(256*256*h3);
+	    	h2 = s2/256;
+	    	h1 = s2 - (256*h2);
+
+	    	fseek(histfile, 2, SEEK_SET);
+	    	fputc(h1,histfile);
+	    	fputc(h2, histfile);
+	    	fputc(h3,histfile);
+	    	fputc(h4, histfile);
+
+
+	fclose(gimage);
+	fclose(histfile);
+	cout&lt;&lt;&quot;Task has been Performed: Press Enter to Continue&quot;&lt;&lt;endl&lt;&lt;endl;
+    cin.ignore();
+}
+
+void Transform()
+{</B></FONT>
+	system(&quot;CLS&quot;);
+	ImageProp trim;
+	cout&lt;&lt;&quot;Input Name: &quot;;
+	cin&gt;&gt;trim.name;
+	FILE* trfile = fopen(trim.name,&quot;w&quot;);
+	FILE* gimage = fopen(gim.name,&quot;r&quot;);
+
+
+}
+
+int ChartoInt(unsigned char* arr,char n)
+{
+	int tmp = 0,mul = 1;
+	for(int i = 0; i &lt; n; i++)
+	{
+		tmp += arr[i]*mul;
+		mul *= 256;
+	}
+	return tmp;
+}
+
+
+</PRE>
+</BODY>
+</HTML>

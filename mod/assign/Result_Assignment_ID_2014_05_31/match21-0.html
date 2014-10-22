@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Qasim_Rao_dp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Qasim_Rao_dp.cpp</CENTER></H3><HR>
+<PRE>
+#include &quot;stdafx.h&quot;
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;iomanip&gt;
+#include &lt;math.h&gt;
+#include &lt;Windows.h&gt;
+using namespace std;
+string filename, grayscale_file;
+char choose;
+void manu();
+void call();
+void read();
+void convert();
+void histo();
+void trans();
+void exit();
+void manu();
+
+
+void main()
+	{
+		char m;
+		cout&lt;&lt;&quot;For the main manu please prss M &quot;&lt;&lt;endl;
+
+	    cin&gt;&gt;m;
+		if (m=='M')
+		{
+		    system(&quot;cls&quot;);
+
+			manu();
+		}
+
+
+		
+	
+
+		
+
+
+}
+
+void manu()
+{
+		cout&lt;&lt;&quot;              ################MAIN MANU###############&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;PLEASE ENTER THE FOLLOWING ALPHABETS TO CHOSE THE REQUIRED ACTION&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Read image and print information (Press P)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Convert 24 bit to 8bit gray scale (Press G)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;Histogram (Press E)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;For transformation (press T)&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;For Exit (X)&quot;&lt;&lt;endl;
+		cin&gt;&gt;choose;
+
+        if(choose=='P')
+		{
+			system(&quot;cls&quot;);
+			read();
+
+		}
+		else if(choose=='G')
+		{
+			system(&quot;cls&quot;);
+			convert();
+
+		}
+		else if(choose=='E')
+		{
+			system(&quot;cls&quot;);
+			histo();
+
+
+		
+		}
+		else if (choose=='T')
+		{
+			system(&quot;cls&quot;);
+			trans();
+		
+		}
+		else if(choose=='X')
+		{
+			system(&quot;cls&quot;);
+			exit();
+
+		}
+
+}
+
+
+
+void read()
+
+{ 
+	
+    int wid=0;
+    int hei=0;
+	int size=0;
+	
+	int hegan[]={0};
+	int bpp=0;
+	int i=0;
+	FILE*redr;
+ 	redr=fopen(&quot;D:bc.bmp&quot;,&quot;rb&quot;);
+	if(redr==NULL)
+	{
+		cout&lt;&lt;&quot;error&quot;&lt;&lt;endl;
+		exit();
+	}
+ 
+
+	for(i=0;i&lt;=54;i++)
+	{
+		hegan[i]=fgetc(redr);
+		
+		
+	}
+	fclose(redr);
+		
+	wid=hegan[18]+(hegan[19]*256)+(hegan[20]*256*256)+(hegan[21]*256*256*256);
+			
+	cout&lt;&lt;&quot;Width :&quot;&lt;&lt;wid&lt;&lt;endl;
+
+			
+	hei=hegan[22]+(hegan[23]*256)+(hegan[24]*256*256)+(hegan[25]*256*256*256);
+			
+			
+	cout&lt;&lt;&quot;Height :&quot;&lt;&lt;hei&lt;&lt;endl;
+
+			
+	bpp=hegan[28]+(hegan[29]*256);
+		
+	cout&lt;&lt;&quot;bits per pixel:&quot;&lt;&lt;bpp&lt;&lt;endl;
+
+	size=hegan[34]+(hegan[35]*256)+(hegan[36]*256*256)+(hegan[37]*256*256*256);
+
+	cout&lt;&lt;&quot;Size :&quot;&lt;&lt;size/1024&lt;&lt;&quot; KB&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;Resolution :&quot;&lt;&lt;wid&lt;&lt;&quot;X&quot;&lt;&lt;hei&lt;&lt;&quot; &quot;&lt;&lt;bpp&lt;&lt;&quot;  bits image&quot;&lt;&lt;endl;
+
+	
+
+
+
+	char q;
+	cout&lt;&lt;&quot;for main manu press M &quot;&lt;&lt; endl;
+	cin&gt;&gt;q;
+	if (q=='M')
+		manu();
+
+
+
+}
+
+void convert()
+{
+	
+	
+	int ww=0;
+	FILE*pttof;
+	system(&quot;cls&quot;);
+	char arr1[100]={0};
+	FILE* aaa;
+	cout&lt;&lt;&quot;Input the new name and location for file:&quot; &lt;&lt;endl;
+	cin&gt;&gt;arr1;
+	aaa=fopen(arr1,&quot;wb&quot;);
+	pttof=fopen(&quot;D:bc.bmp&quot;,&quot;rb&quot;);
+	char harvest;
+	int cheeku=0;
+	while(cheeku!=54)
+	{
+		harvest=fgetc(pttof);
+		fputc(harvest,aaa);
+		cheeku++;
+	}
+	
+	
+	fseek ( aaa ,54 , SEEK_SET );
+	for (int i =0 ; i &lt; 256 ; i++)
+	{
+		for(int j=0; j&lt;3; j++)
+			fputc (i, aaa);
+		fputc(0, aaa);//create paleete
+	}
+	
+fseek ( pttof ,54, SEEK_SET );
+fseek (aaa,1078, SEEK_SET);
+
+
+while(1)
+{
+		int a=fgetc(pttof);
+		if(a==EOF)
+			break;
+			int b=fgetc(pttof);
+			if(b==EOF)
+			break;
+			int d=fgetc(pttof);
+			if(d==EOF)
+			break;
+			int s=(a+b+d)/3;
+			fputc(s,aaa);
+	
+}			
+
+
+fseek ( aaa ,11 , SEEK_SET );
+fputc(4,aaa);
+
+fseek ( aaa ,28 , SEEK_SET );
+fputc(8,aaa);
+
+fseek ( pttof ,38 , SEEK_SET );
+int t=fgetc(pttof);
+t=t-1;
+fseek ( aaa ,38 , SEEK_SET );
+fputc(t,aaa);
+
+
+fseek ( pttof ,42 , SEEK_SET );
+t=fgetc(pttof);
+t=t-1;
+fseek ( aaa ,42 , SEEK_SET );
+fputc(t,aaa);
+long p=0,e=0;
+ p=((harvest*ww)+1024+54);
+
+	fseek ( aaa ,5 , SEEK_SET );
+	e=p/(256*256*256);
+
+	fputc(e,aaa);
+	p=p%(256*256*256);
+	fseek ( aaa ,4 , SEEK_SET );
+	e=p/(256*256);	
+	fputc(e,aaa);
+	p=p%(256*256);
+	fseek ( aaa ,3 , SEEK_SET );
+	e=p/256;
+	fputc(e,aaa);
+	fseek ( aaa ,2 , SEEK_SET );
+	e=p%256;	
+	fputc(e,aaa);
+
+	 p=((ww*harvest));
+	fseek ( aaa ,37 , SEEK_SET );
+	 e=p/(256*256*256);
+	fputc(e,aaa);
+	p=p%(256*256*256);
+	fseek ( aaa ,36 , SEEK_SET );
+	e=p/(256*256);
+	fputc(e,aaa);
+	p=p%(256*256);
+	fseek ( aaa ,35 , SEEK_SET );
+	e=p/256;
+	fputc(e,aaa);
+	fseek ( aaa ,34 , SEEK_SET );
+	e=p%256;
+	fputc(e,aaa);
+
+
+	fclose(pttof);
+	fclose(aaa);
+	cout&lt;&lt;&quot;\nNew Image is build&quot;&lt;&lt;endl;
+
+
+
+
+
+
+
+
+
+
+	char w;
+	cout&lt;&lt;&quot;for main manu press M &quot;&lt;&lt; endl;
+	cin&gt;&gt;w;
+	if (w=='M')
+		manu();
+
+}
+
+void histo()
+{
+
+
+
+	char e;
+	cout&lt;&lt;&quot;for main manu press M &quot;&lt;&lt; endl;
+	cin&gt;&gt;e;
+	if (e=='M')
+		manu();
+}
+
+void trans()
+{
+	int paleete[]={0};
+	
+
+	string desiredoutput;
+	long double angle;
+
+	FILE *grayimaggee, *novafiliano;
+
+	fpos_t start_of_data= 1078;
+
+	grayimaggee = fopen (&quot;D:bc.bmp&quot;,&quot;rb&quot;);
+	if (grayimaggee==NULL) cout &lt;&lt; &quot;Error\n&quot;;
+
+	int imggryhdr[54];
+	int szimggry;
+	int **dtagimg;
+<A NAME="0"></A>	int wdthgimg;
+	int hitgimg;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for (int i = 0; i&lt;54; i++)
+		imggryhdr[i] = fgetc(grayimaggee);
+
+	wdthgimg = ((imggryhdr[18])+(imggryhdr[19]*256)+(imggryhdr[20]*256*256)+(imggryhdr[21]*256*256*256));
+	hitgimg = ((imggryhdr[22])+(imggryhdr[23]*256)+(imggryhdr[24]*256*256)+(imggryhdr[25]*256*256*256));
+	szimggry = hitgimg * wdthgimg;
+
+	dtagimg = new int *[hitgimg];
+	for (int i = 0; i&lt;hitgimg; i++)</B></FONT>
+		dtagimg[i] = new int [wdthgimg];
+
+	fsetpos(grayimaggee,&amp;start_of_data);
+	for (int i = 0; i&lt;hitgimg; i++)
+	{
+		for (int j = 0; j&lt;wdthgimg; j++)
+			dtagimg[i][j] = fgetc(grayimaggee);
+	}
+
+	fclose(grayimaggee);
+
+
+	novafiliano = fopen (&quot;D:bssszz.bmp&quot;,&quot;wb&quot;);
+
+	cout &lt;&lt; &quot;Enter the angle you want to rotate your image by, either 90 or 180\n&quot;;
+	cin &gt;&gt; angle;
+
+	int rotation_header[54];
+	int **rotation_data;
+	
+	for (int i = 0; i&lt;54; i++)
+		rotation_header[i] = imggryhdr[i];
+
+	rotation_data = new int *[hitgimg];
+<A NAME="1"></A>	for (int i = 0; i&lt;hitgimg; i++)
+		rotation_data[i] = new int [wdthgimg];
+	
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	if (angle == 180)
+	{
+		for (int i = 0; i&lt;hitgimg; i++)
+		{
+			for (int j = 0; j&lt;wdthgimg; j++)
+			{</B></FONT>
+				rotation_data[hitgimg - 1 - i][j] = dtagimg[i][j];
+			}
+<A NAME="2"></A>		}
+	}
+
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	else if (angle == 90)
+	{
+		for (int i = 0; i&lt;hitgimg; i++)
+		{
+			for (int j = 0; j&lt;wdthgimg; j++)
+			{</B></FONT>
+				rotation_data[wdthgimg - 1 - j][i] = dtagimg[i][j];
+			}
+		}
+	}
+	
+	for (int i = 0; i&lt;54; i++)
+		fputc(rotation_header[i],novafiliano);
+	for (int i = 0; i&lt;1024; i++)
+		fputc(paleete[i], novafiliano);
+	for (int i = 0; i&lt;hitgimg; i++)
+	{
+		for (int j = 0; j&lt;wdthgimg; j++)
+			fputc(rotation_data[i][j], novafiliano);
+	}
+
+	cout &lt;&lt; &quot;File has been successfully given the desired rotation\n&quot;;
+	
+	cout &lt;&lt; &quot;\nData of rotated file: \n&quot;;
+	cout &lt;&lt; &quot;Image Width: &quot; &lt;&lt; (rotation_header[18]+(rotation_header[19]*256)+(rotation_header[20]*256*256)+(rotation_header[21]*256*256*256)) &lt;&lt; endl;
+	cout &lt;&lt; &quot;Image Height: &quot; &lt;&lt; (rotation_header[22]+(rotation_header[23]*256)+(rotation_header[24]*256*256)+(rotation_header[25]*256*256*256)) &lt;&lt; endl;
+	cout &lt;&lt; &quot;Resolution: &quot; &lt;&lt; (rotation_header[28]+(rotation_header[29]*256)) &lt;&lt; &quot; bit\n&quot;;
+	cout &lt;&lt; &quot;Image Size: &quot; &lt;&lt; wdthgimg * hitgimg &lt;&lt; endl &lt;&lt; endl;
+
+
+
+
+	char r;
+	cout&lt;&lt;&quot;for main manu press M &quot;&lt;&lt; endl;
+	cin&gt;&gt;r;
+	if (r=='M')
+		manu();
+}
+
+void exit()
+{
+
+
+}
+
+
+</PRE>
+</BODY>
+</HTML>

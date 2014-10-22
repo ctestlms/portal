@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Mudassar_Wajid_Mudassar Wajid DE34 MTS B.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Mudassar_Wajid_Mudassar Wajid DE34 MTS B.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;iostream&gt;
+using namespace std;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class node
+{
+public:
+	int dat;
+	node* nextpointer;
+	node(int d, node* nptr)
+	{
+		dat=d;
+		nextpointer=nptr;
+	}
+};
+
+class LINKEDLIST
+{
+<A NAME="1"></A>private:
+	node* headptr;
+public:</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	void newnode(int);
+	void insertnode(int,int);
+	void showlist();
+	
+	LINKEDLIST()
+	{
+		headptr=NULL;
+	}
+
+};
+void LINKEDLIST::newnode(int val)
+{
+	node* n;
+	n=headptr;
+	if(headptr==NULL)
+	{
+		headptr=new node(val,NULL);
+	}
+	else
+	{
+		while(n-&gt;nextpointer!=NULL)
+		{
+			n=n-&gt;nextpointer;
+		}
+		n-&gt;nextpointer=new node(val,NULL);
+	}
+}
+void LINKEDLIST::showlist()
+{
+	int i=0;
+	node* n;
+	n=headptr;
+	while(n!=NULL)
+	{
+		cout&lt;&lt;&quot;Node = &quot;&lt;&lt;n-&gt;dat&lt;&lt;endl;
+		n=n-&gt;nextpointer;
+<A NAME="2"></A>	}
+}
+
+void LINKEDLIST::insertnode(int val, int point)</B></FONT><FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+{
+	node* npointer;
+	node* mynewnode;
+	node* myprevnode;
+	node* mynxtnode;
+	npointer=headptr;
+	for(int i=1;i&lt;=point;i++)
+	{
+		if(i==point)
+		{
+			myprevnode=npointer;
+		}
+		npointer=npointer-&gt;nextpointer;
+	}
+	mynewnode=new node(val,npointer);
+	mynxtnode=mynewnode-&gt;nextpointer;
+	myprevnode-&gt;nextpointer=mynewnode;
+}
+int main()
+{
+	LINKEDLIST list1;
+	for(int i=1;i&lt;7;i++)
+	{
+		list1.newnode(i);
+	}
+	cout&lt;&lt;&quot;List is: &quot;&lt;&lt;endl;
+	list1.showlist();
+	int insertvalue,insertposition;
+	cout&lt;&lt;&quot;Enter node value &quot;&lt;&lt;endl;
+	cin&gt;&gt;insertvalue;
+	cout&lt;&lt;&quot;Enter node number &quot;&lt;&lt;endl;
+	cin&gt;&gt;insertposition;
+	list1.insertnode(insertvalue,insertposition);
+	cout&lt;&lt;&quot;new list: &quot;&lt;&lt;endl;
+	list1.showlist();
+	return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

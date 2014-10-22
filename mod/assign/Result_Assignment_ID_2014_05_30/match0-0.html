@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Nisar_Ahmed_nisar ahmed.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Nisar_Ahmed_nisar ahmed.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>     #include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+int n1;
+int i,j;
+char batch;
+int *ptr;
+int sum=0;
+int avg;
+int more;
+printf(&quot;q to terminate\na to start\nb to add more students\n&quot;);
+scanf(&quot;%c&quot;,&amp;batch);
+while(batch!='q')
+switch(batch)
+{
+case 'a':
+	printf(&quot;N0. of students of class\n&quot;);
+
+	scanf(&quot;%d&quot;,&amp;n1);
+/*here memory allocation process is going on at run time*/
+ptr=(int*)malloc(n1*sizeof(int));
+
+
+for(i=0;i&lt;n1;i++)
+{
+	printf(&quot;enter  marks  %d\n &quot;,(i+1));
+
+	scanf(&quot;%d&quot;,(ptr+i));
+
+	sum=*(ptr+i)+sum;
+
+}
+
+    avg=sum/n1;
+	printf(&quot;%d&quot;,avg);
+	printf(&quot;to enter more students press b\n&quot;);
+	break;
+case 'b':
+	printf(&quot;NO. of extras\n&quot;);
+	scanf(&quot;%d&quot;,&amp;more);
+
+
+	/*for extra allocations in the existing array */
+
+
+	ptr=(int*)realloc(ptr,more);
+	for(j=0;j&lt;more;j++)
+	{
+	printf(&quot;enter marks of each students\n&quot;);
+	scanf(&quot;%d&quot;,(ptr+j));
+	sum=*(ptr+j)+sum;
+	}
+	size=size+more;
+	avg=sum/n1;
+	break;
+default:
+	printf(&quot;error\n&quot;);
+	break;
+}
+if(press=='q')
+	printf(&quot;average is %d\n&quot;,avg);
+return 0;
+
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Afaq_Ejaz_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Afaq_Ejaz_Source.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+
+void printmat(char** charmat, int rows, int cols);
+char** inverter(char** charmat,int** intmat, int rows, int cols);
+void terminator(char** charmat, int** intmat, int rows);
+int bactFind(int a, int b, char** c, int rows, int columns);
+
+int main()
+{
+	char opt,raw;
+	int rows,cols = 0;
+	FILE *fileptr;
+	char fileName[20];
+	
+
+	
+	std::cout&lt;&lt;&quot;Welcome to a simulation of the lifecycle of a bacteria colony\n\n Cells (X) live and die by the following rules:-\nA cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies&quot;;
+	std::cout&lt;&lt;&quot;\nenter file name: &quot;;
+
+	gets(fileName);
+	fileptr=fopen(fileName, &quot;r&quot;);
+	if (fileptr == NULL)
+	{
+<A NAME="1"></A>		std::cout&lt;&lt;&quot;File not found\n&quot;;
+		getchar();
+		return 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	}
+	fscanf(fileptr, &quot;%d%d&quot;, &amp;rows, &amp;cols);
+
+	char** charmat = new char*[rows];
+	for (int i = 0; i&lt;rows; i++)
+	{
+		charmat[i] = new char[cols];
+	}
+
+	int** intmat=new int*[rows];
+	for (int i = 0; i&lt;rows; i++)
+	{
+		intmat[i] = new int[cols];
+	}
+
+	rewind(fileptr);				
+	while (!feof(fileptr))
+	{
+		fscanf(fileptr, &quot;%d%d&quot;, &amp;rows, &amp;cols);
+		for (int i = 0; i&lt;rows; i++)
+		{
+				fscanf(fileptr,&quot;%c&quot;,&amp;raw);
+			for (int j = 0; j&lt;cols; j++)
+			{</B></FONT>
+				fscanf(fileptr,&quot;%c&quot;,&amp;charmat[i][j]);
+				
+<A NAME="2"></A>			}
+			
+		}
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	}
+	fclose(fileptr);
+	printmat(charmat,rows,cols);
+
+	while(1)
+	{
+
+	std::cout&lt;&lt;&quot;t)ick or q)uit? &quot;;			
+	std::cin&gt;&gt;opt;
+	if(opt=='t')
+	{
+	for (int i = 0; i&lt;rows; i++)			
+	{
+		for (int j = 0; j&lt;cols; j++)			
+			intmat[i][j] = bactFind(i, j, charmat, rows, cols); 
+	}</B></FONT>
+		
+	inverter(charmat,intmat,rows,cols);
+	printmat(charmat,rows,cols);
+	
+	}
+	else if(opt=='q')
+	{
+		terminator(charmat,intmat,rows);
+<A NAME="5"></A>		return 0;
+	}
+}	
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#5',2,'match8-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+int bactFind(int indexrow, int indexcol, char** charmat, int rows, int columns)
+{
+	int neighbours = 0;
+	for (int i = -1; i &lt;= 1; i++)					
+	{
+		if ((indexrow + i) &gt;= 0 &amp;&amp; (indexrow + i) &lt; rows)
+		{
+			for (int j = -1; j &lt;= 1; j++)
+			{
+				if ((indexcol + j) &gt;= 0 &amp;&amp; (indexcol + j) &lt; columns)
+				{
+					if (i == 0 &amp;&amp; j ==0 )		
+						continue;
+						if (charmat[indexrow + i][indexcol + j] == 'X')
+							++neighbours;
+					
+				}
+
+
+			}
+		}
+	}
+	return neighbours;
+<A NAME="4"></A>}</B></FONT>
+void printmat(char** charmat, int rows, int cols)
+	{
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#4',2,'match8-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for (int i = 0; i&lt;rows; i++)
+	{
+		for (int j = 0; j&lt;cols; j++)
+		{
+			std::cout&lt;&lt;charmat[i][j];
+		}
+		std::cout&lt;&lt;&quot;\n&quot;;
+	}
+
+	}</B></FONT>
+<A NAME="3"></A>
+char** inverter(char** charmat,int** intmat, int rows, int cols)
+	{
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#3',2,'match8-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for (int i = 0; i&lt;rows; i++)
+	{
+		for (int j = 0; j&lt;cols; j++)			
+		{
+			if (intmat[i][j] &lt;= 1)			
+				charmat[i][j] = '-';	
+			if (intmat[i][j] == 3)
+				charmat[i][j] = 'X';
+			if (intmat[i][j] &gt;= 4)
+				charmat[i][j] = '-';
+		}
+<A NAME="0"></A>	}</B></FONT>
+	return charmat;
+	}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	void terminator(char** charmat, int** intmat, int rows)
+	{					
+		for (int i = 0; i &lt; rows; i++) 
+		{
+			delete (intmat[i]);
+		}
+		delete intmat;</B></FONT>
+
+		for (int i = 0; i &lt; rows; i++) 
+		{
+		delete (charmat[i]);
+	}
+	delete charmat;
+	}
+	
+</PRE>
+</BODY>
+</HTML>

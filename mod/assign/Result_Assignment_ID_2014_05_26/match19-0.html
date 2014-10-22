@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Syed Minhas_Mahmood_Syed Minhas Mahmood_LAB VIII.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Syed Minhas_Mahmood_Syed Minhas Mahmood_LAB VIII.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void main()
+{
+	int p;
+	int k;
+	int d[3][3];
+	int g[3][1];
+	int o;
+	int y;
+	int q;
+
+	printf(&quot;\nInsert First matrix \n&quot;);
+		for (p=0;p&lt;3;p++)
+		{ 
+        for (k=0;k&lt;3;k++)
+		{
+		
+			printf(&quot;\tInsert value of row:- %d column:- %d\t&quot;,p+1,k+1);
+		scanf(&quot;%d&quot;,&amp;d[p][k]);
+		}
+		}
+		printf(&quot;\nInsert Second matrix \n&quot;);
+        for (p=0;p&lt;3;p++)
+		{ 
+        for (k=0;k&lt;1;k++)
+		{
+			printf(&quot;\tInsert value of row:- %d column:- %d\t&quot;,p+1,k+1);
+		     scanf(&quot;%d&quot;,&amp;g[p][k]);
+		}
+		}
+		o=(d[0][0]*g[0][0]) + (d[1][0]*g[0][1]) + (d[2][0]*g[0][2]);
+		y=(d[0][1]*g[0][0]) + (d[1][1]*g[0][1]) + (d[2][0]*g[0][2]);
+		q=(d[0][2]*g[0][0]) + (d[1][2]*g[0][2]) + (d[2][2]*g[0][2]);
+
+		printf(&quot;Your Final matrix is:- \n&quot;);
+		printf(&quot;\t (%d) \t&quot;,o);
+		printf(&quot;\t (%d) \t&quot;,y);
+		printf(&quot;\t (%d) \t&quot;,q);
+
+
+       
+
+	getche ();
+
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,154 @@
+***************
+*** 22,28 ****
+  {
+          global $CFG, $DB;
+          $endtime =strtotime(date("Y-m-d", $endtime) . " +1 days");
+-         $sql="select count(*) from {attendance_sessions} where courseid=$course->id and lasttaken IS NOT NULL and description IN(1,4,5,6) and sessdate >=$course->startdate and sessdate<=$endtime";
+  	$sessions=$DB->count_records_sql($sql,array());
+          return $sessions;
+  
+--- 22,28 ----
+  {
+          global $CFG, $DB;
+          $endtime =strtotime(date("Y-m-d", $endtime) . " +1 days");
++         $sql="select count(*) from {attendance_sessions} where courseid=$course->id and lasttaken IS NOT NULL and description IN(1,4) and sessdate >=$course->startdate and sessdate<=$endtime";
+  	$sessions=$DB->count_records_sql($sql,array());
+          return $sessions;
+  
+***************
+*** 111,117 ****
+  
+  function get_attendance_bydate($userid, $course, $statusid=0, $where='')
+  {
+- 	/*global $CFG;
+  	global $DB;
+  	$qry = "SELECT count(*) as cnt
+  		  	  FROM {$CFG->prefix}attendance_log al
+--- 111,117 ----
+  
+  function get_attendance_bydate($userid, $course, $statusid=0, $where='')
+  {
++ /*	global $CFG;
+  	global $DB;
+  	$qry = "SELECT count(*) as cnt
+  		  	  FROM {$CFG->prefix}attendance_log al
+***************
+*** 128,145 ****
+          
+  
+  	return $DB->count_records_sql($qry);*/
+- 
+- 	global $CFG;
+  	global $DB;
+  	$qry = "SELECT l.id, l.statusid, l.statusset, s.description
+  		  	  FROM {$CFG->prefix}attendance_log l
+  			  JOIN {$CFG->prefix}attendance_sessions s
+  			    ON l.sessionid = s.id
+  			 WHERE ".$where." ";
+- 	//ats.courseid = $course->id
+- 	//AND ats.sessdate >= $course->startdate
+  
+- 	$qry .= " AND l.studentid = $userid";
+  	if ($statusid) {
+  		$qry .= " AND l.statusid = $statusid";
+  	}
+--- 128,144 ----
+          
+  
+  	return $DB->count_records_sql($qry);*/
++ global $CFG;
+  	global $DB;
+  	$qry = "SELECT l.id, l.statusid, l.statusset, s.description
+  		  	  FROM {$CFG->prefix}attendance_log l
+  			  JOIN {$CFG->prefix}attendance_sessions s
+  			    ON l.sessionid = s.id
+  			 WHERE ".$where." ";
++                                 //ats.courseid = $course->id
++ 			  	//AND ats.sessdate >= $course->startdate
+  
++ 	         	$qry .= " AND l.studentid = $userid";
+  	if ($statusid) {
+  		$qry .= " AND l.statusid = $statusid";
+  	}
+***************
+*** 150,192 ****
+  		$stat_grades = $DB->get_records_menu('attendance_statuses', array('courseid'=>$course->id), 'id', 'id, grade');
+  		foreach ($logs as $log) {
+  			$ids = array_flip(explode(',', $log->statusset));
+- 			//			$grades = array_intersect_key($stat_grades, $ids); // require PHP 5.1.0 and higher
+  			$grades = local_array_intersect_key($stat_grades, $ids); //temporary solution, for support PHP 4.3.0 which minimal requirement for Moodle 1.9.x
+- 			if($log->description=="1")
+- 			$maxgrade += max($grades);
+- 			if($log->description=="2")
+- 			$maxgrade += max($grades);
+- 			if($log->description=="3")
+- 			$maxgrade += max($grades);
+- 			if($log->description=="4")
+- 			$maxgrade += 1.5;
+- 			if($log->description=="5")
+- 			$maxgrade +=2;
+- 			if($log->description=="6")
+- 			$maxgrade += 3;
+- 
+  		}
+  		if(isset($course->attendance_margin)){
+  			$margin = $course->attendance_margin;
+  			while($margin > 0){
+  				if($log->description=="1")
+  				$maxgrade += 1;
+- 				if($log->description=="2")
+- 				$maxgrade += 1;
+- 				if($log->description=="3")
+- 				$maxgrade += 1;
+  				if($log->description == "4")
+- 				$maxgrade += 1.5;
+- 				if($log->description  =="5")
+- 				$maxgrade +=2;
+- 				if($log->description=="6")
+- 				$maxgrade += 3;
+  				$margin--;
+  			}
+  		}
+  	}
+  
+- 	return $maxgrade;
+  }
+  
+  function get_firstmonday($month,$year){
+--- 149,184 ----
+  		$stat_grades = $DB->get_records_menu('attendance_statuses', array('courseid'=>$course->id), 'id', 'id, grade');
+  		foreach ($logs as $log) {
+  			$ids = array_flip(explode(',', $log->statusset));
++ //			$grades = array_intersect_key($stat_grades, $ids); // require PHP 5.1.0 and higher
+  			$grades = local_array_intersect_key($stat_grades, $ids); //temporary solution, for support PHP 4.3.0 which minimal requirement for Moodle 1.9.x
++                         if($log->description=="1")
++                             $maxgrade += max($grades);
++                         if($log->description=="2")
++                             $maxgrade += max($grades);
++                         if($log->description=="3")
++                             $maxgrade += max($grades);
++                         if($log->description=="4")
++                             $maxgrade += 1.5;
++ 			
+  		}
+  		if(isset($course->attendance_margin)){
+  			$margin = $course->attendance_margin;
+  			while($margin > 0){
+  				if($log->description=="1")
+  				$maxgrade += 1;
++ 	            if($log->description=="2")
++ 					$maxgrade += 1;
++ 	            if($log->description=="3")
++ 					$maxgrade += 1;
+  				if($log->description == "4")
++ 					$maxgrade += 1.5;
+  				$margin--;
+  			}
+  		}
+  	}
++ 	
++ 	return $maxgrade;
+  
+  }
+  
+  function get_firstmonday($month,$year){

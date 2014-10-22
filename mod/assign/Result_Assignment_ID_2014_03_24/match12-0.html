@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Shahzeb_Zafar_lab05.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Shahzeb_Zafar_lab05.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+
+char choice = 'i';
+	
+while (choice!='E')
+{
+	printf(&quot;Enter a Character to enter converter (T for Temprature, W for Weight, C f0r Currecny and E to exit)\n&quot;);
+	scanf(&quot; %c&quot;,&amp;choice);
+
+	switch(choice)
+	{
+	case'T':
+		float c;
+		float f;
+		printf(&quot;Enter temparature in celcius scale=&quot;);
+		scanf(&quot;%f&quot;,&amp;c);
+		f=1.8*c+32;
+		printf(&quot;Temparature in farnhite scale is:%fF\n&quot;,f);
+		break;
+	
+	case'W':
+		float p;
+		float kg;
+		printf(&quot;Enter the weight in pounds=&quot;);
+		scanf(&quot;%f&quot;,&amp;p);
+		kg=0.453592*p;
+		printf(&quot;Weight in kg is=%fkg\n&quot;,kg);	
+		break;
+	
+	case'C':
+		float pkr;
+		float usd;
+		printf(&quot;Enter the amount in PKR=&quot;);
+		scanf(&quot;%f&quot;,&amp;pkr);
+		usd=pkr/99;
+		printf(&quot;In USD the entered amount is=%f$\n&quot;,usd);
+		break;
+
+
+
+	default:
+		printf(&quot;Wrong input =%c\n&quot;,choice);
+
+	}
+	
+}
+return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

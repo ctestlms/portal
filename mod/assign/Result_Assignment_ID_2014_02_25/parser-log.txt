@@ -1,0 +1,114 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-02-25 14:38:08 GMT
+
+Language: Java1.5 Parser
+
+------ Parsing submission: Adil_Naeem_Gpaentry.java
+Parsing file Adil_Naeem_Gpaentry.java
+OK
+------ Parsing submission: Ali_Azlan_Task1.java
+Parsing file Ali_Azlan_Task1.java
+OK
+------ Parsing submission: Ali_Tariq_sdata.java
+Parsing file Ali_Tariq_sdata.java
+OK
+------ Parsing submission: Amna_Mubashar_StudentInfo.java
+Parsing file Amna_Mubashar_StudentInfo.java
+OK
+------ Parsing submission: Aqsa_Sohail_MyJava.java
+Parsing file Aqsa_Sohail_MyJava.java
+OK
+------ Parsing submission: Arooj_Imran_MyJava.java
+Parsing file Arooj_Imran_MyJava.java
+OK
+------ Parsing submission: Hina_Nadir_Task.java
+Parsing file Hina_Nadir_Task.java
+OK
+------ Parsing submission: Izhar Ul_Haq_Izhar.java
+Parsing file Izhar Ul_Haq_Izhar.java
+OK
+------ Parsing submission: Izzah_Zaman_Gpas.java
+Parsing file Izzah_Zaman_Gpas.java
+OK
+------ Parsing submission: Khawaja Muhammad Abdullah_Anwer_Lab.java
+Parsing file Khawaja Muhammad Abdullah_Anwer_Lab.java
+OK
+------ Parsing submission: Komal_Nawaz_Hello.java
+Parsing file Komal_Nawaz_Hello.java
+OK
+------ Parsing submission: Laraib_Shakeel_Lab.java
+Parsing file Laraib_Shakeel_Lab.java
+OK
+------ Parsing submission: Momina Abrar_Rashid_StudentData.java
+Parsing file Momina Abrar_Rashid_StudentData.java
+  Parsing Error in 'Momina Abrar_Rashid_StudentData.java':
+  Parse error at line 46, column 5.  Encountered: else
+ERROR -> Submission removed
+------ Parsing submission: Muhammad Emad Ul_Ehsan_sorttin.java
+Parsing file Muhammad Emad Ul_Ehsan_sorttin.java
+OK
+------ Parsing submission: Muhammad Moaz_Khan_Students.java
+Parsing file Muhammad Moaz_Khan_Students.java
+  Parsing Error in 'Muhammad Moaz_Khan_Students.java':
+  Parse error at line 117, column 20.  Encountered: .
+ERROR -> Submission removed
+------ Parsing submission: Muhammad Usman_Idrees_GPA.java
+Parsing file Muhammad Usman_Idrees_GPA.java
+OK
+------ Parsing submission: Muhammad_Hamza_Record.java
+Parsing file Muhammad_Hamza_Record.java
+OK
+------ Parsing submission: Muhammad_Tallal_Lab.java
+Parsing file Muhammad_Tallal_Lab.java
+OK
+------ Parsing submission: Mujtaba_Mehdi_LabTask.java
+Parsing file Mujtaba_Mehdi_LabTask.java
+OK
+------ Parsing submission: Neelam_Shoaib_dt.java
+Parsing file Neelam_Shoaib_dt.java
+OK
+------ Parsing submission: Qandeel Rasheed_Abbasi_Students.java
+Parsing file Qandeel Rasheed_Abbasi_Students.java
+OK
+------ Parsing submission: Raza_Yunus_raza.java
+Parsing file Raza_Yunus_raza.java
+OK
+------ Parsing submission: Safie Ur_Rehman_MyCode.java
+Parsing file Safie Ur_Rehman_MyCode.java
+OK
+------ Parsing submission: Sarah_Sajid_MyJava.java
+Parsing file Sarah_Sajid_MyJava.java
+OK
+------ Parsing submission: Sheraz Shahid_Butt_Problem.java
+Parsing file Sheraz Shahid_Butt_Problem.java
+OK
+------ Parsing submission: Syed Ahmed Hussain_Naqvi_Task.java
+Parsing file Syed Ahmed Hussain_Naqvi_Task.java
+OK
+------ Parsing submission: Syed Muhammad Zaeem Hasan_Kazmi_Record.java
+Parsing file Syed Muhammad Zaeem Hasan_Kazmi_Record.java
+OK
+------ Parsing submission: Syed Safeer Raees_Zaidi_safeer.java
+Parsing file Syed Safeer Raees_Zaidi_safeer.java
+OK
+------ Parsing submission: Tahreem_Saleem_MyJava.java
+Parsing file Tahreem_Saleem_MyJava.java
+OK
+------ Parsing submission: Urooj_Ayub_MyJava.java
+Parsing file Urooj_Ayub_MyJava.java
+OK
+------ Parsing submission: Wajhia_Maqsood_Data.java
+Parsing file Wajhia_Maqsood_Data.java
+OK
+------ Parsing submission: Zeeshan_Mansoor_Lab21.java
+Parsing file Zeeshan_Mansoor_Lab21.java
+OK
+
+30 submissions parsed successfully!
+2 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 10 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

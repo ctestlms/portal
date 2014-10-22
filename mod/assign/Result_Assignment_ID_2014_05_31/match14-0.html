@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Abdullah_Khan_abdullah.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Abdullah_Khan_abdullah.cpp</CENTER></H3><HR>
+<PRE>
+	#include &lt;iostream&gt;
+	#include &lt;stdio.h&gt;
+	#include &lt;math.h&gt;
+	#include &lt;conio.h&gt;
+	#include &lt;Windows.h&gt;
+	using namespace std;
+	unsigned char info[54];
+	unsigned int SIXE;
+	char filename[30];
+	char filename1[30];
+	unsigned char *source;
+	unsigned char **new_source;
+	unsigned char **relay_source;
+
+struct File_Header
+	{
+unsigned char BM[2];
+unsigned int SIXE;
+unsigned int RESOURSE;
+unsigned int offset_pixels;
+unsigned int header_size;
+unsigned int width;
+unsigned int height;
+unsigned int planes;
+unsigned int bits;
+unsigned int compression;
+unsigned int size_of_source;
+unsigned int horizontal_ppm;
+unsigned int vertical_ppm;
+unsigned int pallet_size;
+unsigned int important_colours;
+
+	};
+
+File_Header Orig_Head;
+
+File_Header New_Head;
+
+void read_BMP()
+{
+    unsigned int i;
+	unsigned char temp;
+
+    FILE* f = fopen(filename1, &quot;rb&quot;);
+
+
+	if(f==NULL)
+	{
+		cout&lt;&lt;&quot;ALERT!!    THERE IS AN ERROR IN OPENING THE FILE !!&quot;&lt;&lt;endl;
+	}
+	else
+	{
+		cout&lt;&lt;&quot;THE IMAGE WAS OPENED SUCCESSFULLY&quot;&lt;&lt;endl;
+	}
+    fread(info, sizeof(unsigned char), 54, f); // READ THE 54 BYTE HEADER
+
+    // FOR EXTRACTION OF IMAGE HEIGHT AND WIDTH FROM THE HEADER 
+
+    unsigned int width = info[18]+info[19]*256+info[20]*256*256+info[21]*256*256*256; // FOR THE WIDTH
+
+    unsigned int height = info[22]+info[23]*256+info[24]*256*256+info[25]*256*256*256; // FOR THE HEIGHT
+
+    SIXE = 3 * width * height; // VALUE OF HEIGHT AND WIDTH IS STORED IN SIXE/SIZE
+
+    source = new unsigned char[SIXE]; // THIS FUNCTION ALLOCATES 3 BYTES PER PIXALS 
+	
+	for(i = 0; i &lt; SIXE; i ++)
+
+		fread(source+i, sizeof(unsigned char), 1, f); // THIS FUNCTION READ ALL THE OTHER PERAMETERS AT ONCE 
+    
+	fclose(f); // CLOSE BY FILE HANDLING
+	
+
+<A NAME="0"></A>}
+
+File_Header Conv_info()
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+	File_Header Head; //FUNCTIONS FOR THE CALCULATION OF THE DATA OF THE IMAGE
+
+	Head.BM[0]=info[0]; // INCLUDING THE BITS AND EVERY THING ELSE
+
+	Head.BM[1]=info[1];
+	Head.SIXE=info[2]+info[3]*256+info[4]*256*256+info[5]*256*256*256;
+
+	Head.RESOURSE=info[6]+info[7]*256+info[8]*256*256+info[9]*256*256*256;
+
+	Head.offset_pixels=info[10]+info[11]*256+info[12]*256*256+info[13]*256*256*256;
+
+	Head.header_size=info[14]+info[15]*256+info[16]*256*256+info[17]*256*256*256;
+
+	Head.width=info[18]+info[19]*256+info[20]*256*256+info[21]*256*256*256;
+
+	Head.height=info[22]+info[23]*256+info[24]*256*256+info[25]*256*256*256;
+
+	Head.planes=info[26]+info[27]*256;
+
+	
+	Head.bits=info[28]+info[29]*256;
+	
+	Head.compression=info[30]+info[31]*256+info[32]*256*256+info[33]*256*256*256;</B></FONT>
+
+	Head.size_of_source=info[34]+info[35]*256+info[36]*256*256+info[37]*256*256*256; // SIXE OF SOURCE
+
+	Head.horizontal_ppm=info[38]+info[39]*256+info[40]*256*256+info[41]*256*256*256;
+
+	Head.vertical_ppm=info[42]+info[43]*256+info[44]*256*256+info[45]*256*256*256;
+
+	Head.pallet_size=info[46]+info[47]*256+info[48]*256*256+info[49]*256*256*256; // FOR PALLET SIZE
+
+	Head.important_colours=info[50]+info[51]*256+info[52]*256*256+info[53]*256*256*256; // FOR IMPORTANT COLOURES 
+
+	return Head;
+}
+
+void Disp_Info()
+{
+	Orig_Head=Conv_info();
+	int ch=0;
+
+	
+	cout&lt;&lt;&quot;**  SIZE OF THE GIVEN IMAGE    **:             &quot;&lt;&lt;Orig_Head.SIXE&lt;&lt;&quot; bytes&quot;&lt;&lt;endl; // SHOWS THE SIZE
+	cout&lt;&lt;&quot;**  WIDTH OF THE GIVEN IMAGE   ** :     &quot;&lt;&lt;Orig_Head.width&lt;&lt;&quot; pixels&quot;&lt;&lt;endl; // SHOWS THE WIDTH
+	cout&lt;&lt;&quot;**  HEIGHT OF THE GIVEN IMAGE  ** :     &quot;&lt;&lt;Orig_Head.height&lt;&lt;&quot; pixels&quot;&lt;&lt;endl; // SHOWS THE HEIGHT
+
+	cout&lt;&lt;&quot;**  IMAGE RESOLUTION	 ** :    &quot;&lt;&lt;Orig_Head.bits&lt;&lt;&quot; bit&quot;&lt;&lt;endl;
+	 //SHOWS IMAGE RESOLUTION
+
+	cout&lt;&lt;&quot;PRESS ENTER FOR CONTINUE THE OTHER FUNCTIONS LIKE GRAY SCALING AND ROTATION\n &quot;;
+
+	while(ch!=13)
+
+	{
+		ch=getch();
+	}
+}
+
+void Disp_new_Info()
+{
+	New_Head=Conv_info();
+
+	
+	cout&lt;&lt;&quot;SIZE OF THE GIVEN IMAGE:             &quot;&lt;&lt;Orig_Head.SIXE&lt;&lt;&quot; bytes&quot;&lt;&lt;endl;
+	
+	cout&lt;&lt;&quot;WIDTH OF THE GIVEN IMAGE:      &quot;&lt;&lt;Orig_Head.width&lt;&lt;&quot; pixels&quot;&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;HEIGHT OF THE GIVEN IMAGE :     &quot;&lt;&lt;Orig_Head.height&lt;&lt;&quot; pixels&quot;&lt;&lt;endl;
+	
+	cout&lt;&lt;&quot;IMAGE RESOLUTION :    &quot;&lt;&lt;Orig_Head.bits&lt;&lt;&quot; bit&quot;&lt;&lt;endl;
+	
+}
+
+void print_SAME()
+{
+	unsigned int i;
+
+	FILE* file=fopen(&quot;New_File.bmp&quot;,&quot;wb&quot;);
+
+
+	for(i=0;i&lt;54;i++)
+
+	{fputc(info[i],file);}
+
+	for(i=0;i&lt;SIXE;i++)
+
+	{fputc(source[i],file);}
+
+	fclose(file);
+}
+
+void print_GRAY()
+{
+	unsigned int a,j,temp;
+	unsigned int ch=0;
+	FILE* file=fopen(filename,&quot;wb&quot;);
+
+	for(a=0;a&lt;54;a++)
+	{fputc(info[a],file);}
+
+	for(a=0;a&lt;256;a++)
+	{
+		fputc(a,file);
+
+		fputc(a,file);
+
+		fputc(a,file);
+
+		fputc(0,file);
+	}
+
+	for(a=0;a&lt;Orig_Head.height;a++)
+	{
+		for(j=0;j&lt;Orig_Head.width;j++)
+		{fputc(new_source[a][j],file);}
+	}
+
+	fclose(file);
+
+	cout&lt;&lt;&quot;CONGRATULATION THE IMAGE IS CONVERTED TO GRAY SCALE &quot;&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;PRESS 'ENTER, TO CONTINUE FOR FURTHER ACTIONS&quot;;
+
+
+	while(ch!=13)
+
+	{ch=getch();}
+}
+
+<A NAME="1"></A>void conv_GRAY()
+{
+	
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	unsigned int i,j,k,temp,size_a;
+
+
+	info[2]=(1024+54+(SIXE/3))/256;
+
+	info[3]=(1024+54+(SIXE/3))/256;
+	info[4]=(1024+54+(SIXE/3))/(256*256);
+	info[5]=(1024+54+(SIXE/3))/(256*256*256);
+
+	info[10]=(1024+54)%256;
+	info[11]=(1024+54)/256;
+
+	info[26]=1;
+	info[27]=0;;
+
+	info[28]=8;
+	info[29]=0;
+
+	info[34]=(SIXE/3)%256;
+	info[35]=(SIXE/3)/256;
+	info[36]=(SIXE/3)/(256*256);
+	info[37]=(SIXE/3)/(256*256*256);</B></FONT>
+
+	info[46]=255;
+	info[47]=0;
+	info[48]=0;
+	info[49]=0;
+	
+
+	Orig_Head=Conv_info();
+	size_a=Orig_Head.width*Orig_Head.height;
+	new_source=new unsigned char*[Orig_Head.height];
+	for(i=0;i&lt;Orig_Head.width;++i)
+	{new_source[i]=new unsigned char[Orig_Head.width];}
+
+	j=0;k=0;
+	
+	for(i=0;i&lt;SIXE;i+=3)
+	{
+		temp=source[i];
+		temp=temp+source[i+1];
+		temp=temp+source[i+2];
+		temp=temp/3;
+		new_source[k][j]=temp;
+		j++;
+		if(j==Orig_Head.width)
+		{j=0;k++;}
+	}
+
+<A NAME="2"></A>	SIXE=size_a;
+	delete source;
+
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	source=new unsigned char[SIXE];
+
+	k=0;
+	for(i=0;i&lt;Orig_Head.height;i++)
+	{
+		for(j=0;j&lt;Orig_Head.width;j++)
+		{source[k]=new_source[i][j];k++;}</B></FONT>
+	}
+}
+void main()
+{
+	int ch;
+	
+
+
+
+	while(1)
+	{
+		system(&quot;CLS&quot;);
+
+		cout&lt;&lt;&quot; GC Abdullah Khan&quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot; Reg No. 402 &quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot; 33_MTS_B &quot;&lt;&lt;endl;
+		cout&lt;&lt;&quot;-----------Main Menu---------------&quot;&lt;&lt;endl; 
+		cout&lt;&lt;&quot;PRESS A FOR READING OF IMAGE AND SHOWING ITS PROPERTIES&quot;&lt;&lt;endl;
+
+		cout&lt;&lt;&quot;PRESS B TO CONVERT 24 BIT TO 8 BIT (GRAY SCALE)&quot;&lt;&lt;endl;
+		
+
+		cout&lt;&lt;&quot;PRESS C TO EXIT THE MENU&quot;&lt;&lt;endl;
+
+		ch=getch();
+		if(ch=='A')
+		{
+			cout&lt;&lt;&quot;PLEASE ENTER THE PATH OF THE FILE YOU WANT ACCORDING MAKE SURE THAT YOUR FILE IS IN .BMP&quot;&lt;&lt;endl;
+			cin&gt;&gt;filename1;
+			read_BMP();
+			Disp_Info();
+			conv_GRAY();
+		}
+		if(ch=='B')
+		{
+			cout&lt;&lt;&quot;WHAT SHOULD BE THE OUTPUT NAME OF THE CONVERTED FILE , ENTER ACCORDINGLY&quot;&lt;&lt;endl;
+			cin&gt;&gt;filename;
+			print_GRAY();
+		}
+		if(ch=='C')
+		{
+			exit(1);
+		}
+	}
+
+}
+</PRE>
+</BODY>
+</HTML>

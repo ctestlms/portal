@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Ali Ghazi_Muzaffar_ghazi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Ali Ghazi_Muzaffar_ghazi.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int main()
+{
+float celcius;
+float farenheit;
+float pounds;
+float kilo;
+float pkr;
+float usd;
+char choice='i';
+while (choice!='e')
+{
+	printf(&quot;Enter T for temprature conversion\nEnter W for weight conversion\nEnter C for currencey conversion\n&quot;);
+	scanf(&quot;%c&quot;,&amp;choice);
+	switch(choice)
+	{
+<A NAME="1"></A>		case 'T':</B></FONT>
+    printf(&quot;enter temprature in celcius\n&quot;);
+	scanf(&quot;%f&quot;,&amp;celcius);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    farenheit=(1.8*celcius)+32;
+	printf(&quot;value in farenheit is equal to =%f\n&quot;,farenheit);
+	break;
+		case 'W':
+    printf(&quot;enter weight in pounds\n&quot;);
+    scanf(&quot;%f&quot;,&amp;pounds);
+    kilo=2.2*pounds;
+    printf(&quot;value in kilo is equal to =%f\n&quot;,kilo);
+	break;
+
+		case 'C':
+   printf(&quot;enter currency in pkr\n&quot;);
+	scanf(&quot;%f&quot;,&amp;pkr);
+    usd=pkr/99;
+   printf(&quot;value in usd is equal to =%f\n&quot;,usd);
+   break;
+
+		default:
+	   printf(&quot;wrong input=%c\n&quot;,choice);
+	}
+}
+getche();
+return 0;
+}</B></FONT>
+
+
+
+</PRE>
+</BODY>
+</HTML>

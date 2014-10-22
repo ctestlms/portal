@@ -1,0 +1,12 @@
+--- manage.php	2012-08-01 12:38:57.337461995 +0500
++++ manageupd.php	2012-08-01 12:42:57.000000000 +0500
+@@ -199,6 +199,9 @@
+ 		$mins = floor(($sessdata->duration - $hours * HOURSECS) / MINSECS);
+ 		$mins = $mins < 10 ? "0$mins" : "$mins";
+ 		$table->data[$sessdata->id][] = $hours ? "{$hours}&nbsp;{$strhours}&nbsp;{$mins}&nbsp;{$strmins}" : "{$mins}&nbsp;{$strmins}";
++		if($sessdata->topicname!="")
++		$table->data[$sessdata->id][] = $desc." ( ".$sessdata->topicname." )";
++		else
+ 		$table->data[$sessdata->id][] = $desc;
+ 		$table->data[$sessdata->id][] = $actions;
+ 		$table->data[$sessdata->id][] = $select;

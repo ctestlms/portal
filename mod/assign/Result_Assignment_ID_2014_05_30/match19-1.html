@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Afraz Khan_Sherwani_malloc realloc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Muhammad Afraz Khan_Sherwani_malloc realloc.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+<A NAME="0"></A>int main()
+{
+	int *ptr;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int i,n1,n2,sum=0;
+	float average=0;
+	char choice='a';
+	printf(&quot;enter size of array  =  &quot;);
+	scanf(&quot;%d&quot;,&amp;n1);
+	ptr=(int*)malloc(n1*sizeof (int));
+
+	for(i=0;i&lt;n1;i++)
+		{
+			printf(&quot;\nEnter marks of student %d =  &quot;,i+1);
+	scanf(&quot;%d&quot;,&amp;ptr[i]);
+	sum+=*(ptr+i);
+	
+	}</B></FONT>
+		average=sum/(n1);
+	printf(&quot;Average = %f&quot;,average);
+	printf(&quot;\npress any key to continue and press q to quit  =  &quot;);
+	flushall();
+		scanf(&quot;%c&quot;,&amp;choice);
+	while (choice!='q')
+	{
+		printf(&quot;\nenter size of new array   =&quot;);
+	scanf(&quot;%d&quot;,&amp;n2);
+	ptr=(int*)realloc(ptr,n2);
+	for(i;i&lt;n2;i++)
+		{
+			printf(&quot;\nEnter marks of student %d =  &quot;,i+1);
+	scanf(&quot;%d&quot;,&amp;ptr[i]);
+	sum+=*(ptr+i);
+	}
+	average=sum/(n2);
+	printf(&quot;press any key to continue and press q to quit  =  &quot;);
+	flushall();
+		scanf(&quot;%c&quot;,&amp;choice);
+	}
+	free (ptr);
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,213 @@
+--- enrol/manual/manage.php	2012-12-19 10:25:00.000000000 +0500
++++ enrol/manual/manage.php	2013-01-03 12:06:38.708406935 +0500
+@@ -25,9 +25,14 @@
+ 
+ require('../../config.php');
+ require_once($CFG->dirroot.'/enrol/manual/locallib.php');
++require_once($CFG->dirroot.'/mod/feedback/lib.php');
+ 
+ $enrolid      = required_param('enrolid', PARAM_INT);
+ $roleid       = optional_param('roleid', -1, PARAM_INT);
++$role_id      = optional_param('role_id', -1, PARAM_INT);
++$sort_        = optional_param('sort_', "", PARAM_INT);
++$grp             = optional_param('grp', "", PARAM_ALPHANUM);//get user group
++$sgrp            = optional_param('sgrp', "", PARAM_ALPHANUM);//get user sub group.
+ $extendperiod = optional_param('extendperiod', 0, PARAM_INT);
+ $extendbase   = optional_param('extendbase', 3, PARAM_INT);
+ 
+@@ -43,13 +48,28 @@ require_capability('enrol/manual:unenrol
+ if ($roleid < 0) {
+     $roleid = $instance->roleid;
+ }
++if ($role_id < 0) {
++       $role_id = $instance->role_id;
++}
++
+ $roles = get_assignable_roles($context);
+ $roles = array('0'=>get_string('none')) + $roles;
++$roles1 = get_assignable_roles($context);
++$roles1 = array('0'=>get_string('all')) + $roles1;
++$sortby = array('0'=>get_string('none'),'1'=>"Name",'2'=>"Reg No",'3'=>"UID") ;
+ 
+ if (!isset($roles[$roleid])) {
+     // weird - security always first!
+     $roleid = 0;
+ }
++if (!isset($roles[$role_id])) {
++       // weird - security always first!
++       //$role_id = 0;
++}
++if (!isset($sortby[$sort])) {
++       // weird - security always first!
++       $sort = 0;
++}
+ 
+ if (!$enrol_manual = enrol_get_plugin('manual')) {
+     throw new coding_exception('Can not instantiate enrol_manual');
+@@ -117,6 +137,69 @@ if (optional_param('add', false, PARAM_B
+             }
+             $enrol_manual->enrol_user($instance, $adduser->id, $roleid, $timestart, $timeend);
+             add_to_log($course->id, 'course', 'enrol', '../enrol/users.php?id='.$course->id, $course->id); //there should be userid somewhere!
++		 if($roleid==3){
++                                $username=$DB->get_record("user", array("id" => $adduser->id)) ;
++                                for( $i=0;$i<2;$i++){
++
++                                        $feedback=new stdClass();
++                                        $feedback->timemodified = time();
++                                        $feedback->id = '';
++                                        $feedback->course = $course->id;
++                                        if($i==0){
++                                                $feedback->name  = "First Student Feedback"."(".$username->firstname." ".$username->lastname.")";
++                                                $feedback->intro = "First Student Feedback";
++                                                $feedback->timeopen = strtotime("+42 days", $courserecord->timemodified);
++                                                $feedback->timeclose = strtotime("+14 days", $feedback->timeopen);
++                                        }
++                                        if($i==1){
++                                                $feedback->name  = "Second Student Feedback"."(".$username->firstname." ".$username->lastname.")";;
++                                                $feedback->intro = "Second Student Feedback";
++                                                $feedback->timeopen = strtotime("+60 days", $courserecord->timemodified);
++                                                $feedback->timeclose = strtotime("+14 days", $feedback->timeopen);
++                                        }
++                                        $feedback->introformat = 1;
++                                        $feedback->anonymous = 1;
++                                        $feedback->email_notification = 0;
++                                        $feedback->multiple_submit = 0;
++                                        $feedback->autonumbering = 1;
++                                        $feedback->site_after_submit = "";
++                                        $feedback->page_after_submit = "<p>Thankyou for your feedback!!!</p>";
++                                        $feedback->page_after_submitformat = 1;
++                                        $feedback->publish_stats = 0;
++                                        $feedback->completionsubmit = 0;
++                                        $feedbackid = $DB->insert_record("feedback", $feedback);
++                                        $feedback->id = $feedbackid;
++                                        $xmlcontent = file_get_contents($CFG->dirroot.'/feedback.xml', true);
++  if(!$xmldata = feedback_load_xml_datap($xmlcontent)) {
++                                                print_error('cannotloadxml', 'feedback', 'edit.php?id='.$id);
++                                        }
++
++                                        $importerror = feedback_import_loaded_datap($xmldata, $feedback->id);
++
++                                        if (! $module = $DB->get_record("modules", array("name" => "feedback"))) {
++                                                echo $OUTPUT->notification("Could not find feedback module!!");
++                                                return false;
++                                        }
++                                        $mod = new stdClass();
++                                        $mod->course = $course->id;
++                                        $mod->module = $module->id;
++                                        $mod->instance = $feedback->id;
++                                        $mod->section = 0;
++					 include_once("$CFG->dirroot/course/lib.php");
++                                        if (! $mod->coursemodule = add_course_module($mod) ) {   // assumes course/lib.php is loaded
++                                                echo $OUTPUT->notification("Could not add a new course module to the course '" . $courseid . "'");
++                                                return false;
++                                        }
++                                        if (! $sectionid = add_mod_to_section($mod) ) {   // assumes course/lib.php is loaded
++                                                echo $OUTPUT->notification("Could not add the new course module to that section");
++                                                return false;
++                                        }
++                                        $DB->set_field("course_modules", "section", $sectionid, array("id" => $mod->coursemodule));
++                                        include_once("$CFG->dirroot/course/lib.php");
++                                        rebuild_course_cache($course->id);
++                                }
++                        }
++
+         }
+ 
+         $potentialuserselector->invalidate_selected_users();
+@@ -145,13 +228,95 @@ if (optional_param('remove', false, PARA
+ 
+ echo $OUTPUT->header();
+ echo $OUTPUT->heading($instancename);
+-
++//Start of LDAP filter script.
++echo "<div style='text-align: center;'>";
++$query = "select distinct user_group from {$CFG->prefix}user where user_group NOT IN ('', 'NULL')";
++$path = $CFG->wwwroot."/enrol/manual/manage.php?enrolid=".$enrolid;
++if($groups = $DB->get_records_sql($query)){
++        echo "<select name='grp' id='grp'>";
++        echo "<option value=''>.::Select::.</option>";
++        foreach ($groups as $group){
++                $selected = ($group->user_group == $grp) ? "selected = 'selected'" : "";
++                echo "<option value='{$group->user_group}' {$selected} >{$group->user_group}</option>";
++        }
++        echo "</select>";
++        //Get subgroups
++        if($grp != ""){
++                $query = "select distinct user_subgroup from {$CFG->prefix}user where user_group = '{$grp}'";
++                if($sub_groups = $DB->get_records_sql($query)){
++                        echo "<select name='sgrp' id='sgrp'>";
++                        echo "<option value=''>.::Select::.</option>";
++                        foreach ($sub_groups as $sub_group){
++                                $selected = ($sub_group->user_subgroup == $sgrp) ? "selected = 'selected'" : "";
++                                echo "<option value='{$sub_group->user_subgroup}' {$selected}>{$sub_group->user_subgroup}</option>";
++                        }
++                        echo "</select>";
++                }
++        }
++}
+ ?>
++<script type="text/javascript">
++<!--
++        $(document).ready(function(){
++                $("select#grp").change(function(){
++                        if($(this).val() != "")
++                                document.location = "<?php echo $path; ?>&grp="+$(this).val();
++                });
++                $("select#sgrp").change(function(){
++                        if($(this).val() != "" && $("select#grp").val() != "")
++                                document.location = "<?php echo $path; ?>&grp="+$("select#grp").val()+"&sgrp="+$(this).val();
++                });
++//Changes by Miss. Hina 14-10-2011
++              $("select#sort").change(function(){
++                         if($(this).val() != "" ){
++                                 if($("select#sgrp").val() != "" && $("select#grp").val() != ""){
++                              document.location = "<?php echo $path; ?>&grp="+$("select#grp").val()+"&sgrp="+$("select#sgrp").val()+"&sort_="+$(this).val();
++                         }
++                         if($("select#sgrp").val() == "" && $("select#grp").val() != ""){
++                    document.location = "<?php echo $path; ?>&grp="+$("select#grp").val()+"&sort_="+$(this).val();
++                }
++                if($("select#sgrp").val() == "" && $("select#grp").val() == ""){            
++                    document.location = "<?php echo $path; ?>&sort_="+$(this).val();
++                }
++                
++            }
++        });
++        });
++//-->
++</script>
++</div>
++
++
+ <form id="assignform" method="post" action="<?php echo $PAGE->url ?>"><div>
+   <input type="hidden" name="sesskey" value="<?php echo sesskey() ?>" />
+ 
+   <table summary="" class="roleassigntable generaltable generalbox boxaligncenter" cellspacing="0">
++
+     <tr>
++	<td colspan="2">
++                        <h2>Current role:</h2>
++                        <?php echo html_writer::select($roles1, 'role_id', $role_id, false,array('onchange' => 'this.form.submit()')); ?>
++                </td>
++	<td>            <b>Sort and Display:</b>             <select
++                                       name="sort" id="sort">                
++                                               <option value="0"
++                                               <?php if($sort_ == 0) echo "selected = 'selected'"; ?>>All</option>                                                                  
++                                               <option value="1"
++                                               <?php if($sort_ == 1) echo "selected = 'selected'"; ?>>Name</option>
++                                                                              
++                                               <option value="2"
++                                               <?php if($sort_ == 2) echo "selected = 'selected'"; ?>>UID</option>
++                                                              
++                                               <option value="3"
++                                               <?php if($sort_ == 3) echo "selected = 'selected'"; ?>>Email</option>
++                                                          
++                               </select>             </td>
++                       </tr>
++                       </td>
++                       <td></td>
++
++</tr>
++<tr>
+       <td id="existingcell">
+           <p><label for="removeselect"><?php print_string('enrolledusers', 'enrol'); ?></label></p>
+           <?php $currentuserselector->display() ?>

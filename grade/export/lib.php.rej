@@ -1,0 +1,9 @@
+--- lib.php
++++ lib_1.php
+@@ -499,4 +573,6 @@
+     public function close() {
+         $this->flush(0);
+     }
++
+ }
++

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/books/db" VERSION="20121216" COMMENT="XMLDB file for Moodle blocks/books"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="books" COMMENT="Default comment for books, please edit me">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="book_name"/>
+        <FIELD NAME="book_name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="id" NEXT="book_category"/>
+        <FIELD NAME="book_category" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="book_name" NEXT="book_status"/>
+        <FIELD NAME="book_status" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="book_category" NEXT="author_name"/>
+        <FIELD NAME="author_name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="book_status" NEXT="verified"/>
+        <FIELD NAME="verified" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="author_name" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="verified" NEXT="pic"/>
+        <FIELD NAME="pic" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" PREVIOUS="userid" NEXT="edition"/>
+        <FIELD NAME="edition" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="pic" NEXT="keyword"/>
+        <FIELD NAME="keyword" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="edition" NEXT="time"/>
+        <FIELD NAME="time" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="keyword" NEXT="isbn"/>
+        <FIELD NAME="isbn" TYPE="char" LENGTH="155" NOTNULL="false" SEQUENCE="false" PREVIOUS="time" NEXT="price"/>
+        <FIELD NAME="price" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="isbn" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="price" NEXT="publisher"/>
+        <FIELD NAME="publisher" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" PREVIOUS="timemodified" NEXT="publicationyear"/>
+        <FIELD NAME="publicationyear" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="publisher" NEXT="active"/>
+        <FIELD NAME="active" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="publicationyear"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

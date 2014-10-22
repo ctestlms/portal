@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="http://lms.nust.edu.pk/lms/theme/standard/styles.php" />
+<link rel="stylesheet" type="text/css" href="http://lms.nust.edu.pk/lms/theme/NUST_Multi/styles.php" />
+
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://lms.nust.edu.pk/lms/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://lms.nust.edu.pk/lms/theme/standard/styles_ie6.css" />
+<![endif]-->
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://lms.nust.edu.pk/lms/theme/chameleon/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://lms.nust.edu.pk/lms/theme/chameleon/styles_ie6.css" />
+<![endif]-->
+
+
+    <meta name="keywords" content="moodle, Error " />
+    <title>Error</title>
+    <link rel="shortcut icon" href="http://lms.nust.edu.pk/lms/theme/NUST_Multi/nustfavicon.ico" />
+
+        <script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/speller/spellChecker.js"></script>
+<!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(http://lms.nust.edu.pk/lms/lib/csshover.htc);} /*]]>*/</style>-->
+
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/javascript-static.js"></script>
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/javascript-mod.php"></script>
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/overlib/overlib.js"></script>
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/overlib/overlib_cssstyle.js"></script>
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/cookies.js"></script>
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/ufo.js"></script>
+<script type="text/javascript" src="http://lms.nust.edu.pk/lms/lib/dropdown.js"></script>  
+
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+setTimeout('fix_column_widths()', 20);
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function openpopup(url,name,options,fullscreen) {
+  fullurl = "http://lms.nust.edu.pk/lms" + url;
+  windowobj = window.open(fullurl,name,options);
+  if (fullscreen) {
+     windowobj.moveTo(0,0);
+     windowobj.resizeTo(screen.availWidth,screen.availHeight);
+  }
+  windowobj.focus();
+  return false;
+}
+
+function uncheckall() {
+  void(d=document);
+  void(el=d.getElementsByTagName('INPUT'));
+  for(i=0;i<el.length;i++) {
+    void(el[i].checked=0);
+  }
+}
+
+function checkall() {
+  void(d=document);
+  void(el=d.getElementsByTagName('INPUT'));
+  for(i=0;i<el.length;i++) {
+    void(el[i].checked=1);
+  }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrReturnElements = new Array();
+	var arrRegExpClassNames = new Array();
+	if(typeof oClassNames == "object"){
+		for(var i=0; i<oClassNames.length; i++){
+			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+		}
+	}
+	else{
+		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+	}
+	var oElement;
+	var bMatchesAll;
+	for(var j=0; j<arrElements.length; j++){
+		oElement = arrElements[j];
+		bMatchesAll = true;
+		for(var k=0; k<arrRegExpClassNames.length; k++){
+			if(!arrRegExpClassNames[k].test(oElement.className)){
+				bMatchesAll = false;
+				break;
+			}
+		}
+		if(bMatchesAll){
+			arrReturnElements.push(oElement);
+		}
+	}
+	return (arrReturnElements)
+}
+//]]>
+</script>
+    <script language="javascript" type="text/javascript">
+        $plus = new Image();
+        $minus = new Image();
+        
+        $plus.src = "http://lms.nust.edu.pk/lms/theme/NUST_Multi/images/arw_off.gif";
+        $minus.src = "http://lms.nust.edu.pk/lms/theme/NUST_Multi/images/arw_on.gif";
+	</script>
+    
+    <script language="javascript" type="text/javascript" src="http://lms.nust.edu.pk/lms/theme/NUST_Multi/js/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="http://lms.nust.edu.pk/lms/theme/NUST_Multi/js/scripts2.js"></script>
+</head>
+
+<body  class="http:- course-1 notloggedin dir-ltr lang-en_utf8" id="http:--lms.nust.edu.pkindex">
+
+<div id="page">
+
+    <!-- END OF HEADER -->
+<!--<div id="content">
+</div>--></div></body></html>
+<br /><div class="box errorbox errorboxcontent">A required parameter (cid1) was missing</div><div class="continuebutton"><div class="singlebutton"><form action="http://lms.nust.edu.pk/lms/" method="get"><div><input type="submit" value="Continue"   /></div></form></div></div>
+
+</div> <!-- end div containerContent -->
+<!-- START OF FOOTER -->
+<meta name="template" content="none">
+<script language="JavaScript" type="text/javascript">
+<!--
+/* set up variables used to init clock in BODY's onLoad handler;
+   should be done as early as possible */
+var clockLocalStartTime = new Date();
+var clockServerStartTime = new Date(2011,4,4,13,10,39);
+
+/* stub functions for older browsers;
+   will be overridden by next JavaScript1.2 block */
+function clockInit() {
+}
+//-->
+</script>
+<script language="JavaScript1.2" type="text/javascript">
+<!--
+/*** simpleFindObj, by Andrew Shearer
+
+Efficiently finds an object by name/id, using whichever of the IE,
+classic Netscape, or Netscape 6/W3C DOM methods is available.
+The optional inLayer argument helps Netscape 4 find objects in
+the named layer or floating DIV. */
+function simpleFindObj(name, inLayer) {
+	return document[name] || (document.all && document.all[name])
+		|| (document.getElementById && document.getElementById(name))
+		|| (document.layers && inLayer && document.layers[inLayer].document[name]);
+}
+
+/*** Beginning of Clock 2.1.2, by Andrew Shearer
+See: http://www.shearersoftware.com/software/web-tools/clock/
+Redistribution is permitted with the above notice intact.
+
+Client-side clock, based on computed time differential between browser &
+server. The server time is inserted by server-side JavaScript, and local
+time is subtracted from it by client-side JavaScript while the page is
+loading.
+
+Cookies: The local and remote times are saved in cookies named
+localClock and remoteClock, so that when the page is loaded from local
+cache (e.g. by the Back button) the clock will know that the embedded
+server time is stale compared to the local time, since it already
+matches its cookie. It can then base the calculations on both cookies,
+without reloading the page from the server. (IE 4 & 5 for Windows didn't
+respect Response.Expires = 0, so if cookies weren't used, the clock
+would be wrong after going to another page then clicking Back. Netscape
+& Mac IE were OK.)
+
+Every so often (by default, one hour) the clock will reload the page, to
+make sure the clock is in sync (as well as to update the rest of the
+page content).
+
+Compatibility: IE 4.x and 5.0, Netscape 4.x and 6.0, Mozilla 1.0. Mac & Windows.
+
+History:  1.0   2000-05-09 GIF-image digits
+          2.0   2000-06-29 Uses text DIV layers (so 4.0 browsers req'd), &
+                         cookies to work around Win IE stale-time bug
+		  2.1   2002-10-12 Noted Mozilla 1.0 compatibility; released PHP version.
+		  2.1.1 2002-10-20 Fixed octal bug in the PHP translation; the number of
+		  				minutes & seconds were misinterpretes when less than 10
+		  2.1.2 2003-08-07 The previous fix had introduced a bug when the
+		                minutes or seconds were exactly 0. Thanks to Man Bui
+		                for reporting the bug.
+*/
+var clockIncrementMillis = 60000;
+var localTime;
+var clockOffset;
+var clockExpirationLocal;
+var clockShowsSeconds = false;
+var clockTimerID = null;
+
+function clockInit(localDateObject, serverDateObject)
+{
+    var origRemoteClock = parseInt(clockGetCookieData("remoteClock"));
+    var origLocalClock = parseInt(clockGetCookieData("localClock"));
+    var newRemoteClock = serverDateObject.getTime();
+    // May be stale (WinIE); will check against cookie later
+    // Can't use the millisec. ctor here because of client inconsistencies.
+    var newLocalClock = localDateObject.getTime();
+    var maxClockAge = 60 * 60 * 1000;   // get new time from server every 1hr
+
+    if (newRemoteClock != origRemoteClock) {
+        // new clocks are up-to-date (newer than any cookies)
+        document.cookie = "remoteClock=" + newRemoteClock;
+        document.cookie = "localClock=" + newLocalClock;
+        clockOffset = newRemoteClock - newLocalClock;
+        clockExpirationLocal = newLocalClock + maxClockAge;
+        localTime = newLocalClock;  // to keep clockUpdate() happy
+    }
+    else if (origLocalClock != origLocalClock) {
+        // error; localClock cookie is invalid (parsed as NaN)
+        clockOffset = null;
+        clockExpirationLocal = null;
+    }
+    else {
+        // fall back to clocks in cookies
+        clockOffset = origRemoteClock - origLocalClock;
+        clockExpirationLocal = origLocalClock + maxClockAge;
+        localTime = origLocalClock;
+        // so clockUpdate() will reload if newLocalClock
+        // is earlier (clock was reset)
+    }
+    /* Reload page at server midnight to display the new date,
+       by expiring the clock then */
+    var nextDayLocal = (new Date(serverDateObject.getFullYear(),
+            serverDateObject.getMonth(),
+            serverDateObject.getDate() + 1)).getTime() - clockOffset;
+    if (nextDayLocal < clockExpirationLocal) {
+        clockExpirationLocal = nextDayLocal;
+    }
+}
+
+function clockOnLoad()
+{
+    clockUpdate();
+}
+
+function clockOnUnload() {
+    clockClearTimeout();
+}
+
+function clockClearTimeout() {
+    if (clockTimerID) {
+        clearTimeout(clockTimerID);
+        clockTimerID = null;
+    }
+}
+
+function clockToggleSeconds()
+{
+    clockClearTimeout();
+    if (clockShowsSeconds) {
+        clockShowsSeconds = false;
+        clockIncrementMillis = 60000;
+    }
+    else {
+        clockShowsSeconds = true;
+        clockIncrementMillis = 1000;
+    }
+    clockUpdate();
+}
+
+function clockTimeString(inHours, inMinutes, inSeconds) {
+    return inHours == null ? "-:--" : ((inHours == 0
+                   ? "12" : (inHours <= 12 ? inHours : inHours - 12))
+                + (inMinutes < 10 ? ":0" : ":") + inMinutes
+                + (inSeconds < 10 ? ":0" : ":") + inSeconds
+                + (inHours < 12 ? " AM" : " PM"));
+}
+
+function clockDisplayTime(inHours, inMinutes, inSeconds) {
+    
+    clockWriteToDiv("curTime", clockTimeString(inHours, inMinutes, inSeconds));
+}
+
+function clockWriteToDiv(divName, newValue) // APS 6/29/00
+{
+    var divObject = simpleFindObj(divName);
+    if (divObject && divObject.innerHTML) {
+        divObject.innerHTML = newValue;
+    }
+    else if (divObject && divObject.document) {
+        divObject.document.writeln(newValue);
+        divObject.document.close();
+    }
+    // else divObject wasn't found; it's only a clock, so don't bother complaining
+}
+
+function clockGetCookieData(label) {
+    /* find the value of the specified cookie in the document's
+    semicolon-delimited collection. For IE Win98 compatibility, search
+    from the end of the string (to find most specific host/path) and
+    don't require "=" between cookie name & empty cookie values. Returns
+    null if cookie not found. One remaining problem: Under IE 5 [Win98],
+    setting a cookie with no equals sign creates a cookie with no name,
+    just data, which is indistinguishable from a cookie with that name
+    but no data but can't be overwritten by any cookie with an equals
+    sign. */
+    var c = document.cookie;
+    if (c) {
+        var labelLen = label.length, cEnd = c.length;
+        while (cEnd > 0) {
+            var cStart = c.lastIndexOf(';',cEnd-1) + 1;
+            /* bug fix to Danny Goodman's code: calculate cEnd, to
+            prevent walking the string char-by-char & finding cookie
+            labels that contained the desired label as suffixes */
+            // skip leading spaces
+            while (cStart < cEnd && c.charAt(cStart)==" ") cStart++;
+            if (cStart + labelLen <= cEnd && c.substr(cStart,labelLen) == label) {
+                if (cStart + labelLen == cEnd) {                
+                    return ""; // empty cookie value, no "="
+                }
+                else if (c.charAt(cStart+labelLen) == "=") {
+                    // has "=" after label
+                    return unescape(c.substring(cStart + labelLen + 1,cEnd));
+                }
+            }
+            cEnd = cStart - 1;  // skip semicolon
+        }
+    }
+    return null;
+}
+
+/* Called regularly to update the clock display as well as onLoad (user
+   may have clicked the Back button to arrive here, so the clock would need
+   an immediate update) */
+function clockUpdate()
+{
+    var lastLocalTime = localTime;
+    localTime = (new Date()).getTime();
+    
+    /* Sanity-check the diff. in local time between successive calls;
+       reload if user has reset system clock */
+    if (clockOffset == null) {
+        clockDisplayTime(null, null, null);
+    }
+    else if (localTime < lastLocalTime || clockExpirationLocal < localTime) {
+        /* Clock expired, or time appeared to go backward (user reset
+           the clock). Reset cookies to prevent infinite reload loop if
+           server doesn't give a new time. */
+        document.cookie = 'remoteClock=-';
+        document.cookie = 'localClock=-';
+        location.reload();      // will refresh time values in cookies
+    }
+    else {
+        // Compute what time would be on server 
+        var serverTime = new Date(localTime + clockOffset);
+        clockDisplayTime(serverTime.getHours(), serverTime.getMinutes(),
+            serverTime.getSeconds());
+        
+        // Reschedule this func to run on next even clockIncrementMillis boundary
+
+        clockTimerID = setTimeout("clockUpdate()",1000);
+//            clockIncrementMillis - (serverTime.getTime() % clockIncrementMillis));
+    }
+}
+
+/*** End of Clock ***/
+//-->
+</script>
+
+<div id="footer">
+<p class="helplink"></p><div>
+<label id='curDate' name='curDate'>Monday, April 4, 2011</label>
+<label id='curTime' name='curTime'>1:10:39 </label>
+</div>
+<!--April 4, 2011, 1:10 pm<br/>-->
+<div class="logininfo">You are not logged in. (<a  href="http://lms.nust.edu.pk/lms/login/index.php">Login</a>)</div><div class="homelink"><a  href="http://lms.nust.edu.pk/lms/">Home</a></div><!-- <p><div class="homelink"><a  href="/course/view.php?id=">  </a></div></p> -->
+<p>
+<!-- <<a href="http://validator.w3.org/check?verbose=1&amp;ss=1&amp;uri=http%3A%2F%2Flms.nust.edu.pkindex.php"><img src="http://lms.nust.edu.pk/lms/theme/NUST_Multi/xhtml_1_0.gif" alt="XHTML Validator" /></a>
+<a href="http://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Flms.nust.edu.pkindex.php&amp;warning=1&amp;profile=css2&amp;usermedium=all"><img src="http://lms.nust.edu.pk/lms/theme/NUST_Multi/css.gif" alt="CSS Validator" /></a> 
+<a href="http://www.contentquality.com/mynewtester/cynthia.exe?rptmode=-1&amp;url1=http%3A%2F%2Flms.nust.edu.pkindex.php"><img src="http://lms.nust.edu.pk/lms/theme/NUST_Multi/section_508.gif" alt="Section 508 Validator" /></a> -->
+</p>
+</div>
+</div>
+
+<script type="text/javascript">
+
+//var _gaq = _gaq || [];
+ // _gaq.push(['_setAccount', 'UA-15817198-1']);
+  //_gaq.push(['_trackPageview']);
+
+  //(function() {
+   // var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    //ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   // var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  //})();
+window.onload=clockInit(clockLocalStartTime, clockServerStartTime);
+window.onload=clockOnLoad();
+//window.onunload=clockOnUnload();
+//setInterval("settime()", 1000);
+//setInterval("setdate()", 1000);
+function settime () {
+  var curtime = new Date();
+  var curhour = curtime.getHours();
+  var curmin = curtime.getMinutes();
+  var cursec = curtime.getSeconds();
+  var time = "";
+ 
+  if(curhour == 0) curhour = 12;
+  time = (curhour > 12 ? curhour - 12 : curhour) + ":" +
+         (curmin < 10 ? "0" : "") + curmin + ":" +
+         (cursec < 10 ? "0" : "") + cursec + " " +
+         (curhour > 12 ? "PM" : "AM");
+ 
+  document.getElementById("curTime").innerHTML = time;
+}
+function setdate(){
+var m_names = new Array("January", "February", "March", 
+"April", "May", "June", "July", "August", "September", 
+"October", "November", "December");
+
+var d = new Date();
+var curr_date = d.getDate();
+var curr_month = d.getMonth();
+var curr_year = d.getFullYear();
+document.getElementById('curDate').innerHTML = curr_date + "-" + m_names[curr_month] + "-" + curr_year;
+}
+</script>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

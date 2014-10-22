@@ -1,0 +1,59 @@
+--- complete.php	2013-01-04 14:52:43.695697865 +0500
++++ completenew.php	2012-12-18 14:36:18.695875706 +0500
+@@ -87,7 +87,9 @@ if (! $feedback = $DB->get_record("feedb
+     print_error('invalidcoursemodule');
+ }
+ 
+-$context = context_module::instance($cm->id);
++if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
++        print_error('badcontext');
++}
+ 
+ $feedback_complete_cap = false;
+ 
+@@ -444,14 +446,17 @@ if ($feedback_can_submit) {
+                     echo '<input type="hidden" name="anonymous" value="1" />';
+                     $inputvalue = 'value="'.FEEDBACK_ANONYMOUS_YES.'"';
+                     echo '<input type="hidden" name="anonymous_response" '.$inputvalue.' />';
+-                    echo get_string('mode', 'feedback').': '.get_string('anonymous', 'feedback');
++                   // echo get_string('mode', 'feedback').': '.get_string('anonymous', 'feedback');
++		echo "<font size='3'color='red'>Note: This feedback does not collect any information about the User. Your feedback is being recorded in an anonymous mode.<br/>"."</font>";
++                echo "</br>";   
+                     break;
+                 case FEEDBACK_ANONYMOUS_NO:
+                     echo '<input type="hidden" name="anonymous" value="0" />';
+                     $inputvalue = 'value="'.FEEDBACK_ANONYMOUS_NO.'"';
+                     echo '<input type="hidden" name="anonymous_response" '.$inputvalue.' />';
+-                    echo get_string('mode', 'feedback').': ';
+-                    echo get_string('non_anonymous', 'feedback');
++                  //  echo get_string('mode', 'feedback').': ';
++                    //echo get_string('non_anonymous', 'feedback');
++			echo "<font size='3'>". get_string('mode', 'feedback').': '.get_string('non_anonymous', 'feedback')."</font>";
+                     break;
+             }
+             echo $OUTPUT->box_end();
+@@ -459,9 +464,11 @@ if ($feedback_can_submit) {
+             $params = array('feedback' => $feedback->id, 'required' => 1);
+             $countreq = $DB->count_records('feedback_item', $params);
+             if ($countreq > 0) {
+-                echo '<span class="feedback_required_mark">(*)';
+-                echo get_string('items_are_required', 'feedback');
+-                echo '</span>';
++		echo "<br/><font size='3'>";echo '<span class="feedback_required_mark">(*)' . get_string('items_are_required', 'feedback') . '</span>';
++                    echo "</font>"; 
++               // echo '<span class="feedback_required_mark">(*)';
++                //echo get_string('items_are_required', 'feedback');
++                //echo '</span>';
+             }
+             echo $OUTPUT->box_start('feedback_items');
+ 
+@@ -517,7 +524,8 @@ if ($feedback_can_submit) {
+                 if ($feedbackitem->hasvalue == 1 AND $feedback->autonumbering) {
+                     $itemnr++;
+                     echo $OUTPUT->box_start('feedback_item_number_'.$align);
+-                    echo $itemnr;
++                 //   echo $itemnr;
++			echo "<font size='3'><b>".$itemnr."</b></font>.&nbsp;&nbsp;&nbsp;";	
+                     echo $OUTPUT->box_end();
+                 }
+                 if ($feedbackitem->typ != 'pagebreak') {

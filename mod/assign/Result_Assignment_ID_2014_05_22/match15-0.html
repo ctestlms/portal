@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Mustafa_Akmal_lab06_Q1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Mustafa_Akmal_lab06_Q1.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+int c=0, X=0, Y=0, Z=1;
+char choice;
+	printf(&quot;Press 'i' to initiate program\nPress 'q' to quit program\n&quot;);
+	scanf(&quot;%c&quot;,&amp;choice);
+	while(choice!='q')
+	{
+		printf(&quot;Enter X&quot;);
+		scanf(&quot;%d&quot;,&amp;X);
+		printf(&quot;Enter Y&quot;);
+		scanf(&quot;%d&quot;,&amp;Y);
+
+		for(c=1; c&lt;=Y; c++)
+		{
+			Z=Z*X;
+		}//end for
+		printf(&quot;%d&quot;,&amp;Z);
+		printf(&quot;Press 'i' to initiate program\nPress 'q' to quit program\n&quot;);
+	    scanf(&quot;%c&quot;,&amp;choice);
+	}//end while
+	getchar();
+	return 0;
+}//end main</B></FONT>
+</PRE>
+</BODY>
+</HTML>

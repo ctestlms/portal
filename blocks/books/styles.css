@@ -1,0 +1,9 @@
+.block_books .content {text-align:left;padding-top:5px;}
+.block_books .content .list li.listentry {clear:both;}
+.block_books .content .list li.listentry .user {float:left;position:relative;}
+.block_books .content .list li.listentry .message {float:right;}
+.block_books .content .info {text-align:center;}
+.block_books .content .footer {clear:both;}
+
+.dir-rtl .block_books .content .list li.listentry .user {float:right;}
+.dir-rtl .block_books .content .list li.listentry .message {float:left;}

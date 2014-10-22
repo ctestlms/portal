@@ -1,0 +1,11 @@
+--- attendances.php	2012-10-08 15:57:56.358751424 +0500
++++ attendances.php	2012-10-08 16:01:29.339757129 +0500
+@@ -173,7 +173,7 @@
+ 				JOIN {$CFG->prefix}role_assignments ra ON ra.userid=u.id
+ 				JOIN {$CFG->prefix}role r ON ra.roleid = r.id
+ 				JOIN {$CFG->prefix}context c ON ra.contextid = c.id
+-				where r.name = 'Student' and
++				where  (u.defaulter = 0 or defaulter is NULL) and r.name = 'Student' and
+ 				c.contextlevel = 50 and
+ 				c.instanceid = {$course->id} order by u.{$sort}";
+ 	

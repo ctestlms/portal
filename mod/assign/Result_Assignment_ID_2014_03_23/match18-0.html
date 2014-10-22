@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad_Mukarram_lab5.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad_Mukarram_lab5.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;stdio.h&gt;
+
+#include&lt;conio.h&gt;
+
+float main()
+
+{
+
+      //introducing variables
+
+        float fahrenheit=0;
+        float celsius=0;
+<A NAME="0"></A>        float pound=0;
+        float kilo=0;
+        float USD=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        float PKR=0;
+        float kelvin=0;
+        float celsius2=0;
+        float mile=0;
+        float km=0;
+        float inch=0;
+        float cm=0;
+
+
+
+
+
+char choice = 'i';
+
+while (choice!='e')
+
+{	//menu for converting diffirent variables
+	printf(&quot;press T for Temprature(celcius to fahrenheit\n&quot;);
+	printf(&quot;press W for Weight\n&quot;);
+	printf(&quot;press C for Currecny K \n&quot;);
+	printf(&quot;press K for temperature(kelvin to celsius)\n&quot;);
+	printf(&quot;press A for area\n&quot;);
+	printf(&quot;press V for volume\n&quot;);
+
+  scanf(&quot; %c&quot;, &amp;choice);
+
+  switch(choice)
+
+{
+   //coverting variables
+
+    //coverting temperature from celsius to kalvin   
+        case'T':
+
+           printf(&quot;Please enter a value of temperature in celsius\n&quot;);
+
+              scanf(&quot;%f&quot;,&amp;celsius);
+
+                   fahrenheit=(1.8*celsius)+32;
+
+                        printf(&quot;Value in Fahrenheit=%f \n&quot;,fahrenheit);
+
+
+
+                                             break;
+
+//converting weight in pounds to kilogram
+      case'W':
+
+         printf(&quot;please enter a value of weight in pounds\n&quot;);
+
+             scanf(&quot;%f&quot;,&amp;pound);
+
+                kilo=2.204*pound;
+
+                        printf(&quot;Value in Kilo=%f \n&quot;,kilo);
+
+
+                                      break;
+
+ //converting currency from PKR to USD
+      case'C':
+
+           printf(&quot;please enter a value of currency in PKR\n&quot;);
+
+               scanf(&quot;%f&quot;,&amp;PKR);
+
+                     USD=99*PKR;
+
+                          printf(&quot;Value in USD=%f\n&quot;,USD);
+
+                                    break;
+//converting temperature in kelvin to celsius
+       case'K':
+ 
+             printf(&quot;please enter your value of temperature in Kelvin\n&quot;);
+
+                scanf(&quot;%f&quot;,&amp;kelvin);
+
+                    celsius=kelvin-273.15;
+
+                        printf(&quot;celcius=%f\n&quot;,celsius);
+
+                                  break;
+
+//converting Area from mile to km2
+    case'A':</B></FONT>
+
+       printf(&quot;please enter your value of area in mile\n&quot;);
+
+            scanf(&quot;%f&quot;,&amp;mile);
+
+                km=mile/1.6;
+
+                    printf(&quot;km=%f&quot;,km);
+
+                            break;
+
+//converting volume in inch3 to cm3
+    case'V':
+
+        printf(&quot;please enter your value of volume in inch(cube)&quot;);
+
+            scanf(&quot;%f&quot;,&amp;inch);
+
+                cm=0.061*inch;
+
+                    printf(&quot;cm(cube)=%f&quot;,cm);
+
+                            break;
+
+
+    default:
+
+       printf(&quot;Wrong input =%c\n&quot;,choice);
+ }
+}
+
+  getche();
+  return 0;
+  }
+</PRE>
+</BODY>
+</HTML>

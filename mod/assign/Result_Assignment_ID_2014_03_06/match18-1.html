@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Mirza Taimoor_Baig_Finalised.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Mirza Taimoor_Baig_Finalised.cpp</CENTER></H3><HR>
+<PRE>
+//Discussed with Danish Ahmed
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+void printgrid(int row, int colmn,char **grid);
+void fillgrid(FILE*ptr,int row,int colmn, char **grid);
+int gridchecker(int row,int colmn,int a,int b,char **grid);
+
+void printgrid(int row,int colmn,char **grid);
+void printgrid1(int row, int colmn,int **grid1);
+
+void delGrid (char **grid, int row, int colmn);
+void delGrid (char **tempgrid,int row,int colmn);
+
+int main(void)
+{
+int row;
+int colmn;
+int free='\n';
+int a=0;
+int b=0;
+char temp='\n';
+char name[40];
+
+FILE *ptr;
+printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies&quot;);
+printf(&quot;\nGrid input file name?&quot;);
+gets(name);
+
+
+ptr=fopen(name,&quot;r&quot;);
+fscanf(ptr,&quot;%d&quot;,&amp;row);
+fscanf(ptr,&quot;%d&quot;,&amp;colmn);
+<A NAME="0"></A>
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char** grid = (char**) malloc(sizeof(char*) * row);
+    for (int i = 0; i &lt; row; i++)
+    {
+<A NAME="1"></A>        grid[i] = (char*) malloc(sizeof(char) * colmn);
+    }</B></FONT>
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int** grid1 = (int**) malloc(sizeof(int*) * row);
+    for (int i = 0; i &lt; row; i++)
+    {
+        grid1[i] = (int*) malloc(sizeof(int) * colmn);
+    }</B></FONT>
+
+ for (int i = 0; i &lt; row; i++)
+     {
+       
+         for (int j = 0; j &lt; colmn; j++)
+         {
+            fscanf(ptr,&quot;%c&quot;,&amp;grid[i][j]);
+            if(grid[i][j]=='\n' || grid[i][j]== '\r')
+            j--;  
+         }
+       
+    }
+<A NAME="5"></A> char k='t';
+
+while(k=='t'){
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#5',2,'match18-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> for(int a=0;a&lt;row;a++)
+{
+    for(int b=0;b&lt;colmn;b++)
+    {
+     grid1[a][b]=gridchecker(row,colmn,a,b,grid);
+    }
+}
+
+printgrid(row,colmn,grid);
+
+fflush(stdin);
+printf(&quot;t)ick, q)uit?&quot;);
+scanf(&quot;%c&quot;,&amp;k);
+getchar();
+
+ for(int a=0;a&lt;row;a++)
+{
+    for(int b=0;b&lt;colmn;b++)
+    {
+     switch(grid1[a][b])
+     {
+     case 0:</B></FONT>
+         grid[a][b]='-';
+         break;
+     case 1:
+          grid[a][b]='-';
+         break;
+     case 2:
+         break;
+     case 3:
+          grid[a][b]='X';
+          break;
+     case 4:
+          grid[a][b]='-';
+          break;
+     default:
+          grid[a][b]='-';
+          break;
+
+
+     }
+   
+    }
+}
+
+}
+
+}
+<A NAME="4"></A>
+void printgrid(int row, int colmn,char **grid)
+{
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#4',2,'match18-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for(int i=0;i&lt;row;i++)
+    {
+        for(int j=0;j&lt;colmn;j++)
+        {
+            printf(&quot;%c&quot;,grid[i][j]);
+        }
+        printf(&quot;\n&quot;);
+    }</B></FONT>
+
+}
+<A NAME="6"></A>
+void printgrid1(int row, int colmn,int **grid)
+{
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#6',2,'match18-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for(int i=0;i&lt;row;i++)
+    {
+        for(int j=0;j&lt;colmn;j++)
+        {
+            printf(&quot;%d&quot;,grid[i][j]);
+        }
+        printf(&quot;\n&quot;);
+    }</B></FONT>
+
+}
+<A NAME="3"></A>
+
+
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void delGrid(char** grid, int rows, int cols)
+{
+    for (int i = 0; i &lt; rows; i++)
+    {
+        delete grid[i];
+    }
+        delete grid;
+}</B></FONT>
+<A NAME="2"></A>
+
+int gridchecker(int row,int colmn,int a,int b,char **grid)
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+ int counter=0;
+
+    for(int i=-1;i&lt;=1;i++)
+    {
+        if(a+i&gt;=0  &amp;&amp; a+i&lt;row)
+        {
+            for(int j=-1;j&lt;=1;j++)
+            {
+                if(b+j&gt;=0 &amp;&amp; b+j&lt;colmn)
+                {
+                    if(i==0 &amp;&amp; j==0)
+                        continue;
+                    {
+                        if(grid[a+i][b+j] == 'X')
+                            counter++;
+                    }
+                }
+            }
+        }
+    }
+
+return counter;
+               
+
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,81 @@
+--- locallib.php	2012-09-25 09:30:01.000000000 +0500
++++ locallib.php	2012-09-25 09:37:57.000000000 +0500
+@@ -22,7 +22,7 @@ function get_lecture_sessions( $course,$
+ {
+         global $CFG, $DB;
+         $endtime =strtotime(date("Y-m-d", $endtime) . " +1 days");
+-	$sql="select count(*) from {attendance_sessions} where courseid=$course->id and lasttaken IS NOT NULL and description IN(1,4) and sessdate >=$course->startdate and sessdate<=$endtime";
++	$sql="select count(*) from {attendance_sessions} where courseid=$course->id and lasttaken IS NOT NULL and description IN(1,4,5,6) and sessdate >=$course->startdate and sessdate<=$endtime";
+         $sessions=$DB->count_records_sql($sql,array());
+         return $sessions;
+ 
+@@ -221,6 +221,10 @@ function get_grade($userid, $course)
+ 				$result += $stat_grades[$log->statusid];
+ 			if($log->description == "4")
+ 				$result += $stat_grades[$log->statusid]*1.5;
++			if($log->description=="5")
++				$result += $stat_grades[$log->statusid]*2;
++			if($log->description == "6")
++				$result += $stat_grades[$log->statusid]*3;
+ 		}
+ 		
+ 		if(isset($course->attendance_margin)){
+@@ -234,6 +238,10 @@ function get_grade($userid, $course)
+ 					$result += 1;
+ 				if($log->description == "4")
+ 					$result += 1.5;
++				if($log->description=="5")
++					$result += 2;
++				if($log->description == "6")
++					$result += 3;
+ 				$margin--;
+ 			}
+ 		}
+@@ -263,6 +271,10 @@ function get_grade_bydate($userid, $cour
+ 				$result += $stat_grades[$log->statusid];
+ 			if($log->description=="4")
+ 				$result += $stat_grades[$log->statusid]*1.5;
++			if($log->description=="5")
++			$result += $stat_grades[$log->statusid]*2;
++			if($log->description=="6")
++			$result += $stat_grades[$log->statusid]*3;
+ 		}
+ 	}
+ 
+@@ -353,6 +365,10 @@ function get_maxgrade_bydate($userid, $c
+ 				$maxgrade += max($grades);
+ 			if($log->description=="4")
+ 				$maxgrade += 1.5;
++			if($log->description=="5")
++			$maxgrade += 2;
++			if($log->description=="6")
++			$maxgrade += 3;
+ 		}
+ 	}
+         //echo $qry."<br>";
+@@ -603,6 +619,12 @@ function get_description($description, $
+     		case "4":
+     			return "90M-Class";
+     			break;
++    		case "5":
++				return "2H-Class";
++				break;
++			case "6":
++				return "3H-Class";
++				break;
+     	}
+     }else{
+         if($description == "1"){
+@@ -613,7 +635,11 @@ function get_description($description, $
+             return get_string('threehourslab1','attforblock');
+         }elseif($description == "4"){
+             return get_string('ninety_minsclass1','attforblock');
+-        }else{
++        }elseif($description == "5"){
++			return get_string('twohoursclass','attforblock');
++		}elseif($description == "6"){
++			return get_string('threehoursclass','attforblock');
++		}else{
+             return $description;
+         }
+     }

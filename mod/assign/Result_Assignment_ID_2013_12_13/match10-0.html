@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Zohaib Shabir_Saeedi_zohaib shabir saeedi (832) MTS-34-A.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Zohaib Shabir_Saeedi_zohaib shabir saeedi (832) MTS-34-A.cpp</CENTER></H3><HR>
+<PRE>
+//  zohaib shabir saeedi (832)
+// MTS-34-A
+/*Queue - Linked List implementation*/
+#include&lt;iostream&gt;
+using namespace std;
+class Node
+{
+private:
+int data;
+ Node* next;
+ Node* front ;
+ Node* rear ;
+public:
+
+
+ Node()
+ {
+	  front = NULL;
+	 rear = NULL;
+
+ }
+ 
+// To Enqueue an integer
+void Enqueue(int x)
+{
+	
+	
+ Node* temp =new Node();
+temp-&gt;data =x;
+temp-&gt;next = NULL;
+if(front == NULL &amp;&amp; rear == NULL){
+front = rear = temp;
+return;
+}
+	
+rear-&gt;next = temp;
+rear = temp;
+	
+
+}
+ 
+<A NAME="0"></A>// To Dequeue an integer.
+void Dequeue() {
+ Node* temp = front;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(front == NULL) {
+cout&lt;&lt;&quot;Queue is Empty\n&quot;&lt;&lt;endl;
+
+}
+else if(front == rear) {
+front = rear = NULL;
+}
+else {
+front = front-&gt;next;</B></FONT>
+}
+free(temp);
+}
+ 
+int Front() 
+
+{
+
+	if(front == NULL)
+	{
+	cout&lt;&lt;&quot;Queue is empty\n&quot;&lt;&lt;endl;
+
+	}
+	else
+	return front-&gt;data;
+}
+ 
+void Print()
+{
+	 Node* temp = front;
+	while(temp != NULL)
+	{
+		printf(&quot;%d &quot;,temp-&gt;data);
+		temp = temp-&gt;next;
+	}
+	cout&lt;&lt;&quot;\n&quot;;
+}
+ 
+};
+int main()
+
+{
+	
+
+
+	Node n;
+abc:
+	cout&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	cout&lt;&lt;endl;
+	int a;
+	cout&lt;&lt;&quot;1.Enqueue&quot;&lt;&lt;endl;
+	cout&lt;&lt;&quot;2.Dequeue&quot;&lt;&lt;endl;
+	
+	cin&gt;&gt;a;
+
+
+	if(a==1)
+		{
+			int put;
+			cout&lt;&lt;&quot;please enter the number you want to enqueue: &quot;;
+			cin&gt;&gt;put;
+			n.Enqueue(put); 
+			cout&lt;&lt;endl;cout&lt;&lt;endl;
+			cout&lt;&lt;&quot;your new queue is: &quot;&lt;&lt;endl;
+			n.Print();
+		}
+	else if(a==2)
+		{
+			n.Dequeue();
+			cout&lt;&lt;endl;
+			cout&lt;&lt;endl;
+			cout&lt;&lt;&quot;your new queue is: &quot;&lt;&lt;endl;
+			n.Print();
+		} 
+	
+	else 
+		cout&lt;&lt;&quot;you have put wrong number&quot;&lt;&lt;endl;
+
+	goto abc;
+system(&quot;pause&quot;);
+return 0;
+}
+</PRE>
+</BODY>
+</HTML>

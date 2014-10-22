@@ -1,0 +1,323 @@
+<?php
+
+//  Lists all the users within a given course
+
+    require_once('../../config.php');
+    require_once($CFG->libdir.'/tablelib.php');
+    require_once($CFG->libdir.'/filelib.php');
+    require('../../mod/attforblock/tcpdf/config/lang/eng.php');
+require('../../mod/attforblock/tcpdf/tcpdf.php');
+    global $DB,$PAGE;
+    define('USER_SMALL_CLASS', 20);   // Below this is considered small
+    define('USER_LARGE_CLASS', 200);  // Above this is considered large
+    define('DEFAULT_PAGE_SIZE', 20);
+    define('SHOW_ALL_PAGE_SIZE', 5000);
+
+   $degreeid    = optional_param('degreeid', 9, PARAM_INT);  // this are required
+
+   $download = optional_param('download', '', PARAM_ALPHA);
+   
+   $export = optional_param('export', false, PARAM_BOOL);
+   
+    $PAGE->set_url('/blocks/student_resource_center/strength_report.php', array(
+        
+            'degreeid' => $degreeid));
+
+    global $USER;
+    $contextex = get_context_instance (CONTEXT_SYSTEM);
+    
+   // print_object($contextex);
+    require_login($contextex);
+
+    $sql1 = "SELECT * FROM {course_categories}  WHERE path LIKE  '/%/%/%'
+    AND path NOT LIKE  '/%/%/%/%'";
+    $degrees = $DB->get_records_sql($sql1);
+   
+  //  $sql1 = "SELECT * FROM {cohort} WHERE id=".$cohortid;
+    //$coho = $DB->get_record_sql($sql1);
+   
+ //   $systemcontext = context_system::instance();
+ 
+$PAGE->set_context(context_system::instance());
+    $PAGE->set_title("Student Strength Report");
+$PAGE->set_context(context_system::instance());
+$PAGE->set_pagelayout('admin');
+$PAGE->set_heading("Student Strength Report");
+//$PAGE->navbar->add(get_string('myhome', 'block_student_resource_center'),new moodle_url('/my/'));
+$PAGE->navbar->add("Student Strength Report",new moodle_url('/blocks/student_resource_center/strength_report.php'));
+
+    echo $OUTPUT->header();
+    echo $OUTPUT->box_start();
+    echo '<div class="classlist">';
+
+  
+  
+    // Should use this variable so that we don't break stuff every time a variable is added or changed.
+    $baseurl = new moodle_url('/blocks/student_resource_center/strength_report.php');
+
+
+
+
+/// Print settings and things in a table across the top
+    $controlstable = new html_table();
+    $controlstable->attributes['class'] = 'controls';
+    $controlstable->cellspacing = 0;
+    $controlstable->data[] = new html_table_row();
+
+
+
+  //  $popupurl2 = new moodle_url('/blocks/student_resource_center/student_new_reg_1.php?sifirst=&silast=');
+        $selecting = array();
+        foreach($degrees AS $degree)
+        {
+     $selecting[$degree->id] = $degree->name; 
+         }
+         
+        // print_object($degrees);
+ 
+ 
+    $select = new single_select($baseurl, 'degreeid', $selecting, $degreeid, array(''=>'choosedots'), 'degreeid');
+      $select->set_label("Cohorts");
+    $cohortlistcell = new html_table_cell();
+    $cohortlistcell->text = $OUTPUT->render($select);
+    $controlstable->data[0]->cells[] = $cohortlistcell;
+ echo html_writer::table($controlstable);
+ 
+    //_______________________________________________________________________________________________________________________________
+   //__________________________________________________________________________________________________________________________________
+   echo '<div style="text-align: left; padding-left: 20px; margin: 5px 0;">
+<form method="post" style="display: inline; margin: 0; padding: 0;">';
+echo "<b>Download:</b>";
+        echo "<select name='downloadType'>";
+        echo '<option value="pdf">Download in pdf Format </option>';
+        echo '<option value="Excel">Download in Excel Format </option>';
+        echo '</select>';
+      //   echo '<input type="hidden" name="catg" value="' . $schoolid . '" />';
+        echo '<input type="hidden" name="export" value="true" />
+            <input name="download" type="submit" value="Download" />
+        
+						</form>';
+  echo $download;
+  
+    $tablecolumns[] = 'Class';
+    $tableheaders[] = "Class";
+        
+    $tablecolumns[] = 'Open Merit';
+    $tableheaders[] = 'Open Merit';
+        
+    $tablecolumns[] = 'SAT(NAT)';
+   $tableheaders[] = 'SAT(NAT)';
+        
+        
+    $tablecolumns[] = 'SAT(Intl)';
+    $tableheaders[] = 'SAT(Intl)';
+        
+  
+  
+       // print_object($tablecolumns);
+    $table = new flexible_table('user-index-participants-');
+//    $table->is_downloading($download, 'test',
+  //                  'testing123');
+    $table->define_columns($tablecolumns);
+    $table->define_headers($tableheaders);
+    $table->define_baseurl($baseurl->out());
+
+ 
+
+    $table->set_attribute('align', 'center');
+    $table->set_attribute('cellspacing', '0');
+    $table->set_attribute('id', 'participants');
+    $table->set_attribute('class', 'generaltable generalbox');
+
+    $table->set_control_variables(array(
+                TABLE_VAR_SORT    => 'ssort',
+                TABLE_VAR_HIDE    => 'shide',
+                TABLE_VAR_SHOW    => 'sshow',
+                TABLE_VAR_IFIRST  => 'sifirst',
+                TABLE_VAR_ILAST   => 'silast',
+                TABLE_VAR_PAGE    => 'spage'
+                ));
+    $table->setup();
+
+    $sql2 = "SELECT name FROM {course_categories} WHERE parent=".$degreeid;
+    // list of users at the current visible page - paging makes it relatively short
+    $classlist = $DB->get_records_sql($sql2);
+
+        if ($classlist)  {
+ foreach($classlist as $class)
+ {
+
+    
+  $openmerit_count = $DB->count_records('regform', array('subgroup' => $class->name , 'admissiontype' =>  'Open Merit'));
+  $nat_count = $DB->count_records('regform', array('subgroup' => $class->name , 'admissiontype' =>  'SAT(NAT)'));
+  $sat_count = $DB->count_records('regform', array('subgroup' => $class->name , 'admissiontype' =>  'SAT(Intl)'));
+  
+          $data = array($class->name,$openmerit_count,$nat_count,$sat_count);  
+
+            $table->add_data($data);
+ } 
+
+        }
+        //echo html_writer::table($table);
+         $table->print_html();
+         print_object($table);
+          echo $OUTPUT->box_end();
+    echo $OUTPUT->footer();
+  
+    
+
+    if (isset($_POST['download'])) {
+        $downloadType = $_POST['downloadType'];
+        if ($downloadType == "pdf")
+            ExportToPDF($table, "download");
+    }
+
+
+echo '</div>';
+
+
+    function ExportToPDF($data,$type) {
+    //echo "pdf";
+   
+
+    //$pdf=new PDF();
+    //Column titles
+    //$header=$data->tabhead;
+    // create new PDF document
+    set_time_limit(3000);
+    ini_set('memory_limit', '556M');
+
+    //$contents="dfhonee";
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('');
+    $pdf->SetTitle('Attendance_short_notice');
+    $pdf->SetSubject('Attendance_short_notice');
+
+    // remove default header/footer
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+
+    // set default monospaced font
+    //$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+    //set margins
+    //$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    //set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    //set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    //set some language-dependent strings
+    $pdf->setLanguageArray($l);
+
+    // ---------------------------------------------------------
+    // set font
+    $pdf->SetFont('helvetica', '', 8);
+
+    // add a page
+    $pdf->AddPage('P', 'A4');
+    ob_clean();
+  //  $htmcont = ImprovedTable($data);
+    //$pdf->writeHTML($htmcont, true, false, false, false, '');
+    //echo $htmcont;
+    // ---------------------------------------------------------
+    //Close and output PDF document
+
+   /* $pdf->writeHTMLCell(180,40,10,215 ,'<div>Hi</div>', 0, 1, false, true, '', true);
+    
+      $pdf->Cell(90,2,'__________________________',0,0,'C');
+      $pdf->Cell(90,2,'____________________________',0,1,'C');
+      $pdf->Cell(90,5,'Signature of the Applicant',0,0,'C');
+      $pdf->Cell(90,5,'Signature of Parent/Guardian',0,1,'C');
+    * 
+    */
+
+    $pdf->Output("Feedback_Report", 'D');
+
+
+//    if ($type == "email") {
+//        $pdf->Output("/moodledata/RegistrationReport_" . $batch . '.pdf', "F");
+//        $zipname = "RegistrationReport_" . $batch . '.pdf';
+//        $actual_zip = "RegistrationReport_" . $batch . '.pdf';
+//
+//        //email_to_user($usrme, get_admin(), 'Attendance Short Notice', '', 'Details',$actual_zip,$zipname, $usetrueaddress=true, $replyto='', $replytoname='', $wordwrapwidth=79);
+//        //@unlink("/moodledata/".$actual_zip);
+//    }
+    
+}
+
+//
+
+function ImprovedTable($data) {
+    global $CFG;
+   global $headings;
+
+    //echo "improe";
+    //Column widths
+    //$w=array(40,35,40,45);
+    //Header
+   $content = $content . '<table cellpadding="2" border="0"><tr><td ><img src="NUST_Logo.jpg" height="52" width="52" /> <font size="15"><b>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student Registration Report</b><br/></font></td></tr></table>';
+
+   $content = $content . '<h3 align="left">BLAH</h3>';
+
+//   $content = $content . '<table cellpadding="2" border="1"><tr>';
+   // $i = 0;
+    $content = "echo hi";
+ 
+   foreach ($data->headers as $heading) {
+        //$this->Cell($w[$i],7,$header[$i],1,0,'C');
+    
+    if ($i == 0) {
+            $content = $content . '<td width="5%"><b>' . $heading . '</b></td>';
+        } elseif ($i == 1) {
+            $content = $content . '<td width="20%"><b>' . $heading . '</b></td>';
+        } elseif ($i == 2) {
+            $content = $content . '<td width="20%"><b>' . $heading . '</b></td>';
+        } elseif ($i == 3) {
+            $content = $content . '<td width="15%"><b>' . $heading . '</b></td>';
+        } elseif ($i == 4) {
+            $content = $content . '<td width="10%"><b>' . $heading . '</b></td>';
+        } elseif ($i == 7) {
+            $content = $content . '<td width="10%"><b>' . $heading . '</b></td>';
+        }
+        $i++;
+    }
+     
+    //$this->Ln();
+    $content = $content . '</tr>';
+    //Data
+    foreach ($data->data as $row) {
+        $content = $content . '<tr>';
+        $i = 0;
+        foreach ($row as $col) {
+            if ($i == 0) {
+                $content = $content . '<td width="5%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 1) {
+                $content = $content . '<td width="20%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 2) {
+                $content = $content . '<td width="20%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 3) {
+                $content = $content . '<td width="15%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 4) {
+                $content = $content . '<td width="10%">' . strip_tags($col) . '</td>';
+            } elseif ($i == 7) {
+                $content = $content . '<td width="10%">' . strip_tags($col) . '</td>';
+            }
+            $i = $i + 1;
+        }
+ 
+      $content = $content . '</tr>';
+   }
+     * 
+     */
+   // $content = $content . '</table>';
+    //Closure line
+    //$this->Cell(array_sum($w),0,'','T');
+    //echo 'Hello';
+//    return $content;
+//}
+

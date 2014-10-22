@@ -1,0 +1,41 @@
+--- sessions.php	2012-09-24 09:35:54.000000000 +0500
++++ sessions.php	2012-09-24 09:41:09.095022889 +0500
+@@ -70,6 +70,12 @@
+ 				case 4:
+ 					$duration = 1*HOURSECS + 30*MINSECS;
+ 					break;
++				case 5:
++					$duration = 2*HOURSECS;
++					break;
++				case 6:
++					$duration =3*HOURSECS;
++					break;
+ 				default:
+ 					$duration = 50*MINSECS;
+ 					break;				
+@@ -206,6 +212,12 @@
+ 					case 4:
+ 						$att->duration = 1*HOURSECS + 30*MINSECS;
+ 						break;
++					case 5:
++						$att->duration = 2*HOURSECS;
++						break;
++					case 6:
++						$att->duration = 3*HOURSECS;
++						break;
+ 					default:
+ 						$att->duration = 50*MINSECS;
+ 						break;				
+@@ -355,6 +367,12 @@
+ 					case 4:
+ 						$sess->duration = 1*HOURSECS + 30*MINSECS;
+ 						break;
++					case 5:
++						$sess->duration = 2*HOURSECS;
++						break;
++					case 6:
++						$sess->duration = 3*HOURSECS;
++						break;
+ 					default:
+ 						$sess->duration = 50*MINSECS;
+ 						break;				

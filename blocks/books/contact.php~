@@ -1,0 +1,64 @@
+<?php
+/* Set e-mail recipient */
+require_once('../../config.php');
+
+require_once($CFG->dirroot . '/lib/formslib.php');
+
+$navlinks[] = array('name' => 'Advanced Search', 'link' => null, 'type' => 'activityinstance');
+	$navigation = build_navigation($navlinks);		
+	echo $OUTPUT->heading();
+	if(!$export)
+print_header('Advanced Search Form', 'Advanced Search Form', $navigation, '', '', true, '', user_login_string($SITE).$langmenu);
+global $USER;
+$toemail = $_SESSION['toemail'];
+$frmemail = $_SESSION['frmemail'];
+$yourname = $_POST['yourname'];
+$subject  = $_POST['subject'];
+$comments = check_input($_POST['message'], "Please write your Message");
+/* If e-mail is not valid show error message 
+if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $email))
+{
+    show_error("E-mail address not valid");
+}*/
+$message = "$comments";
+ $headers  = "From: $frmemail\r\n";
+ $headers .= "Content-type: text/html\r\n";
+/* Send the message using mail() function */
+//$user = $DB->get_record("user", array('id'=>$userid), "email");
+//email_to_user($USER, $frmemail, $subject, $message, $messagehtml='', $attachment='', $attachname='', $usetrueaddress=true, $replyto='', $replytoname='', //$wordwrapwidth=79);
+if(mail($toemail, $subject, $message, $headers)){
+
+echo "Message Sent";
+}
+else
+{
+echo "Message not send";
+}
+
+function check_input($data, $problem='')
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    if ($problem && strlen($data) == 0)
+    {
+        show_error($problem);
+    }
+    return $data;
+}
+
+function show_error($myError)
+{
+?>
+    <html>
+    <body>
+
+   
+    <?php echo $myError; ?>
+
+    </body>
+    </html>
+<?php
+exit();
+}
+?>

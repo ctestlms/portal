@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Mughees Ur_Rehman_Mughees Rehman.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Mughees Ur_Rehman_Mughees Rehman.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;stdio.h&gt;
+<A NAME="0"></A>#include&lt;conio.h&gt;
+int main()
+{
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>float Tc=0;      
+float Wk=0;     
+float Cp=0;
+float Tf=0;
+float Wp=0;
+float Cd=0;
+
+char choice = 'i';</B></FONT>
+
+do
+{
+	printf(&quot;\nEnter a Char\n  T for Temprature;\n  W for Weight;\n  C for Currecny;\n  e for exit\n  &quot;);
+	scanf(&quot;%c&quot;,&amp;choice);
+
+
+	switch(choice)
+<A NAME="1"></A>	{
+	case'e':
+		printf(&quot;Exit\n&quot;);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		break;
+	case'T':
+              printf(&quot;Enter value ofTc =&quot;);
+			  scanf(&quot;%f&quot;,&amp;Tc);
+			  Tf=((Tc*9)/5)+32;
+			  printf(&quot;Tf =%.4f&quot;,Tf);
+
+
+
+		break;
+	case'W':
+		printf(&quot;Enter value of Wk=&quot;);
+		scanf(&quot;%f&quot;,&amp;Wk);
+		Wp=2.21062*Wk;
+		printf(&quot;%.4f&quot;,Wp);
+		break;
+case'C':
+		printf(&quot;Enter value of Currency Cp=&quot;);
+		scanf(&quot;%f&quot;,&amp;Cp);
+		Cd=Cp/99;
+		printf(&quot;%.4f&quot;,Cd);
+		break;
+
+
+	default:
+		printf(&quot;Wrong input =%c\n&quot;,choice);
+
+	}
+	
+}while (choice!='e');</B></FONT>
+getch();
+
+}
+
+
+</PRE>
+</BODY>
+</HTML>

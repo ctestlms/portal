@@ -1,0 +1,913 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Client.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Client.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>package jplagTutorial;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Vector;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.security.cert.X509Certificate;
+
+import java.rmi.RemoteException;
+import com.sun.xml.rpc.client.ClientTransportException;
+import com.sun.xml.rpc.util.exception.JAXRPCExceptionBase;
+
+import javax.xml.rpc.handler.Handler;
+import javax.xml.rpc.handler.HandlerChain;
+
+import jplagTutorial.jplagClient.*;
+import jplagTutorial.util.JPlagClientAccessHandler;
+import jplagTutorial.util.ZipUtil;
+
+public class ExampleClient {
+    /*
+     * Status constants
+     */
+    public static final int JPLAG_UPLOADING = 0;
+    public static final int JPLAG_INQUEUE = 50;
+    public static final int JPLAG_PARSING = 100;
+    public static final int JPLAG_COMPARING = 200;
+    public static final int JPLAG_GENRESULT = 230;
+    public static final int JPLAG_PACKRESULT = 250;
+    public static final int JPLAG_DONE = 300;
+    public static final int JPLAG_ERROR = 400;
+    
+    /*
+     * Login data
+     */
+    private String username = null;
+    private String password = null;
+    
+    /**
+     * Options for JPlag specified by the command line
+     */
+    private Option option = new Option();
+    
+    /**
+     * Name of directory where the result pages will be stored
+     */
+    private String resultDirName = &quot;result&quot;;
+    
+    /**
+     * True, if the user wants to get a list of his submissions on the server
+     */
+    private boolean listSubmissions = false;
+    
+    /**
+     * The number of the submission to be downloaded plus 1 or 0
+     */
+    private int downloadResultNumber = 0;
+    
+    /**
+     * The number of the submission to be cancelled plus 1 or 0
+     */
+    private int cancelSubmissionNumber = 0;
+
+    /**
+     * Suffix array generated from the suffix option or the language info
+     * suffix array
+     */
+    private String[] suffixes = null;
+
+    /**
+     * Filename filter used by collectInDir()
+     */
+    private FilenameFilter subdirFileFilter = null;
+    
+    /**
+     * Current position of progress bar
+     */
+    private int progressPos;
+    
+    /**
+     * Maximum position of progress bar
+     */
+    private int progressMax;
+    
+    /**
+     * The stub for the JPlag Web Service
+     */
+    private JPlagTyp_Stub stub = null;
+    
+    /**
+     * Helper function to easily evaluate web service related exceptions
+     * @param e Exception thrown by a stub method
+     */
+    public static void checkException(Exception e) {
+        if(e instanceof JPlagException) {
+            JPlagException je = (JPlagException) e;
+            System.out.println(&quot;JPlagException: &quot; + je.getDescription()
+                + &quot;\n&quot; + je.getRepair());
+        }
+        else if(e instanceof RemoteException) {
+            RemoteException re = (RemoteException) e;
+            Throwable cause = re.getCause();
+            if(cause != null &amp;&amp; cause instanceof ClientTransportException) {
+                cause = ((JAXRPCExceptionBase) cause).getLinkedException();
+                if(cause != null) {
+                    System.out.println(&quot;Connection exception: &quot;
+                        + cause.getMessage());
+                    return;
+                }
+            }
+            System.out.println(&quot;Unexpected RemoteException: &quot;
+                + re.getMessage());
+            re.printStackTrace();
+        }
+        else {
+            System.out.println(&quot;Unexpected Exception: &quot; + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Initializes the JPlag stub, by installing an all-trusting trust manager
+     * for the SSL connection to the server, instantiating a stub object and
+     * setting username and password
+     * @return True, if username and password have been set
+     */
+    private boolean initJPlagStub() {
+        /*
+         * Create a trust manager that does not validate certificate chains
+         */
+        TrustManager[] trustAllCerts = new TrustManager[] {
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs,
+                        String authType) {}
+                public void checkServerTrusted(X509Certificate[] certs,
+                        String authType) {}
+            }
+        };
+        
+        /*
+         * Install the all-trusting trust manager
+         */
+        try {
+            SSLContext sc = SSLContext.getInstance(&quot;SSL&quot;);
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
+            System.out.println(&quot;Warning: Unable to install all-trusting trust &quot;
+                + &quot;manager! SSL connection may not work!&quot;);
+        }
+        
+        /*
+         * Get JPlag client stub 
+         */
+        stub = (JPlagTyp_Stub) (new JPlagService_Impl()
+                .getJPlagServicePort());
+                
+        /*
+         * Search for the JPlagClientAccessHandler in the handler chain
+         */
+        HandlerChain handlerchain = stub._getHandlerChain();
+        Iterator handlers = handlerchain.iterator();
+        JPlagClientAccessHandler accessHandler = null;
+        while(handlers.hasNext()) {
+            Handler handler = (Handler) handlers.next();
+            if(handler instanceof JPlagClientAccessHandler) {
+                accessHandler = (JPlagClientAccessHandler)handler;
+                break;
+            }
+        }
+        
+        if(accessHandler == null) {
+            System.out.println(&quot;Unable to find access handler! Cannot set &quot;
+                + &quot;username and password!&quot;);
+            return false;
+        }
+        
+        /*
+         * Initialize access handler
+         */
+        accessHandler.setUserPassObjects(username, password);
+        
+        return true;
+    }
+
+    /**
+     * Accepts directories and files with one of the given suffixes
+     */
+    private class RecursiveFilenameFilter implements FilenameFilter {
+        public boolean accept(File dir, String name) {
+            if(new File(dir, name).isDirectory()) return true;
+            
+            for(int i=0; i&lt;suffixes.length; i++) {
+                if(name.endsWith(suffixes[i]))
+                    return true;
+            }
+            return false;
+        }
+    }
+    
+    /**
+     * Only accepts files with one of the given suffixes
+     */
+    private class NonRecursiveFilenameFilter implements FilenameFilter {
+        public boolean accept(@SuppressWarnings(&quot;unused&quot;) File dir,
+                String name)
+        {
+            for(int i=0; i&lt;suffixes.length; i++) {
+                if(name.endsWith(suffixes[i]))
+                    return true;
+            }
+            return false;
+        }
+    }
+        
+    /**
+     * Collects all valid files inside a directory. If subdirFileFilter also
+     * accepts directories, subdirectories are included in the search
+     * @param colfiles Vector receiving the found files
+     * @param dir The directory which will be searched
+     */
+    private void collectInDir(Vector&lt;File&gt; colfiles, File dir) {
+        if(!dir.exists()) return;
+        
+        File[] files = dir.listFiles(subdirFileFilter);
+        
+        for(int i=0; i&lt;files.length; i++) {
+            if(files[i].isDirectory()) {
+                collectInDir(colfiles, files[i]);
+            }
+            else colfiles.add(files[i]);
+        }
+    }
+    
+    /**
+     * Collects all valid files according to the set options
+     * @return A Vector object of all valid files
+     */
+    private Vector&lt;File&gt; collectFiles() {
+        Vector&lt;File&gt; colfiles = new Vector&lt;File&gt;();
+        
+        File[] files = new File(option.getOriginalDir()).listFiles(
+            new RecursiveFilenameFilter());
+        
+        if(files == null) {
+            System.out.println(&quot;\&quot;&quot; + option.getOriginalDir()
+                + &quot;\&quot; is not a directory or an I/O error occurred!&quot;);
+            return null;
+        }
+        
+        if(option.isReadSubdirs())
+            subdirFileFilter = new RecursiveFilenameFilter();
+        else
+            subdirFileFilter = new NonRecursiveFilenameFilter();
+        
+        for(int i=0; i&lt;files.length; i++) {
+            if(files[i].isDirectory()) {
+                if(option.getPathToFiles()!=null)
+                    collectInDir(colfiles, new File(files[i],
+                        option.getPathToFiles()));
+                else
+                    collectInDir(colfiles, files[i]);
+            }
+            else colfiles.add(files[i]);
+        }
+        
+        if(colfiles.size() &lt;= 1) {
+            System.out.println(&quot;\&quot;&quot; + option.getOriginalDir()
+                + &quot;\&quot; didn't contain at least two files\n&quot;
+                + &quot;suitable for the specified options!&quot;);
+            return null;
+        }
+        return colfiles;
+    }
+    
+    /**
+     * Creates a temporary zip file containing all files specified by the Option
+     * object and sends it to the server in 80 kB parts
+     * @return The submissionID string or null, if there was an error
+     */
+    private String sendSubmission() {
+        Vector&lt;File&gt; submissionFiles = collectFiles();
+        if(submissionFiles == null) return null;
+        
+        File zipfile = null;
+        FileInputStream input = null;
+        String submissionID = null;
+        
+        try {
+            zipfile = File.createTempFile(&quot;jplagtmp&quot;,&quot;.zip&quot;);
+            ZipUtil.zipFilesTo(submissionFiles, option.getOriginalDir(),
+                zipfile);
+
+            input = new FileInputStream(zipfile);
+            
+            int filesize = (int) zipfile.length();
+            int sentsize = 0;
+            int partsize = (filesize&lt;81920) ? filesize : 81920;
+            
+            byte[] data = new byte[partsize];
+            input.read</B></FONT>(data);
+<A NAME="1"></A>            
+            initProgressBar(filesize);
+            
+            StartSubmissionUploadParams <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>params =
+                new StartSubmissionUploadParams(option, filesize, data);
+            
+            submissionID = stub.startSubmissionUpload(params);
+            
+            sentsize += partsize;
+            while(sentsize&lt;filesize-partsize) {
+                setProgressBarValue(sentsize);
+                input.read</B></FONT>(data);
+                stub.continueSubmissionUpload(data);
+                sentsize += partsize;
+            }
+            if(sentsize!=filesize) {   // transfer last part
+                setProgressBarValue(sentsize);
+                data = new byte[filesize-sentsize];
+                input.read(data);
+                stub.continueSubmissionUpload(data);
+<A NAME="2"></A>                sentsize = filesize;
+            }
+            setProgressBarValue(sentsize);
+            input.<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>close();
+            zipfile.delete();
+        }
+        catch(Exception e) {
+            System.out.println();
+            checkException(e);
+            if(input != null) {
+                try { input.close(); } catch(Exception ex) {}
+            }
+            if(zipfile != null) zipfile.delete();
+            return null;
+        }
+        return submissionID;
+    }
+    
+    /**
+     * Retrieves the status of the given submission
+     * @param submissionID submission ID identifying the submission
+     * @return The according status object or null on error
+     */
+    private Status getStatus(String submissionID) {
+        Status status;
+        try {
+            status = stub.getStatus(submissionID);
+        }
+        catch(Exception e) {
+            checkException(e);
+            return null;
+        }
+        return status;
+    }
+    
+    /**
+     * Waits until either the submission has been finished or an error occurred
+     * @param submissionID String identifying the submission
+     * @return True, if the submission has been completed successfully
+     */
+    private boolean waitForResult(String submissionID) {
+        Status status;
+        try {
+            while(true) {
+                status = stub.getStatus(submissionID);
+                
+                /*
+                 * Here you could print out more details about the status of
+                 * the submission, but it's left out here... 
+                 */
+<A NAME="3"></A>                
+                if(status.getState() &gt;= JPLAG_DONE) break;</B></FONT>
+                Thread.sleep(10000);    // wait 10 seconds
+                System.out.<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#3',2,'match0-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>print(&quot;.&quot;);  // tell user something's happening
+            }
+            if(status.getState() &gt;= JPLAG_ERROR) {
+                /*
+                 * An error occurred: Print out error message and acknowledge
+                 * error by cancelling the submission
+                 */
+                System.out.println(&quot;\nSome error occurred: &quot;
+                    + status.getReport());
+                stub.cancelSubmission(submissionID);
+                return false;
+            }
+        }
+        catch(Exception e) {
+            checkException(e);
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Downloads and unzips the result
+     * @param submissionID The submission id String
+     * @return True on success
+     */
+    private boolean receiveResult(String submissionID) {
+        File zipfile = null;
+        FileOutputStream output = null;
+        
+        try {
+            File resultDir = new File(resultDirName);
+            if(!resultDir.exists()) resultDir.mkdirs();
+            zipfile = File.createTempFile(&quot;jplagtmpresult&quot;,&quot;.zip&quot;);
+            
+            output = new FileOutputStream(zipfile);
+
+            StartResultDownloadData srdd = stub.startResultDownload(
+                submissionID);
+
+            int filesize = srdd.getFilesize();
+            int loadedsize = srdd.getData().length;
+
+            initProgressBar(srdd.getFilesize</B></FONT>());
+            output.write(srdd.getData());
+            setProgressBarValue(loadedsize);
+            
+            while(loadedsize&lt;filesize) {
+                byte[] data = stub.continueResultDownload(0);
+<A NAME="4"></A>                output.write(data);
+                loadedsize += data.length;
+                setProgressBarValue(loadedsize);
+            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#4',2,'match0-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            output.close();
+            
+            /*
+             * Unzip result archive and delete the zip file
+             */
+            
+            ZipUtil.unzip(zipfile, resultDir);
+            zipfile.delete();
+        }
+        catch(Exception e) {
+            if(output != null) {
+                try { output.close(); } catch(Exception ex) {}
+            }
+            if(zipfile != null) zipfile.delete();
+            checkException(e);
+            return false;
+        }            
+            
+        return true;
+    }
+    
+    /**
+     * Cancels the submission identified by submissionID
+     * @param submissionID The submission id string
+     * @return True on success
+     */
+    private boolean cancelSubmission(String submissionID) {
+        try {
+            stub.cancelSubmission(submissionID);
+        }
+        catch(Exception e) {
+            checkException(e);
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Checks the current options for validity using the information provided
+     * by the ServerInfo object and fills remaining empty fields with defaults.
+     * If &quot;-l ?&quot; or &quot;-cl ?&quot; is used, a list of valid languages respectively
+     * country languages is printed and false is returned.
+     * @param info ServerInfo object
+     * @return True, if all options are legal
+     */
+    private boolean checkOptions(ServerInfo info) {
+        LanguageInfo[] languages = info.getLanguageInfos();
+        String[] countryLangs = info.getCountryLanguages();
+        int i;
+        
+        if(option.getLanguage() == null) {
+            i = 0;
+            option.setLanguage(languages[0].getName());
+            System.out.println(&quot;Using default language: &quot;
+                + languages[0].getName());
+        }
+        else {
+            for(i=0; i&lt;languages.length; i++) {
+                if(option.getLanguage().equals(languages[i].getName())) break;
+            }
+            if(i==languages.length) {
+                if(!option.getLanguage().equals(&quot;?&quot;))
+                    System.out.println(&quot;Unknown language: \&quot;&quot;
+                        + option.getLanguage() + &quot;\&quot;&quot;);
+                System.out.println(&quot;\nAvailable languages:&quot;);
+                for(i=0; i&lt;languages.length; i++) {
+                    System.out.println(&quot; - \&quot;&quot; + languages[i].getName()
+                        + &quot;\&quot;&quot; + (i==0 ? &quot; (default language)\n&quot; : &quot;\n&quot;)
+                        + &quot;   default minimum match length = &quot;
+                        + languages[i].getDefMinMatchLen()
+                        + &quot;\n   default suffixes: &quot;
+                        + arrayToString(languages[i].getSuffixes()));
+                }
+                return false;
+            }
+        }
+<A NAME="5"></A>        if(suffixes == null) {
+            suffixes =</B></FONT> languages[i].getSuffixes();
+            System.out.println(&quot;Using default suffixes: &quot;
+                + <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#5',2,'match0-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>arrayToString(suffixes));
+        }
+        
+        if(option.getTitle() == null) 
+            option.setTitle(&quot;submission-&quot;
+                + new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(new Date()));
+        
+        if(option.getCountryLang() == null)
+            option.setCountryLang(&quot;en&quot;);
+        else {
+            for(i=0; i&lt;countryLangs.length; i++) {
+                if(option.getCountryLang().equals(countryLangs[i])) break;
+            }
+            if(i==countryLangs.length) {
+                if(!option.getCountryLang().equals(&quot;?&quot;))
+                    System.out.println(&quot;Unknown country language: \&quot;&quot;
+                        + option.getCountryLang() + &quot;\&quot;&quot;);
+                System.out.println(&quot;\nAvailable country languages:&quot;);
+                for(i=0; i&lt;countryLangs.length; i++) {
+                    System.out.println(&quot; - \&quot;&quot; + countryLangs[i]
+                        + (i==0 ? &quot;\&quot; (default)&quot; : &quot;\&quot;&quot;));
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Parses the arguments and sets the appropriate attributes
+     * @param args Array of argument strings
+     * @return True, if no error was noticed like missing login data
+     */
+    private boolean parseArguments(String[] args) {
+        boolean requestDetails = false;
+        for(int i=0; i&lt;args.length; i++) {
+            if(args[i].equals(&quot;-user&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                username = args[i];
+            }
+            else if(args[i].equals(&quot;-pass&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                password = args[i];
+            }
+            else if(args[i].equals(&quot;-l&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                option.setLanguage(args[i]);
+                if(args[i].equals(&quot;?&quot;)) requestDetails = true;
+            }
+            else if(args[i].equals(&quot;-cl&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                option.setCountryLang(args[i]);
+                if(args[i].equals(&quot;?&quot;)) requestDetails = true;
+            }
+            else if(args[i].equals(&quot;-s&quot;)) {
+                option.setReadSubdirs(true);
+            }
+            else if(args[i].equals(&quot;-S&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                option.setPathToFiles(args[i]);
+            }
+            else if(args[i].equals(&quot;-p&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                suffixes = args[i].split(&quot;,&quot;);
+                option.setSuffixes(suffixes);
+            }
+            else if(args[i].equals(&quot;-t&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                try {
+                    option.setMinimumMatchLength(Integer.parseInt(args[i]));
+                }
+                catch(NumberFormatException e) {
+                    System.out.println(&quot;Illegal minimum match length: &quot;
+                        + args[i] + &quot;\nMust be an integer!&quot;);
+                    return false;
+                }
+            }
+            else if(args[i].equals(&quot;-m&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                option.setStoreMatches(args[i]);
+            }
+            else if(args[i].equals(&quot;-bc&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                option.setBasecodeDir(args[i]);
+            }
+            else if(args[i].equals(&quot;-r&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                resultDirName = args[i];
+            }
+            else if(args[i].equals(&quot;-title&quot;) &amp;&amp; i+1&lt;args.length) {
+                i++;
+                option.setTitle(args[i]);
+            }
+            else if(args[i].equals(&quot;-list&quot;)) {
+                listSubmissions = true;
+            }
+            else if(args[i].equals(&quot;-download&quot;)) {
+                if(i+1&lt;args.length &amp;&amp; Character.isDigit(args[i+1].charAt(0))) {
+                    // isDigit is true =&gt; positive value
+                    i++;
+                    try {
+                        downloadResultNumber = Integer.parseInt(args[i]);
+                    }
+                    catch(NumberFormatException e) {
+                        System.out.println(&quot;Illegal download number: &quot;
+                            + args[i] + &quot;\nMust be an positive integer!&quot;);
+                        return false;
+                    }
+                }
+                else downloadResultNumber = 1;
+            }
+            else if(args[i].equals(&quot;-cancel&quot;)) {
+                if(i+1&lt;args.length &amp;&amp; Character.isDigit(args[i+1].charAt(0))) {
+                    // isDigit is true =&gt; positive value
+                    i++;
+                    try {
+                        cancelSubmissionNumber = Integer.parseInt(args[i]);
+                    }
+                    catch(NumberFormatException e) {
+                        System.out.println(&quot;Illegal cancel number: &quot;
+                            + args[i] + &quot;\nMust be an positive integer!&quot;);
+                        return false;
+                    }
+                }
+                else cancelSubmissionNumber = 1;
+            }
+            else if(args[i].startsWith(&quot;-&quot;)) {
+                System.out.println(&quot;Unknown option: &quot; + args[i]);
+                return false;
+            }
+            else
+            {
+                if(option.getOriginalDir() != null) {
+                    System.out.println(&quot;The rootdir has already been defined &quot;
+                        + &quot;as \&quot;&quot; + option.getOriginalDir() + &quot;\&quot;!&quot;);
+                    return false;
+                }
+                option.setOriginalDir(args[i]);
+            }
+        }
+        boolean valid = true;
+        if(username == null) {
+            System.out.println(&quot;Username is missing!&quot;);
+            valid = false;
+        }
+        if(password == null) {
+            System.out.println(&quot;Password is missing!&quot;);
+            valid = false;
+        }
+        if(!requestDetails &amp;&amp; !listSubmissions &amp;&amp; downloadResultNumber == 0
+                &amp;&amp; cancelSubmissionNumber == 0
+                &amp;&amp; option.getOriginalDir() == null) {
+            System.out.println(&quot;You must specify either a \&quot;root-dir\&quot;, the &quot;
+                + &quot;\&quot;-list\&quot;, the \&quot;-download\&quot;\nor the \&quot;-cancel\&quot; option!&quot;);
+            valid = false;
+        }
+        return valid;
+    }
+    
+    /**
+     * Initializes a text progress bar
+     */
+    public void initProgressBar(int max) {
+        progressMax = max;
+        progressPos = 0;
+        System.out.println(
+            &quot;0%----------+----------50%-----------+--------100%&quot;);
+    }
+    
+    /**
+     * Sets the current value of the progress bar updating the current position
+     * The progress may only increase, not decrease!
+     */
+    public void setProgressBarValue(int val) {
+        int pos = (val*50)/progressMax;
+        if(pos &lt;= progressPos) return;
+        
+        System.out.print(&quot;##################################################&quot;
+            .substring(progressPos, pos));
+        progressPos = pos;
+    }
+    
+    /**
+     * Prints out how to use the program
+     */
+    public static void printUsage() {
+        System.out.println(
+            &quot;\nUsage: ExampleClient [options] (&lt;root-dir&gt; | -list | -download [&lt;n&gt;]\n&quot;
+            + &quot;                                | -cancel [&lt;n&gt;])\n&quot;
+            + &quot;&lt;root-dir&gt; The directory which contains all programs\n&quot;
+            + &quot;Options are:\n&quot;
+            + &quot; -user &lt;username&gt;  Sets the username (required).\n&quot;
+            + &quot; -pass &lt;password&gt;  Sets the password (required).\n&quot;
+            + &quot; -l &lt;language&gt;     (Language) Programming language.\n&quot;
+            + &quot;                   (\&quot;-l ?\&quot; for supported and default languages.\n&quot;
+            + &quot;                   Also lists default suffixes and minimum match length)\n&quot;
+            + &quot; -S &lt;dir&gt;          Look in directories &lt;root-dir&gt;/*/&lt;dir&gt; for programs.\n&quot;
+            + &quot;                   (default: &lt;root-dir&gt;/*)\n&quot;
+            + &quot; -s                (Subdirs) Look at files in subdirs, too. (default: disabled)\n&quot;
+            + &quot; -p &lt;suffixes&gt;     &lt;suffixes&gt; is a comma-separated list of filename suffixes\n&quot;
+            + &quot;                   to be included. (default: language specific)\n&quot;
+            + &quot; -t &lt;n&gt;            (Token) Set the minimum match length in tokens.\n&quot;
+            + &quot;                   A smaller &lt;n&gt; increases the sensitivity of the comparison.\n&quot;
+            + &quot; -m &lt;n&gt;            (Matches) Number of matches that will be saved. (default:20)\n&quot;
+            + &quot; -m &lt;p&gt;%           Saves all matches with more than &lt;p&gt;% average similitarity.\n&quot;
+            + &quot; -bc &lt;dir&gt;         Name of the directory containing the basecode\n&quot;
+            + &quot;                   (common framework).\n&quot;
+            + &quot; -r &lt;dir&gt;          (Result) Name of directory where the result pages will\n&quot;
+            + &quot;                   be stored. (default: result)\n&quot;
+            + &quot; -title &lt;title&gt;    Title of this submission (default: submission-&lt;date&gt;)\n&quot;
+            + &quot; -cl &lt;locale&gt;      (Country language) Language the result files will\n&quot;
+            + &quot;                   be written in.\n&quot;
+            + &quot;                   (\&quot;-cl ?\&quot; for supported country languages and default)\n&quot;
+            + &quot; -list             Lists all submissions on the server belonging to the user.\n&quot;
+            + &quot; -download [&lt;n&gt;]   Downloads the &lt;n&gt;-th submission from server.\n&quot;
+            + &quot;                   The &lt;n&gt;-th submission must be \&quot;done\&quot;.\n&quot;
+            + &quot;                   All non required options except \&quot;-r &lt;dir&gt;\&quot; will be ignored.\n&quot;
+            + &quot; -cancel [&lt;n&gt;]     Cancels the &lt;n&gt;-th submission on server.\n&quot;
+            + &quot;                   All non required options will be ignored.\n&quot;);
+    }
+    
+    /**
+     * Concatenates the string representations of objects in an array
+     * @param array Object array
+     * @return Comma-separated list of string representations of those objects
+     */
+    private String arrayToString(Object[] array) {
+        String str = &quot;&quot;;
+        for(int i=0; i&lt;array.length; i++) {
+            str += array[i].toString();
+            if(i!=array.length-1) str += &quot;,&quot;;
+        }
+        return str;
+    }
+    
+    /**
+     * The main routine
+     * @param args Array of command line parameters
+     */
+    public void run(String[] args) {
+        if(args.length == 0 || !parseArguments(args)) {
+            printUsage();
+            return;
+        }
+        
+        if(!initJPlagStub()) {
+            System.out.println(&quot;Unable to initialize JPlag stub!&quot;);
+            return;
+        }
+        
+        /*
+         * Get a ServerInfo object
+         */
+        
+        ServerInfo info;
+        try {
+            info = stub.getServerInfo();
+        }
+<A NAME="6"></A>        catch(Exception e) {
+		 System.out.println</B></FONT>(&quot;Catching exception!&quot;);
+            checkException(e);
+            <FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#6',2,'match0-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return;
+        }
+        
+        /*
+         * Check for submissions on server by looking at submissions field
+         * in the ServerInfo object
+         */ 
+        
+        Submission[] subs = info.getSubmissions();
+        
+        if(subs.length &gt; 0) {
+            System.out.println(&quot;\nSubmissions on server with states:\n&quot;);
+            for(int i=0; i&lt;subs.length; i++) {
+                System.out.println(&quot; &quot; + (i+1) + &quot;. \&quot;&quot; + subs[i].getTitle()
+                    + &quot;\&quot; on &quot; + subs[i].getDate());
+                String stateString = &quot;&quot;;
+                switch(subs[i].getLastState()) {
+                    case JPLAG_UPLOADING: // can not occur in this application
+                        stateString = &quot;uploading&quot;;
+                        break;
+                    case JPLAG_INQUEUE: stateString = &quot;in queue&quot;; break;
+                    case JPLAG_PARSING: stateString = &quot;parsing&quot;; break;
+                    case JPLAG_COMPARING: stateString = &quot;comparing&quot;; break;
+                    case JPLAG_GENRESULT:
+                        stateString = &quot;generating result files&quot;;
+                        break;
+                    case JPLAG_PACKRESULT:
+                        stateString = &quot;packing result files&quot;;
+                        break;
+                    case JPLAG_DONE: stateString = &quot;done&quot;; break;
+                    default: {
+                        // an error occurred, so get more details
+                        Status status = getStatus(subs[i].getSubmissionID());
+                        if(status == null)
+                            stateString = &quot;unable to retrieve status&quot;;
+                        else
+                            stateString = status.getReport();
+                    }
+                }
+                System.out.println(&quot;    (&quot; + stateString + &quot;)&quot;);
+            }
+            
+            if(listSubmissions) return;
+            
+            /*
+             * If &quot;-download&quot; is used, download the n-th submission
+             */
+            if(downloadResultNumber != 0) {
+                if(downloadResultNumber &gt; subs.length) {
+                    System.out.println(&quot;Illegal download number!\n&quot;
+                        + &quot;There are only &quot; + subs.length + &quot; submissions!&quot;);
+                    return;
+                }
+                Submission sub = subs[downloadResultNumber-1];
+                if(sub.getLastState() != 300) {
+                    System.out.println(&quot;Illegal download number!\n&quot;
+                        + &quot;You can only download results for successfully&quot;
+                        + &quot; finished submissions!&quot;);
+                    return;
+                }
+                System.out.print(&quot;Downloading \&quot;&quot; + sub.getTitle()
+                    + &quot;\&quot;...&quot;);
+                if(!receiveResult(sub.getSubmissionID())) return;
+                System.out.println(&quot; completed.\nThe result files are available&quot;
+                    + &quot; in \&quot;&quot; + resultDirName + &quot;\&quot;&quot;);
+                return;
+            }
+            
+            /*
+             * If &quot;-cancel&quot; is used, cancel the n-th submission
+             */
+            if(cancelSubmissionNumber != 0) {
+                if(cancelSubmissionNumber &gt; subs.length) {
+                    System.out.println(&quot;Illegal cancel number!\n&quot;
+                        + &quot;There are only &quot; + subs.length + &quot; submissions!&quot;);
+                    return;
+                }
+                Submission sub = subs[cancelSubmissionNumber-1];
+                System.out.print(&quot;Cancelling \&quot;&quot; + sub.getTitle()
+                    + &quot;\&quot;...&quot;);
+                if(!cancelSubmission(sub.getSubmissionID())) return;
+                System.out.println(&quot; completed.\n&quot;);
+                return;
+            }
+        }
+        else if(downloadResultNumber != 0 || cancelSubmissionNumber != 0
+                || listSubmissions) {
+            System.out.println(&quot;\nCurrently there are no submissions on the &quot;
+                + &quot;server for this user!&quot;);
+            return;
+        }
+
+        if(!checkOptions(info)) return;</B></FONT>
+        
+        System.out.println(&quot;\nSending files...&quot;);
+        String submissionID = sendSubmission();
+        if(submissionID == null) return;
+        
+        System.out.print(&quot;\n\nWaiting for result...&quot;);
+<A NAME="7"></A>        if(!waitForResult(submissionID)) return;
+        
+        System.out.println(&quot; result available.\n\nDownloading...&quot;);
+        <FONT color="#c58917"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#7',2,'match0-top.html#7',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(!receiveResult(submissionID)) return;
+        
+        System.out.println(&quot;\n\nThe result files are available in \&quot;&quot;
+            + resultDirName + &quot;\&quot;&quot;);
+    }
+    
+    public static void main(String[] args) {
+        new ExampleClient().run(args);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

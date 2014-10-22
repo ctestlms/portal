@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hamza_Jamil_a1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Hamza_Jamil_a1.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+
+
+//#include &lt;conio.h&gt;
+<A NAME="0"></A>#include &lt;stdlib.h&gt;
+
+//Prototyping
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void Corners(char **pp1,char **pp2,int a,int b);
+void edge(char **pp1,char **pp2,int a,int b);
+void Center(char **pp1,char **pp2,int a,int b);
+
+
+//Initializing Main Function
+int main(void)
+{
+    //Starting
+    printf(&quot;Simulation of the lifecycle of colony.\n&quot;);
+     printf(&quot;Cells (X) live &amp; die by the following rules:\n&quot;);
+	  printf(&quot;Simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n&quot;);
+	 
+	 FILE *ptr;
+    //Initializing variabbles
+	char option[30];
+    int a=0;
+    int b=0;
+
+
+    //File Name
+    printf(&quot;Enter Name of the file\n&quot;);
+    fflush(stdin);
+
+    gets(option);
+    ptr=fopen(option,&quot;r&quot;);
+    if(!ptr==NULL)
+    {
+        fscanf(ptr,&quot;%d&quot;,&amp;a);
+        fscanf(ptr,&quot;%d&quot;,&amp;b);
+        //Memory allocation
+        //checking grid
+        char **check=(char **)malloc(sizeof(char *)*a);
+        for(int i=0;i&lt;a;++i)
+        {
+            check[i]=(char *)malloc(sizeof(char)*b);
+        }
+        //grid
+        char **grid=(char **)malloc(sizeof(char *)*a);
+        for(int i=0;i&lt;a;++i)
+        {
+            grid[i]=(char *)malloc(sizeof(char)*b);
+        }
+        fflush(stdin);
+        char q=0;
+        fscanf(ptr,&quot;%c&quot;,&amp;q);
+        //reading
+        for(int y=0;y&lt;a;++y)
+        {
+            for (int z = 0; z &lt; b+1; z++)
+            {
+                fflush(stdin);
+                fscanf(ptr,&quot;%c&quot;,&amp;grid[y][z]);
+                //check[y][z]=grid[y][z];
+            }
+            printf(&quot;\n&quot;);
+        }
+        for (int i = 0; i &lt; a; i++)
+        {
+            for (int y = 0; y &lt; b; y++)
+            {
+                check[i][y]=grid[i][y];
+            }
+        }
+        for(int y=0;y&lt;a;++y)
+        {
+            for (int z = 0; z &lt; b; z++)
+            {
+                printf(&quot;%c&quot;,check[y][z]);
+            }
+            printf(&quot;\n&quot;);
+        }
+        //asking for continue
+
+        while(1)
+        {
+
+            printf(&quot;Press T for Tick OR Q for quit&quot;);
+            char d=0;
+            fflush(stdin);
+            scanf(&quot;%c&quot;,&amp;d);
+
+            switch (d)
+            {
+            case 't':{
+                Corners(check,grid,a-1,b-1);
+                edge(check,grid,a-1,b-1);
+                Center(check,grid,a-1,b-1);
+                for(int y=0;y&lt;a;++y)
+                {
+                    for (int z = 0; z &lt; b; z++)
+                    {
+                        printf(&quot;%c&quot;,grid[y][z]);
+                    }
+                    printf(&quot;\n&quot;);
+                }
+                for (int i = 0; i &lt; a; i++)
+                {
+                    for (int y = 0; y &lt; b; y++)
+                    {
+                        check[i][y]=grid[i][y];
+                    }
+                }
+                printf(&quot;check after call is\n\n&quot;);
+                for(int y=0;y&lt;a;++y)
+                {
+                    for (int z = 0; z &lt; b; z++)
+                    {
+                        printf(&quot;%c&quot;,check[y][z]);
+                    }
+                    printf(&quot;\n&quot;);
+                }
+
+
+                break;}
+				case 'q':
+                
+				exit(0);
+               
+            default:
+                break;
+            }
+        }
+    }
+
+    else
+    {
+        puts(&quot;error&quot;);
+    }
+
+    fclose(ptr);
+    getch();
+}
+
+void Corners(char **pp1,char **pp2,int a,int b)
+{
+    //1st corner
+    int counter=0;
+    if(pp1[0][1]=='X')
+        ++counter;
+    if(pp1[1][1]=='X')
+        ++counter;
+    if(pp1[1][0]=='X')
+        ++counter;
+    if(counter==1 || counter==0)
+    {
+        pp2[0][0]='-';
+    }
+    else
+        if(counter==3){
+            pp2[0][0]='X';
+        }//2nd corner
+        counter=0;
+        if(pp1[a][1]=='X')
+            ++counter;
+        if(pp1[a-1][1]=='X')
+            ++counter;
+        if(pp1[a-1][0]=='X')
+            ++counter;
+        if(counter==1 || counter==0)
+            pp2[a][0]='-';
+        else
+            if(counter==3)
+                pp2[a][0]='X';
+        //3rd corner
+        counter=0;
+        if(pp1[0][b-1]=='X')
+            ++counter;
+        if(pp1[1][b-1]=='X')
+            ++counter;
+        if(pp1[1][b]=='X')
+            ++counter;
+        if(counter==1 || counter==0)
+            pp2[0][b]='-';
+        else
+            if(counter==3)
+                pp2[0][b]='X';
+        //4rth corner
+        counter=0;
+        if(pp1[a][b-1]=='X')
+            ++counter;
+        if(pp1[a-1][b-1]=='X')
+            ++counter;
+        if(pp1[a-1][b]=='X')
+            ++counter;
+        if(counter==1 || counter==0)
+            pp2[a][b]='-';
+        else
+            if(counter==3)
+                pp2[a][b]='X';
+        return;
+}
+
+
+void edge(char **pp1,char **pp2,int a,int b)
+{
+    int counter=0;
+
+    for(int i=1;i&lt;b;++i)
+
+    {
+      
+        if(pp1[0][i-1]=='X')
+            counter++;
+        if(pp1[0][i+1]=='X')
+            counter++;
+        if(pp1[1][i]=='X')
+            counter++;
+        if(pp1[1][i-1]=='X')
+            counter++;
+        if(pp1[1][i+1]=='X')
+            counter++;
+        if(counter==1 || counter==0 || counter ==4)
+            pp2[0][i]='-';
+        else
+            if(counter==3)
+                pp2[0][i]='X';
+
+        counter=0;
+        if(pp1[a][i-1]=='X')
+            counter++;
+        if(pp1[a][i+1]=='X')
+            counter++;
+        if(pp1[a-1][i]=='X')
+            counter++;
+        if(pp1[a-1][i-1]=='X')
+            counter++;
+        if(pp1[a-1][i+1]=='X')
+            counter++;
+        if(counter==1 || counter==0 || counter==4)
+            pp2[a][i]='-';
+        else
+            if(counter==3)
+                pp2[a][i]='X';
+    }
+
+    for(int i=1;i&lt;a;++i)
+
+    {
+
+        counter=0;
+        if(pp1[i-1][b]=='X')
+            counter++;
+        if(pp1[i+1][b]=='X')
+            counter++;
+        if(pp1[i-1][b-1]=='X')
+            counter++;
+        if(pp1[i][b-1]=='X')
+            counter++;
+        if(pp1[i+1][b-1]=='X')
+            counter++;
+        if(counter==1 || counter==0 || counter==4)
+            pp2[i][b]='-';
+        else
+            if(counter==3)
+                pp2[i][b]='X';
+
+        counter=0;
+        if(pp1[i-1][0]=='X')
+            counter++;
+        if(pp1[i-1][1]=='X')
+            counter++;
+        if(pp1[i][1]=='X')
+            counter++;
+        if(pp1[i+1][1]=='X')
+            counter++;
+        if(pp1[i+1][0]=='X')
+            counter++;
+        if(counter==1 || counter==0 || counter==4)
+            pp2[i][0]='-';
+        else
+            if(counter==3)
+                pp2[i][0]='X';
+        return;
+    }
+
+}
+
+
+
+void Center(char **pp1,char **pp2,int a,int b)
+{
+    for(int i=1;i&lt;a;++i)
+    {
+        for(int y=1;y&lt;b;++y)
+        {
+            int counter=0;
+            if(pp1[i][y+1]=='X')
+                counter++;
+            if(pp1[i][y-1]=='X')
+                counter++;
+            if(pp1[i+1][y-1]=='X')
+                counter++;
+            if(pp1[i-1][y-1]=='X')
+                counter++;
+            if(pp1[i+1][y]=='X')
+                counter++;
+            if(pp1[i+1][y+1]=='X')
+                counter++;
+            if(pp1[i-1][y+1]=='X')
+                counter++;
+            if(pp1[i-1][y]=='X')
+                counter++;
+            if(counter==1 || counter==0 || counter==4)
+                pp2[i][y]='-';
+            else
+                if(counter==3)
+                    pp2[i][y]='X';        
+        }
+    }
+
+    return;
+
+} //End of Main Function</B></FONT>
+</PRE>
+</BODY>
+</HTML>

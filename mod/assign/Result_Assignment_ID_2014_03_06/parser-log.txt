@@ -1,0 +1,122 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-03-06 13:56:00 GMT
+
+Language: C/C++ Scanner [basic markup]
+
+------ Parsing submission: Abdul_Hannan_Source.cpp
+Scanning file Abdul_Hannan_Source.cpp
+OK
+------ Parsing submission: Abdullah_Amjad_Abdullah_5508.cpp
+Scanning file Abdullah_Amjad_Abdullah_5508.cpp
+OK
+------ Parsing submission: Afaq_Ejaz_Source.cpp
+Scanning file Afaq_Ejaz_Source.cpp
+OK
+------ Parsing submission: Arooj_Sajid_Arooj Sajid.cpp
+Scanning file Arooj_Sajid_Arooj Sajid.cpp
+OK
+------ Parsing submission: Danyal_Nasir_Danyal Nasir.cpp
+Scanning file Danyal_Nasir_Danyal Nasir.cpp
+OK
+------ Parsing submission: Danyyal Ahmed_Khalid_Source.cpp
+Scanning file Danyyal Ahmed_Khalid_Source.cpp
+OK
+------ Parsing submission: Farhan_Gul_BacteriaSimulationFarhanGulBSCS3B.cpp
+Scanning file Farhan_Gul_BacteriaSimulationFarhanGulBSCS3B.cpp
+OK
+------ Parsing submission: Hafiz Ateeq Ur_Rehman_Source.cpp
+Scanning file Hafiz Ateeq Ur_Rehman_Source.cpp
+OK
+------ Parsing submission: Hamza_Jamil_a1.cpp
+Scanning file Hamza_Jamil_a1.cpp
+OK
+------ Parsing submission: Hamza_Sajid_Source.cpp
+Scanning file Hamza_Sajid_Source.cpp
+OK
+------ Parsing submission: Haseeb_Khizar_assignment1.cpp
+Scanning file Haseeb_Khizar_assignment1.cpp
+OK
+------ Parsing submission: Hashim Tariq_Rashid_Assign 1.cpp
+Scanning file Hashim Tariq_Rashid_Assign 1.cpp
+OK
+------ Parsing submission: Hussain_Abid_Hussain Abid(4861).cpp
+Scanning file Hussain_Abid_Hussain Abid(4861).cpp
+OK
+------ Parsing submission: Hussain_Wali_my.cpp
+Scanning file Hussain_Wali_my.cpp
+OK
+------ Parsing submission: Malik _Muhammad Usman_Source.cpp
+Scanning file Malik _Muhammad Usman_Source.cpp
+OK
+------ Parsing submission: Mashood_Akbar_Source.cpp
+Scanning file Mashood_Akbar_Source.cpp
+OK
+------ Parsing submission: Mashood_Rafi_mash.cpp
+Scanning file Mashood_Rafi_mash.cpp
+OK
+------ Parsing submission: Mehreen_Ali_mehreen.cpp
+Scanning file Mehreen_Ali_mehreen.cpp
+OK
+------ Parsing submission: Mirza Taimoor_Baig_Finalised.cpp
+Scanning file Mirza Taimoor_Baig_Finalised.cpp
+OK
+------ Parsing submission: Mohammad Azfar_Usman_Azfar.cpp
+Scanning file Mohammad Azfar_Usman_Azfar.cpp
+OK
+------ Parsing submission: Mohammad Ibrahim_Sahibzada_Assignment 1.cpp
+Scanning file Mohammad Ibrahim_Sahibzada_Assignment 1.cpp
+OK
+------ Parsing submission: Muhammad Ahmed Ullah_Khan_muhammad ahmed ullah khan.cpp
+Scanning file Muhammad Ahmed Ullah_Khan_muhammad ahmed ullah khan.cpp
+OK
+------ Parsing submission: Muhammad Faizan_Abid_G++ Format.cpp
+Scanning file Muhammad Faizan_Abid_G++ Format.cpp
+OK
+------ Parsing submission: Muhammad Faizan_Abid_VC++_without_header.cpp
+Scanning file Muhammad Faizan_Abid_VC++_without_header.cpp
+OK
+------ Parsing submission: Muhammad Nouman_Ahmad_Nouman_5265.cpp
+Scanning file Muhammad Nouman_Ahmad_Nouman_5265.cpp
+OK
+------ Parsing submission: Muhammad Zain Ul_Abadin_Source.cpp
+Scanning file Muhammad Zain Ul_Abadin_Source.cpp
+OK
+------ Parsing submission: Muhammad_Saad_saad.cpp
+Scanning file Muhammad_Saad_saad.cpp
+OK
+------ Parsing submission: Rabia_Khalil_Rabia.cpp
+Scanning file Rabia_Khalil_Rabia.cpp
+OK
+------ Parsing submission: Rehan_Fazal_assignment.cpp
+Scanning file Rehan_Fazal_assignment.cpp
+OK
+------ Parsing submission: Saman_Zehra_saman.cpp
+Scanning file Saman_Zehra_saman.cpp
+OK
+------ Parsing submission: Syed Abdul Aleem _Shah_sourcefile.cpp
+Scanning file Syed Abdul Aleem _Shah_sourcefile.cpp
+OK
+------ Parsing submission: Syed Hassaan_Tauqeer_Bacteria Colony.cpp
+Scanning file Syed Hassaan_Tauqeer_Bacteria Colony.cpp
+OK
+------ Parsing submission: Talal_Ahmed_Ass1Source.cpp
+Scanning file Talal_Ahmed_Ass1Source.cpp
+OK
+------ Parsing submission: Usama Bin_Tariq_UsamaBinTariq_6057.cpp
+Scanning file Usama Bin_Tariq_UsamaBinTariq_6057.cpp
+OK
+------ Parsing submission: Waheed_Iqbal_waheed iqbal_7069.cpp
+Scanning file Waheed_Iqbal_waheed iqbal_7069.cpp
+OK
+------ Parsing submission: Waqas_Ahmad_program.cpp
+Scanning file Waqas_Ahmad_program.cpp
+OK
+
+36 submissions parsed successfully!
+0 parser errors!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 3 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

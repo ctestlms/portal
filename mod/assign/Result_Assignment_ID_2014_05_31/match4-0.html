@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Abdullah_Afaq_Abdullah_afaq_345.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Abdullah_Afaq_Abdullah_afaq_345.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;iostream&gt;
+using namespace std;
+#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;new&gt;
+#include &lt;fstream&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;cmath&gt;
+#include&lt;windows.h&gt;
+void ConvertData(int x, int x1,int x2, int x3, int x4);
+void Screen_1(); void Screen_2(); void Screen_3(); void Screen_4();
+void Screen_4_1();void Screen_4_2();void Screen_4_3();void Screen_4_4();
+int **arrey ;
+unsigned long int *PointerData;
+FILE * filepointer_1;
+FILE * filepointer_2;
+FILE * filepointer_3;
+int  ImageData[54];
+char Nameoutput[20];
+char Nameinput[20];
+int Palette[1024];
+int Hist_1[255];
+char entre;
+long int Imagesize,Imagewidth,Imageheight,Imageresolution,Imageoffset;
+
+int main()
+ {
+main_menu:
+	 system(&quot;cls&quot;);
+	 cout&lt;&lt;&quot;\n\n************************* MAIN MENU **************************\n&quot;;
+	 cout&lt;&lt;&quot;\n\n * Read image and print information (Press P)\n * Convert 24 bit to 8bit gray scale (Press G)\n * Histogram (Press E)\n * Apply transformation to the image. (Press T)\n * Exit (Press X )\n&quot;;
+	 char input;
+	 while(1)
+	{
+		cin&gt;&gt;input;
+		if(input=='P')
+		{system(&quot;cls&quot;);Screen_1();goto main_menu;}
+		else if(input=='G')
+		{system(&quot;cls&quot;);Screen_2();goto main_menu;}	
+		else if(input=='E')
+		{system(&quot;cls&quot;);Screen_3();goto main_menu;}	
+		else if(input=='T')
+		{system(&quot;cls&quot;);Screen_4();goto main_menu;}	
+		else if(input=='X')
+		{exit(0);}
+		else 
+			continue;
+   }
+	system(&quot;PAUSE&quot;);
+	return 0;
+ }
+
+
+//FUNCTION BODIES
+
+<A NAME="0"></A>
+void Screen_1()///////Image Information//////////
+{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	 long int Imagesize,Imagewidth,Imageheight,Imageresolution;
+     cout&lt;&lt;&quot; \n Input the .bmp file name here : \n  &quot;;
+	 cin&gt;&gt;Nameinput;
+	 filepointer_1 = fopen( Nameinput ,&quot;rb&quot;);
+	 if (filepointer_1==NULL)
+	 {cout&lt;&lt;&quot; Error in opening the file \n&quot;;}
+	 else
+	 {	 system(&quot;cls&quot;);
+		 cout&lt;&lt;&quot; File has been opened successfully. \n&quot;;
+	     Sleep(1000);
+	     system(&quot;cls&quot;);
+		 for(int x=0;x&lt;54;x++)
+		 {ImageData[x]= int(fgetc(filepointer_1));}
+	 }
+     if((ImageData[0]==0x42) &amp;&amp; (ImageData[1]==0x4D))
+		 {cout&lt;&lt;&quot; It is a Valid .bmp file. \n&quot;;Sleep(1000);system(&quot;cls&quot;);}
+	 else 
+	    {cout&lt;&lt;&quot; It is not a valid .bmp file. \n&quot;;}
+	    cout&lt;&lt;&quot; Image information is as follows: \n \n&quot;;
+		Imagesize  = ImageData[2]+ImageData[3]*256+ImageData[4]*256*256+ImageData[5]*256*256*256;
+		Imagewidth = ImageData[18]+ImageData[19]*256+ImageData[20]*256*256+ImageData[21]*256*256*256;
+		Imageheight= ImageData[22]+ImageData[23]*256+ImageData[24]*256*256+ImageData[25]*256*256*256;
+		Imageresolution=Imageheight*Imagewidth;</B></FONT>
+		cout&lt;&lt;&quot; Size of .bmp Image (Bytes): &quot;&lt;&lt;Imagesize&lt;&lt;&quot;\n Width of .bmp Image : &quot;&lt;&lt;Imagewidth&lt;&lt;&quot;\n Height of .bmp Image: &quot;&lt;&lt;Imageheight&lt;&lt;&quot;\n Resolution of .bmp Image : &quot;&lt;&lt; Imageresolution;
+		cout&lt;&lt;&quot;\n Press Enter to go to the Main Menu\n&quot;;
+		while(1)
+		{entre = getch();if(entre==13) break;}
+		
+}
+
+
+void Screen_2()//////////////Gray Scale Conversion//////////////
+{
+   int green=0,blue=0,red=0;
+   unsigned long int dynamic,source;
+   dynamic=0;
+   source=0;
+   cout&lt;&lt;&quot; \n Enter output .bmp file name : \n &quot;; cin&gt;&gt;Nameoutput;
+   cout&lt;&lt;&quot; Please Wait......... \n&quot;;
+   Imagesize = ImageData[2]+ ImageData[3]*256+ ImageData[4]*256*256+ImageData[5]*256*256*256;
+   Imagewidth = ImageData[18]+ ImageData[19]*256+ ImageData[20]*256*256+ImageData[21]*256*256*256;
+<A NAME="1"></A>   Imageheight =ImageData[22]+ImageData[23]*256+ ImageData[24]*256*256+ ImageData[25]*256*256*256;
+   Imageoffset = ImageData[10]+ ImageData[11]*256+ ImageData[12]*256*256+ ImageData[13]*256*256*256;
+   PointerData=new unsigned long int[Imageheight*Imagewidth];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for(long int t=0;t&lt;(Imageheight*Imagewidth);t++)
+	{
+	red=int(fgetc(filepointer_1));green=int(fgetc(filepointer_1));blue=int(fgetc(filepointer_1));
+<A NAME="2"></A>	PointerData[t]=((0.30*red)+(0.10*blue)+(0.60*green))*((dynamic+2)-(dynamic+1));</B></FONT>
+	dynamic++;
+	}
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	dynamic=0;
+	fclose (filepointer_1);
+	Imagesize=Imagesize+1024;
+	ConvertData(Imagesize,2,3,4,5);
+	ImageData[28]=8;
+	ConvertData(256,46,47,48,49);
+	ConvertData(1078,10,11,12,13);
+    ConvertData(1078,34,35,36,37);
+    for (int palcreate=0;palcreate&lt;256;palcreate++)
+	{Palette[(palcreate*4)+0]=palcreate;Palette[(palcreate*4)+1]=palcreate; 
+    Palette[(palcreate*4)+2]=palcreate;Palette[(palcreate*4)+3]=0;}
+    filepointer_2=fopen(Nameoutput,&quot;wb&quot;);
+	if(filepointer_2!=NULL) 
+		{system(&quot;cls&quot;);cout&lt;&lt;&quot; File has sucessfully converted into the 8-bit gray Scale\n&quot;;
+		for(int write=0;write&lt;54;write++)
+		{fputc(char(ImageData[write]),filepointer_2);}
+    for (int pal=0;pal&lt;256;pal++)
+	  {fputc((Palette[(pal*4)+0*((pal+1)-pal)]),filepointer_2); fputc((Palette[(pal*4)+1*((pal+1)-pal)]),filepointer_2); 
+       fputc((Palette[(pal*4)+2*((pal+1)-pal)]),filepointer_2); fputc((Palette[(pal*4)+3*((pal+1)-pal)]),filepointer_2);}
+	for(long int output=0;output&lt;Imageheight*Imagewidth;output++)
+	{source++;</B></FONT>
+	fputc(char(PointerData[output]),filepointer_2);
+	}
+	fclose(filepointer_2);}
+	else 
+	cout&lt;&lt;&quot;File has not Created&quot;;
+	cout&lt;&lt;&quot; \n Press Enter to go to the Main Menu&quot;;
+    while(1)
+	{entre = getch();if(entre==13)break;}
+}
+
+
+void Screen_3()////////H.i.s.t.o.g.r.a.m///////////
+{
+	filepointer_3 = fopen( Nameoutput ,&quot;rb&quot;);
+	 if (filepointer_3==NULL)
+	 {cout&lt;&lt;&quot; Error in opening the file \n&quot;;}
+	 else
+	 {   system(&quot;cls&quot;);
+		 cout&lt;&lt;&quot;Gray Scaled image has been opened successfully. \n&quot;;
+		 Sleep(800);
+		 fpos_t pos = 1078;
+		 fsetpos(filepointer_3,&amp;pos);
+		 for(int x=0;x&lt;255;x++)
+		 {Hist_1[x]= int(fgetc(filepointer_3));}
+         ofstream myfile;
+         myfile.open (&quot;Histogram.txt&quot;);
+		 myfile&lt;&lt;&quot;The Histogram values are: \n\n&quot;;
+		 for(int k=0;k&lt;255;k++)
+		 {myfile &lt;&lt; k &lt;&lt;&quot;   &quot;&lt;&lt; Hist_1[k]&lt;&lt;&quot;\n&quot; ;}
+         myfile.close();
+		 cout&lt;&lt;&quot;The Histogram Process has been done successfully: \n\n&quot;;
+		 Sleep(600);
+         cout&lt;&lt;&quot;The Histogram values are: \n\n&quot;;
+		 Sleep(500);
+		 for(int b=0;b&lt;255;b++){cout&lt;&lt;Hist_1[b]&lt;&lt;&quot;\n&quot;;}
+		 fclose(filepointer_3);
+	 }
+	cout&lt;&lt;&quot;\n Press Enter to go to the Main Menu\n&quot;;
+	while(1)
+	{entre = getch();if(entre==13)break;}
+}
+
+void Screen_4()
+{
+  Screen4:
+  system(&quot;cls&quot;);
+  char type;
+  cout&lt;&lt;&quot; Enter the translation type: \n&quot;&lt;&lt;&quot; *For Translation(Press T)\n&quot;&lt;&lt;&quot; *For Scaling(Press S)\n&quot;&lt;&lt;&quot; *For Rotation(Press R)\n&quot;&lt;&lt;&quot; *For Shearing(Press H)\n&quot;&lt;&lt;&quot; *Main Menu(Press M)\n&quot;;
+  while(1)
+	{
+		cin&gt;&gt;type;
+		if(type=='T')
+		{system(&quot;cls&quot;);Screen_4_1();goto Screen4;}
+		else if(type=='S')
+		{system(&quot;cls&quot;);Screen_4_2();goto Screen4;}	
+		else if(type=='R')
+		{system(&quot;cls&quot;);Screen_4_3();goto Screen4;}	
+		else if(type=='H')
+		{system(&quot;cls&quot;);Screen_4_4();goto Screen4;}
+		else if(type=='M')
+		{main();}
+		else 
+			continue;
+   }
+}
+void Screen_4_1()////////////T.R.A.N.S.L.A.T.I.O.N////////////////
+{
+	unsigned int Imagewidth_1,Imageheight_1,p=0,x_1,y_1,dynamic_1=0,trans_1=0,ll=0,mm=0;
+	arrey =new int*[Imageheight];
+<A NAME="3"></A>	for(int u=0;u&lt;Imageheight;++u)
+	{dynamic_1++;
+	arrey[u]=new int[Imagewidth];trans_1++;}
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match4-1.html#3',3,'match4-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for(int v=0;v&lt;Imageheight;v++)
+	{for(int n=0;n&lt;Imagewidth;n++)
+	{trans_1--;arrey[v][n]=PointerData[p];p++;dynamic_1--;}</B></FONT>
+	}	
+	cout&lt;&lt;&quot;\n\n Enter the name of the Output translated file : &quot;;cin&gt;&gt;Nameoutput;
+	cout&lt;&lt;&quot;\n Enter the translation in x-axis : &quot;;cin&gt;&gt;x_1;
+	cout&lt;&lt;&quot;\n Enter the translation in y-axis : &quot;;cin&gt;&gt;y_1;
+	if(x_1&lt;0)
+	Imagewidth_1=x_1*(-1);
+	if(x_1&gt;0)
+	Imagewidth_1=x_1;
+<A NAME="4"></A>	if(y_1&lt;0)
+	Imageheight_1=y_1*(-1);
+	if(y_1&gt;0)
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match4-1.html#4',3,'match4-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	Imageheight_1=y_1;
+	ConvertData(Imageheight+Imageheight_1,22,23,24,25);
+	ConvertData(Imagewidth+Imagewidth_1,18,19,20,21);
+filepointer_1=fopen(Nameoutput,&quot;wb&quot;);
+if(filepointer_1!=NULL) 
+{   cout&lt;&lt;&quot;\n File has successfully Created. &quot;;
+ for(int a=0;a&lt;54;a++)
+	{fputc(char(ImageData[a]),filepointer_1);}
+ for (int m=0;m&lt;256;m++)
+	{fputc((Palette[(m*4)+0*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+1*((m+1)-m)]),filepointer_1); 
+	 fputc((Palette[(m*4)+2*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+3*((m+1)-m)]),filepointer_1);}
+if((x_1&gt;=0)&amp;&amp;(y_1&gt;=0))
+	{ for(int z=0;z&lt;Imageheight;z++)
+<A NAME="5"></A>		{for(int c=0;c&lt;x_1;c++)
+		 {fputc(0,filepointer_1);}
+		 for(int c=0;c&lt;Imagewidth;c++)
+		{ll++;fputc(char(arrey[z][c]),filepointer_1);}</B></FONT><FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match4-1.html#5',3,'match4-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		}
+        for(int z=0;z&lt;y_1;z++)
+		 {for(int c=0;c&lt;x_1+Imagewidth;c++)
+		 {fputc(0,filepointer_1);}}}
+if((x_1&lt;=0)&amp;&amp;(y_1&lt;=0))
+	{for(int z=0;z&lt;Imageheight_1;z++)
+	    {for(int c=0;c&lt;Imagewidth_1+Imagewidth;c++)
+<A NAME="6"></A>		  {fputc(0,filepointer_1);} }
+            for(int z=0;z&lt;Imageheight;z++)
+		      {for(int c=0;c&lt;Imagewidth;c++)
+			  {mm++;fputc(char(arrey[z][c]),filepointer_1);}</B></FONT><FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match4-1.html#6',3,'match4-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			  for(int c=0;c&lt;Imagewidth_1;c++)
+			  {fputc(0,filepointer_1);}}}
+}
+   fclose(filepointer_1);
+   cout&lt;&lt;&quot;\n If you want to see the information of translated image (Press I)\n Otherwise (Press Enter)\n&quot;;
+char j;</B></FONT>
+j=getch();
+if(j=='I'){Screen_1();system(&quot;cls&quot;);}
+else if(j==13)
+    cout&lt;&lt;&quot; \n Press Enter to go to the Screen_4&quot;;
+    while(1)
+	{entre = getch();if(entre==13)break;}
+
+}
+
+
+
+void Screen_4_2()///////////S.C.A.L.I.N.G/////////////////
+{
+	int pix=0;
+	int Imagewidth_1;
+	int Imageheight_1;
+	cout&lt;&lt;&quot;\n Enter the name of the Output Sclaed Image : &quot;;
+	cin&gt;&gt;Nameoutput;
+	cout&lt;&lt;&quot;\n Enter New Width : &quot;;
+	cin&gt;&gt;Imagewidth_1;
+	cout&lt;&lt;&quot;\n Enter new Height : &quot;;
+	cin&gt;&gt;Imageheight_1;
+    ConvertData(Imagewidth_1,18,19,20,21);
+	ConvertData(Imageheight_1,22,23,24,25);
+unsigned int* newData = new unsigned int[Imagewidth_1*Imageheight_1];
+double Scale_W =((Imageheight_1+1)-Imageheight_1)*((double)Imagewidth_1/(double)Imagewidth);
+double Scale_h =((Imageheight_1+2)-(Imageheight_1+1))*((double) Imageheight_1/(double)Imageheight);
+for(int y=0;y&lt;Imageheight_1;y++) 
+{
+   for(int x=0;x&lt;Imagewidth_1;x++) 
+   {  int h=((( unsigned int)(x/Scale_W)))*((Imagewidth_1+1)-Imagewidth_1)+(((unsigned int)(y/Scale_h)*(Imagewidth)));
+    newData[pix]=PointerData[h];
+    pix++;}
+<A NAME="7"></A>}
+filepointer_1=fopen(Nameoutput,&quot;wb&quot;);
+if(filepointer_1!=NULL) 
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match4-1.html#7',3,'match4-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	{   cout&lt;&lt;&quot;\n File has successfully created&quot;;
+		for(int d=0;d&lt;54;d++)
+		{fputc(char(ImageData[d]),filepointer_1);}
+        for (int m=0;m&lt;256;m++)
+		{fputc((Palette[(m*4)+0*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+1*((m+1)-m)]),filepointer_1); </B></FONT>
+		 fputc((Palette[(m*4)+2*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+3*((m+1)-m)]),filepointer_1);}
+        for(int s=0;s&lt;Imagewidth_1*Imageheight_1;s++)
+		{fputc(char(newData[s]),filepointer_1);}
+        fclose(filepointer_1);
+	}
+else 
+    cout&lt;&lt;&quot;File has not created&quot;;
+cout&lt;&lt;&quot;\n If you want to see the information of scaled image (Press I)\n Otherwise (Press Enter)\n&quot;;
+char j;
+j=getch();
+if(j=='I'){Screen_1();system(&quot;cls&quot;);}
+else if(j==13)
+    cout&lt;&lt;&quot; \n Press Enter to go to the Screen_4&quot;;
+    while(1)
+	{entre = getch();if(entre==13)break;}
+}
+
+
+
+void Screen_4_3()////////////////R.O.T.A.T.I.O.N////////////////////
+{ 
+	int p=0,angle,Imageheight_1,Imagewidth_1,byte_1=0,byte_2=0;
+	cout&lt;&lt;&quot; \n\n Entr the name of Rotated .bmp image : &quot;;
+	cin&gt;&gt;Nameoutput;
+	arrey =new int*[Imageheight];
+	for(int u=0;u&lt;Imageheight;u++)
+	{byte_1++;arrey[u]=new int[Imagewidth];byte_2++;}
+	for(int v=0;v&lt;Imageheight;v++)
+	{
+	for(int n=0;n&lt;Imagewidth;n++)
+	{byte_1--;arrey[v][n]=PointerData[p];byte_2--;p++;}
+	}	
+    cout&lt;&lt;&quot;\n Enter the rotation angle : \n&quot;;
+	cin&gt;&gt;angle;
+    if(angle&lt;0)
+	angle=angle*(-1);
+	if((angle&gt;90)&amp;&amp;(angle&lt;180))
+	angle=180-angle;
+	if((angle&gt;180)&amp;&amp;(angle&lt;270))
+	angle=270-angle;
+	if((angle&gt;270)&amp;&amp;(angle&lt;360))
+	angle=360-angle;
+	float radian=(angle*3.1419)/180;
+	Imagewidth_1=(Imageheight*sin(radian))+(Imagewidth*cos(radian));
+    Imageheight_1=(Imageheight*cos(radian))+(Imagewidth*sin(radian)); 
+	if( Imageheight_1&lt;=0)
+    Imageheight_1= Imageheight_1*(-1);
+    if(Imagewidth_1&lt;=0)
+	Imagewidth_1=Imagewidth_1*(-1);
+	ConvertData(Imagewidth_1,18,19,20,21);
+	ConvertData(Imageheight_1,22,23,24,25);
+   filepointer_1=fopen(Nameoutput,&quot;wb&quot;);
+	if(filepointer_1!=NULL) 
+	{ cout&lt;&lt;&quot;\n File has successfully Created&quot;;
+	  for(int a=0;a&lt;54;a++)
+	  {fputc(char(ImageData[a]),filepointer_1);}
+   for (int m= 0;m&lt;256;m++)
+	   {fputc((Palette[(m*4)+0*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+1*((m+1)-m)]),filepointer_1); 
+	   fputc((Palette[(m*4)+2*((m+1)-m)]),filepointer_1); fputc((Palette[(m*4)+3*((m+1)-m)]),filepointer_1);}
+   for(int l=0; l&lt;Imageheight_1;l++)
+   {  for(int m=0;m&lt;Imagewidth_1;m++)
+      {{fputc(char(arrey[l][m]),filepointer_1);}}
+   }
+  fclose(filepointer_1);
+}
+	else 
+	cout&lt;&lt;&quot;\n File has not Created&quot;;
+	cout&lt;&lt;&quot;\n If you want to see the information of rotated image (Press I)\n Otherwise (Press Enter)\n&quot;;
+char j;
+j=getch();
+if(j=='I'){Screen_1();system(&quot;cls&quot;);}
+else if(j==13)
+    cout&lt;&lt;&quot; \n Press Enter to go to the Screen_4&quot;;
+    while(1)
+	{entre = getch();if(entre==13)break;}
+}
+
+void Screen_4_4()///////S.H.E.A.R.I.N.G/////////
+{
+	unsigned int Imagewidth_1,Imageheight_1,p=0,x_1,dynamic_1=0,trans_1=0,ll=0,mm=0;
+	arrey =new int*[Imageheight];
+	for(int u=0;u&lt;Imageheight;++u)
+	{dynamic_1++;
+	arrey[u]=new int[Imagewidth];trans_1++;}
+	for(int v=0;v&lt;Imageheight;v++)
+	{for(int n=0;n&lt;Imagewidth;n++)
+	{trans_1--;arrey[v][n]=PointerData[p];p++;dynamic_1--;}
+	}	
+	cout&lt;&lt;&quot;\n\n Enter the name of the output sheared file : &quot;;cin&gt;&gt;Nameoutput;
+	cout&lt;&lt;&quot;\n Enter the sheared angle : &quot;;cin&gt;&gt;x_1;
+	if(x_1&lt;0)
+	Imagewidth_1=x_1*(-1);
+	if(x_1&gt;0)
+	Imagewidth_1=x_1;
+	ConvertData(Imageheight,22,23,24,25);
+	ConvertData(Imagewidth+Imagewidth_1,18,19,20,21);
+filepointer_1=fopen(Nameoutput,&quot;wb&quot;);
+if(filepointer_1!=NULL) 
+{   cout&lt;&lt;&quot;\n File has successfully Created. &quot;;
+ for(int a=0;a&lt;54;a++)
+	{fputc(char(ImageData[a]),filepointer_1);}
+ for (int m=0;m&lt;256;m++)
+	{fputc((Palette[(m*4)+0*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+1*((m+1)-m)]),filepointer_1); 
+	 fputc((Palette[(m*4)+2*((m+1)-m)]),filepointer_1);fputc((Palette[(m*4)+3*((m+1)-m)]),filepointer_1);}
+if((x_1&gt;=0))
+	{ for(int z=0;z&lt;Imageheight;z++)
+<A NAME="8"></A>		{for(int c=0;c&lt;x_1;c++)
+		 {fputc(0,filepointer_1);}
+		 for(int c=0;c&lt;Imagewidth;c++)
+<FONT color="#bce954"><A HREF="javascript:ZweiFrames('match4-1.html#8',3,'match4-top.html#8',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ll++;fputc(char(arrey[z][c]),filepointer_1);}
+		}
+        for(int z=0;z&lt;Imageheight;z++)
+		 {for(int c=0;c&lt;x_1+Imagewidth;c++)
+		 {fputc(0,filepointer_1);}}}
+if((x_1&lt;=0))
+	{for(int z=0;z&lt;Imageheight_1;z++)
+	    {for(int c=0;c&lt;Imagewidth_1+Imagewidth;c++)
+		  {fputc(0,filepointer_1);} }
+            for(int z=0;z&lt;Imageheight;z++)
+		      {for(int c=0;c&lt;Imagewidth;c++)
+			  {mm++;fputc(char(arrey[z][c]),filepointer_1);}</B></FONT>
+			  for(int c=0;c&lt;Imagewidth_1;c++)
+			  {fputc(0,filepointer_1);}}}
+}
+   fclose(filepointer_1);
+   cout&lt;&lt;&quot;\n If you want to see the information of Sheared image (Press I)\n Otherwise (Press Enter)\n&quot;;
+char j;
+j=getch();
+if(j=='I'){Screen_1();system(&quot;cls&quot;);}
+else if(j==13)
+    cout&lt;&lt;&quot; \n Press Enter to go to the Screen_4&quot;;
+    while(1)
+	{entre = getch();if(entre==13)break;}
+
+
+}
+
+void ConvertData(int x, int x1,int x2, int x3, int x4)
+<A NAME="9"></A> {
+ unsigned int ConvertedData[4];
+ unsigned int xx =x;
+<FONT color="#f88017"><A HREF="javascript:ZweiFrames('match4-1.html#9',3,'match4-top.html#9',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> ConvertedData[0]=(int)((xx&gt;&gt;24)&amp;0xFF);ConvertedData[1]=(int)((xx&gt;&gt;16)&amp;0xFF) ;
+ ConvertedData[2]=(int)((xx&gt;&gt;8)&amp;0XFF);ConvertedData[3]=(int)((xx&amp;0XFF));
+ ImageData[x4]=ConvertedData[0];ImageData[x3]=ConvertedData[1];
+ ImageData[x2]=ConvertedData[2];ImageData[x1]=ConvertedData[3];
+ }</B></FONT>
+</PRE>
+</BODY>
+</HTML>

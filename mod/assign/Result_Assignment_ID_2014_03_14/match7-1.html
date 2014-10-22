@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Hafiz Ateeq Ur_Rehman_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Hafiz Ateeq Ur_Rehman_Source.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;stdio.h&gt;
+<A NAME="2"></A>#include&lt;iostream&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;cstdlib&gt;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int bactFind(int a, int b, char** c, int rows, int columns)
+{
+	int count = 0;
+	for (int i = -1; i &lt;= 1; i++)					
+	{
+		if ((a + i) &gt;= 0 &amp;&amp; (a + i) &lt; rows)
+		{
+			for (int j = -1; j &lt;= 1; j++)
+			{
+				if ((b + j) &gt;= 0 &amp;&amp; (b + j) &lt; columns)
+				{
+					if (i == 0 &amp;&amp; j ==0 )		//To make sure element does not count itself as neighbour.
+						continue;
+						if (c[a + i][b + j] == 'X')
+							++count;
+					
+				}
+
+
+			}
+		}
+	}
+	return count;
+<A NAME="0"></A>}</B></FONT>
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void freeM(char** mat, int rows, int cols)
+{
+	for (int i = 0; i &lt; rows; i++) {			//function to free the allocated memory.
+		delete (mat[i]);
+	}
+	delete mat;
+}
+void welcome ()
+{
+	std::cout&lt;&lt;&quot;Welcome to a simulation of the lifecycle of a bacteria colony\n\n Cells (X) live and die by the following rules:-\nA cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies&quot;;
+	std::cout&lt;&lt;&quot;\nenter file name: &quot;;
+}
+
+int main()
+{
+	char input;
+	char a;
+	int b, c = 0;
+	FILE *ptr;
+	char fileName[20];
+	welcome();
+	gets(fileName);
+	ptr=fopen(fileName, &quot;r&quot;);
+	if (ptr == NULL)
+	{
+		std::cout&lt;&lt;&quot;Unable to open the file\n&quot;;
+		getchar();
+		return 0;
+	}
+	fscanf(ptr, &quot;%d%d&quot;, &amp;b, &amp;c);
+
+	char** arr = new char*[b];			//Allocation of memory
+	for (int i = 0; i&lt;b; i++)
+	{
+		arr[i] = new char[c];
+	}
+
+	char** arr2 = new char*[b];
+	for (int i = 0; i&lt;b; i++)
+	{
+		arr2[i] = new char[c];
+	}
+
+	int** numArr = new int*[b];
+	for (int i = 0; i&lt;b; i++)
+	{
+		numArr[i] = new int[c];
+	}
+
+	rewind(ptr);				//function for knowing the exact position of curser_ in the file.
+	while (!feof(ptr))
+	{
+		fscanf(ptr, &quot;%d%d&quot;, &amp;b, &amp;c);
+		for (int i = 0; i&lt;b; i++)
+		{
+				fscanf(ptr,&quot;%c&quot;,&amp;a);
+<A NAME="1"></A>			for (int j = 0; j&lt;c; j++)
+			{</B></FONT>
+				fscanf(ptr,&quot;%c&quot;,&amp;arr[i][j]);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				arr2[i][j] = arr[i][j];
+			}
+			
+		}
+	}
+	//File Pattern Before Simulation\n&quot;;
+	for (int i = 0; i&lt;b; i++)
+	{
+		for (int j = 0; j&lt;c; j++)
+		{
+			std::cout&lt;&lt;arr[i][j];
+		}
+		std::cout&lt;&lt;&quot;\n&quot;;
+	}
+
+	while(1)
+	{
+
+	std::cout&lt;&lt;&quot;t)ick or q)uit? &quot;;			
+	std::cin&gt;&gt;input;
+	if(input=='t')
+	{
+	for (int p = 0; p&lt;b; p++)				//'b' is the number of rows
+	{
+		for (int q = 0; q&lt;c; q++)			//'c' is number of columns.
+			numArr[p][q] = bactFind(p, q, arr2, b, c); //funtionn stores the number of neighbours in integer array of same length
+	}
+	for (int i = 0; i&lt;b; i++)
+	{
+		for (int j = 0; j&lt;c; j++)			//Conditions for checking the neighbours.
+		{
+			if (numArr[i][j] &lt;= 1)			//the respective element of integer array determins whether specific element of
+				arr2[i][j] = '-';		//2d array is 'X' or other.
+			if (numArr[i][j] == 3)
+				arr2[i][j] = 'X';
+			if (numArr[i][j] &gt;= 4)
+				arr2[i][j] = '-';
+		}
+	}
+	for (int i = 0; i&lt;b; i++)
+	{
+		for (int j = 0; j&lt;c; j++)
+		{
+			std::cout&lt;&lt;arr2[i][j]; 			//printing the modified elements of temporary array
+		}
+		std::cout&lt;&lt;&quot;\n&quot;;
+	}
+	
+
+	}
+	else if(input=='q')
+	{
+		freeM(arr, b, c);
+	freeM(arr2, b, c);					//function call which free the memory of character array
+	for (int i = 0; i &lt; b; i++) {
+		delete (numArr[i]);
+			}
+	delete numArr;   					// memory free for 2d integer array
+	fclose(ptr);
+	getchar();
+		return 0;
+	}
+	}
+	//getch();
+	return 0;
+}		//end main</B></FONT>
+</PRE>
+</BODY>
+</HTML>

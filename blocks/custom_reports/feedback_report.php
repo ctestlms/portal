@@ -1,0 +1,45 @@
+<?php
+
+require_once('../../config.php');
+require_once("../../mod/feedback/lib.php");
+require_once($CFG->libdir . '/blocklib.php');
+require_once($CFG->libdir . '/formslib.php');
+require_once('./view_attendance_report_form.php');
+require_once('../../mod/attforblock/locallib.php');
+require('../../mod/attforblock/tcpdf/config/lang/eng.php');
+require('../../mod/attforblock/tcpdf/tcpdf.php');
+
+include('dbcon.php');
+$navlinks[] = array('name' => get_string('feedback_report', 'block_custom_reports'), 'link' => null, 'type' => 'activityinstance');
+$navigation = build_navigation($navlinks);
+
+if (isset($_POST['report'])) {
+    if ($_POST['report_type'] == "Department Wise") {
+        $url = "feedback_report_dept.php";
+        header("location:$url");
+    }
+    if ($_POST['report_type'] == "Batch Wise") {
+        $url = "feedback_report_batch.php";
+        header("location:$url");
+    }
+    if ($_POST['report_type'] == "Faculty Wise") {
+        $url = "Fac_feedbackrecords.php";
+        header("location:$url");
+    }
+
+}
+print_header('Faculty Feedback Report', 'Faculty Feedback Report', $navigation, '', '', true, '', user_login_string($SITE) . $langmenu);
+
+echo '<form name="myform" action="feedback_report.php" method="POST">';
+echo "<div align='center'><h1>Faculty Feedback Report</h1></div>";
+echo "<b>Select Report Type:</b>";
+echo "<select name='report_type'>";
+echo '<option value="Department Wise">Department Wise</option>';
+echo '<option value="Batch Wise">Batch Wise</option>';
+echo '<option value="Faculty Wise">Faculty Wise</option>';
+echo '</select>';
+
+echo '<input type="submit" value="Select" name="report">';
+echo "</form>";
+echo $OUTPUT->footer();
+?>

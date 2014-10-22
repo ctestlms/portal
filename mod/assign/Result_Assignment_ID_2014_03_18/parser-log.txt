@@ -1,0 +1,127 @@
+JPlag (Version 2.11.8-SNAPSHOT)
+2014-03-18 17:39:47 GMT
+
+Language: Java1.5 Parser
+
+------ Parsing submission: Abdul Moiz_Farooq_PacMan.java
+Parsing file Abdul Moiz_Farooq_PacMan.java
+OK
+------ Parsing submission: Abdul_Basit_Lab.java
+Parsing file Abdul_Basit_Lab.java
+OK
+------ Parsing submission: Abdul_Hanan_Lab6.java
+Parsing file Abdul_Hanan_Lab6.java
+OK
+------ Parsing submission: Ahad_Mahmood_Pacs.java
+Parsing file Ahad_Mahmood_Pacs.java
+OK
+------ Parsing submission: Aleena_Yunus_Pman.java
+Parsing file Aleena_Yunus_Pman.java
+OK
+------ Parsing submission: Ayesha_Khalid_pc.java
+Parsing file Ayesha_Khalid_pc.java
+OK
+------ Parsing submission: Ayesha_Yaqub_PacMan.java
+Parsing file Ayesha_Yaqub_PacMan.java
+OK
+------ Parsing submission: Azba_Nawaz_Pec.java
+Parsing file Azba_Nawaz_Pec.java
+OK
+------ Parsing submission: Faiza Ahmed_Khan_Pacman.java
+Parsing file Faiza Ahmed_Khan_Pacman.java
+OK
+------ Parsing submission: Fatima_Mahmud_MoveBall.java
+Parsing file Fatima_Mahmud_MoveBall.java
+OK
+------ Parsing submission: Fatima_Nasir_MoveBall.java
+Parsing file Fatima_Nasir_MoveBall.java
+OK
+------ Parsing submission: Fizza_Tahir_pacman.java
+Parsing file Fizza_Tahir_pacman.java
+OK
+------ Parsing submission: Haider Ali_Agha_Pacman.java
+Parsing file Haider Ali_Agha_Pacman.java
+OK
+------ Parsing submission: Hamza_Iqtadar_MoveBall.java
+Parsing file Hamza_Iqtadar_MoveBall.java
+OK
+------ Parsing submission: Haris Hasan_Jalali_Pm.java
+Parsing file Haris Hasan_Jalali_Pm.java
+  Parsing Error in 'Haris Hasan_Jalali_Pm.java':
+  Parse error at line 4, column 1.  Encountered: <
+ERROR -> Submission removed
+------ Parsing submission: Husnain Arif_Wahla_PacMan.java
+Parsing file Husnain Arif_Wahla_PacMan.java
+OK
+------ Parsing submission: Javeria_Afzal_Move.java
+Parsing file Javeria_Afzal_Move.java
+OK
+------ Parsing submission: Maria_Hameed_pacman1.java
+Parsing file Maria_Hameed_pacman1.java
+OK
+------ Parsing submission: Mariha_Khan_PacMan.java
+Parsing file Mariha_Khan_PacMan.java
+OK
+------ Parsing submission: Maryam_Dodhy_Pacman.java
+Parsing file Maryam_Dodhy_Pacman.java
+OK
+------ Parsing submission: Momina_Ramzan_PacMan1.java
+Parsing file Momina_Ramzan_PacMan1.java
+OK
+------ Parsing submission: Mubbashir_Mustafa_PacMan.java
+Parsing file Mubbashir_Mustafa_PacMan.java
+OK
+------ Parsing submission: Muhammad Moazzam_Khan_PacMann.java
+Parsing file Muhammad Moazzam_Khan_PacMann.java
+OK
+------ Parsing submission: Muhammad Talha_Munir_MoveBall.java
+Parsing file Muhammad Talha_Munir_MoveBall.java
+OK
+------ Parsing submission: Nabiha_Iqbal_packman.java
+Parsing file Nabiha_Iqbal_packman.java
+OK
+------ Parsing submission: Nayab_Javed_Nayab.java
+Parsing file Nayab_Javed_Nayab.java
+OK
+------ Parsing submission: Nyma_Altaf_Pacman.java
+Parsing file Nyma_Altaf_Pacman.java
+OK
+------ Parsing submission: Rahat Shiraz_Hashmi_Packman.java
+Parsing file Rahat Shiraz_Hashmi_Packman.java
+OK
+------ Parsing submission: Ramsha_Waseem_MovePacman.java
+Parsing file Ramsha_Waseem_MovePacman.java
+OK
+------ Parsing submission: Samra_Nasir_Pacman.java
+Parsing file Samra_Nasir_Pacman.java
+OK
+------ Parsing submission: Sana_Mushtaq_MoveBall.java
+Parsing file Sana_Mushtaq_MoveBall.java
+OK
+------ Parsing submission: Sarwat Til_Vusqa_PacMan.java
+Parsing file Sarwat Til_Vusqa_PacMan.java
+OK
+------ Parsing submission: Syed Ammar  Naqvi_Abbas_Pacman.java
+Parsing file Syed Ammar  Naqvi_Abbas_Pacman.java
+OK
+------ Parsing submission: Syed Shahab_Ali_MoveBall.java
+Parsing file Syed Shahab_Ali_MoveBall.java
+OK
+------ Parsing submission: Syeda Tazeen_Haider_MoveBall.java
+Parsing file Syeda Tazeen_Haider_MoveBall.java
+OK
+------ Parsing submission: Umar_Hussain_pac.java
+Parsing file Umar_Hussain_pac.java
+OK
+------ Parsing submission: Umer Ahmad_Mehtab_MoveBall.java
+Parsing file Umer Ahmad_Mehtab_MoveBall.java
+OK
+
+36 submissions parsed successfully!
+1 parser error!
+
+Total time for parsing: 0 sec
+Time per parsed submission: 4 msec
+
+Total time for comparing submissions: 0 sec
+Time per comparison: 0 msec

@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Syed Aal E_Husnain_header file.h</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Syed Aal E_Husnain_header file.h</CENTER></H3><HR>
+<PRE>
+// The header file for the function used.
+
+
+
+
+
+
+
+
+
+
+<A NAME="0"></A>
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void display (char ** newData, int rows,int cols)
+{
+
+	for (int i=0;i&lt;rows;i++)
+	{
+		for(int j=0;j&lt;cols;j++)
+		{</B></FONT>
+			cout   &lt;&lt;  newData[i][j];
+			
+		}
+		cout  &lt;&lt;  &quot;\n&quot;;
+<A NAME="1"></A>	}
+		cout  &lt;&lt;   &quot;t)ick, q)uit? \n&quot;;
+	
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+void check (char ** fileData,char ** newData,int rows,int cols)
+{
+
+	int counter=0;
+	for(int i=0;i&lt;rows;i++){  
+
+		for(int j=0;j&lt;cols;j++){
+
+			counter = 0 ;
+
+	if(i&gt;0 &amp;&amp; i&lt;(rows-1) &amp;&amp; j&gt;0 &amp;&amp; j&lt;(cols-1))
+	{
+
+		if (fileData[i-1][j-1]=='X')
+         {
+			 counter++;
+		}
+		if (fileData[i-1][j]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i-1][j+1]=='X')
+          {
+			  counter++;
+		}
+
+		if (fileData[i][j-1]=='X')
+          {
+			  counter++;
+		}
+
+		if (fileData[i][j+1]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i+1][j-1]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i+1][j]=='X')
+          {
+			  
+			  counter++;
+		}
+
+		if (fileData[i+1][j+1]=='X')
+          {
+			  counter++ ;
+		}
+
+
+	}
+
+
+	if(i == 0 &amp;&amp; j &gt; 0 &amp;&amp; j &lt; (cols-1))
+	
+	{
+		if(fileData[i][j-1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j-1] == 'X' )
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X' )
+			 {
+				 counter++;
+		}
+
+
+
+	}
+	
+	
+	
+	if(i == (rows-1) &amp;&amp; j &gt; 0 &amp;&amp; j &lt; (cols-1) )
+	
+	
+	{
+
+		if(fileData[i][j-1] == 'X' )
+		 {
+			 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i-1][j-1] == 'X' )
+			 {counter++;
+		}
+
+		if(fileData[i-1][j] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i-1][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+
+	}
+
+	if (i == 0 &amp;&amp; j ==0)
+	{
+
+		if(fileData[i][j+1] == 'X')
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j] == 'X')
+			 {
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X')
+			 {
+				 
+				 counter++;
+		}
+	}
+	
+	if(i == (rows-1) &amp;&amp; i == (cols-1)){
+		
+		if(fileData[i+1][j+1] == 'X')
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X')
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X')
+			 {
+				  counter++;
+		}
+
+	}
+
+	if(j == 0 &amp;&amp; i&gt;0 &amp;&amp; i&lt;(rows-1)){
+		if(fileData[i-1][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i-1][j] == 'X' )
+			 {
+				 counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+
+
+		if(fileData[i+1][j] == 'X' )
+			 {
+				 
+				 counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X' )
+			 {
+				 counter++;
+		}
+	}
+	
+	
+	
+	if(j == (cols-1) &amp;&amp; i&gt;0 &amp;&amp; j&lt;(rows-1) )
+{
+
+		if(fileData[i-1][j] == 'X' )
+		 {
+			counter++;
+		}
+
+		if(fileData[i-1][j+1] == 'X' )
+		 {
+			counter++;
+		}
+
+		if(fileData[i][j+1] == 'X' )
+		 {
+
+			counter++;
+		}
+
+		if(fileData[i+1][j] == 'X' )
+		{
+			
+			counter++;
+		}
+
+		if(fileData[i+1][j+1] == 'X' )
+		{ 	
+			counter++;
+		}
+}
+
+	if (counter &lt;= 1 || counter &gt; 3 )
+	{
+		newData[i][j] = '-';
+	}
+
+	if (counter == 3)
+	{
+		newData[i][j] ='X';
+	}
+
+			}
+
+
+
+
+		}
+
+
+
+
+
+		
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

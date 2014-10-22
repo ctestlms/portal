@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Maryam_Dodhy_Pacman.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Maryam_Dodhy_Pacman.java</CENTER></H3><HR>
+<PRE>
+/* I, MARYAM DODHY, certify that this program is my own work*/
+/*
+&lt;applet code=&quot;Pacman&quot; width=400 height=300&gt;
+&lt;/applet&gt;
+*/
+/* Used for visualizing applet on screen */
+
+import java.awt.*;
+import java.applet.*;
+<A NAME="0"></A>
+public class Pacman extends Applet{ /* 'Applet' is a class which we are extending*/
+
+	int <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>xpos=10; int ypos=10;
+	int txpos=400; int typos=300;
+	Color color = Color.red;
+
+	public void paint( Graphics g ){ /* g is an object of the Graphics class*/
+		g.setColor(color);
+
+			/* the following checks allow the pacman to move in a rectangle */
+		if( ypos &lt;= typos ){
+		ypos = ypos + 5;
+		g.fillArc(xpos, ypos, 20, 20, 300, 315);
+		}
+
+		 if</B></FONT>( ypos &gt;= typos &amp;&amp; xpos &lt;= txpos){
+		g.fillArc(xpos, ypos, 20, 20, 30, 300);
+<A NAME="1"></A>		xpos = xpos + 5;
+		}
+		 if( ypos &gt;= 10 &amp;&amp; xpos == txpos){
+			ypos <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= ypos - 5;
+			g.fillArc(txpos, typos, 20, 20, 70, 310);
+		}
+	
+		try{ 
+		Thread.sleep(10);
+		}
+		catch(Exception e){}
+		repaint(10); 
+}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

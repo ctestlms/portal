@@ -1,0 +1,788 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Abbas_Kararvi_M.abbas Kararvi-33-mts-B.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Muhammad Abbas_Kararvi_M.abbas Kararvi-33-mts-B.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;windows.h&gt;
+#include&lt;CONIO.H&gt;
+#include&lt;string&gt;
+using namespace std ; 
+
+
+
+
+int height, width, nh , nw ;
+char name[25]; 
+char enter2;
+int enter;
+int sel;
+int e=0;
+
+
+char selection; 
+struct header
+{
+	unsigned short int type ; 
+	unsigned long int size ; 
+	unsigned short int reserved1 , reserved2 ; 
+	long offset ; 
+};
+
+struct info
+{
+                unsigned int size;
+                int width,height;
+                unsigned short int planes;
+                unsigned short int bpp;
+                long compression;
+                long imagesize;
+                long xresolution,yresolution;
+                long colours;
+                long impcolours;
+};
+
+typedef struct
+        {
+                unsigned char RGB[3];
+        }RGB;
+
+
+
+header *head =new header;  //node for header 
+info  *infor = new info; 
+FILE *fp; 
+RGB  **Mx;
+RGB  **nMx; 
+RGB  **R_Matrix;
+int* head_info; 
+void welcome_screen();
+void selection_screen();
+void opening_image();
+void wait();
+void loading();
+void exit_screen(); 
+
+
+
+void bmp_check(int *headinfo)
+{
+ unsigned int x = 0 ;
+ x = headinfo[0] + headinfo[1]*256 ; 
+ if(x==19778 )
+ {
+	 cout&lt;&lt;&quot;Valid Bmp File&quot;&lt;&lt;endl ;
+ }
+ else 
+ {
+	 cout&lt;&lt;&quot;invalid Bmp file&quot;&lt;&lt;endl ;
+	 while(1) ; 
+ }
+}
+
+
+
+
+
+void get_header(int *a ,header *data)
+{
+	data-&gt;size   = a[2] + a[3]*256  + a[4]*256*256  + a[5]*256*256*256  ; 
+	data-&gt;offset = a[10]+ a[11]*256 + a[12]*256*256 + a[13]*256*256*256 ;
+} 
+
+void get_information(int *a ,info *data)
+{
+	data-&gt;size         = a[14] + a[15]*256 + a[16]*256*256 + a[17]*256*256*256 ;
+	data-&gt;width		   = a[18] + a[19]*256 + a[20]*256*256 + a[21]*256*256*256 ; 
+	data-&gt;height	   = a[22] + a[23]*256 + a[24]*256*256 + a[25]*256*256*256 ; 
+	data-&gt;planes	   = a[26] + a[27]*256 ; 
+	data-&gt;bpp		   = a[28] + a[29]*256 ; 
+	data-&gt;compression  = a[30] + a[31]*256 + a[32]*256*256 + a[33]*256*256*256 ;
+	data-&gt;imagesize    = a[34] + a[35]*256 + a[36]*256*256 + a[37]*256*256*256 ;  
+	data-&gt;xresolution  = a[38] + a[39]*256 + a[40]*256*256 + a[41]*256*256*256 ;
+	data-&gt;yresolution  = a[42] + a[43]*256 + a[44]*256*256 + a[45]*256*256*256 ; 
+	data-&gt;colours      = a[46] + a[47]*256 + a[48]*256*256 + a[49]*256*256*256 ; 
+	data-&gt;impcolours   = a[50] + a[51]*256 + a[52]*256*256 + a[53]*256*256*256 ; 
+}
+
+RGB** createMatrix(){
+        RGB** Matrix;
+        int i;
+        Matrix = (RGB **) malloc (sizeof (RGB*) * height);
+        if (Matrix == NULL)
+		{
+                perror(&quot;***** No memory available *****&quot;);
+                exit(0);
+        }
+        for (i=0;i&lt;height;i++)
+		{
+                Matrix[i] = (RGB *) malloc (sizeof(RGB) * width);
+                if (Matrix[i] == NULL)
+				{
+                perror(&quot;***** No memory available *****&quot;);
+                        exit(0);
+                }
+        }
+        return(Matrix);
+}
+
+void scale_image()
+{
+
+int b_0 , b_1 , b_2 , b_3 , b_4 , b_5 ;
+long size=0, w_1=0 , h_1=0 , width1 , height1 ;
+int scale;
+	cout&lt;&lt;&quot;[Scaling factor]&quot;&lt;&lt;endl;
+	cin&gt;&gt;scale;
+	char a[25] ; 
+	FILE *fp2;
+	system(&quot;cls&quot;) ;
+	fp2 = fopen(&quot;Template.bmp&quot;,&quot;rb&quot;) ;
+//validation bits 
+			b_0 = fgetc (fp2);
+			b_1 = fgetc (fp2);
+//Size 
+			b_2 = fgetc (fp2);
+			b_3 = fgetc (fp2);
+			b_4 = fgetc (fp2);
+			b_5 = fgetc (fp2);
+			
+
+		for(int j=0;j&lt;12;j++)fgetc (fp2);
+
+//width
+			b_2 = fgetc (fp2);
+			b_3 = fgetc (fp2);
+			b_4 = fgetc (fp2);
+			b_5 = fgetc (fp2);
+			
+			w_1=(b_2)+(b_3*256)+(b_4*256*256)+(b_5*256*256*256) ; 	
+			width1=w_1;
+
+
+//height		
+			b_2 = fgetc (fp2);         b_3 = fgetc (fp2);       b_4 = fgetc (fp2);       b_5 = fgetc (fp2);
+			h_1=(b_2)+(b_3*256)+(b_4*256*256)+(b_5*256*256*256);
+
+			height1=h_1;
+			fclose (fp2);
+			long no_of_p=(w_1*h_1)+(256*4)+54;
+			long *copy;
+			copy=new long[no_of_p];
+	        fp2=fopen (&quot;Template.bmp&quot;,&quot;rb&quot;);
+
+		    for(long i=0;i&lt;no_of_p;i++)copy[i]=fgetc(fp2);
+		    
+		    fclose (fp2);
+			int remain[4]={0};
+			long no_of_p1=0;
+
+			for (int i = 0; i &lt; 4; i++)
+			{
+             no_of_p1=no_of_p*scale;
+			 remain[i]=no_of_p1%256;
+			}
+
+			for (int i = 2; i &lt; 6; i++)copy[i]=remain[i-2];
+			w_1=scale*w_1;
+			for (int i = 0; i &lt; 4; i++)
+			{
+			remain[i]=w_1%256;
+			w_1=w_1/256;
+			}
+
+			for (int i = 18; i &lt; 22; i++)copy[i]=remain[i-18];
+
+
+			h_1=scale*h_1 ;
+			for (int i = 0; i &lt; 4; i++)
+			{
+				remain[i]=h_1%256;
+		 	    h_1=h_1/256;
+			}
+			for (int i = 22; i &lt; 26; i++)copy[i]=remain[i-22];
+
+
+			long area=width1*height1*scale;
+			for (int i = 0; i &lt; 4; i++)
+			{
+				remain[i]=area%256;
+			    area=area/256;
+			}
+
+			for (int i = 34; i &lt; 38; i++)copy[i]=remain[i-34];
+
+			FILE *tran;
+			char bname[25] ;
+			cout&lt;&lt;&quot;Enter the name of output image&quot;&lt;&lt;endl ; 
+			cin&gt;&gt;bname ; 
+			tran=fopen (bname,&quot;wb&quot;);
+			for(int ini=0;ini&lt;1078;ini++)fputc(copy[ini],tran);
+			int y=0 ;
+			long **catch_gray = new long*[height1] ; 
+			for (int i = 0; i &lt; height1; i++)catch_gray[i] = new long[width1] ; 
+			for(int he=0;he&lt;height1;he++)
+			{
+					for(int we=0;we&lt;width1;we++)
+				{
+					catch_gray[he][we]=copy[1078+y];
+					y++;
+				}
+			}
+			
+			long **new_2 = new long*[height1*scale] ; 
+<A NAME="0"></A>			for (int i = 0; i &lt; (height1*scale); i++)new_2[i] = new long[width1*scale] ; 
+	
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int temp1=0,eh,ew;
+	 for(int i = 0; i &lt; height1 ; i++)
+     {
+		 for(int j = 0; j &lt; width1; j++)
+             {
+				 temp1  = catch_gray[i][j];
+				 eh = i * scale;</B></FONT>
+				 ew = j * scale;
+				 for(int c = eh ; c &lt; (eh + scale); c++)
+                     {
+						 for(int d = ew ;  d &lt; (ew + scale); d++)
+                             {
+								 new_2[c][d] = temp1;
+                             }
+                     }
+             }
+     }
+
+			for(long h=0;h&lt;height1*scale;h++)
+				for(long w=0;w&lt;width1*scale;w++)
+				{fputc(new_2[h][w],tran);}
+		
+	fclose (tran) ;
+    FILE *fp1 ; 
+    header *head1 =new header ;  //node for header 
+	info  *infor1 = new info  ; 
+	unsigned char input ; 
+	int* head_info ; 
+	head_info = (int*)malloc(54*sizeof(int)) ;  // dynamic memory Allocation for 54 bits header + information 
+	fp1 = fopen(bname,&quot;rb&quot;) ;
+	for (int i = 0; i &lt; 54 ; i++) head_info[i] = fgetc(fp1) ;  
+	get_header(head_info,head1) ;
+	get_information(head_info,infor1) ; 
+	height = infor1-&gt;height ; 
+	width  = infor1-&gt;width  ; 
+	cout&lt;&lt;&quot;Image width  : &quot;&lt;&lt;width&lt;&lt;endl   ; 
+	cout&lt;&lt;&quot;Image height : &quot;&lt;&lt;height&lt;&lt;endl  ;
+	cout&lt;&lt;&quot;X - Resolution :&quot;&lt;&lt;infor1-&gt;xresolution&lt;&lt;endl ; 
+	cout&lt;&lt;&quot;Y - Resolution :&quot;&lt;&lt;infor1-&gt;yresolution&lt;&lt;endl ; 
+	cout&lt;&lt;&quot;Image size :&quot;&lt;&lt;(head1-&gt;size /1024 )&lt;&lt;&quot; Kb&quot;&lt;&lt;endl ;
+	cout&lt;&lt;endl ;
+
+
+}
+
+void loadImage(FILE* arq, RGB** Matrix,RGB** nMatrix)
+{
+        int i,j;
+        RGB tmp;
+        long pos = 51;
+
+        fseek(arq,0,0);
+
+        for (i=0; i&lt;height; i++)
+		{
+                for (j=0; j&lt;width; j++)
+				{
+                        pos+= 3;
+                        fseek(arq,pos,0);
+                        fread(&amp;tmp,(sizeof(RGB)),1,arq);
+                        Matrix[i][j] = tmp;
+                }
+        }
+
+		   for (i=0; i&lt;height; i++)
+		   {
+                for (j=0; j&lt;width; j++)
+				{
+					nMatrix[i][j] =  Matrix[i][j] ;
+                }
+            }
+
+}
+
+// ********** Image Output **********
+void writeBMP(RGB **Matrix, header *head, FILE* arq,char a[25])
+{
+	FILE* out;
+	int i,j;
+	RGB tmp  ;
+	long pos = 51;
+
+	char header2[54];
+	fseek(arq,0,0);
+	fread(header2,54,1,arq);
+	out = fopen(a,&quot;w&quot;);
+
+	fseek(out,0,0);
+	fwrite(header2,54,1,out);
+
+	for(i=0;i&lt;height;i++)
+	{
+		for(j=0;j&lt;width;j++)
+		{
+			pos+= 3;
+			fseek(out,pos,0);
+			tmp = Matrix[i][j];
+			fwrite(&amp;tmp,(sizeof(RGB)),1,out);
+		}
+	}
+
+	fflush(out);
+	fclose(out);
+	FILE *fp1 ; 
+    header *head1 =new header ; 
+	info  *infor1 = new info  ; 
+	unsigned char input ; 
+	int* head_info ; 
+	head_info = (int*)malloc(54*sizeof(int)) ; 
+	fp1 = fopen(a,&quot;rb&quot;) ;
+	for (int i = 0; i &lt; 54 ; i++) head_info[i] = fgetc(fp1) ;  
+	get_header(head_info,head1) ;
+	get_information(head_info,infor1) ; 
+	height = infor1-&gt;height ; 
+	width  = infor1-&gt;width  ; 
+	cout&lt;&lt;&quot;Image width  : &quot;&lt;&lt;width&lt;&lt;endl   ; 
+	cout&lt;&lt;&quot;Image height : &quot;&lt;&lt;height&lt;&lt;endl  ;
+	cout&lt;&lt;&quot;X - Resolution :&quot;&lt;&lt;infor1-&gt;xresolution&lt;&lt;endl ; 
+	cout&lt;&lt;&quot;Y - Resolution :&quot;&lt;&lt;infor1-&gt;yresolution&lt;&lt;endl ; 
+	cout&lt;&lt;&quot;Image size :&quot;&lt;&lt;(head1-&gt;size /1024 )&lt;&lt;&quot; Kb&quot;&lt;&lt;endl ;
+	cout&lt;&lt;endl ;
+}
+
+
+
+void grey_convert(RGB** Matrix)
+{
+	int red , green , blue , s;  
+
+			   for (int i=0; i&lt;height; i++)
+		   {
+                for (int j=0; j&lt;width; j++)
+				{
+					  red = (int) Matrix[i][j].RGB[0] ; 
+                      green = (int)Matrix[i][j].RGB[1] ;
+                      blue = (int)Matrix[i][j].RGB[2] ;
+					  s = red + green + blue ; 
+					  s = s / 3 ; 
+					  Matrix[i][j].RGB[0] = s ; 
+                      Matrix[i][j].RGB[1] = s ;
+                      Matrix[i][j].RGB[2] = s ;
+                } 
+           }
+	
+}
+
+void freeMatrix(RGB** Matrix)
+{
+	int i;
+	int lines = height;
+
+	for (i=0;i&lt;lines;i++){
+		free(Matrix[i]);
+	}
+	free(Matrix);
+}
+
+bool check(int row,int col)
+{
+	if(row &gt;= height || row &lt; 0 || col &gt;=width || col &lt; 0)
+        return false;
+    //else
+    return true;
+}
+ 
+void rotate(RGB **Matrix , RGB **R_Matrix , info *data)
+{
+	int r0 , c0 , r1 , c1; 
+	unsigned int theta ; 
+	cout&lt;&lt;&quot;Rotation angle  :&quot; ;
+	cin &gt;&gt; theta ; 
+	float rads = (theta * 3.14159265)/180.0;
+	r0 = data-&gt;height / 2 ; 
+	c0 = data-&gt;width  / 2 ; 
+
+     for (int i=0; i&lt;height; i++)
+		{
+                for (int j=0; j&lt;width; j++)
+				{
+					r1 = (int) (r0 + ((i - r0) * cos(rads)) - ((j - c0) * sin(rads)));
+					c1 = (int) (c0 + ((i - r0) * sin(rads)) + ((j - c0) * cos(rads)));
+					if(check(r1,c1))
+<A NAME="4"></A>					{
+						R_Matrix[r1][c1] = Matrix[i][j] ; 
+					}
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#4',2,'match2-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+        }
+
+	      for (int i=0; i&lt;height; i++)
+		{
+                for (int j=0; j&lt;width; j++)
+				{</B></FONT>
+					if(R_Matrix[i][j].RGB[0]==0)
+						R_Matrix[i][j].RGB[0] = (R_Matrix[i][j+1].RGB[0]+R_Matrix[i][j-1].RGB[0])/2 ; 
+					if(R_Matrix[i][j].RGB[1]==0)
+						R_Matrix[i][j].RGB[1] = (R_Matrix[i][j+1].RGB[1]+R_Matrix[i][j-1].RGB[1])/2 ; 
+					if(R_Matrix[i][j].RGB[0]==0)
+						R_Matrix[i][j].RGB[2] = (R_Matrix[i][j+1].RGB[2]+R_Matrix[i][j-1].RGB[2])/2 ; 
+					
+                }
+        }
+  cout&lt;&lt;&quot;Rotation has been completed&quot;&lt;&lt;endl ;
+}
+
+void tran(RGB** Matrix , RGB** R_Matrix)
+{
+	unsigned int h , w   ; 
+	cout&lt;&lt;&quot;Horizontal Distance [x]&quot;&lt;&lt;endl ;
+	cin &gt;&gt;  w ; 
+	cout&lt;&lt;&quot;vertical Distance [y]&quot;&lt;&lt;endl ;
+	cin &gt;&gt;  h ;
+
+		 for (int i=0; i&lt;(height-h) ; i++)
+		   {
+                for (int j=0; j&lt;(width-w) ; j++)
+				{       
+					R_Matrix[i+h][j+w] = Matrix[i][j] ; 
+                } 
+           }
+		 cout&lt;&lt;&quot;Translation Has been compelted&quot;&lt;&lt;endl ;
+}
+
+void main()
+{
+
+
+	while(1)
+	{
+		welcome_screen();
+		loading();
+		selection_screen();
+		if(e==1)
+			break;
+	}
+
+}
+
+
+
+void screen2()
+{
+	
+	cout&lt;&lt;&quot;\n\n\t\t   Enter to Digital Image Processing World\n&quot;;
+	cout&lt;&lt;&quot;________________________________________________________________________________________________________________________________________________________________&quot;;
+	cout&lt;&lt;&quot;\n\n\n\n\n&quot;;
+
+	cout&lt;&lt;&quot;Write the name of image to acess like -abc.bmp-\n\n&quot;;
+	cin &gt;&gt; name ; 
+	system(&quot;CLS&quot;);
+	
+	opening_image();
+	system(&quot;CLS&quot;);
+
+	head_info = (int*)malloc(54*sizeof(int)) ;  // dynamic memory Allocation for 54 bits header + information 
+	while (1)
+	{
+	system(&quot;cls&quot;) ;
+	fp = fopen(name,&quot;rb&quot;) ;
+	if (fp==NULL)
+	{
+	    cout&lt;&lt;&quot;Error Image Opening\n\n** File Does not Exist\n\n&quot;;
+		cout&lt;&lt;&quot;\nRETRY :&quot;  ;
+		cin &gt;&gt; name ; 
+
+	}
+	else
+	{   //cout&lt;&lt;&quot;Success&quot;&lt;&lt;endl ;
+		break ;	}
+	}
+
+	for (int i = 0; i &lt; 54 ; i++) head_info[i] = fgetc(fp) ;  
+
+	get_header(head_info,head) ;
+	get_information(head_info,infor) ; 
+	height = infor-&gt;height ; 
+	width  = infor-&gt;width  ; 
+	cout&lt;&lt;endl ;
+	bmp_check(head_info) ;
+	cout&lt;&lt;&quot;Image width  : &quot;&lt;&lt;width&lt;&lt;endl   ; 
+	cout&lt;&lt;&quot;Image height : &quot;&lt;&lt;height&lt;&lt;endl  ;
+	cout&lt;&lt;&quot;X - Resolution :&quot;&lt;&lt;infor-&gt;xresolution&lt;&lt;endl ; 
+	cout&lt;&lt;&quot;Y - Resolution :&quot;&lt;&lt;infor-&gt;yresolution&lt;&lt;endl ; 
+	cout&lt;&lt;&quot;Image size :&quot;&lt;&lt;(head-&gt;size /1024 )&lt;&lt;&quot; Kb&quot;&lt;&lt;endl ;
+
+	    cout &lt;&lt;endl ; 
+
+		cout&lt;&lt;&quot;\n\nPress Enter to continue &quot; ; 
+	
+			while(1)
+		{
+			 enter = getch();
+			if(enter == 13)
+			 break;
+		 }
+		    system(&quot;cls&quot;) ; 
+
+
+}
+
+
+void screen3()
+{
+	  char a[25] ; 
+		    system(&quot;cls&quot;) ;
+			Mx=  createMatrix();
+			nMx=  createMatrix();
+		    loadImage(fp,Mx,nMx);
+			grey_convert(nMx);
+			cout&lt;&lt;&quot;Enter name of output Gray Image&quot;&lt;&lt;endl ; 
+			cin &gt;&gt; a ; 
+			loading();
+			writeBMP(nMx,head,fp,a) ;
+			
+			cout&lt;&lt;&quot;Gray Conversion has completed&quot;&lt;&lt;endl ;
+
+		cout&lt;&lt;&quot;\n\nPress Enter to continue &quot; ; 
+	
+			while(1)
+		{
+			 enter = getch();
+			if(enter == 13)
+			 break;
+		 }
+		    system(&quot;cls&quot;) ; 
+
+}
+
+void screen4()
+{
+	system(&quot;CLS&quot;);
+	cout&lt;&lt;&quot;\n\n\nWrong Turn Sir\n\nBetter Jump back to Main Menu\n\n\nPress Enter\n&quot;;
+
+			while(1)
+		{
+			 enter = getch();
+			if(enter == 13)
+			 break;
+		 }
+system(&quot;cls&quot;);
+
+}
+
+void screen5()
+{
+
+	cout&lt;&lt;&quot;\n\nPress R for Rotation\n\nOR\n\nPress T for Translation\n\n &quot;;
+		
+	while(1)
+		{
+			 enter2 = getch();
+			if(enter2&gt;0)
+			 break;
+		 }
+
+	if(enter2=='R' || enter2=='r' )
+	{
+		char a[25]; 
+		system(&quot;cls&quot;) ;
+		R_Matrix =  createMatrix();
+		rotate(nMx,R_Matrix,infor) ;
+		cout&lt;&lt;&quot;Enter name of output Rotated Image&quot;&lt;&lt;endl ; 
+		cin &gt;&gt; a ; 
+		system(&quot;CLS&quot;);
+		writeBMP(R_Matrix,head,fp,a) ;
+		cout&lt;&lt;&quot;\n\nPress Enter to continue &quot; ; 
+		while(1)
+		{
+			 enter = getch();
+			if(enter == 13)
+			 break;
+		 }
+
+		system(&quot;cls&quot;) ; 
+
+	}
+
+
+		
+	if(enter2=='T' || enter2=='t' )
+	{
+		char a[25] ; 
+		system(&quot;cls&quot;) ;
+		R_Matrix =  createMatrix();
+		tran(nMx,R_Matrix) ;
+	    cout&lt;&lt;&quot;Enter name of output Translated Image&quot;&lt;&lt;endl ; 
+		cin &gt;&gt; a ; 
+		writeBMP(R_Matrix,head,fp,a) ;
+
+		cout&lt;&lt;&quot;\n\nPress Enter to continue &quot; ; 
+
+		while(1)
+		{
+			 enter = getch();
+			if(enter == 13)
+			 break;
+		 }
+
+		system(&quot;cls&quot;) ; 
+
+	}
+
+}
+
+void exit_screen()
+{
+	e=1;
+	system(&quot;CLS&quot;);
+}
+
+
+void welcome_screen()
+{
+	cout&lt;&lt;&quot;\n\n\t\t   Enter to Digital Image Processing World\n&quot;;
+	cout&lt;&lt;&quot;________________________________________________________________________________________________________________________________________________________________&quot;;
+	cout&lt;&lt;&quot;\n\n\n\n\n&quot;;
+
+	cout&lt;&lt;&quot;\t&quot;&lt;&lt;(char)175&lt;&lt;&quot;  Press P To read Image and Print Information\n&quot;;
+	cout&lt;&lt;&quot;\t&quot;&lt;&lt;(char)175&lt;&lt;&quot;  Press G To Convert 24 bit to 8bit gray scale\n&quot;;
+	cout&lt;&lt;&quot;\t&quot;&lt;&lt;(char)175&lt;&lt;&quot;  Press E To Histogram and Histogram equalization\n&quot;;
+	cout&lt;&lt;&quot;\t&quot;&lt;&lt;(char)175&lt;&lt;&quot;  Press T To Apply transformation matrix to an image\n\n&quot;;
+	cout&lt;&lt;&quot;\t&quot;&lt;&lt;(char)175&lt;&lt;&quot;  Press X To EXIT\n&quot;;
+
+	while(1)
+	{
+			 selection = getch();
+			if(selection&gt;0)
+			 break;
+	 }
+	system(&quot;CLS&quot;);
+	
+}
+
+
+
+void selection_screen()
+{
+	if(selection=='P'|| selection=='p')
+	{
+		screen2();
+
+
+		system(&quot;CLS&quot;);
+
+		welcome_screen();
+	}
+
+
+	if(selection=='G' || selection=='g')
+	{
+		screen3();
+
+
+		system(&quot;CLS&quot;);
+		welcome_screen();
+
+	}
+
+
+	if(selection=='e' || selection=='E')
+	{
+		screen4();
+
+
+
+		system(&quot;CLS&quot;);
+		welcome_screen();
+	}
+
+
+	
+	if(selection=='T' || selection=='t')
+	{
+		screen5();
+
+
+
+		system(&quot;CLS&quot;);
+		welcome_screen();
+	}
+
+	if(selection=='x' || selection=='X')
+	{
+		system(&quot;cls&quot;);
+		exit_screen();
+	}
+}
+
+
+
+
+
+
+void loading()
+<A NAME="1"></A>{
+	cout&lt;&lt;&quot;\n\n\t\tLoading&quot;;
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for(int i=0;i&lt;5;i++)
+	{
+		cout&lt;&lt;&quot;-&quot;;
+		for(int j=0;j&lt;100000000;j++)
+		{}
+	}
+	system(&quot;cls&quot;);
+}</B></FONT>
+
+
+
+
+<A NAME="2"></A>
+
+void wait()
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{	
+	for(int i=0;i&lt;500;i++)
+	{
+		for(int j=0;j&lt;1000000;j++)
+		{}
+	}</B></FONT>
+}
+
+
+
+void opening_image()
+<A NAME="3"></A>{
+	cout&lt;&lt;&quot;\n\n\t\tOpening Image&quot;;
+
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for(int i=0;i&lt;5;i++)
+	{
+		cout&lt;&lt;&quot; *&quot;;
+		for(int j=0;j&lt;100000000;j++)
+		{}
+	}
+
+	system(&quot;cls&quot;);
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

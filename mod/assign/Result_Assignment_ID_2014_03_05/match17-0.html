@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Safdar_Ali_safdar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Safdar_Ali_safdar.cpp</CENTER></H3><HR>
+<PRE>
+//SAFDAR ALI
+//R/NO: 05081
+//BSCS-3A 
+//ASSIGNMENT 1: BACTERIAL GROWTH
+
+#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+<A NAME="0"></A>#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+void printFunc(char**p,int r,int c);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void cornerEdge(char**p,char**copy,int r,int c);
+void middle(char**p,char**copy,int r,int c);
+void border(char**p,char**copy,int r,int c);
+void freeMemory(char**s,int r);
+int main()</B></FONT>
+{
+        //Initializing
+
+	FILE *fptr;
+	char a[15]=&quot;simple.txt&quot;;
+	char b[15];
+	int r=0;
+	int c=0;
+	char **p=0;
+	char extra;
+	char **copy=0;
+	char choice;
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n\n&quot;);
+	printf(&quot;Grid input file name?  &quot;);
+	gets(b);
+	while(strcmp(a,b))
+	{
+         printf(&quot;wrong name please enter again \n&quot;);
+	 gets(b);
+	}
+	
+	fptr=fopen(&quot;simple.txt&quot;,&quot;r&quot;);
+	if(fptr==NULL)
+	{
+		printf(&quot;file did not opne\n&quot;);
+		return 0;
+	}  
+<A NAME="1"></A>	fscanf(fptr,&quot;%d %d&quot;, &amp;r,&amp;c);//reading 2 integers i.e row and columns
+	//memory allocation of the two 2D array
+	{
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		p=(char **)malloc(r*sizeof(char *));
+		for (int i=0;i&lt;r;i++)
+<A NAME="2"></A>		{
+			p[i]=(char*)malloc(c*sizeof(char));
+		}</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		copy=(char**)malloc(sizeof(char*)*r);
+		for(int i=0;i&lt;r;i++)
+		{
+			copy[i]=(char*)malloc(sizeof(char)*c);
+		}</B></FONT>
+<A NAME="3"></A>	}
+	fscanf(fptr,&quot;%c&quot;, &amp;extra);//reading the extra \n char
+	//reading from the file and storing
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+			fscanf(fptr,&quot;%c&quot;, &amp;p[i][j]);	
+		}
+		fscanf(fptr,&quot;%c&quot;, &amp;extra);// /n character at the end of the row
+	}
+	//printing   array after reading from file
+	printFunc(p,r,c);
+	// copy original  to other array
+	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+<A NAME="4"></A>			copy[i][j]=p[i][j];
+		}
+	}</B></FONT>
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match17-1.html#4',3,'match17-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	while(1)
+	{
+        	
+	printf(&quot;t)ick, q)uit? &quot;);
+	
+        std::cin&gt;&gt;choice;
+	
+
+
+	switch(choice)
+	{
+	case 't':
+		cornerEdge(p,copy,r,c);//checking for 1st and last member of the 1st row and the last row having three neighbours
+		middle(p,copy,r,c);//for those having eight neighbours
+		border(p,copy,r,c);//for upper and bottom row except corner members and the 1st and last coloumn
+		printFunc(copy,r,c);//printing function 
+		
+                //after completing the 1st generation again original array is assigned values of new generation 
+		//that are stored in copy
+                for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+			p[i][j]=copy[i][j];
+		}
+	}
+		
+		break;
+
+	case 'q':
+		return 0;
+		break;
+
+	default:
+		
+		printf(&quot;wrong input\n&quot;);
+		break;
+	}
+
+
+
+
+}</B></FONT>
+	freeMemory(p,r);
+<A NAME="5"></A>	freeMemory(copy,r);
+	
+	return 0;
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match17-1.html#5',3,'match17-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+//print the array
+void printFunc(char**p,int r,int c)
+{
+	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+			printf(&quot;%c&quot;, p[i][j]);
+		}
+		printf(&quot;\n&quot;);
+	}
+}</B></FONT>
+//check 4 members having 3 neighbours
+void cornerEdge(char**p,char**copy,int r,int c)
+{
+	int counter=0;
+	//for 1st member
+	{
+		{
+			if(p[0][1]=='X')
+				counter+=1;
+			if(p[1][0]=='X')
+				counter+=1;
+			if(p[1][1]=='X')
+				counter+=1;
+		}
+		{
+			if(counter&lt;=1)
+				copy[0][0]='-';
+			if(counter==3)
+				copy[0][0]='X';
+		}
+	}
+	counter=0;
+	//for 2st left bottom corner 
+	{
+		{
+			if(p[r-1][1]=='X')
+				counter+=1;
+			if(p[r-2][0]=='X')
+				counter+=1;
+			if(p[r-2][1]=='X')
+				counter+=1;
+		}
+		{
+			if(counter&lt;=1)
+				copy[r-1][0]='-';
+			if(counter==3)
+				copy[r-1][0]='X';
+		}
+	}
+	//for 1st right top corner 
+	{
+		counter=0;
+		{
+			if(p[1][c-1]=='X')
+				counter+=1;
+			if(p[0][c-2]=='X')
+				counter+=1;
+			if(p[1][c-2]=='X')
+				counter+=1;
+		}
+		{
+			if(counter&lt;=1)
+				copy[0][c-1]='-';
+			if(counter==3)
+				copy[0][c-1]='X';
+		}
+	}
+	//for 1st right bottom corner 
+	{
+		counter=0;
+		{
+			if(p[r-2][c-1]=='X')
+				counter+=1;
+			if(p[r-2][c-2]=='X')
+				counter+=1;
+			if(p[r-1][c-2]=='X')
+				counter+=1;
+		}
+		{
+			if(counter&lt;=1)
+				copy[r-1][c-1]='-';
+			if(counter==3)
+				copy[r-1][c-1]='X';
+		}
+	}
+}
+//check those having eight neighbours
+void middle(char**p,char**copy,int r,int c)
+{
+	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+<A NAME="6"></A>		{
+			if((i&gt;0 &amp;&amp; i&lt;r-1 &amp;&amp; j&gt;0 &amp;&amp; j&lt;c-1))
+			{
+<FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match17-1.html#6',3,'match17-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				int counter=0;
+				if(p[i-1][j-1]=='X')
+					counter+=1;
+				if(p[i-1][j]=='X')
+					counter+=1;
+				if(p[i-1][j+1]=='X')
+					counter+=1;
+				if(p[i][j-1]=='X')
+					counter+=1;
+				if(p[i][j+1]=='X')
+					counter+=1;
+				if(p[i+1][j-1]=='X')
+					counter+=1;
+				if(p[i+1][j]=='X')
+					counter+=1;
+				if(p[i+1][j+1]=='X')
+					counter+=1;
+				{
+					if(counter&lt;=1)
+						copy[i][j]='-';
+					if(counter==3)
+						copy[i][j]='X';
+					if(counter&gt;=4)
+						copy[i][j]='-';
+				}
+			}
+		}
+	}
+}
+void freeMemory(char**s,int r)</B></FONT>
+{
+	int i;
+	for (i = 0; i &lt; r; ++i) 
+	{
+<A NAME="7"></A>		free(s[i]);
+	}
+	free(s);
+<FONT color="#c58917"><A HREF="javascript:ZweiFrames('match17-1.html#7',3,'match17-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+//those having 5 members
+void border(char**p,char**copy,int r,int c)
+{
+	int counter=0;
+	//for upper bordr row
+<A NAME="8"></A>	for(int j=0;j&lt;c;j++)
+	{</B></FONT>
+		if(j&gt;0 &amp;&amp; j&lt;c-1)
+<FONT color="#bce954"><A HREF="javascript:ZweiFrames('match17-1.html#8',3,'match17-top.html#8',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{
+			counter=0;
+			if(p[0][j-1]=='X')
+				counter+=1;
+			if(p[0][j+1]=='X')
+				counter+=1;
+			if(p[1][j-1]=='X')
+				counter+=1;
+			if(p[1][j]=='X')
+				counter+=1;
+			if(p[1][j+1]=='X')
+				counter+=1;	</B></FONT>
+			{
+				if(counter&lt;=1)
+					copy[0][j]='-';
+				if(counter==3)
+					copy[0][j]='X';
+				if(counter&gt;=4)
+					copy[0][j]='-';
+			}
+		}
+	}
+	//for upper bordr row
+<A NAME="9"></A>	for(int j=0;j&lt;c;j++)
+	{
+		if(j&gt;0 &amp;&amp; j&lt;c-1)
+<FONT color="#f88017"><A HREF="javascript:ZweiFrames('match17-1.html#9',3,'match17-top.html#9',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{
+			counter=0;
+			if(p[r-1][j-1]=='X')
+				counter+=1;
+			if(p[r-1][j+1]=='X')
+				counter+=1;
+			if(p[r-2][j-1]=='X')
+				counter+=1;
+			if(p[r-2][j]=='X')
+				counter+=1;
+			if(p[r-2][j+1]=='X')
+				counter+=1;	</B></FONT>
+			{
+				if(counter&lt;=1)
+					copy[r-1][j]='-';
+				if(counter==3)
+					copy[r-1][j]='X';
+				if(counter&gt;=4)
+					copy[r-1][j]='-';
+			}
+		}
+	}
+	//for left bordr column
+<A NAME="10"></A>	for(int i=0;i&lt;r;i++)
+	{
+		if(i&gt;0 &amp;&amp; i&lt;r-1)
+<FONT color="#b041ff"><A HREF="javascript:ZweiFrames('match17-1.html#10',3,'match17-top.html#10',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{
+			counter=0;
+			if(p[i-1][0]=='X')
+				counter+=1;
+			if(p[i+1][0]=='X')
+				counter+=1;
+			if(p[i-1][1]=='X')
+				counter+=1;
+			if(p[i+1][1]=='X')
+				counter+=1;
+			if(p[i][1]=='X')
+				counter+=1;	</B></FONT>
+			{
+				if(counter&lt;=1)
+					copy[i][0]='-';
+				if(counter==3)
+					copy[i][0]='X';
+				if(counter&gt;=4)
+					copy[i][0]='-';
+			}
+		}
+	}
+	//for right bordr column
+<A NAME="11"></A>	for(int i=0;i&lt;r;i++)
+	{
+		if(i&gt;0 &amp;&amp; i&lt;r-1)
+<FONT color="#571b7e"><A HREF="javascript:ZweiFrames('match17-1.html#11',3,'match17-top.html#11',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{
+			counter=0;
+			if(p[i-1][c-1]=='X')
+				counter+=1;
+			if(p[i+1][c-1]=='X')
+				counter+=1;
+			if(p[i-1][c-2]=='X')
+				counter+=1;
+			if(p[i+1][c-2]=='X')
+				counter+=1;
+			if(p[i][c-2]=='X')
+				counter+=1;	</B></FONT>
+			{
+				if(counter&lt;=1)
+					copy[i][c-1]='-';
+				if(counter==3)
+					copy[i][c-1]='X';
+				if(counter&gt;=4)
+					copy[i][c-1]='-';
+			}
+		}
+	}
+}
+
+
+</PRE>
+</BODY>
+</HTML>

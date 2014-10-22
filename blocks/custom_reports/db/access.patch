@@ -1,0 +1,20 @@
+--- access.php	2012-08-01 11:18:18.268706537 +0500
++++ accessupd.php	2012-08-01 11:20:53.000000000 +0500
+@@ -12,6 +12,17 @@
+ 				'admin'				=> 	CAP_ALLOW
+ 			)
+ 		),
++		'moodle/course:downloadmaterial' => array(
++
++        'riskbitmask' => RISK_XSS,
++
++        'captype' => 'write',
++        'contextlevel' => CONTEXT_COURSE,
++        'archetypes' => array(
++            'editingteacher' => CAP_ALLOW,
++            'manager' => CAP_ALLOW
++        )
++    ),
+ 		'block/custom_reports:getauditreport'	=> array(
+ 			'captype'	=> 'read',
+ 			'contextlevel' => CONTEXT_SYSTEM,

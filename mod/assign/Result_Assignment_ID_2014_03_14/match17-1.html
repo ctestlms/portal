@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Danyyal Ahmed_Khalid_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Danyyal Ahmed_Khalid_Source.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+int checker(int rowsin, int columnsin, char** c, int rows, int columns);
+
+int main ()
+
+{
+    char filename[50];
+
+    printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.&quot;);
+    printf(&quot;\n\nGrid input file name? &quot;);			//Printing Required Display
+    gets(filename);
+
+    FILE *fileptr;
+    fileptr = fopen(filename, &quot;r&quot;);				//Attempting to open file
+    if(fileptr==NULL)
+        {
+			printf(&quot;\nError opening file&quot;);
+			getchar();
+			return 0; 
+		}
+
+
+
+    int rows;
+<A NAME="0"></A>    int columns;
+
+    fscanf(fileptr, &quot;%d\n%d\n&quot;, &amp;rows, &amp;columns);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	char **arrstart = (char**) malloc(sizeof(char*)*rows);	//Allocating space for the array to read from file
+
+    for(int i=0; i&lt;rows; i++)
+    {
+        arrstart[i] = (char*) malloc(sizeof(char)*columns);
+    }</B></FONT>
+
+    for (int i=0; i&lt;rows; i++)
+    {
+        for(int j=0; j&lt;columns; j++)
+        {						// Reading from file
+        
+        fscanf(fileptr, &quot;%c&quot;, &amp;arrstart[i][j]);
+
+        } 
+        char ab;
+<A NAME="3"></A>		fscanf(fileptr, &quot;%c&quot;, &amp;ab); 
+    }
+
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i=0; i&lt;rows; i++)
+    {
+        for(int j=0; j&lt;columns; j++)			// Printing the array that originally read from file
+        {
+        printf(&quot;%c&quot;, arrstart[i][j]);
+        
+        } 
+		printf(&quot;\n&quot;);
+<A NAME="1"></A>	}</B></FONT>
+
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int **arr = (int**) malloc(sizeof(int*)*rows);
+
+    for(int i=0; i&lt;columns; i++)			// Creating and locating memory for another array(int)
+    {
+        arr[i] = (int*) malloc(sizeof(int)*columns);
+    }</B></FONT>
+
+	rewind(fileptr);
+	int x,y;     
+	fscanf(fileptr, &quot;%d\n%d\n&quot;, &amp;x, &amp;y);
+
+
+	while (1){
+	printf(&quot;t)ick, q)uit &quot;);
+	char ab[50];
+	fflush(stdin);
+	gets(ab);
+
+<A NAME="4"></A>	if (strcmp (ab, &quot;t&quot;)==0)
+	{
+
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#4',2,'match17-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i&lt;rows; i++)
+		{
+			for (int j=0; j&lt;columns; j++)
+			{
+			arr[i][j]= checker(i, j, arrstart, rows, columns); //Calculating number of neighbors and storing in the int array
+			}
+		}
+	
+
+		for (int i=0; i&lt;rows; i++)
+		{
+			for (int j=0; j&lt;columns; j++)
+			{</B></FONT>
+				if (arr[i][j] == 0)
+				arrstart[i][j] = '-';
+				if (arr[i][j] == 1)			//Dealing with the numbers in int array to form the development
+				arrstart[i][j] = '-';
+				if (arr[i][j] ==  3)
+<A NAME="5"></A>				arrstart[i][j] = 'X';
+				if (arr[i][j] &gt;=  4)
+				arrstart[i][j] = '-';
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#5',2,'match17-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			}
+		}
+
+
+	for (int i=0; i&lt;rows; i++)
+    {
+        for(int j=0; j&lt;columns; j++)
+        {
+        printf(&quot;%c&quot;, arrstart[i][j]);					//Printing latest development
+        
+		} 
+		printf(&quot;\n&quot;);
+	}</B></FONT>
+	}
+	else return 0;
+	}
+
+	for (int i = 0; i&lt;rows; i++)
+	{
+		delete arrstart[i];					//Deleting memory allocation
+		delete arr[i];
+	}
+	delete arrstart;
+<A NAME="2"></A>	delete arr;
+
+    getchar();
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    return 0;
+}
+
+int checker(int rowsin, int columnsin, char** c, int rows, int columns)		//Checking logic
+{ 
+    int xx = 0;
+    for (int i = -1; i &lt;= 1; i++)
+    {
+        if ((rowsin + i) &gt;= 0 &amp;&amp; (rowsin + i) &lt; rows)
+        {
+            for (int j = -1; j &lt;= 1; j++)
+            {
+                if ((columnsin + j) &gt;= 0 &amp;&amp; (columnsin + j) &lt;= columns)
+				{
+                    if (i == 0 &amp;&amp; j == 0)
+                        continue;
+                    {
+                        if (c[rowsin + i][columnsin + j] == 'X')
+                            ++xx;
+					}
+				}
+			}
+        }
+    }
+    return xx;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

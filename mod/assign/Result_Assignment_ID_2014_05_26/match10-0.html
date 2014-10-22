@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Usama_Shabbir_usama shabbir q 2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Usama_Shabbir_usama shabbir q 2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#include &lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int main()
+{
+  int z, x, c, v, e, f, g, sum = 0;
+  int first[3][3], second[3][1], multiply[3][1];
+ 
+  printf(&quot;Enter elements of first matrix\n&quot;);
+ 
+  for (  c = 0 ; c &lt; 3 ; c++ )
+    for ( v = 0 ; v &lt; 3 ; v++ )
+      scanf(&quot;%d&quot;, &amp;first[c][v]);
+ 
+ 
+	
+    printf(&quot;Enter the elements of second matrix\n&quot;);
+ 
+    for ( c = 0 ; c &lt; 3 ; c++ )
+      for ( v = 0 ; v &lt; 1 ;v++ )
+        scanf(&quot;%d&quot;, &amp;second[c][v]);
+ 
+    for ( c = 0 ; c &lt; 3 ; c++ )
+    {
+      for ( v = 0 ; v &lt; 1 ; v++ )
+      {
+        for ( e = 0 ; e &lt; 3 ; e++ )
+        {
+          sum = sum + first[c][e]*second[e][v];
+        }
+ 
+        multiply[c][v] = sum;
+        sum = 0;
+      }
+    }
+ 
+    printf(&quot;Product of entered matrices:-\n&quot;);
+ 
+    for ( c = 0 ; c &lt; 3 ; c++ )
+    {
+      for ( v = 0 ; v &lt; 1 ; v++ )
+        printf(&quot;%d\t&quot;, multiply[c][v]);
+ 
+      printf(&quot;\n&quot;);
+    }
+  
+ 
+  return 0;
+}</B></FONT>
+</PRE>
+</BODY>
+</HTML>

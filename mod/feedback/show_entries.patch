@@ -1,0 +1,35 @@
+--- show_entries.php	2013-01-04 15:06:26.161983977 +0500
++++ show_entriesnew.php	2012-12-18 14:36:18.703875716 +0500
+@@ -61,7 +61,9 @@ $url = new moodle_url('/mod/feedback/sho
+ 
+ $PAGE->set_url($url);
+ 
+-$context = context_module::instance($cm->id);
++if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
++        print_error('badcontext');
++}
+ 
+ require_login($course, true, $cm);
+ 
+@@ -71,7 +73,10 @@ if (($formdata = data_submitted()) AND !
+ 
+ require_capability('mod/feedback:viewreports', $context);
+ 
+-////////////////////////////////////////////////////////
++if(time()<$feedback->timeclose)
++{
++	print_error(' : You can view the report after '.date(" M jS, Y", $feedback->timeclose));
++}
+ //get the responses of given user
+ ////////////////////////////////////////////////////////
+ if ($do_show == 'showoneentry') {
+@@ -105,7 +110,8 @@ require('tabs.php');
+ ////////////////////////////////////////////////////////
+ if ($do_show == 'showentries') {
+     //print the link to analysis
+-    if (has_capability('mod/feedback:viewreports', $context)) {
++//    if (has_capability('mod/feedback:viewreports', $context)) {
++if(has_capability('mod/feedback:viewreports', $context) && time()>$feedback->timeclose) {
+         //get the effective groupmode of this course and module
+         if (isset($cm->groupmode) && empty($course->groupmodeforce)) {
+             $groupmode =  $cm->groupmode;

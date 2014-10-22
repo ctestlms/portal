@@ -1,0 +1,100 @@
+--- attendance.php	2012-10-09 16:08:10.093139151 +0500
++++ attendanceorg.php	2012-10-09 16:07:12.492137609 +0500
+@@ -26,7 +26,7 @@ if($type==3){
+ }
+ $export = optional_param('export',false, PARAM_BOOL);
+ $template = optional_param('template',false, PARAM_BOOL);
+-$content = $_POST['content'];//optional_param('content',"", PARAM_ALPHANUM);
++$content = explode('@',$_POST['content']);
+ if($template){
+ 	//echo $content;
+ 	ExportToPDF($content);
+@@ -287,7 +287,8 @@ if($courses = get_courses($categoryid, '
+ 		$classs=$DB->get_record_sql("SELECT path from {course_categories} cat WHERE id =$categoryid");
+ 		$path=explode("/", $classs->path);
+ 
+-		//$school=$DB->get_record_sql("SELECT name,id from {course_categories} ct WHERE path like '/$path[1]' and parent=0");
++		$school=$DB->get_record_sql("SELECT name,id from {course_categories} ct WHERE path like '/$path[1]' and parent=0");
++		  $school_info=$DB->get_record_sql("Select * from {school_info} WHERE id=$school->id");
+ 
+ 
+ 		$degree= $class->name;
+@@ -300,6 +301,18 @@ if($courses = get_courses($categoryid, '
+ 		$class=$DB->get_record_sql("SELECT name,id from {course_categories} ct WHERE id =(SELECT parent from {course_categories} cat WHERE id =$class->id)");
+ 		$class=$DB->get_record_sql("SELECT name,id from {course_categories} ct WHERE id =(SELECT parent from {course_categories} cat WHERE id =$class->id)");
+ 		$graduate= $class->name;
++                $string = $graduate;
++                $find = "Undergraduate";
++                if(strstr($string, $find) ==true){
++                        $fileno=$school_info->ug_fileno;
++                }
++                 $find = "Postgraduate";
++                if(strstr($string, $find) ==true){
++                        $fileno=$school_info->pg_fileno;
++                }
++
++                $cntnts=array();
++
+ 		foreach ($warning as $warnin){
+ 			$i=1;
+ 			//$image="NUST_Logo.jpg";
+@@ -313,11 +326,11 @@ if($courses = get_courses($categoryid, '
+ 				$i++;
+ 			}
+ 			$content1.='</table>';
+-			$content.='<table  border="0"><tr><td><img src="NUST_Logo.jpg" height="52" width="52" /> </td><td>'.$school->name.
++			 $content.='<table  border="0"><tr><td><img src="NUST_Logo.jpg" height="52" width="52" /> </td><td>'.$school->name.
+ '<br/>NUST H-12, Islamabad.
+-<br/>Tel: 051-9085 [School Contact Number]
+-<br/>[File Number]
+-<br/>[Month], [Year]</td></tr></table>';
++<br/>Tel: '.$school_info->phone.
++'<br/>File No: '.$fileno.'
++<br/> '.date('M Y').'</td></tr></table>';
+ 			$content.='<br/><br/><table border="0"><tr><td>To: Mr. '.$letter[7].' (Father of '.$letter[1].') </td></tr>
+             <tr><td>Address: '.$letter[5].'</td></tr>
+             <tr><td>Telephone: '.$letter[6].'</td></tr></table>';
+@@ -326,8 +339,8 @@ if($courses = get_courses($categoryid, '
+ 			$content.=$content1;
+ 			$content.='<br/><li>2.The present attendance of your ward is falling short of the minimum requisite criteria of 75% under the provision of Para 44 (c) (viii), Chapter-VI of NUST Statues/ Regulations. You are, therefore, required to please ensure his/her regularity in all subjects, failing which institute authorities will be forced to take strict action and he/she will not be allowed to take the end semester examination in respective subject/s.</li>';
+ 			$content.='<br/><li>3.Please acknowledge the receipt.</li><br/><br/>';
+-			$content.='<table align="right"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Deputy Controller of Examinations([Name of Deputy Controller of Examinations])</td></tr></table><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
+-			$content.='</table>';
++			$content.='<table align="right"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Deputy Controller of Examinations('.$school_info->controller_name.')</td></tr></table>';
++			$content.='</table>@';
+ 		}
+ 		//echo $content;
+ 		///
+@@ -613,7 +626,7 @@ if($courses = get_courses($categoryid, '
+ 			////
+ 			if($type==3 || $type==2){
+ 				echo			'<form method="post" style="display: inline; margin: 0; padding: 0;">';
+-				echo 			 "<input type='hidden' name='content' value='".$content."'/>";
++				echo 			 "<input type='hidden' name='content' value='". implode('@',$cntnts)."'>";
+ 				echo 			'<input type="hidden" name="template" value="true" /><input type="submit" value="Download Warning Letters" /></form>';
+ 			}
+ 
+@@ -872,15 +885,14 @@ function ExportToPDF($content){
+ 
+ 	// set font
+ 	$pdf->SetFont('helvetica', '', 8);
+-
+-	// add a page
+-	$pdf->AddPage('P','A4');
+-	ob_clean();
+-	// print a line using Cell()
+-	//$pdf->Cell(0, 10, 'Example 002', 1, 1, 'C');
+-	$htmcont = ImprovedTable($content);
+-	$pdf->writeHTML($htmcont, true, false,false,false,'');
+-	//echo $htmcont;
++	foreach($content as $cntnt){
++		if($cntnt !=""){
++        	// add a page
++        	$pdf->AddPage('P','A4');
++        	ob_clean();
++        	$pdf->writeHTML($cntnt, true, false,false,false,'');
++		}
++	}
+ 	// ---------------------------------------------------------
+ 
+ 	//Close and output PDF document

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Rohit_Kumar_Rohit Kumar-BE34-12-788-MTS A.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Rohit_Kumar_Rohit Kumar-BE34-12-788-MTS A.cpp</CENTER></H3><HR>
+<PRE>
+//(NS)Rohit Kumar
+//BE34-12-788
+//MTS A
+#include&lt;iostream&gt;
+using namespace std;
+class node
+{
+public:
+	int data;
+	node *next;
+<A NAME="0"></A>	node() //default constructor
+	{
+		data=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		next=NULL;
+	}
+};
+class queue
+{
+private:
+	node* head;
+public:
+	queue() //constructor
+	{
+		head=NULL;
+	}</B></FONT>
+	void isempty()
+	{
+		if(head==NULL)
+			cout&lt;&lt;&quot;queue is empty&quot;&lt;&lt;endl;
+	}
+
+	void ins_at_end(int y) //insert a new node at the last
+	{
+		node*Nnode;
+		Nnode=new node;
+		Nnode-&gt;data=y;
+		if(head==NULL)
+			head=Nnode;
+		else
+		{
+			node *temp;
+			temp=head;
+			while(temp-&gt;next!=NULL)
+			{
+				temp=temp-&gt;next;
+			}
+			temp-&gt;next=Nnode;
+		}
+	}
+
+	void del_end() //delete the last node
+	{
+		node* temp;
+		node* del;
+		temp=head;
+		if(head==NULL)
+		{
+				cout&lt;&lt;&quot;the queue is already empty()&quot;&lt;&lt;endl;
+				delete head;
+		}
+		else if(head-&gt;next==NULL)
+		{
+			delete head;
+		}
+		else
+		{
+		while(temp-&gt;next-&gt;next!=NULL)
+				temp=temp-&gt;next;
+		del=temp-&gt;next;
+		delete del;
+		temp-&gt;next=NULL;
+		
+		}
+	}
+	void traverse() // to print the data at all the nodes
+	{
+		int n=1;
+		node* temp;
+		temp=head;
+		while(temp!=NULL)
+		{
+			cout&lt;&lt;&quot;data at node &quot;&lt;&lt;n&lt;&lt;&quot; is: &quot;;
+			cout&lt;&lt;temp-&gt;data&lt;&lt;endl;
+			temp=temp-&gt;next;
+			n++;
+		}
+	}
+	~queue() //destructor
+	{
+		delete head;
+	}
+};
+int main()
+{
+	queue q1;
+	q1.ins_at_end(1);
+	q1.ins_at_end(2);
+	q1.ins_at_end(3);
+	q1.ins_at_end(4);
+	q1.ins_at_end(5);
+	q1.traverse();
+	cout&lt;&lt;endl&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;after deleting the last node&quot;&lt;&lt;endl;
+	q1.del_end();
+	q1.traverse();
+	cout&lt;&lt;endl&lt;&lt;endl;
+
+	cout&lt;&lt;&quot;adding a new node&quot;&lt;&lt;endl;
+	q1.ins_at_end(6);
+	q1.traverse();
+	cout&lt;&lt;endl&lt;&lt;endl;
+	
+	queue q2;
+	q2.isempty();
+}
+
+		
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Irfan_Riaz_Irfan34MtsBAssign2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Irfan_Riaz_Irfan34MtsBAssign2.cpp</CENTER></H3><HR>
+<PRE>
+//PC M. IRFAN RIAZ
+//MTS B
+<A NAME="0"></A>
+#include&lt;iostream&gt;
+using namespace std;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class item
+{
+public:
+	int Data; 
+	item *Next;
+	item (int value, item *pntr)
+	{
+		Data =value;
+		Next =pntr;
+	}
+
+	item(void);
+};
+
+
+class link_list
+{
+private:
+	item *head;
+public:
+	void additem (int );
+	void deleteitem (int );
+	void insertitem (int,int );
+	void printitem( );
+	link_list()
+	{
+<A NAME="1"></A>		head=NULL;
+	}
+	~link_list(void);</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>};
+
+void link_list::insertitem(int val,int num)
+{
+	item *n;
+	item* newitem ;
+	item *previtem;
+	item *Nextitem;
+	n=head;
+	for (int i=1; i&lt;=val;i++)
+	{
+		if (i==val-1)
+		{
+			previtem=n;
+		}
+		n=n-&gt;Next;
+	}
+	Nextitem =n;
+	newitem = new item(num,NULL);
+	previtem-&gt;Next= newitem;
+	newitem-&gt;Next=Nextitem ;
+}
+
+void link_list::additem(int val)
+{
+	item *n;
+	n=head;
+	if(head ==NULL)
+	{
+		head=new item(val,NULL);
+	}
+	else
+	{
+		while (n-&gt;Next!=NULL)
+		{
+			n=n-&gt;Next;
+		}
+		n-&gt;Next =new item(val,NULL);
+	}
+}
+void link_list:: printitem()
+{
+	item *n;
+	n=head;</B></FONT>
+	int cont=1;
+	while (n!=NULL)
+	{
+		cout &lt;&lt;&quot;Data of Item &quot;&lt;&lt;cont&lt;&lt;&quot; is &quot;&lt;&lt;n-&gt;Data&lt;&lt;endl;
+		n=n-&gt;Next;
+		cont++;
+	}
+}
+link_list::~link_list(void)
+{
+}
+
+int main()
+{
+
+	link_list obj;
+	obj.additem(2);
+	obj.additem (4);
+	obj.additem(7);
+	obj.insertitem(2,44);
+	obj.printitem();
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

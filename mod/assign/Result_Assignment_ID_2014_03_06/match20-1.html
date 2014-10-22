@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Abdul_Hannan_Source.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Abdul_Hannan_Source.cpp</CENTER></H3><HR>
+<PRE>
+//Abdul Hannan
+//Reg/NO: 7598
+//BSCS-3B 
+#include&lt;iostream&gt;
+<A NAME="0"></A>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void Arrprint(char**original,int r,int c);
+void Edge(char**original,char**q,int r,int c);
+void midd(char**original,char**q,int r,int c);
+void border(char**original,char**q,int r,int c);</B></FONT>
+void memFree(char**s,int r);
+int main()
+{
+	//Initializing the variables and 2D array
+
+	FILE *fptr;
+	char a[15]=&quot;simple.txt&quot;;
+	char b[15];
+	int r=0;
+	int c=0;
+	char **original=0;
+	char fault;
+	char **q=0;
+	char option;
+	printf(&quot;Welcome to a simulation of the lifecycle of a bacteria colony.\nCells (X) live and die by the following rules:\n- A cell with 1 or fewer neighbors dies.\n- Locations with 2 neighbors remain stable.\n- Locations with 3 neighbors will create life.\n- A cell with 4 or more neighbors dies.\n\n&quot;);
+	printf(&quot;Grid input file name?  &quot;);
+	gets(b);
+	while(strcmp(a,b))
+	{
+		printf(&quot;invalid name enter again \n&quot;);
+		gets(b);
+	}
+
+	fptr=fopen(&quot;simple.txt&quot;,&quot;r&quot;);
+	if(fptr==NULL)
+	{
+		printf(&quot;file did not ooriginalne\n&quot;);
+		return 0;
+	}  
+	fscanf(fptr,&quot;%d %d&quot;, &amp;r,&amp;c);
+<A NAME="1"></A>
+	//memory allocation 
+	{
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		original=(char **)malloc(r*sizeof(char *));
+		for (int i=0;i&lt;r;i++)
+<A NAME="2"></A>		{
+			original[i]=(char*)malloc(c*sizeof(char));
+		}</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		q=(char**)malloc(sizeof(char*)*r);
+		for(int i=0;i&lt;r;i++)
+<A NAME="3"></A>		{
+			q[i]=(char*)malloc(sizeof(char)*c);</B></FONT>
+		}
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#3',2,'match20-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	}
+	fscanf(fptr,&quot;%c&quot;, &amp;fault);//reading the fault char
+
+	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+			fscanf(fptr,&quot;%c&quot;, &amp;original[i][j]);	
+		}
+		fscanf(fptr,&quot;%c&quot;, &amp;fault);// /n character reading  at the end of the row
+	}
+
+	Arrprint(original,r,c);
+
+	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+			q[i][j]=original[i][j];
+		}
+	}</B></FONT>
+	while(1)
+	{
+
+		printf(&quot;t)ick, q)uit? &quot;);
+
+		std::cin&gt;&gt;option;
+
+
+
+		switch(option)
+		{
+		case 't':
+			Edge(original,q,r,c);
+			midd(original,q,r,c);
+			border(original,q,r,c);
+<A NAME="5"></A>			Arrprint(q,r,c); 
+
+			//copy back contents to the original from q after  generation
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#5',2,'match20-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			for(int i=0;i&lt;r;i++)
+			{
+				for (int j = 0; j &lt; c; j++)
+				{
+					original[i][j]=q[i][j];
+				}</B></FONT>
+			}
+
+			break;
+
+		case 'q':
+			return 0;
+			break;
+
+		default:
+
+			printf(&quot;invalid enter again\n&quot;);
+			break;
+		}
+
+
+
+
+	}
+	memFree(original,r);
+<A NAME="4"></A>	memFree(q,r);
+
+	return 0;
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#4',2,'match20-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+//originalrint the array
+void Arrprint(char**original,int r,int c)
+{
+	for(int i=0;i&lt;r;i++)
+	{
+		for (int j = 0; j &lt; c; j++)
+		{
+			printf(&quot;%c&quot;, original[i][j]);
+		}
+		printf(&quot;\n&quot;);
+	}
+}
+//check elements have 3 neighbours
+void Edge(char**original,char**q,int r,int c)
+{</B></FONT>
+	int count=0;
+	// 1st member
+	{
+		{
+			if(original[0][1]=='X')
+				count+=1;
+			if(original[1][0]=='X')
+				count+=1;
+			if(original[1][1]=='X')
+				count+=1;
+		}
+		{
+			if(count&lt;=1)
+				q[0][0]='-';
+			if(count==3)
+				q[0][0]='X';
+		}
+	}
+	count=0;
+	// 2nd left bottom corner 
+	{
+		{
+			if(original[r-1][1]=='X')
+				count+=1;
+			if(original[r-2][0]=='X')
+				count+=1;
+			if(original[r-2][1]=='X')
+				count+=1;
+		}
+		{
+			if(count&lt;=1)
+				q[r-1][0]='-';
+			if(count==3)
+				q[r-1][0]='X';
+		}
+	}
+	// 1st right tooriginal corner 
+	{
+		count=0;
+		{
+			if(original[1][c-1]=='X')
+				count+=1;
+			if(original[0][c-2]=='X')
+				count+=1;
+			if(original[1][c-2]=='X')
+				count+=1;
+		}
+		{
+			if(count&lt;=1)
+				q[0][c-1]='-';
+			if(count==3)
+				q[0][c-1]='X';
+		}
+	}
+	// 1st right bottom corner 
+	{
+		count=0;
+		{
+			if(original[r-2][c-1]=='X')
+				count+=1;
+			if(original[r-2][c-2]=='X')
+				count+=1;
+			if(original[r-1][c-2]=='X')
+<A NAME="7"></A>				count+=1;
+		}
+		{
+<FONT color="#c58917"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#7',2,'match20-top.html#7',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(count&lt;=1)
+				q[r-1][c-1]='-';
+			if(count==3)
+				q[r-1][c-1]='X';
+		}
+	}
+}
+//check those have eight neighbours
+void midd(char**original,char**q,int r,int c)
+{
+	for(int i=0;i&lt;r;i++)
+	{</B></FONT>
+		for (int j = 0; j &lt; c; j++)
+		{
+			if((i&gt;0 &amp;&amp; i&lt;r-1 &amp;&amp; j&gt;0 &amp;&amp; j&lt;c-1))
+			{
+				int count=0;
+				if(original[i-1][j-1]=='X')
+					count+=1;
+				if(original[i-1][j]=='X')
+					count+=1;
+				if(original[i-1][j+1]=='X')
+					count+=1;
+				if(original[i][j-1]=='X')
+					count+=1;
+				if(original[i][j+1]=='X')
+					count+=1;
+				if(original[i+1][j-1]=='X')
+					count+=1;
+				if(original[i+1][j]=='X')
+					count+=1;
+				if(original[i+1][j+1]=='X')
+					count+=1;
+				{
+					if(count&lt;=1)
+						q[i][j]='-';
+					if(count==3)
+						q[i][j]='X';
+					if(count&gt;=4)
+						q[i][j]='-';
+				}
+			}
+		}
+	}
+}
+void memFree(char**s,int r)
+{
+	int i;
+<A NAME="6"></A>	for (i = 0; i &lt; r; ++i) 
+	{
+		free(s[i]);
+<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#6',2,'match20-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	}
+	free(s);
+}
+// having 5 members
+void border(char**original,char**q,int r,int c)
+{
+	int count=0;
+	// uoriginaloriginaler bordr row
+	for(int j=0;j&lt;c;j++)
+	{</B></FONT>
+		if(j&gt;0 &amp;&amp; j&lt;c-1)
+		{
+			count=0;
+			if(original[0][j-1]=='X')
+				count+=1;
+			if(original[0][j+1]=='X')
+				count+=1;
+			if(original[1][j-1]=='X')
+				count+=1;
+			if(original[1][j]=='X')
+				count+=1;
+			if(original[1][j+1]=='X')
+				count+=1;	
+			{
+				if(count&lt;=1)
+					q[0][j]='-';
+				if(count==3)
+					q[0][j]='X';
+				if(count&gt;=4)
+					q[0][j]='-';
+			}
+		}
+	}
+	//  bordr row
+	for(int j=0;j&lt;c;j++)
+	{
+		if(j&gt;0 &amp;&amp; j&lt;c-1)
+		{
+			count=0;
+			if(original[r-1][j-1]=='X')
+				count+=1;
+			if(original[r-1][j+1]=='X')
+				count+=1;
+			if(original[r-2][j-1]=='X')
+				count+=1;
+			if(original[r-2][j]=='X')
+				count+=1;
+			if(original[r-2][j+1]=='X')
+				count+=1;	
+			{
+				if(count&lt;=1)
+					q[r-1][j]='-';
+				if(count==3)
+					q[r-1][j]='X';
+				if(count&gt;=4)
+					q[r-1][j]='-';
+			}
+		}
+	}
+	// left bordr column
+	for(int i=0;i&lt;r;i++)
+	{
+		if(i&gt;0 &amp;&amp; i&lt;r-1)
+		{
+			count=0;
+			if(original[i-1][0]=='X')
+				count+=1;
+			if(original[i+1][0]=='X')
+				count+=1;
+			if(original[i-1][1]=='X')
+				count+=1;
+			if(original[i+1][1]=='X')
+				count+=1;
+			if(original[i][1]=='X')
+				count+=1;	
+			{
+				if(count&lt;=1)
+					q[i][0]='-';
+				if(count==3)
+					q[i][0]='X';
+				if(count&gt;=4)
+					q[i][0]='-';
+			}
+		}
+	}
+	// right bordr column
+	for(int i=0;i&lt;r;i++)
+	{
+		if(i&gt;0 &amp;&amp; i&lt;r-1)
+		{
+			count=0;
+			if(original[i-1][c-1]=='X')
+				count+=1;
+			if(original[i+1][c-1]=='X')
+				count+=1;
+			if(original[i-1][c-2]=='X')
+				count+=1;
+			if(original[i+1][c-2]=='X')
+				count+=1;
+			if(original[i][c-2]=='X')
+				count+=1;	
+			{
+				if(count&lt;=1)
+					q[i][c-1]='-';
+				if(count==3)
+					q[i][c-1]='X';
+				if(count&gt;=4)
+					q[i][c-1]='-';
+			}
+		}
+	}
+}
+
+
+
+</PRE>
+</BODY>
+</HTML>

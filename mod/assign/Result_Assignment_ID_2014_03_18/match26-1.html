@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Ayesha_Khalid_pc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>Ayesha_Khalid_pc.java</CENTER></H3><HR>
+<PRE>
+/*
+&lt;applet code=&quot;pc&quot; width=400 height=300&gt;
+&lt;/applet&gt;
+<A NAME="0"></A>*/
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.awt.*;
+import java.applet.*;
+
+public class pc extends Applet 
+{ 
+int xpos=10; int ypos=50; 
+int xinc=2; int yinc=2;
+int xtop=20; int ytop=20; 
+int xbot=370; int ybot=270; 
+Color color</B></FONT>;
+
+<A NAME="1"></A>
+public void init()	{ 
+	
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+public void paint(Graphics g){
+
+g.setColor(Color.blue);
+
+		 if ((xpos!=ybot)&amp;&amp;(ypos==xtop)){   ypos+=yinc; } 
+		else if((xpos==ybot)&amp;&amp;(ypos!=xbot)){ xpos+=</B></FONT>xinc;}
+		else if((xpos!= xbot)&amp;&amp;(ypos==xbot)){ ypos+=yinc; }
+		else if((ypos==xbot)&amp;&amp;(ypos!=xbot)){xpos+=xinc; }
+<A NAME="2"></A>		//xpos++; 
+		ypos++; 
+
+g.<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>fillArc(xpos,ypos,30,30,290,320);
+
+try{ 
+			Thread.sleep(10);
+			}
+		catch(Exception e){}
+	repaint(10); 
+
+}//paint ends 
+
+}</B></FONT>//class e
+</PRE>
+
+</BODY>
+</HTML>

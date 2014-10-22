@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>Muhammad Emad Ul_Ehsan_sorttin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>Muhammad Emad Ul_Ehsan_sorttin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.*;
+
+public class sorttin{
+	
+	public static void main(String args[]){
+<A NAME="1"></A>
+		Scanner kb = new Scanner(System.in);
+		String arr[][] = new</B></FONT> String[10][2];
+		float <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>gpa[] = new float[10];
+<A NAME="2"></A>		float avg = 0, min = 4, max = 0, sum = 0;
+		String temp</B></FONT>;
+		float n;
+		int rank <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0;
+		
+		for(int i = 0; i&lt; 10; i++)
+		{
+			System.out.print(&quot;Enter your name: &quot;);		//Inputting Name
+			arr[i][0] = kb.nextLine</B></FONT>();
+	
+			for(int j = i -1 ; j &gt;= 0 ; j--)			//comparing current name with other names
+			{
+				if(arr[i][0].equalsIgnoreCase(arr[j][0]))
+				{
+					System.out.println(&quot;Name already exists... Program is exiting&quot;);
+<A NAME="3"></A>					return ;
+				}
+			}
+			System.out.<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match7-1.html#3',3,'match7-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>print(&quot;Enter Your CGPA: &quot;);			//Inputting CGPA
+			arr[i][1] = kb.nextLine();
+			gpa[i] = Float.parseFloat(arr[i][1]);
+
+			if( !( gpa[i] &gt;= 0 &amp;&amp; gpa[i] &lt;= 4)){
+				System.out.println(&quot;CGPA is invalid... Program is exiting&quot;);
+<A NAME="4"></A>				return;
+			}</B></FONT>
+			
+			sum <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match7-1.html#4',3,'match7-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>+= gpa[i];
+			if( gpa[i] &lt; min)
+				min = gpa[i];
+			if( gpa[i] &gt; max)
+				max = gpa[i];
+		}
+		avg = sum /10;
+		
+
+		//Printing the data
+			System.out.println(&quot;\n\nNames\t\tCGPA&quot;);
+			
+		for(int i = 0; i &lt; 10 ; ++</B></FONT>i)
+		{
+			System.out.println(&quot;&quot; + arr[i][0] + &quot;\t\t&quot; + arr[i][1]);
+		}
+		System.out.println(&quot;\nAverage = &quot; + avg);
+		System.out.println(&quot;Maximum CGPA = &quot; + max);
+		System.out.println(&quot;Minimum CGPA = &quot; + min + &quot;\n&quot;);
+
+//===================== Printing below avg students ===========================
+
+<A NAME="5"></A>		
+		System.out.println(&quot;\n\nNames of Students below Average : \n&quot;);
+			
+		<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match7-1.html#5',3,'match7-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; 10 ; ++i)
+		{	
+			n = Float.parseFloat(arr[i][1]);
+			if(n &lt; avg)
+				System.out.println</B></FONT>(&quot;Name : &quot; + arr[i][0] + &quot;\t CGPA: &quot; + arr[i][1]);
+		}
+//====================== Sorting the array containing GPAs to find Rank====================
+
+		Arrays.sort(gpa);
+		
+		System.out.println(&quot;\nEnter name of Student: &quot;);
+		temp = kb.nextLine();
+
+		for(int i = 0; i &lt; 10 ; i++)
+		{
+			if(temp.equalsIgnoreCase(arr[i][0]))
+			{
+				n = Float.parseFloat(arr[i][1]);
+				for(int j = 9; j &gt;= 0 ; j--)		//checking in reverse order because Highest rank appers at the end in sorted array
+				{
+					if( n == gpa[j])
+					{	
+						rank = 10 - j ;
+						break;
+					}
+				}
+				System.out.println(&quot;Name: &quot; + arr[i][0] + &quot; CGPA: &quot; + arr[i][1] + &quot; Rank in class: &quot; + rank);
+				break;
+			}
+			else
+			{	
+				System.out.println(&quot;This student data is not available&quot;);
+			}
+		}
+
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>
